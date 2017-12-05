@@ -1,0 +1,288 @@
+«REM»
+Copyright 2017 Alessio Rossotti
+This file is part of it.polimi.mobilecodegenerator.
+
+it.polimi.mobilecodegenerator is free software: 
+you can redistribute it and/or modify it under the terms of the 
+GNU General Public License as published by the Free Software Foundation, 
+either version 3 of the License, or (at your option) any later version.
+
+it.polimi.mobilecodegenerator is distributed in the hope that it will be useful, 
+but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+See the GNU General Public License for more details.You should have received a copy of the GNU General Public License
+along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licenses/>
+«ENDREM»
+
+«IMPORT metamodel»
+
+«EXTENSION app_extensions::Java»
+
+«DEFINE main FOR Application-»
+«EXPAND database FOR dataHandler.databaseHandler-»
+«ENDDEFINE-»
+
+«DEFINE database FOR DatabaseHandler-»
+«FILE dataHandler.application.name+"/mobile/src/main/java/"+dataHandler.application.companyIdentifier.replaceAll("\\.","/") +"/"+dataHandler.application.name.toLowerCase() +"/data/DatabaseHandler.java"-»
+package «dataHandler.application.companyIdentifier».«dataHandler.application.name.toLowerCase()».data;
+
+import android.content.ContentValues;
+import android.content.Context;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
+import java.util.ArrayList;
+import java.util.List;
+«IF existsAtLeastOne(this.dataHandler.databaseHandler.entities.entityAttributes.type.matches("Date"))-»
+import java.text.ParseException;
+import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.util.Locale;
+«ENDIF-»
+
+«FOREACH this.entities AS EN-»
+import «dataHandler.application.companyIdentifier».«dataHandler.application.name.toLowerCase()».model.«EN.name.toFirstUpper()»;
+«ENDFOREACH-»
+
+public class DatabaseHandler{
+	
+	private DBHelper dbhelper;
+ 
+    public DatabaseHandler(Context context) 
+    {
+        dbhelper=new DBHelper(context);
+    }
+    
+    «EXPAND save FOREACH entities-»
+    «EXPAND delete FOREACH entities-»
+    «EXPAND query FOREACH entities-»
+    «EXPAND getAll FOREACH entities-»
+}
+«ENDFILE-»
+«ENDDEFINE-»
+
+«REM» for each entity the insert method «ENDREM»
+«DEFINE save FOR Entity-»
+public void insert«name.toFirstUpper()»(«name.toFirstUpper()» «name.toLowerCase()»)
+{
+    SQLiteDatabase db=dbhelper.getWritableDatabase();
+ 	
+ 	«IF this.entityAttributes.exists(e|e.type.matches("Date"))-»
+ 	// choose your date format
+	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ITALY);
+    «ENDIF-»
+    
+    ContentValues cv=new ContentValues();
+    
+    cv.put(DatabaseStrings.«name.toUpperCase()»_ID, «name.toLowerCase()».get«primaryKey.toFirstUpper()»());
+    «EXPAND fieldPut FOREACH entityAttributes-»
+    «FOREACH this.entityRelationships AS Rel-»
+	«IF Rel.type.matches("N : 1") || Rel.type.matches("1 : 1")-»
+	cv.put(DatabaseStrings.«Rel.destination.toUpperCase()»_ID, «name.toLowerCase()».get«Rel.destination.toFirstUpper()-»ID() );           	
+    «ENDIF-»	
+	«ENDFOREACH-»	
+    try
+    {
+        db.insert(DatabaseStrings.TBL_«name.toUpperCase()», null,cv);
+    }
+    catch (SQLiteException sqle){ sqle.printStackTrace(); }
+}
+«ENDDEFINE-»
+
+«REM» parameters for insert method «ENDREM»
+«DEFINE parameters FOR List[EntityAttribute]-»
+«FOREACH this.withoutLast() AS EA-»
+«IF EA.type.matches('String') || EA.type.matches('Date') -»
+String «EA.name»,
+«ENDIF-»
+«IF EA.type.matches('Integer')-»
+int «EA.name»,
+«ENDIF-»
+«IF EA.type.matches('Boolean')-»
+boolean «EA.name»,
+«ENDIF-»
+«IF EA.type.matches('Float')-»
+float «EA.name»,
+«ENDIF-»
+«IF EA.type.matches('Double')-»
+double «EA.name»,
+«ENDIF-»
+«ENDFOREACH-»
+«EXPAND lastParameter FOR (EntityAttribute)this.last()-»
+«ENDDEFINE-»
+
+«REM» last parameter for insert method (without COMMA) «ENDREM»
+«DEFINE lastParameter FOR EntityAttribute-»
+«IF type.matches('String') || type.matches('Date') -»
+String «name»
+«ENDIF-»
+«IF type.matches('Integer')-»
+int «name»
+«ENDIF-»
+«IF type.matches('Boolean')-»
+boolean «name»
+«ENDIF-»
+«IF type.matches('Float') || type.matches('Double')-»
+float «name»
+«ENDIF-»
+«ENDDEFINE-»
+
+«REM» delete method for each entity «ENDREM»
+«DEFINE delete FOR Entity-»
+public boolean delete«name.toFirstUpper()»(String «primaryKey»)
+{
+    SQLiteDatabase db=dbhelper.getWritableDatabase();
+    try
+    {
+        return db.delete(DatabaseStrings.TBL_«name.toUpperCase()», DatabaseStrings.«name.toUpperCase()»_ID+"=?", new String[]{«primaryKey»})>0;
+    }
+    catch (SQLiteException sqle)
+    {	
+    	sqle.printStackTrace();
+        return false;
+    } 
+}
+«ENDDEFINE-»
+
+«REM» query method for each entity «ENDREM»
+«DEFINE query FOR Entity-»
+public «name.toFirstUpper()» query«name.toFirstUpper()»(String «this.primaryKey»)
+{
+    Cursor crs;
+    «name.toFirstUpper()» «name.toLowerCase()» = new «name.toFirstUpper()»();
+    SQLiteDatabase db=dbhelper.getWritableDatabase();
+    
+    String tableName = DatabaseStrings.TBL_«name.toUpperCase()»;
+    String primaryKey = DatabaseStrings.«name.toUpperCase()»_ID;
+    String[] whereArgs = new String[] { «this.primaryKey» };
+    
+    try
+    {
+        String SQL_QUERY = "SELECT * FROM "+ tableName +" WHERE "+ primaryKey +" = ?";
+        crs=db.rawQuery(SQL_QUERY, whereArgs);
+    }
+    catch(SQLiteException sqle){ 
+	    sqle.printStackTrace();
+	    return null;
+    }
+    
+    «IF this.entityAttributes.exists(e|e.type.matches('Date'))-»
+    // choose your date format
+	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ITALY);
+	Date date;
+    «ENDIF-»
+        
+	crs.moveToFirst();
+    while (!crs.isAfterLast()) {
+        «FOREACH 0.upTo(this.entityAttributes.size - 1) AS index-»
+        «IF this.entityAttributes.get(index).type.matches('Integer')-»
+        «name.toLowerCase()».set«this.entityAttributes.get(index).name.toFirstUpper()»(crs.getInt(«index»));
+        «ENDIF-»
+        «IF this.entityAttributes.get(index).type.matches('Date')-»
+        try {
+			date = dateFormat.parse(crs.getString(«index»));
+			«name.toLowerCase()».set«this.entityAttributes.get(index).name.toFirstUpper()»(date);
+		} catch (ParseException e) {
+			«name.toLowerCase()».set«this.entityAttributes.get(index).name.toFirstUpper()»(null);
+			e.printStackTrace();
+		}
+        «ENDIF-»
+        «IF this.entityAttributes.get(index).type.matches('String')-»
+        «name.toLowerCase()».set«this.entityAttributes.get(index).name.toFirstUpper()»(crs.getString(«index»));
+        «ENDIF-»
+        «IF this.entityAttributes.get(index).type.matches('Float')-»
+        «name.toLowerCase()».set«this.entityAttributes.get(index).name.toFirstUpper()»(crs.getFloat(«index»));
+        «ENDIF-»
+        «IF this.entityAttributes.get(index).type.matches('Double')-»
+        «name.toLowerCase()».set«this.entityAttributes.get(index).name.toFirstUpper()»(crs.getDouble(«index»));
+        «ENDIF-»
+        «IF this.entityAttributes.get(index).type.matches('Boolean')-»
+        «name.toLowerCase()».set«this.entityAttributes.get(index).name.toFirstUpper()»(crs.getBoolean(«index»));
+        «ENDIF-»
+        «ENDFOREACH-»
+   	    crs.moveToNext();
+    }
+    crs.close();
+     
+    return «name.toLowerCase()»;
+}
+«ENDDEFINE-»
+
+«REM» for each entity the getAll method «ENDREM»
+«DEFINE getAll FOR Entity-»
+public List<«name.toFirstUpper()»> get«name.toFirstUpper()»List()
+{
+    SQLiteDatabase db=dbhelper.getWritableDatabase();
+    
+    Cursor crs;
+    List<«name.toFirstUpper()»> «name.toLowerCase()»List = new ArrayList<>();
+    
+    String tableName = DatabaseStrings.TBL_«name.toUpperCase()»;
+    
+    try
+    {
+        String SQL_QUERY = "SELECT * FROM "+ tableName;
+        crs=db.rawQuery(SQL_QUERY, null);
+    }
+    catch(SQLiteException sqle){ 
+	    sqle.printStackTrace();
+	    return null;
+    }
+    
+    «IF this.entityAttributes.exists(e|e.type.matches('Date'))-»
+    // choose your date format
+	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.ITALY);
+	Date date;
+    «ENDIF-»
+        
+	crs.moveToFirst();
+    while (!crs.isAfterLast()) {
+    	
+    	«name.toFirstUpper()» «name.toLowerCase()» = new «name.toFirstUpper()»();
+    	
+    	«name.toLowerCase()».set«primaryKey.toFirstUpper()»(crs.getString(0));
+    	
+        «FOREACH 0.upTo(this.entityAttributes.size - 1) AS index-»
+        «IF this.entityAttributes.get(index).type.matches('Integer')-»
+        «name.toLowerCase()».set«this.entityAttributes.get(index).name.toFirstUpper()»(crs.getInt(«index.toInteger() + 1»));
+        «ENDIF-»
+        «IF this.entityAttributes.get(index).type.matches('Date')-»
+        try {
+			date = dateFormat.parse(crs.getString(«index»));
+			«name.toLowerCase()».set«this.entityAttributes.get(index).name.toFirstUpper()»(date);
+		} catch (ParseException e) {
+			«name.toLowerCase()».set«this.entityAttributes.get(index).name.toFirstUpper()»(null);
+			e.printStackTrace();
+		}
+        «ENDIF-»
+        «IF this.entityAttributes.get(index).type.matches('String')-»
+        «name.toLowerCase()».set«this.entityAttributes.get(index).name.toFirstUpper()»(crs.getString(«index»));
+        «ENDIF-»
+        «IF this.entityAttributes.get(index).type.matches('Float')-»
+        «name.toLowerCase()».set«this.entityAttributes.get(index).name.toFirstUpper()»(crs.getFloat(«index»));
+        «ENDIF-»
+        «IF this.entityAttributes.get(index).type.matches('Double')-»
+        «name.toLowerCase()».set«this.entityAttributes.get(index).name.toFirstUpper()»(crs.getDouble(«index»));
+        «ENDIF-»
+        «IF this.entityAttributes.get(index).type.matches('Boolean')-»
+        «name.toLowerCase()».set«this.entityAttributes.get(index).name.toFirstUpper()»(crs.getBoolean(«index»));
+        «ENDIF-»
+        «ENDFOREACH-»
+        
+        «name.toLowerCase()»List.add(«name.toLowerCase()»);
+   	    crs.moveToNext();
+    }
+    crs.close();
+     
+    return «name.toLowerCase()»List;
+ 	
+}
+«ENDDEFINE-»
+
+«DEFINE fieldPut FOR EntityAttribute-»
+«IF type.matches("Date")-»
+ cv.put(DatabaseStrings.«entity.name.toUpperCase()»_«name.toUpperCase()», dateFormat.format(«entity.name.toLowerCase()».get«name.toFirstUpper()»()));
+«ELSE»
+ cv.put(DatabaseStrings.«entity.name.toUpperCase()»_«name.toUpperCase()», «entity.name.toLowerCase()».get«name.toFirstUpper()»());
+«ENDIF»
+«ENDDEFINE-»
+
