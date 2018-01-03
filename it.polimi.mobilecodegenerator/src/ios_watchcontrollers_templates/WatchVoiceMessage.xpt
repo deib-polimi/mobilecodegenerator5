@@ -1,0 +1,85 @@
+«REM»
+Copyright 2017 Aldo Pintus, Alessio Rossotti
+This file is part of it.polimi.mobilecodegenerator.
+
+it.polimi.mobilecodegenerator is free software: 
+you can redistribute it and/or modify it under the terms of the 
+GNU General Public License as published by the Free Software Foundation, 
+either version 3 of the License, or (at your option) any later version.
+
+it.polimi.mobilecodegenerator is distributed in the hope that it will be useful, 
+but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+See the GNU General Public License for more details.You should have received a copy of the GNU General Public License
+along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licenses/>
+«ENDREM»
+
+«IMPORT metamodel»
+
+«DEFINE propertiesDeclarations FOR WatchController-»
+	«IF watchVoiceMessage != null-»
+	var session : WCSession!
+	«ENDIF-»
+«ENDDEFINE-»
+
+«DEFINE willActivate FOR WatchController-»
+	«IF watchVoiceMessage != null-»
+	    if (WCSession.isSupported()) {
+	        session = WCSession.default()
+	        session.delegate = self
+	        session.activate()
+	    }
+    «ENDIF-»
+«ENDDEFINE-»
+
+«DEFINE protocolImplementations FOR WatchController-»
+	«IF watchVoiceMessage != null-»
+    func session(_ session: WCSession,
+             activationDidCompleteWith activationState: WCSessionActivationState,
+             error: Error?){
+    }
+    
+    #if os(iOS)
+    public func sessionDidBecomeInactive(_ session: WCSession) { }
+    public func sessionDidDeactivate(_ session: WCSession) {
+    session.activate()
+    }
+    #endif
+    «ENDIF-»
+«ENDDEFINE-»
+
+«DEFINE watchVoiceMessage FOR WatchController-»
+	«IF watchVoiceMessage != null -»
+	@IBAction func sendVoiceMessage() {
+        send("messageId")
+    }
+    
+    fileprivate func send(_ messageId: String) {
+        
+        let phrases = ["I'm busy", "OK", "Bye"]
+        
+        presentTextInputController(
+        	withSuggestions: phrases,
+            allowedInputMode: .plain,
+            completion: { (result) -> Void in
+                
+                let messageContent = String(describing: result)
+                    .replacingOccurrences(of: "Optional([", with: "")
+                    .replacingOccurrences(of: "])", with: "")
+                
+                let applicationData = [messageId: messageContent]
+                
+                self.session.sendMessage(applicationData, replyHandler: {
+                    (_: [String : Any]) -> Void in
+                    // handle reply from iPhone app here
+                    
+                    }, errorHandler: {(error ) -> Void in
+                    // catch any errors here
+                
+                })
+                
+            }
+        )
+ 
+    }
+    «ENDIF-»
+«ENDDEFINE-»
