@@ -109,6 +109,7 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ViewController">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
         defaultValueLiteral=""/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="backgroundColor" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -119,6 +120,8 @@
         eType="#//Application" changeable="false" eOpposite="#//Application/viewControllers"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="uiControls" ordered="false"
         upperBound="-1" eType="#//UiPhoneControl" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="controlChains" ordered="false"
+        upperBound="-1" eType="#//ControlChain" containment="true" eOpposite="#//ControlChain/viewController"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="buttons" ordered="false"
         upperBound="-1" eType="#//Button" containment="true" eOpposite="#//Button/viewController"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="cards" ordered="false"
@@ -196,32 +199,80 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="marginBottom" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="marginStart" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="marginEnd" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="alignParentTop" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="alignParentBottom" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="alignParentStart" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="alignParentEnd" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="width" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="height" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UiPhoneControl" abstract="true" eSuperTypes="#//UiControl">
     <eStructuralFeatures xsi:type="ecore:EReference" name="viewController" ordered="false"
         eType="#//ViewController" eKeys="#//ViewController/name"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="below" ordered="false"
-        eType="#//UiPhoneControl"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="above" ordered="false"
-        eType="#//UiPhoneControl"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="toStartOf" ordered="false"
-        eType="#//UiPhoneControl"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="toEndOf" ordered="false"
-        eType="#//UiPhoneControl"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="alignTop" ordered="false"
-        eType="#//UiPhoneControl"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="alignBottom" ordered="false"
-        eType="#//UiPhoneControl"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="alignStart" ordered="false"
-        eType="#//UiPhoneControl"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="alignEnd" ordered="false"
-        eType="#//UiPhoneControl"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="controlChain" ordered="false"
+        eType="#//ControlChain" eOpposite="#//ControlChain/editTexts" eKeys="#//ViewController/name"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="dimensionConstraint" eType="#//DimensionConstraint"
+        containment="true" eOpposite="#//DimensionConstraint/uiPhoneControl"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="positionConstraints" ordered="false"
+        upperBound="-1" eType="#//PositionConstraint" containment="true" eOpposite="#//PositionConstraint/uiPhoneControl"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="defaultWidth" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="defaultHeight" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="precedentInChain" eType="#//UiPhoneControl"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="followingInChain" eType="#//UiPhoneControl"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="weight" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ControlChain">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="viewController" ordered="false"
+        eType="#//ViewController" eOpposite="#//ViewController/controlChains" eKeys="#//ViewController/name"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="axis" lowerBound="1" eType="#//ChainAxis"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" lowerBound="1" eType="#//ChainType"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="nControls" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EInt"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="byas" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloatObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="spacing" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="uiControls" ordered="false"
+        upperBound="-1" eType="#//UiPhoneControl" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="buttons" ordered="false"
+        upperBound="-1" eType="#//Button" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="switches" ordered="false"
+        upperBound="-1" eType="#//Switch" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="datepickers" ordered="false"
+        upperBound="-1" eType="#//Datepicker" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="timepickers" ordered="false"
+        upperBound="-1" eType="#//Timepicker" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="sliders" ordered="false"
+        upperBound="-1" eType="#//Slider" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="spinners" ordered="false"
+        upperBound="-1" eType="#//Spinner" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="textViews" ordered="false"
+        upperBound="-1" eType="#//TextView" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="webViews" ordered="false"
+        upperBound="-1" eType="#//WebView" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="imageViews" ordered="false"
+        upperBound="-1" eType="#//ImageView" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="videoViews" ordered="false"
+        upperBound="-1" eType="#//VideoView" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="audioPlayers" ordered="false"
+        upperBound="-1" eType="#//AudioPlayer" containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="editTexts" ordered="false"
+        upperBound="-1" eType="#//EditText" containment="true" eOpposite="#//UiPhoneControl/controlChain"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="DimensionConstraint">
+    <eStructuralFeatures xsi:type="ecore:EReference" name="uiPhoneControl" lowerBound="1"
+        eType="#//UiPhoneControl" eOpposite="#//UiPhoneControl/dimensionConstraint"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="fixedWidth" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloatObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="fixedHeight" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloatObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="fixedRatio" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="widthPercent" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloatObject"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="heightPercent" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloatObject"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="PositionConstraint">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="uiPhoneControl" lowerBound="1"
+        eType="#//UiPhoneControl" eOpposite="#//UiPhoneControl/positionConstraints"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="layoutEdge" lowerBound="1"
+        eType="#//LayoutEdge"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="withParent" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="referenceElement" eType="#//UiPhoneControl"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="referenceLayoutEdge" lowerBound="1"
+        eType="#//LayoutEdge"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="UiWatchControl" abstract="true" eSuperTypes="#//UiControl">
     <eStructuralFeatures xsi:type="ecore:EReference" name="watchController" ordered="false"
@@ -243,6 +294,12 @@
         eType="#//UiWatchControl"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="alignEnd" ordered="false"
         eType="#//UiWatchControl"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="alignParentTop" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="alignParentBottom" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="alignParentStart" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="alignParentEnd" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="width" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="height" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EFloat"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="WatchButton" eSuperTypes="#//UiWatchControl">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
@@ -489,5 +546,23 @@
     <eLiterals name="Left" literal="left"/>
     <eLiterals name="Center" value="1" literal="center"/>
     <eLiterals name="Right" value="2" literal="right"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="LayoutEdge">
+    <eLiterals name="start" literal="start"/>
+    <eLiterals name="end" value="1" literal="end"/>
+    <eLiterals name="top" value="2" literal="top"/>
+    <eLiterals name="bottom" value="3" literal="bottom"/>
+    <eLiterals name="centerX" value="4" literal="centerX"/>
+    <eLiterals name="centerY" value="5" literal="centerY"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ChainType">
+    <eLiterals name="spread"/>
+    <eLiterals name="spread_inside" value="1"/>
+    <eLiterals name="packed" value="2" literal="packed"/>
+    <eLiterals name="weighted" value="3"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="ChainAxis">
+    <eLiterals name="horizontal"/>
+    <eLiterals name="vertical" value="1"/>
   </eClassifiers>
 </ecore:EPackage>

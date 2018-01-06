@@ -1,5 +1,5 @@
 /************************************************************************************************************************
- * Copyright 2017 Gregorio Perego, Stefania Pezzetti, Aldo Pintus, Alessio Rossotti
+ * Copyright 2017 Gregorio Perego, Stefania Pezzetti, Aldo Pintus, Alessio Rossotti, Massimo Beccari
  * This file is part of it.polimi.mobilecodegenerator.
  * 
  * it.polimi.mobilecodegenerator is free software: 
@@ -141,5 +141,46 @@ public class AppJavaUtil {
 			}
 		}
 		return false;
+	}
+	
+	/**
+	 * @param isWidth is used to distinguish between width and height
+	 * @param layoutEdgesConstrained gives the control's layout edges which are binded by position constraints
+	 * @return if the control's dimension (width or height) is unconstrained
+	 */
+	public static boolean dimensionIsUnbinded(Boolean isWidth, List<?> layoutEdgesConstrained) {
+		int n = 0;
+		if(isWidth) {
+			for(int i = 0; i < layoutEdgesConstrained.size(); i++)
+				if((layoutEdgesConstrained.get(i).toString().equals("start")) || (layoutEdgesConstrained.get(i).toString().equals("end")))
+					n++;
+			if(n > 1)
+				return false;
+		} else {
+			for(int i = 0; i < layoutEdgesConstrained.size(); i++)
+				if((layoutEdgesConstrained.get(i).toString().equals("top")) || (layoutEdgesConstrained.get(i).toString().equals("bottom")))
+					n++;
+			if(n > 1)
+				return false;
+		}
+		return true;
+	}
+	
+	/**
+	 * @param isPosX is used to distinguish between posX and posY
+	 * @param layoutEdgesConstrained gives the control's layout edges which are binded by position constraints
+	 * @return if the control's position (posX or posY) is unconstrained
+	 */
+	public static boolean positionIsUnbinded(Boolean isPosX, List<?> layoutEdgesConstrained) {
+		if(isPosX) {
+			for(int i = 0; i < layoutEdgesConstrained.size(); i++)
+				if((layoutEdgesConstrained.get(i).toString().equals("start")) || (layoutEdgesConstrained.get(i).toString().equals("end")) || (layoutEdgesConstrained.get(i).toString().equals("centerX")))
+					return false;
+		} else {
+			for(int i = 0; i < layoutEdgesConstrained.size(); i++)
+				if((layoutEdgesConstrained.get(i).toString().equals("top")) || (layoutEdgesConstrained.get(i).toString().equals("bottom")) || (layoutEdgesConstrained.get(i).toString().equals("centerY")))
+					return false;
+		}
+		return true;
 	}
 }

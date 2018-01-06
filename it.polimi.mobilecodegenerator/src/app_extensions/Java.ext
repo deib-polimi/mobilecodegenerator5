@@ -1,5 +1,5 @@
 /************************************************************************************************************************
- * Copyright 2017 Gregorio Perego, Stefania Pezzetti, Aldo Pintus, Alessio Rossotti
+ * Copyright 2017 Gregorio Perego, Stefania Pezzetti, Aldo Pintus, Alessio Rossotti, Massimo Beccari
  * This file is part of it.polimi.mobilecodegenerator.
  * 
  * it.polimi.mobilecodegenerator is free software: 
@@ -20,3 +20,5 @@ List[String] getUserFilesNames():JAVA app_extensions.AppJavaUtil.getUserFilesNam
 Boolean existsAtLeastOne(Collection c):JAVA app_extensions.AppJavaUtil.existsAtLeastOne(java.util.Collection);
 Boolean existsObject(Object c):JAVA app_extensions.AppJavaUtil.existsObject(java.lang.Object);
 Boolean isAMenuDestination(String name, List menuItems):JAVA app_extensions.AppJavaUtil.isAMenuDestination(java.lang.String, java.util.List);
+Boolean dimensionIsUnbinded(Boolean isWidth, List layoutEdgesConstrained):JAVA app_extensions.AppJavaUtil.dimensionIsUnbinded(java.lang.Boolean, java.util.List);
+Boolean positionIsUnbinded(Boolean isWidth, List layoutEdgesConstrained):JAVA app_extensions.AppJavaUtil.positionIsUnbinded(java.lang.Boolean, java.util.List);

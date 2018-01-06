@@ -1,5 +1,5 @@
 «REM»
-Copyright 2017 Gregorio Perego, Stefania Pezzetti, Aldo Pintus, Alessio Rossotti
+Copyright 2017 Gregorio Perego, Stefania Pezzetti, Aldo Pintus, Alessio Rossotti, Massimo Beccari
 This file is part of it.polimi.mobilecodegenerator.
 
 it.polimi.mobilecodegenerator is free software: 
@@ -14,6 +14,9 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 «ENDREM»
 
 «IMPORT metamodel»
+
+«EXTENSION app_extensions::Java»
+
 «DEFINE constraints FOR ViewController-»
 
 «FOREACH buttons AS b-»
@@ -96,84 +99,109 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 «ENDDEFINE-»
 
 «DEFINE innerConstraints FOR UiPhoneControl-»
-«IF ((alignTop == null &&
-	!alignParentTop &&
-	below == null) ||
-	(alignBottom == null &&
-	!alignParentBottom &&
-	above == null))-»
-<constraint firstAttribute="height" constant="«height.toInteger()»" id="«id»-height"/>
-«ENDIF-»
-«IF ((alignStart == null &&
-	!alignParentStart &&
-	toEndOf == null) ||
-	(alignEnd == null &&
-	!alignParentEnd &&
-	toStartOf == null))
-	-»
-<constraint firstAttribute="width" constant="«width.toInteger()»" id="«id»-width"/>
-«ENDIF-»
+	«REM» Width «ENDREM»
+	«IF dimensionConstraint.fixedWidth != null-»
+	<constraint firstAttribute="width" constant="«dimensionConstraint.fixedWidth»" id="«id»-width"/>
+	«ELSEIF dimensionConstraint.widthPercent == null && dimensionConstraint.fixedRatio == null && controlChain == null && !dimensionIsUnbinded(true, positionConstraints.layoutEdge)-»
+	<constraint firstAttribute="width" constant="«defaultWidth»" id="«id»-width"/>
+	«ENDIF-»
+	«REM» Height «ENDREM»
+	«IF dimensionConstraint.fixedHeight != null-»
+	<constraint firstAttribute="height" constant="«dimensionConstraint.fixedHeight»" id="«id»-height"/>
+	«ELSEIF dimensionConstraint.heightPercent == null && dimensionConstraint.fixedRatio == null && controlChain == null && !dimensionIsUnbinded(false, positionConstraints.layoutEdge)-»
+	<constraint firstAttribute="height" constant="«defaultHeight»" id="«id»-height"/>
+	«ENDIF-»
+	«REM» Ratio «ENDREM»
+	«IF dimensionConstraint.fixedRatio != null-»
+	<constraint firstAttribute="width" secondItem="«id»" secondAttribute="height" multiplier="«dimensionConstraint.fixedRatio»" id="«id»-width"/>
+	«ENDIF-»
 «ENDDEFINE-»
 
+
 «DEFINE siblingConstraints FOR UiPhoneControl-»
-«IF alignTop != null-»
-<constraint firstItem="«id»" firstAttribute="top" secondItem="«alignTop.id»" secondAttribute="top" priority="750" constant="«((marginTop + paddingTop) - alignTop.marginTop).toInteger()»" id="«id»-align-top"/>
-«ENDIF-»
-«IF alignBottom != null-»
-<constraint firstItem="«id»" firstAttribute="bottom" secondItem="«alignBottom.id»" secondAttribute="bottom" priority="750" constant="«(alignBottom.marginBottom - (marginBottom + paddingBottom)).toInteger()»" id="«id»-align-bottom"/>
-«ENDIF-»
-«IF alignStart != null-»
-<constraint firstItem="«id»" firstAttribute="leading" secondItem="«alignStart.id»" secondAttribute="leading" priority="750" constant="«((marginStart + paddingStart) - alignStart.marginStart).toInteger()»" id="«id»-align-start"/>
-«ENDIF-»
-«IF alignEnd != null-»
-<constraint firstItem="«id»" firstAttribute="trailing" secondItem="«alignEnd.id»" secondAttribute="trailing" priority="750" constant="«(alignEnd.marginEnd - (marginEnd + paddingEnd)).toInteger()»" id="«id»-align-end"/>
-«ENDIF-»
-«IF below != null-»
-<constraint firstItem="«id»" firstAttribute="top" secondItem="«below.id»" secondAttribute="bottom" priority="750" constant="«((marginTop + paddingTop) + below.marginBottom).toInteger()»" id="«id»-bottom"/>
-«ENDIF-»
-«IF above != null-»
-<constraint firstItem="«id»" firstAttribute="bottom" secondItem="«above.id»" secondAttribute="top" priority="750" constant="«(-(marginBottom + paddingBottom) - above.marginTop).toInteger()»" id="«id»-above"/>
-«ENDIF-»
-«IF toStartOf != null-»
-<constraint firstItem="«id»" firstAttribute="trailing" secondItem="«toStartOf.id»" secondAttribute="leading" priority="750" constant="«(-(marginEnd + paddingEnd) - toStartOf.marginStart).toInteger()»" id="«id»-to-start-of"/>
-«ENDIF-»
-«IF toEndOf != null-»
-<constraint firstItem="«id»" firstAttribute="leading" secondItem="«toEndOf.id»" secondAttribute="trailing" priority="750" constant="«((marginStart + paddingStart) + toEndOf.marginEnd).toInteger()»" id="«id»-to-end-of"/>
-«ENDIF-»
+	«FOREACH positionConstraints AS constraint-»
+	«IF !constraint.withParent-»
+		«IF constraint.layoutEdge.toString().matches("start") && constraint.referenceLayoutEdge.toString().matches("start")-»
+		<constraint firstItem="«id»" firstAttribute="leading" secondItem="«constraint.referenceElement.id»" secondAttribute="leading" priority="750" constant="«((marginStart + paddingStart) - constraint.referenceElement.marginStart).toInteger()»" id="«id»-start-start"/>
+		«ELSEIF constraint.layoutEdge.toString().matches("start") && constraint.referenceLayoutEdge.toString().matches("end")-»
+		<constraint firstItem="«id»" firstAttribute="leading" secondItem="«constraint.referenceElement.id»" secondAttribute="trailing" priority="750" constant="«((marginStart + paddingStart) + constraint.referenceElement.marginEnd).toInteger()»" id="«id»-start-end"/>
+		«ELSEIF constraint.layoutEdge.toString().matches("end") && constraint.referenceLayoutEdge.toString().matches("start")-»
+		<constraint firstItem="«id»" firstAttribute="trailing" secondItem="«constraint.referenceElement.id»" secondAttribute="leading" priority="750" constant="«(-(marginEnd + paddingEnd) - constraint.referenceElement.marginStart).toInteger()»" id="«id»-end-start"/>
+		«ELSEIF constraint.layoutEdge.toString().matches("end") && constraint.referenceLayoutEdge.toString().matches("end")-»
+		<constraint firstItem="«id»" firstAttribute="leading" secondItem="«constraint.referenceElement.id»" secondAttribute="trailing" priority="750" constant="«(constraint.referenceElement.marginEnd - (marginEnd + paddingEnd)).toInteger()»" id="«id»-end-end"/>
+		«ELSEIF constraint.layoutEdge.toString().matches("top") && constraint.referenceLayoutEdge.toString().matches("top")-»
+		<constraint firstItem="«id»" firstAttribute="top" secondItem="«constraint.referenceElement.id»" secondAttribute="top" priority="750" constant="«((marginTop + paddingTop) - constraint.referenceElement.marginTop).toInteger()»" id="«id»-top-top"/>
+		«ELSEIF constraint.layoutEdge.toString().matches("top") && constraint.referenceLayoutEdge.toString().matches("bottom")-»
+		<constraint firstItem="«id»" firstAttribute="top" secondItem="«constraint.referenceElement.id»" secondAttribute="bottom" priority="750" constant="«((marginTop + paddingTop) + constraint.referenceElement.marginBottom).toInteger()»" id="«id»-top-bottom"/>
+		«ELSEIF constraint.layoutEdge.toString().matches("bottom") && constraint.referenceLayoutEdge.toString().matches("top")-»
+		<constraint firstItem="«id»" firstAttribute="bottom" secondItem="«constraint.referenceElement.id»" secondAttribute="top" priority="750" constant="«(-(marginBottom + paddingBottom) - constraint.referenceElement.marginTop).toInteger()»" id="«id»-bottom-top"/>
+		«ELSEIF constraint.layoutEdge.toString().matches("bottom") && constraint.referenceLayoutEdge.toString().matches("bottom")-»
+		<constraint firstItem="«id»" firstAttribute="bottom" secondItem="«constraint.referenceElement.id»" secondAttribute="bottom" priority="750" constant="«(constraint.referenceElement.marginBottom - (marginBottom + paddingBottom)).toInteger()»" id="«id»-bottom-bottom"/>
+		«ELSEIF constraint.layoutEdge.toString().matches("centerX") && constraint.referenceLayoutEdge.toString().matches("centerX")-»
+		<constraint firstItem="«id»" firstAttribute="centerX" secondItem="«constraint.referenceElement.id»" secondAttribute="centerX" priority="750" id="«id»-centerX"/>
+		«ELSEIF constraint.layoutEdge.toString().matches("centerY") && constraint.referenceLayoutEdge.toString().matches("centerY")-»
+		<constraint firstItem="«id»" firstAttribute="centerY" secondItem="«constraint.referenceElement.id»" secondAttribute="centerY" priority="750" id="«id»-centerY"/>
+		«ENDIF-»
+	«ENDIF-»
+	«ENDFOREACH-»
 «ENDDEFINE-»
 
 
 «DEFINE parentContraints FOR UiPhoneControl-»
-							«IF alignParentTop-»
-							<constraint firstItem="«id»" firstAttribute="top" secondItem="«viewController.name»-guide-top" secondAttribute="bottom" constant="«(marginTop + paddingTop).toInteger()»" id="«id»-alignParentTop"/>
-							«ENDIF-»
-							«IF alignParentBottom-»
-							<constraint firstItem="«viewController.name»-guide-bottom" firstAttribute="top" secondItem="«id»" secondAttribute="bottom" constant="«(marginBottom + paddingBottom).toInteger()»" id="«id»-alignParentBottom"/>
-							«ENDIF-»
-							«IF alignParentStart-»
-							<constraint firstItem="«id»" firstAttribute="leading" secondItem="«viewController.name»ViewID" secondAttribute="leading" constant="«(marginStart + paddingStart).toInteger()»" id="«id»-alignParentStart"/>
-							«ENDIF-»
-							«IF alignParentEnd-»
-							<constraint firstItem="«id»" firstAttribute="trailing" secondItem="«viewController.name»ViewID" secondAttribute="trailing" constant="«-(marginEnd + paddingEnd).toInteger()»" id="«id»-alignParentEnd"/>
-							«ENDIF-»
-							«REM»Positioning objects when there is no vertical alignment«ENDREM»
-							«IF alignTop == null &&
-								alignBottom == null &&
-								below == null &&
-								above == null &&
-								!alignParentTop &&
-								!alignParentBottom
-								-»
-							<constraint firstItem="«id»" firstAttribute="top" secondItem="«viewController.name»-guide-top" secondAttribute="bottom" constant="«posY.toInteger() + marginTop.toInteger() + paddingTop.toInteger()»" id="«id»-posY"/>
-							«ENDIF-»
-							«REM»Positioning objects when there is no horizontal alignment«ENDREM»
-							«IF alignStart == null &&
-								alignEnd == null &&
-								toStartOf == null &&
-								toEndOf == null &&
-								!alignParentStart &&
-								!alignParentEnd
-								-»
-							<constraint firstItem="«id»" firstAttribute="leading" secondItem="«viewController.name»ViewID" secondAttribute="leading" constant="«posX.toInteger() + marginStart.toInteger() + paddingStart.toInteger()»" id="«id»-posX"/>
-							«ENDIF-»
+	«REM» Dimension Constraints «ENDREM»
+	«IF dimensionConstraint.widthPercent != null-»
+	<constraint firstItem="«id»" firstAttribute="width" secondItem="«viewController.name»ViewID" secondAttribute="width" multiplier="«dimensionConstraint.widthPercent»" id="«id»-width"/>
+	«ENDIF-»
+	«REM» Position Constraints «ENDREM»
+	«FOREACH positionConstraints AS constraint-»
+	«IF constraint.withParent-»
+		«IF constraint.layoutEdge.toString().matches("start") && constraint.referenceLayoutEdge.toString().matches("start")-»
+		<constraint firstItem="«id»" firstAttribute="leading" secondItem="«viewController.name»ViewID" secondAttribute="leading" priority="750" constant="«(marginStart + paddingStart).toInteger()»" id="«id»-parent-start"/>
+		«ELSEIF constraint.layoutEdge.toString().matches("end") && constraint.referenceLayoutEdge.toString().matches("end")-»
+		<constraint firstItem="«id»" firstAttribute="leading" secondItem="«viewController.name»ViewID" secondAttribute="trailing" priority="750" constant="«-(marginEnd + paddingEnd).toInteger()»" id="«id»-parent-end"/>
+		«ELSEIF constraint.layoutEdge.toString().matches("top") && constraint.referenceLayoutEdge.toString().matches("top")-»
+		<constraint firstItem="«id»" firstAttribute="top" secondItem="«viewController.name»-guide-top" secondAttribute="top" priority="750" constant="«(marginTop + paddingTop).toInteger()»" id="«id»-parent-top"/>
+		«ELSEIF constraint.layoutEdge.toString().matches("bottom") && constraint.referenceLayoutEdge.toString().matches("bottom")-»
+		<constraint firstItem="«viewController.name»-guide-bottom" firstAttribute="bottom" secondItem="«id»" secondAttribute="bottom" priority="750" constant="«(marginBottom + paddingBottom).toInteger()»" id="«id»-parent-bottom"/>
+		«ELSEIF constraint.layoutEdge.toString().matches("centerX") && constraint.referenceLayoutEdge.toString().matches("centerX")-»
+		<constraint firstItem="«id»" firstAttribute="centerX" secondItem="«viewController.name»ViewID" secondAttribute="centerX" priority="750" id="«id»-parent-centerX"/>
+		«ELSEIF constraint.layoutEdge.toString().matches("centerY") && constraint.referenceLayoutEdge.toString().matches("centerY")-»
+		<constraint firstItem="«id»" firstAttribute="centerY" secondItem="«viewController.name»ViewID" secondAttribute="centerY" priority="750" id="«id»-parent-centerY"/>
+		«ENDIF-»
+	«ENDIF-»
+	«ENDFOREACH-»
+	«REM» ControlChain «ENDREM»
+	«IF controlChain == null-»
+		«IF positionIsUnbinded(true, positionConstraints.layoutEdge)-»
+		<constraint firstItem="«id»" firstAttribute="leading" secondItem="«viewController.name»ViewID" secondAttribute="leading" constant="«posX.toInteger() + marginStart.toInteger() + paddingStart.toInteger()»" id="«id»-posX"/>
+		«ENDIF-»
+		«IF positionIsUnbinded(false, positionConstraints.layoutEdge)-»
+		<constraint firstItem="«id»" firstAttribute="top" secondItem="«viewController.name»-guide-top" secondAttribute="bottom" constant="«posY.toInteger() + marginTop.toInteger() + paddingTop.toInteger()»" id="«id»-posY"/>
+		«ENDIF-»
+	«ELSEIF controlChain.axis.toString().matches("horizontal")-»
+		«REM» Horizontal position (A BIT STRANGE) «ENDREM»
+		«IF controlChain.type.toString().matches("spread")-»
+			«IF controlChain.precedentControlId.matches("parent")-»
+    		<constraint firstItem="«id»" firstAttribute="leading" secondItem="«viewController.name»ViewID" secondAttribute="leading" priority="750" constant="«marginStart.toInteger() + paddingStart.toInteger()»" id="«id»-parent-start"/>
+    		«ELSE-»
+    		<constraint firstItem="«id»" firstAttribute="leading" secondItem="«controlChain.precedentControlId»" secondAttribute="trailing" priority="750" constant="«paddingStart.toInteger()»" id="«id»-start-end"/>
+    		«ENDIF-»
+		«ELSEIF controlChain.type.toString().matches("spread_inside")-»
+		
+		«ELSEIF controlChain.type.toString().matches("weighted")-»
+		
+		«ENDIF-»
+		
+		«REM» Vertical position if there are no constraints (as usual) «ENDREM»
+		«IF positionIsUnbinded(false, positionConstraints.layoutEdge)-»
+		<constraint firstItem="«id»" firstAttribute="top" secondItem="«viewController.name»-guide-top" secondAttribute="bottom" constant="«posY.toInteger() + marginTop.toInteger() + paddingTop.toInteger()»" id="«id»-posY"/>
+		«ENDIF-»
+	«ELSE»
+		«REM» Vertical position (A BIT STRANGE) «ENDREM»
+		
+		«REM» Horizontal position if there are no constraints (as usual) «ENDREM»
+		«IF positionIsUnbinded(true, positionConstraints.layoutEdge)-»
+		<constraint firstItem="«id»" firstAttribute="leading" secondItem="«viewController.name»ViewID" secondAttribute="leading" constant="«posX.toInteger() + marginStart.toInteger() + paddingStart.toInteger()»" id="«id»-posX"/>
+		«ENDIF-»
+	«ENDIF-»
 «ENDDEFINE-»

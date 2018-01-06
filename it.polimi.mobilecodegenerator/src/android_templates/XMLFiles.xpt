@@ -1021,62 +1021,174 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 «REM»--------------------------- UiPhoneControl Positioning XML Files ---------------------------«ENDREM»
 «DEFINE uiPhoneControl FOR UiPhoneControl-»
 		android:id="@+id/«id»"
-		android:layout_width="«width»dp"
-		android:layout_height="«height»dp"
-		android:layout_alignParentBottom="«alignParentBottom»"
-		android:layout_alignParentRight="«alignParentEnd»"
-		android:layout_alignParentLeft="«alignParentStart»"
-		android:layout_alignParentTop="«alignParentTop»"
-		«IF alignStart == null &&
-			alignEnd == null &&
-			toStartOf == null &&
-			toEndOf == null &&
-			!alignParentStart &&
-			!alignParentEnd
-			-»
-		android:layout_marginLeft="«posX + marginStart»dp"	
+		«REM» Dimension Constraints «ENDREM»
+		«IF dimensionConstraint.fixedWidth != null-»
+		android:layout_width="«dimensionConstraint.fixedWidth»dp"
+		«ELSEIF dimensionConstraint.widthPercent != null || dimensionConstraint.fixedRatio != null || !dimensionIsUnbinded(true, positionConstraints.layoutEdge)-»
+		android:layout_width="0dp"
+		«ELSEIF controlChain == null-»
+		android:layout_width="«defaultWidth»dp"
+		«ELSEIF controlChain.axis.toString().matches("horizontal") && controlChain.type.toString().matches("weighted")-»
+		android:layout_width="0dp"
 		«ELSE»
-		android:layout_marginLeft="«marginStart»dp"
+		android:layout_width="«defaultWidth»dp"
 		«ENDIF-»
-		«IF alignTop == null &&
-			alignBottom == null &&
-			below == null &&
-			above == null &&
-			!alignParentTop &&
-			!alignParentBottom
-			-»
-		android:layout_marginTop="«posY + marginTop»dp"	
+		«IF dimensionConstraint.fixedHeight != null-»
+		android:layout_height="«dimensionConstraint.fixedHeight»dp"
+		«ELSEIF dimensionConstraint.heightPercent != null || dimensionConstraint.fixedRatio != null || !dimensionIsUnbinded(false, positionConstraints.layoutEdge)-»
+		android:layout_width="0dp"
+		«ELSEIF controlChain == null-»
+		android:layout_width="«defaultHeight»dp"
+		«ELSEIF controlChain.axis.toString().matches("vertical") && controlChain.type.toString().matches("weighted")-»
+		android:layout_width="0dp"
 		«ELSE»
-		android:layout_marginTop="«marginTop»dp"
+		android:layout_width="«defaultHeight»dp"
 		«ENDIF-»
-		android:layout_marginRight="«marginEnd»dp"
-		android:layout_marginBottom="«marginBottom»dp"
+		«IF dimensionConstraint.widthPercent != null-»
+		app:layout_constraintWidth_percent="«dimensionConstraint.widthPercent»"
+		«ENDIF-»
+		«IF dimensionConstraint.heightPercent != null-»
+		app:layout_constraintHeight_percent="«dimensionConstraint.heightPercent»"
+		«ENDIF-»
+		«IF dimensionConstraint.fixedRatio != null-»
+		app:layout_constraintDimensionRatio="«dimensionConstraint.fixedRatio»"
+		«ENDIF-»
+		«REM» Position Constraints «ENDREM»
+		«FOREACH positionConstraints AS constraint-»
+			«IF constraint.withParent-»
+				«IF constraint.layoutEdge.toString().matches("start") && constraint.referenceLayoutEdge.toString().matches("start")-»
+				app:layout_constraintStart_toStartOf="parent"
+				«ELSEIF constraint.layoutEdge.toString().matches("end") && constraint.referenceLayoutEdge.toString().matches("end")-»
+				app:layout_constraintEnd_toEndOf="parent"
+				«ELSEIF constraint.layoutEdge.toString().matches("top") && constraint.referenceLayoutEdge.toString().matches("top")-»
+				app:layout_constraintTop_toTopOf="parent"
+				«ELSEIF constraint.layoutEdge.toString().matches("bottom") && constraint.referenceLayoutEdge.toString().matches("bottom")-»
+				app:layout_constraintBottom_toBottomOf="parent"
+				«ELSEIF constraint.layoutEdge.toString().matches("centerX") && constraint.referenceLayoutEdge.toString().matches("centerX")-»
+				app:layout_constraintStart_toStartOf="parent"
+				app:layout_constraintEnd_toEndOf="parent"
+				«ELSEIF constraint.layoutEdge.toString().matches("centerY") && constraint.referenceLayoutEdge.toString().matches("centerY")-»
+				app:layout_constraintTop_toTopOf="parent"
+				app:layout_constraintBottom_toBottomOf="parent"
+				«ENDIF-»
+			«ELSE-»
+				«IF constraint.layoutEdge.toString().matches("start") && constraint.referenceLayoutEdge.toString().matches("start")-»
+				app:layout_constraintStart_toStartOf="@+id/«constraint.referenceElement.id»"
+				«ELSEIF constraint.layoutEdge.toString().matches("start") && constraint.referenceLayoutEdge.toString().matches("end")-»
+				app:layout_constraintStart_toEndOf="@+id/«constraint.referenceElement.id»"
+				«ELSEIF constraint.layoutEdge.toString().matches("end") && constraint.referenceLayoutEdge.toString().matches("start")-»
+				app:layout_constraintEnd_toStartOf="@+id/«constraint.referenceElement.id»"
+				«ELSEIF constraint.layoutEdge.toString().matches("end") && constraint.referenceLayoutEdge.toString().matches("end")-»
+				app:layout_constraintEnd_toEndOf="@+id/«constraint.referenceElement.id»"
+				«ELSEIF constraint.layoutEdge.toString().matches("top") && constraint.referenceLayoutEdge.toString().matches("top")-»
+				app:layout_constraintTop_toTopOf="@+id/«constraint.referenceElement.id»"
+				«ELSEIF constraint.layoutEdge.toString().matches("top") && constraint.referenceLayoutEdge.toString().matches("bottom")-»
+				app:layout_constraintTop_toBottomOf="@+id/«constraint.referenceElement.id»"
+				«ELSEIF constraint.layoutEdge.toString().matches("bottom") && constraint.referenceLayoutEdge.toString().matches("top")-»
+				app:layout_constraintBottom_toTopOf="@+id/«constraint.referenceElement.id»"
+				«ELSEIF constraint.layoutEdge.toString().matches("bottom") && constraint.referenceLayoutEdge.toString().matches("bottom")-»
+				app:layout_constraintBottom_toBottomOf="@+id/«constraint.referenceElement.id»"
+				«ELSEIF constraint.layoutEdge.toString().matches("centerX") && constraint.referenceLayoutEdge.toString().matches("centerX")-»
+				app:layout_constraintStart_toStartOf="@+id/«constraint.referenceElement.id»"
+				app:layout_constraintEnd_toEndOf="@+id/«constraint.referenceElement.id»"
+				«ELSEIF constraint.layoutEdge.toString().matches("centerY") && constraint.referenceLayoutEdge.toString().matches("centerY")-»
+				app:layout_constraintTop_toTopOf="@+id/«constraint.referenceElement.id»"
+				app:layout_constraintBottom_toBottomOf="@+id/«constraint.referenceElement.id»"
+				«ENDIF-»
+			«ENDIF-»
+    	«ENDFOREACH-»
+    	«REM» Control Chains and margins «ENDREM»
+    	«IF controlChain == null-»
+    		«IF positionIsUnbinded(true, positionConstraints.layoutEdge)-»
+			android:layout_marginStart="«posX + marginStart»dp"
+			«ELSE»
+			android:layout_marginStart="«marginStart»dp"
+			«ENDIF-»
+			«IF positionIsUnbinded(false, positionConstraints.layoutEdge)-»
+			android:layout_marginTop="«posY + marginTop»dp"	
+			«ELSE»
+			android:layout_marginTop="«marginTop»dp"
+			«ENDIF-»
+			android:layout_marginRight="«marginEnd»dp"
+			android:layout_marginBottom="«marginBottom»dp"
+    	«ELSEIF controlChain.axis.toString().matches("horizontal")-»
+    		«REM» Constraints, byas and weight «ENDREM»
+    		«IF controlChain.byas != null-»
+    		app:layout_constraintHorizontal_bias="«controlChain.byas»"
+    		«ENDIF-»
+    		«IF weight != null-»
+    		app:layout_constraintHorizontal_weight="«weight»"
+    		«ENDIF-»
+    		«IF precedentInChain == null-»
+    		app:layout_constraintStart_toStartOf="parent"
+    		app:layout_constraintEnd_toStartOf="@+id/«followingInChain.id»"
+    		«ELSEIF followingInChain == null-»
+    		app:layout_constraintStart_toEndOf="@+id/«precedentInChain.id»"
+    		app:layout_constraintEnd_toEndOf="parent"
+    		«ELSE-»
+    		app:layout_constraintStart_toEndOf="@+id/«precedentInChain.id»"
+    		app:layout_constraintEnd_toStartOf="@+id/«followingInChain.id»"
+    		«ENDIF-»
+    		«REM» Horizontal margins (A BIT STRANGE) «ENDREM»
+    		«IF controlChain.spacing == null-»
+    		android:layout_marginStart="«marginStart»dp"
+    		android:layout_marginEnd="«marginEnd»dp"
+    		«ELSEIF precedentInChain == null-»
+    		android:layout_marginStart="«marginStart»dp"
+    		«ELSEIF followingInChain == null-»
+    		android:layout_marginStart="«controlChain.spacing»dp"
+    		android:layout_marginEnd="«marginEnd»dp"
+    		«ELSE-»
+    		android:layout_marginStart="«controlChain.spacing»dp"
+    		«ENDIF-»
+    		«REM» Vertical margins as usual «ENDREM»
+    		«IF positionIsUnbinded(false, positionConstraints.layoutEdge)-»
+			android:layout_marginTop="«posY + marginTop»dp"	
+			«ELSE»
+			android:layout_marginTop="«marginTop»dp"
+			«ENDIF-»
+			android:layout_marginBottom="«marginBottom»dp"
+    	«ELSE»
+    		«REM» Constraints, byas and weight «ENDREM»
+    		«IF controlChain.byas != null-»
+    		app:layout_constraintVertical_bias="«controlChain.byas»"
+    		«ENDIF-»
+    		«IF weight != null-»
+    		app:layout_constraintVertical_weight="«weight»"
+    		«ENDIF-»
+    		«IF precedentInChain == null-»
+    		app:layout_constraintTop_toTopOf="parent"
+    		app:layout_constraintBottom_toTopOf="@+id/«followingInChain.id»"
+    		«ELSEIF followingInChain == null-»
+    		app:layout_constraintTop_toBottomOf="@+id/«precedentInChain.id»"
+    		app:layout_constraintBottom_toBottomOf="parent"
+    		«ELSE-»
+    		app:layout_constraintTop_toBottomOf="@+id/«precedentInChain.id»"
+    		app:layout_constraintBottom_toTopOf="@+id/«followingInChain.id»"
+    		«ENDIF-»
+    		«REM» Vertical margins (A BIT STRANGE) «ENDREM»
+    		«IF controlChain.spacing == null-»
+    		android:layout_marginTop="«marginTop»dp"
+    		android:layout_marginBottom="«marginBottom»dp"
+    		«ELSEIF precedentInChain == null-»
+    		android:layout_marginTop="«marginTop»dp"
+    		«ELSEIF followingInChain == null-»
+    		android:layout_marginTop="«controlChain.spacing»dp"
+    		android:layout_marginBottom="«marginBottom»dp"
+    		«ELSE-»
+    		android:layout_marginTop="«controlChain.spacing»dp"
+    		«ENDIF-»
+    		«REM» Horizontal margins as usual «ENDREM»
+    		«IF positionIsUnbinded(true, positionConstraints.layoutEdge)-»
+			android:layout_marginStart="«posX + marginStart»dp"
+			«ELSE»
+			android:layout_marginStart="«marginStart»dp"
+			«ENDIF-»
+			android:layout_marginRight="«marginEnd»dp"
+    	«ENDIF-»
+		«REM» Padding «ENDREM»
 		android:paddingBottom="«paddingBottom»dp"
 		android:paddingRight="«paddingEnd»dp"
 		android:paddingLeft="«paddingStart»dp"
 		android:paddingTop="«paddingTop»dp"
-		«IF alignTop != null-»
-	    android:layout_alignTop="@+id/«alignTop.id»"
-	    «ENDIF-»
-	    «IF alignBottom != null-»
-	    android:layout_alignBottom="@+id/«alignBottom.id»"
-	    «ENDIF-»
-	    «IF alignStart != null-»
-	    android:layout_alignLeft="@+id/«alignStart.id»"
-	    «ENDIF-»
-	    «IF alignEnd != null-»
-	    android:layout_alignRight="@+id/«alignEnd.id»"
-	    «ENDIF-»
-	    «IF below != null-»
-	    android:layout_below="@+id/«below.id»"
-	    «ENDIF-»
-	    «IF above != null-»
-	    android:layout_above="@+id/«above.id»"
-	    «ENDIF-»
-	    «IF toStartOf != null-»
-	    android:layout_toLeftOf="@+id/«toStartOf.id»"
-	    «ENDIF-»
-	    «IF toEndOf != null-»
-	    android:layout_toRightOf="@+id/«toEndOf.id»"
-	    «ENDIF-»
 «ENDDEFINE-»
