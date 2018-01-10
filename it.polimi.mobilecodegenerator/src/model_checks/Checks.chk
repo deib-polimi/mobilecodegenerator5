@@ -32,7 +32,7 @@ context Application ERROR "These ids do not match the regular expression ^[a-zA-
 
 context Application ERROR "Ids must be unique" : duplicatedIds(ids()).size == 0;
 	
-context Application if(viewControllers.size) > 0 ERROR "There must be one and only one launcher ViewController" : viewControllers.select(vc | vc.launcher==true).size == 1;
+context Application if(scenes.size) > 0 ERROR "There must be one and only one launcher Scene" : scenes.select(s | s.launcher==true).size == 1;
 
 context Application if(watchControllers.size) > 0 ERROR "There must be one and only one launcher WatchController" : watchControllers.select(vc | vc.launcher==true).size == 1;
 

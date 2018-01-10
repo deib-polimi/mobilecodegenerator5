@@ -1,8 +1,6 @@
-# What's new in version 3.0 #
+# What's new in version 4.0 #
 
-* translation from Swift 2.0 to Swift 3.0
-* updated for supporting Android N and the last features of Android Studio
-* added support for protocode 3.0 and model generation 
+* added support for protocode 4.0 and model generation 
 
 # Mobilecodegenerator #
 
@@ -27,7 +25,7 @@ You have to import the it.polimi.mobilecodegenerator project in Eclipse:
 
 ## How it works ##
 
-If you already have a model of the application generated with [Protocode](https://github.com/alessioros/protocode3), ignore 1-4.
+If you already have a model of the application generated with [Protocode], ignore 1-4.
 
 To produce source code of your application you need to:
 
@@ -50,6 +48,8 @@ To produce source code of your application you need to:
 
 ## Developers contacts ##
 
+massimo.beccari@gmail.com - mobilecodegenerator 4
+
 alessiorossotti@gmail.com - mobilecodegenerator 3
 
 aldo.pintus@gmail.com - mobilecodegenerator 2
@@ -57,6 +57,7 @@ aldo.pintus@gmail.com - mobilecodegenerator 2
 gregorio.perego@gmail.com - mobilecodegenerator
 
 pezzettistefania@gmail.com - mobilecodegenerator
+
 
 
 

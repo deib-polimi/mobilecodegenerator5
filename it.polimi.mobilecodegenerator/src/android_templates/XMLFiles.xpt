@@ -1017,7 +1017,6 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 «ENDFILE-»
 «ENDDEFINE-»
 
-
 «REM»--------------------------- UiPhoneControl Positioning XML Files ---------------------------«ENDREM»
 «DEFINE uiPhoneControl FOR UiPhoneControl-»
 		android:id="@+id/«id»"

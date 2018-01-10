@@ -65,6 +65,9 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 	                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
 	                        «EXPAND uiPhoneControl FOR iv»
 	                    </imageView>
+	                    «IF iv.controlChain != null-»
+						«EXPAND controlChainGhostView FOR iv»
+						«ENDIF-»
 	                    «ENDFOREACH-»
 	                	«FOREACH vc.buttons AS b-»
 	                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="«b.id»">
@@ -92,10 +95,13 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 	                    		<action selector="«b.id»TouchDown:" destination="«vc.name»ViewControllerID" eventType="touchDown" id="«b.id»TouchDownActionID"/>
 	                        </connections>
 	                    </button>
+	                    «IF b.controlChain != null-»
+						«EXPAND controlChainGhostView FOR b»
+						«ENDIF-»
 	                    «ENDFOREACH-»
 	                    «FOREACH vc.cards AS c-»
 	                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="«c.id»">
-                            <rect key="frame" x="«c.posX.toInteger()»" y="«c.posY.toInteger()+64»" width="«c.width.toInteger()»" height="«c.height.toInteger()»"/>
+                            <rect key="frame" x="«c.posX.toInteger()»" y="«c.posY.toInteger()+64»" width="«c.defaultWidth.toInteger()»" height="«c.defaultHeight.toInteger()»"/>
                             «REM»Never use inner constraints«ENDREM»
                             <subviews>
                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="card_image" translatesAutoresizingMaskIntoConstraints="NO" id="«c.id»ImageView">
@@ -182,11 +188,17 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
                                 <action selector="«s.id»ValueChangedAction:" destination="«vc.name»ViewControllerID" eventType="valueChanged" id="«s.id»ValueChangedActionID"/>
                             </connections>
                         </slider>
+	                    «IF s.controlChain != null-»
+						«EXPAND controlChainGhostView FOR s»
+						«ENDIF-»
 	                    «ENDFOREACH-»
 	                    «FOREACH vc.spinners AS s-»
 	                    <pickerView contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="«s.id»">
                             «EXPAND uiPhoneControl FOR s»
                         </pickerView>
+	                    «IF s.controlChain != null-»
+						«EXPAND controlChainGhostView FOR s»
+						«ENDIF-»
 	                    «ENDFOREACH-»
 	                    «IF vc.photocameraController!=null-»
 	                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="«vc.photocameraController.id»" >
@@ -204,6 +216,9 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 	                            <action selector="openPhotoCamera:" destination="«vc.name»ViewControllerID" eventType="touchUpInside" id="«vc.photocameraController.id»TouchUpInsideActionID"/>
 	                        </connections>
 	                    </button>
+	                    «IF vc.photocameraController.controlChain != null-»
+						«EXPAND controlChainGhostView FOR vc.photocameraController»
+						«ENDIF-»
 	                    «ENDIF-»
 	                    «IF vc.videocameraController!=null-»
 	                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="«vc.videocameraController.id»" >
@@ -221,11 +236,17 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 	                            <action selector="openVideoCamera:" destination="«vc.name»ViewControllerID" eventType="touchUpInside" id="«vc.videocameraController.id»TouchUpInsideActionID"/>
 	                        </connections>
 	                    </button>
+	                    «IF vc.videocameraController.controlChain != null-»
+						«EXPAND controlChainGhostView FOR vc.videocameraController»
+						«ENDIF-»
 	                    «ENDIF-»
 	                    «IF vc.map != null-»
 	                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="«vc.map.id»">
                             «EXPAND uiPhoneControl FOR vc.map»
                         </mapView>
+	                    «IF vc.map.controlChain != null-»
+						«EXPAND controlChainGhostView FOR vc.map»
+						«ENDIF-»
 	                    «ENDIF-»
 	                    «IF vc.audioRecorder!=null-»
 	                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="«vc.audioRecorder.id»" >
@@ -239,10 +260,13 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 	                            <action selector="record:" destination="«vc.name»ViewControllerID" eventType="touchUpInside" id="«vc.audioRecorder.id»TouchUpInsideActionID"/>
 	                        </connections>
 	                    </button>
+	                    «IF vc.audioRecorder.controlChain != null-»
+						«EXPAND controlChainGhostView FOR vc.audioRecorder»
+						«ENDIF-»
 						«ENDIF-»
 						«FOREACH vc.switches AS s-»
 	                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="«s.id»">
-	                    	<rect key="frame" x="«s.posX.toInteger()»" y="«s.posY.toInteger() + 64»" width="«s.width.toInteger()»" height="«s.height.toInteger()»"/>
+	                    	<rect key="frame" x="«s.posX.toInteger()»" y="«s.posY.toInteger() + 64»" />
 	                    	<subviews>
 			                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="«s.id»Button">    
 		                            <rect key="frame" x="0" y="0" width="51" height="31"/>
@@ -257,10 +281,13 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
                                 <constraint firstItem="«s.id»Button" firstAttribute="centerY" secondItem="«s.id»" secondAttribute="centerY" id="«s.id»ButtonConstCenterY"/>
                             </constraints>
                         </view>
+	                    «IF s.controlChain != null-»
+						«EXPAND controlChainGhostView FOR s»
+						«ENDIF-»
 	                    «ENDFOREACH-»
 	                    «FOREACH vc.datepickers AS d-»
 	                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="«d.id»">
-	                    	<rect key="frame" x="«d.posX.toInteger()»" y="«d.posY.toInteger() + 64»" width="«d.width.toInteger()»" height="«d.height.toInteger()»"/>
+	                    	<rect key="frame" x="«d.posX.toInteger()»" y="«d.posY.toInteger() + 64»" />
 	                    	<subviews>
 	                    		<datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="«d.id»Picker">
                                     <rect key="frame" x="0.0" y="64" width="400" height="450"/>
@@ -278,10 +305,13 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
                                 <constraint firstItem="«d.id»Picker" firstAttribute="centerY" secondItem="«d.id»" secondAttribute="centerY" id="«d.id»PickerConstCenterY"/>
                             </constraints>
                         </view>
+	                    «IF d.controlChain != null-»
+						«EXPAND controlChainGhostView FOR d»
+						«ENDIF-»
 	                    «ENDFOREACH-»
 	                    «FOREACH vc.timepickers AS t-»
 	                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="«t.id»">
-	                    	<rect key="frame" x="«t.posX.toInteger()»" y="«t.posY.toInteger() + 64»" width="«t.width.toInteger()»" height="«t.height.toInteger()»"/>
+	                    	<rect key="frame" x="«t.posX.toInteger()»" y="«t.posY.toInteger() + 64»" />
 	                    	<subviews>
 	                    		<datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="«t.id»Picker">
                                     <rect key="frame" x="0.0" y="64" width="400" height="450"/>
@@ -299,10 +329,13 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
                                 <constraint firstItem="«t.id»Picker" firstAttribute="centerY" secondItem="«t.id»" secondAttribute="centerY" id="«t.id»PickerConstCenterY"/>
                             </constraints>
                         </view>
+	                    «IF t.controlChain != null-»
+						«EXPAND controlChainGhostView FOR t»
+						«ENDIF-»
 	                    «ENDFOREACH-»
 	                    «FOREACH vc.audioPlayers AS ap-»
 	                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="«ap.id»">
-	                    	<rect key="frame" x="«ap.posX.toInteger()»" y="«ap.posY.toInteger() + 64»" width="«ap.width.toInteger()»" height="«ap.height.toInteger()»"/>
+	                    	<rect key="frame" x="«ap.posX.toInteger()»" y="«ap.posY.toInteger() + 64»" />
 							<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
 	                        <subviews>
 	                        	<button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="«ap.id»AudioPlayerPlayButton">
@@ -355,6 +388,9 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 	                            <constraint firstAttribute="centerY" secondItem="«ap.id»AudioPlayerPlayButton" secondAttribute="centerY" id="«ap.id»CentYPlayConst"/>	
 	                        </constraints>
 	                    </view>
+	                    «IF ap.controlChain != null-»
+						«EXPAND controlChainGhostView FOR ap»
+						«ENDIF-»
 	                    «ENDFOREACH-»
 	                    «FOREACH vc.textViews AS tv-»
 	                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="«tv.textAlign.toString()»" text="«tv.content»" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="«tv.id»">
@@ -369,6 +405,9 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 	                        <color key="textColor" red="«redFromHex(tv.textColor)»" green="«greenFromHex(tv.textColor)»" blue="«blueFromHex(tv.textColor)»" alpha="1" colorSpace="calibratedRGB"/>
 	                        <nil key="highlightedColor"/>
 	                    </label>
+	                    «IF tv.controlChain != null-»
+						«EXPAND controlChainGhostView FOR tv»
+						«ENDIF-»
 	                    «ENDFOREACH-»
 	                    «FOREACH vc.editTexts AS et-»
 	                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="«et.placeholder»" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" text="«et.initialContent»" id="«et.id»">
@@ -377,6 +416,9 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 	                        <fontDescription key="fontDescription" type="system" pointSize="«et.textSize»"/>
 	                        <textInputTraits key="textInputTraits"/>
 	                    </textField>
+	                    «IF et.controlChain != null-»
+						«EXPAND controlChainGhostView FOR et»
+						«ENDIF-»
 	                    «ENDFOREACH-»
 	                    «FOREACH vc.videoViews AS vv-»
 	                    <webView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="«vv.id»">
@@ -385,12 +427,18 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 	                        «ENDIF»
 	                        «EXPAND uiPhoneControl FOR vv»
 	                    </webView>
+	                    «IF vv.controlChain != null-»
+						«EXPAND controlChainGhostView FOR vv»
+						«ENDIF-»
 	                    «ENDFOREACH-»
 	                    «FOREACH vc.webViews AS wv-»
 	                    <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="«wv.id»">
 	                    	«EXPAND uiPhoneControl FOR wv»
 	                    	<color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
 	                    </webView>
+	                    «IF wv.controlChain != null-»
+						«EXPAND controlChainGhostView FOR wv»
+						«ENDIF-»
 	                    «ENDFOREACH-»
 	                    «FOREACH vc.listViews AS lv-»
 	                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="57" sectionHeaderHeight="0.0" sectionFooterHeight="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="«lv.id»">
@@ -759,19 +807,15 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 	</scenes>
 	<resources>
 		«FOREACH viewControllers AS vc-»
-		
 		«FOREACH vc.imageViews AS iv-»
         «IF iv.sourceType.toString().matches("localFile") && !iv.fileUri.matches("")-»
         «addStoryboardImage(iv.fileUri)»
         «ENDIF-»
         «ENDFOREACH-»
-        
         «IF !vc.backgroundImage.matches("")-»
         «addStoryboardImage(vc.backgroundImage)»
         «ENDIF-»
-        
         «ENDFOREACH-»
-        
         «FOREACH 0.upTo(numStoryboardImages()) AS i-»
         <image name="«getStoryboardImage(i)»" width="100" height="100"/>
         «ENDFOREACH-»
@@ -793,6 +837,72 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 «DEFINE uiPhoneControl FOR UiPhoneControl-»
 <rect key="frame" x="«posX.toInteger()»" y="«posY.toInteger()+64»" width="«width.toInteger()»" height="«height.toInteger()»"/>
 <constraints>
-	«EXPAND ios_templates::ViewConstraints::innerConstraints FOR this-»	
+	«EXPAND ios_templates::ViewConstraints::innerConstraints-»	
 </constraints>
+«ENDDEFINE-»
+
+«REM» Ghost (invisible) views used to make the correct spacing for the chains «ENDREM»
+«DEFINE controlChainGhostView FOR UiPhoneControl-»
+«IF controlChain.type.toString().matches("spread")-»
+«REM» All elements have a ghost view on their left «ENDREM»
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="«controlChain.id»-GhostView«indexInChain.toInteger()»">
+	«IF precedentInChain == null-»
+	<rect key="frame" x="0" y="0" />
+	«ELSE-»
+	«IF controlChain.axis.toString().matches("horizontal")-»
+	<rect key="frame" x="«precedentInChain.posX + precedentInChain.width»" y="0" />
+	«ELSE-»
+	<rect key="frame" x="0" y="«precedentInChain.posY + precedentInChain.height»" />
+	«ENDIF-»
+	«ENDIF-»
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+«REM» Only last element has a ghost view on his right «ENDREM»
+«IF followingInChain == null-»
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="«controlChain.id»-GhostView«indexInChain.toInteger()+1»">
+	«IF controlChain.axis.toString().matches("horizontal")-»
+	<rect key="frame" x="«posX + width»" y="0" />
+	«ELSE-»
+	<rect key="frame" x="0" y="«posY + height»" />
+	«ENDIF-»
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+«ENDIF-»
+«ELSEIF controlChain.type.toString().matches("spread_inside")-»
+«REM» The first element hasn't a ghost view on his left «ENDREM»
+«IF precedentInChain != null-»
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="«controlChain.id»-GhostView«indexInChain.toInteger()»">
+	«IF controlChain.axis.toString().matches("horizontal")-»
+	<rect key="frame" x="«precedentInChain.posX + precedentInChain.width»" y="0" />
+	«ELSE-»
+	<rect key="frame" x="0" y="«precedentInChain.posY + precedentInChain.height»" />
+	«ENDIF-»
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+«ENDIF-»
+«ELSEIF controlChain.type.toString().matches("packed")-»
+«REM» Only the first element has a ghost view on his left «ENDREM»
+«IF precedentInChain == null-»
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="«controlChain.id»-GhostView0">
+	<rect key="frame" x="0" y="0" />
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+«ENDIF-»
+«REM» Only the last element has a ghost view on his right «ENDREM»
+«IF followingInChain == null-»
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="«controlChain.id»-GhostView1">
+	«IF controlChain.axis.toString().matches("horizontal")-»
+	<rect key="frame" x="«posX + width»" y="0" />
+	«ELSE-»
+	<rect key="frame" x="0" y="«posY + height»" />
+	«ENDIF-»
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+«ENDIF-»
+«ENDIF-»
 «ENDDEFINE-»

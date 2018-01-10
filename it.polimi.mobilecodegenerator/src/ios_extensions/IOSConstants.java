@@ -111,4 +111,7 @@ public class IOSConstants {
 	public static String[] destinationWatchFilesPaths = {
 		destinationFilesFolder+"/"+AppJavaUtil.APPLICATION_NAME+" WatchKit App/Assets.xcassets/AppIcon.appiconset/Contents.json",	
 	};
+	
+	public static float defaultDeviceViewWidth = 414;
+	public static float defaultDeviceViewHeight = 736;
 }
