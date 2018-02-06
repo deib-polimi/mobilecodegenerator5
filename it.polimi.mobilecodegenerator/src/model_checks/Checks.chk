@@ -20,9 +20,13 @@ context Application ERROR "Application name '"+ name +"' does not match the regu
 	
 context Application ERROR "Company identifier '"+ companyIdentifier +"' does not match the regular expression ^[a-z]+(\\.[a-z]+)*" : isCompanyIdentifierValid(companyIdentifier) == true;
 
+context Application ERROR "Names of these Scenes do not match the regular expression ^[a-zA-Z][a-zA-Z0-9_]*" : invalidIds(scenes.name).size == 0;
+
 context Application ERROR "Names of these ViewControllers do not match the regular expression ^[a-zA-Z][a-zA-Z0-9_]*" : invalidIds(viewControllers.name).size == 0;
 
 context Application ERROR "Names of these WatchControllers do not match the regular expression ^[a-zA-Z][a-zA-Z0-9_]*" : invalidIds(watchControllers.name).size == 0;
+
+context Application ERROR "Names of these Scenes must be unique" : duplicatedIds(scenes.name).size == 0;
 
 context Application ERROR "Names of these ViewControllers must be unique" : duplicatedIds(viewControllers.name).size == 0;
 
@@ -43,27 +47,14 @@ context Application if(invalidFilesNames().size == 0) ERROR "Extensions of files
 context Application if(invalidFilesNames().size == 0 && invalidFilesExtensions().size == 0) ERROR "Files in user_files folder must have different names: " : duplicatedFilesNames().size == 0;
 	
 	
-context Button if(clickListener!=null && clickListener.navigation!=null) ERROR "Navigation must have a destination [Button: '"+id+"']" : !clickListener.navigation.destination.matches("");
+context Navigation if(contextScene == null) ERROR "Navigation must have a destination [Navigation: '"+id+"']" : !(destinationScene == null && destinationViewController == null);
 
-context Button if(clickListener.navigation!=null && clickListener.navigation.destination!=null) ERROR "Destination of Navigation must be the name of an existing ViewController [Button: '"+id+"']" : viewController.application.viewControllers.exists(vc| vc.name==clickListener.navigation.destination);
+context Navigation if(destinationScene != null) ERROR "Destination of Navigation must not be a Menu Item [Navigation: '"+id+"']" : isDestinationNotAMenuItem(destinationScene.id, destinationScene.application.menu.menuItems.navigation.destinationScene.id) == true;
+
 
 context WatchButton if(watchClickListener!=null && watchClickListener.watchNavigation!=null) ERROR "WatchNavigation must have a destination [WatchButton: '"+id+"']" : !watchClickListener.watchNavigation.destination.matches("");
 
 context WatchButton if(watchClickListener.watchNavigation!=null && watchClickListener.watchNavigation.destination!=null) ERROR "Destination of WatchNavigation must be the name of an existing WatchController [WatchButton: '"+id+"']" : watchController.application.watchControllers.exists(vc| vc.name==watchClickListener.watchNavigation.destination);
-
-	
-context ListView if(clickListener.navigation!=null) ERROR "Navigation must have a destination [ListView: '"+id+"']" : !clickListener.navigation.destination.matches("");
-
-context ListView if(clickListener.navigation!=null && clickListener.navigation.destination!=null) ERROR "Destination of Navigation must be the name of an existing ViewController [ListView: '"+id+"']" : viewController.application.viewControllers.exists(vc| vc.name==clickListener.navigation.destination);
-
-context ListView if(clickListener.navigation!=null && clickListener.navigation.destination!=null) ERROR "Destination of Navigation must not be a Menu Item [ListView: '"+id+"' -> "+clickListener.navigation.destination+"]" : isDestinationNotAMenuItem(clickListener.navigation.destination, viewController.application.menu.menuItems.navigation.destination) == true;
-
-
-context GridView if(clickListener!=null && clickListener.navigation!=null) ERROR "Navigation must have a destination [GridView: '"+id+"']" : !clickListener.navigation.destination.matches("");
-
-context GridView if(clickListener.navigation!=null && clickListener.navigation.destination!=null) ERROR "Destination of Navigation must be the name of an existing ViewController [GridView: '"+id+"']" : viewController.application.viewControllers.exists(vc| vc.name==clickListener.navigation.destination);
-
-context GridView if(clickListener.navigation!=null && clickListener.navigation.destination!=null) ERROR "Destination of Navigation must not be a Menu Item [GridView: '"+id+"' -> "+clickListener.navigation.destination+"]" : isDestinationNotAMenuItem(clickListener.navigation.destination, viewController.application.menu.menuItems.navigation.destination) == true;
 
 
 context PhotocameraController if(!imageViewId.matches("")) ERROR "ImageViewId of PhotocameraController must be the id of an existing ImageView with sourceType = 'hardwareFile' in the same ViewController" : viewController.imageViews.exists(iv| iv.id.matches(imageViewId) && iv.sourceType.toString().matches("hardwareFile"));		
@@ -89,15 +80,17 @@ context AudioPlayer if(sourceType.toString().matches("localFile") && !fileUri.ma
 context WebView if(!HTMLFileName.matches("")) ERROR "HTMLFileName of WebView must end with html extension" : HTMLFileName.contains(".") && (HTMLFileName.split("\\.").get(1).matches("html"));
 
 
+context Scene ERROR "Number of view controllers in scene must be at least 1 [Scene: '"+id+"']" : sceneViewControllers.size >= 1;
+
+
 context ViewController ERROR "Names of AsyncTasks must be of minimum one character long" : asyncTasks.forAll(at| at.name.length>0);
 
 context ViewController ERROR "Names of AsyncTasks must be unique in the same ViewController" : asyncTasks.forAll(at1 | asyncTasks.select(at2 | at1.name.matches(at2.name)).size == 1);
 
 
-context Menu if (this != null && menuItems.size > 0) ERROR "Menu items must be all different ": duplicatedIds(menuItems.navigation.destination).size == 0;
+context Menu if (this != null && menuItems.size > 0) ERROR "Menu items must be all different ": ((duplicatedIds(menuItems.navigation.destinationScene.id).size == 0) && (duplicatedIds(menuItems.navigation.destinationViewController.id).size == 0));
 
 context MenuItem ERROR "There must be a Navigation for every MenuItem [MenuItem: '"+id+"']" : navigation!=null;
 
-context MenuItem if(navigation != null) ERROR "Navigation must have a destination [MenuItem: '"+id+"']" : !navigation.destination.matches("");
 
-context MenuItem if(navigation != null && navigation.destination != null) ERROR "Destination of Navigation must be the name of an existing ViewController [MenuItem: '"+id+"']" : menu.application.viewControllers.exists(vc | vc.name.matches(navigation.destination));
+context ControlChain ERROR "Number of controls in control chain must be at least 2 [ControlChain: '"+id+"']" : nControls >= 2;

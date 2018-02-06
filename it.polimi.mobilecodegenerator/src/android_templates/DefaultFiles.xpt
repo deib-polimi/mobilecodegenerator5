@@ -1,5 +1,5 @@
 «REM»
-Copyright 2016 Gregorio Perego, Stefania Pezzetti, Aldo Pintus
+Copyright 2016 Gregorio Perego, Stefania Pezzetti, Aldo Pintus, Alessio Rossotti, Massimo Beccari
 This file is part of it.polimi.mobilecodegenerator.
 
 it.polimi.mobilecodegenerator is free software: 
@@ -33,7 +33,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 «REM»--------------------------- README.txt ---------------------------«ENDREM»
 «FILE name+"/"+"README.txt"-»
 ------------------------------------------------------------------------------------------------------------------------
-Copyright 2017 Gregorio Perego, Stefania Pezzetti, Aldo Pintus, Alessio Rossotti
+Copyright 2017 Gregorio Perego, Stefania Pezzetti, Aldo Pintus, Alessio Rossotti, Massimo Beccari
 This file is part of it.polimi.mobilecodegenerator.
 
 it.polimi.mobilecodegenerator is free software: 
@@ -82,7 +82,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    buildToolsVersion "26.0.2"
 
     defaultConfig {
         applicationId "«companyIdentifier».«name.toLowerCase()»"
@@ -90,6 +90,7 @@ android {
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
@@ -100,23 +101,29 @@ android {
 }
 
 dependencies {
-	compile fileTree(dir: 'libs', include: ['*.jar'])
+	compile fileTree(include: ['*.jar'], dir: 'libs')
 	«IF !(this.watchControllers.isEmpty)-»
 	wearApp project(':wear')
 	«ENDIF-»
-	compile 'com.android.support:appcompat-v7:25.3.1'
-    compile 'com.android.support:design:25.3.1'
+	compile 'com.android.support:appcompat-v7:25.4.0'
+    compile 'com.android.support:design:25.4.0'
     «IF existsAtLeastOne(viewControllers.map) || existsAtLeastOne(watchControllers.watchVoiceMessage)-»
-    compile 'com.google.android.gms:play-services:10.2.0'
+    implementation 'com.google.android.gms:play-services-base:11.8.0'
+    «IF existsAtLeastOne(viewControllers.map)-»
+    implementation 'com.google.android.gms:play-services-maps:11.8.0'
+    «ENDIF-»
+    «IF existsAtLeastOne(watchControllers.watchVoiceMessage)-»
+    implementation 'com.google.android.gms:play-services-wearable:11.8.0'
+    «ENDIF-»
     «ENDIF-»
     «IF existsObject(dataHandler.cloudHandler)-»
-    compile 'com.google.firebase:firebase-database:10.0.1'
+    compile 'com.google.firebase:firebase-database:11.8.0'
     «ENDIF-»
     «IF existsAtLeastOne(viewControllers.cards)-»
-    compile 'com.android.support:cardview-v7:25.3.1'
+    compile 'com.android.support:cardview-v7:25.4.0'
     «ENDIF-»
     «IF menu.menuItems.size > 0 -»
-    compile 'com.android.support:support-v4:25.3.1'
+    compile 'com.android.support:support-v4:25.4.0'
     «ENDIF-»
     «IF existsAtLeastOne(viewControllers.datepickers) -»
     compile 'com.github.prolificinteractive:material-calendarview:v1.4.3'

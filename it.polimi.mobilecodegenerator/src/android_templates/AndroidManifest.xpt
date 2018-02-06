@@ -64,40 +64,24 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
             android:value="YOUR_API_KEY_HERE" />
         «ENDIF-»
         
-        «IF menu.menuItems.size > 0 -»
-        «FOREACH viewControllers AS vc-»
-        «IF vc.launcher-»
+        «FOREACH scenes AS s-»
+        «IF s.launcher-»
         <activity
-            android:name="«vc.application.companyIdentifier».«name.toLowerCase()».«vc.name.toFirstUpper()»Activity"
-            android:label="«name»" 
+            android:name="«companyIdentifier».«name.toLowerCase()».«s.name.toFirstUpper()»Activity"
+            android:label="«s.name.toFirstUpper()»" 
             android:theme="@style/AppTheme.NoActionBar">
 			<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        «ELSEIF !vc.launcher && !isAMenuDestination(vc.name, vc.application.menu.menuItems.navigation.destination)-»
+        «ELSE-»
         <activity
-            android:name="«vc.application.companyIdentifier».«name.toLowerCase()».«vc.name.toFirstUpper()»Activity"
-            android:label="«name»" 
+            android:name="«companyIdentifier».«name.toLowerCase()».«s.name.toFirstUpper()»Activity"
+            android:label="«s.name.toFirstUpper()»" 
             android:theme="@style/AppTheme.NoActionBar"/>
         «ENDIF-»
 		«ENDFOREACH-»
-        «ELSE-»
-        «FOREACH viewControllers AS vc-»
-		<activity
-            android:name="«vc.application.companyIdentifier».«name.toLowerCase()».«vc.name.toFirstUpper()»Activity"
-            android:label="«name»" 
-            android:theme="@style/AppTheme.NoActionBar">
-            «IF vc.launcher-»
-			<intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-			«ENDIF-»
-        </activity>
-		«ENDFOREACH-»
-        «ENDIF-»
         
     </application>
 </manifest>

@@ -42,7 +42,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 	<!--«vc.name»ViewController-->
 	<scene sceneID="«vc.name»ViewControllerSceneID">
 		<objects>
-			«IF isAMenuDestination(vc.name, vc.application.menu.menuItems.navigation.destination)-»
+			«IF isAMenuDestination(vc.name, vc.application.menu.menuItems.navigation.destinationScene.name)-»
 			<viewController id="«vc.name»ViewControllerID" customClass="«vc.name»ViewController" customModule="«name»" customModuleProvider="target" sceneMemberID="viewController" automaticallyAdjustsScrollViewInsets="NO">
 			«ELSE-»
 			<viewController id="«vc.name»ViewControllerID" hidesBottomBarWhenPushed="YES" customClass="«vc.name»ViewController" customModule="«name»" customModuleProvider="target" sceneMemberID="viewController" automaticallyAdjustsScrollViewInsets="NO">
@@ -779,7 +779,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
             <placeholder placeholderIdentifier="IBFirstResponder" id="«i.navigation.destination»ViewControllerPlaceholderID" userLabel="First Responder" sceneMemberID="firstResponder"/>
         </objects>
     </scene>
-    «ENDFOREACH-»
+    «ENDFOREACH-» 
 	«ELSE-»
 	«REM»In case of absence of the Menu or presence with menuItems.size==0 (Empty Menu) we create a NavigationController for the launcher ViewController«ENDREM»
 	«FOREACH viewControllers AS vc-»

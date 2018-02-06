@@ -184,15 +184,15 @@
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" iD="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="hasMenu" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" iD="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="smartphoneHasTabMenu" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" iD="true"/>
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="tabletHasTabMenu" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean" iD="true"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="typeSmartphone" lowerBound="1"
+        eType="#//SceneType" defaultValueLiteral=""/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="typeTablet" lowerBound="1"
+        eType="#//SceneType" defaultValueLiteral=""/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parentViewControllers"
         ordered="false" upperBound="2" eType="#//ViewController" eKeys="#//ViewController/id"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="sceneViewControllers" ordered="false"
-        upperBound="-1" eType="#//SceneViewController" containment="true" eOpposite="#//SceneViewController/scene"
-        eKeys="#//ViewController/id"/>
+        lowerBound="1" upperBound="-1" eType="#//SceneViewController" containment="true"
+        eOpposite="#//SceneViewController/scene" eKeys="#//ViewController/id"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="SceneViewController">
     <eStructuralFeatures xsi:type="ecore:EReference" name="scene" lowerBound="1" eType="#//Scene"
@@ -370,8 +370,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="Button" eSuperTypes="#//UiPhoneControl">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="title" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
         defaultValueLiteral=""/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="clickListener" eType="#//ClickListener"
-        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="navigations" upperBound="-1"
+        eType="#//Navigation" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="viewController" lowerBound="1"
         eType="#//ViewController" changeable="false" eOpposite="#//ViewController/buttons"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="textColor" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -402,10 +402,10 @@
   <eClassifiers xsi:type="ecore:EClass" name="GridView" eSuperTypes="#//UiPhoneControl">
     <eStructuralFeatures xsi:type="ecore:EReference" name="gridViewCells" upperBound="-1"
         eType="#//GridViewCell" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="clickListener" eType="#//ClickListener"
-        containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="viewController" lowerBound="1"
         eType="#//ViewController" changeable="false" eOpposite="#//ViewController/gridViews"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="navigations" upperBound="-1"
+        eType="#//Navigation" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="gridType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ImageView" eSuperTypes="#//UiPhoneControl">
@@ -420,8 +420,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="backgroundColor" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="listViewCells" upperBound="-1"
         eType="#//ListViewCell" containment="true"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="clickListener" eType="#//ClickListener"
-        containment="true"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="navigations" upperBound="-1"
+        eType="#//Navigation" containment="true"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="viewController" lowerBound="1"
         eType="#//ViewController" changeable="false" eOpposite="#//ViewController/listViews"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="listType" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -540,17 +540,17 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="menu" lowerBound="1" eType="#//Menu"
         changeable="false" eOpposite="#//Menu/menuItems"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="ClickListener">
-    <eStructuralFeatures xsi:type="ecore:EReference" name="navigation" eType="#//Navigation"
-        containment="true"/>
-  </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="WatchClickListener">
     <eStructuralFeatures xsi:type="ecore:EReference" name="watchNavigation" eType="#//WatchNavigation"
         containment="true"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="Navigation">
-    <eStructuralFeatures xsi:type="ecore:EAttribute" name="destination" lowerBound="1"
-        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" defaultValueLiteral=""/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
+        defaultValueLiteral=""/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="contextScene" eType="#//Scene"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="destinationViewController"
+        eType="#//ViewController"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="destinationScene" eType="#//Scene"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="WatchNavigation">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="destination" lowerBound="1"
@@ -583,5 +583,10 @@
   <eClassifiers xsi:type="ecore:EEnum" name="ChainAxis">
     <eLiterals name="horizontal"/>
     <eLiterals name="vertical" value="1"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="SceneType">
+    <eLiterals name="singleVC"/>
+    <eLiterals name="singleVCTab" value="1"/>
+    <eLiterals name="multiVC" value="2"/>
   </eClassifiers>
 </ecore:EPackage>

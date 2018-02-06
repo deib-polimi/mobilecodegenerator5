@@ -29,6 +29,14 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 	<string name="«pr.key»">«pr.key»</string>
 	<string name="«pr.key»_default">«pr.value»</string>
 	«ENDFOREACH-»
+	
+	«FOREACH scenes AS s-»
+	«IF s.typeSmartphone.toString().matches("singleVCTab") || s.typeTablet.toString().matches("singleVCTab")-»
+	«FOREACH 0.upTo(s.sceneViewControllers.size - 1) AS i-»
+	<string name="tab_text_«s.name.toLowerCase()»_«(i+1).toString()»">«s.sceneViewControllers.get(i).viewController.name.toFirstUpper()»</string>
+	«ENDFOREACH-»
+	«ENDIF-»
+	«ENDFOREACH-»
 
 </resources>
 «ENDFILE-»
@@ -338,48 +346,135 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 «REM»---------------------------------------------------------------------------------------------«ENDREM»
 «REM»---------------------------------------------------------------------------------------------«ENDREM»
 
+«EXPAND FragmentXMLLayout FOREACH viewControllers-»
 
 «IF menu.menuItems.size > 0 -»
-«EXPAND menuApplication FOREACH viewControllers-»
+«EXPAND menuApplication FOREACH scenes-»
+«EXPAND menu FOR menu-»
 «ELSE-»
-«EXPAND simpleApplication FOREACH viewControllers-»
+«EXPAND simpleApplication FOREACH scenes-»
 «ENDIF-»
 «ENDDEFINE-»
 
 
+«REM»--------------------------- menu Layout XML File ---------------------------«ENDREM»
+«DEFINE menu FOR Menu-»
+«FILE application.name+"/mobile/src/main/res/menu/"+"app_menu.xml"-»
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+	
+	«FOREACH menuItems AS item-»
+	«IF item.navigation.destinationScene != null -»
+	<item
+        android:id="@+id/nav_«item.navigation.destinationScene.name»"
+        android:title="«item.navigation.destinationScene.name»" />
+    «ELSEIF item.navigation.destinationViewController != null-»
+    <item
+        android:id="@+id/nav_«item.navigation.destinationViewController.name»"
+        android:title="«item.navigation.destinationViewController.name»" />
+    «ENDIF-»
+	«ENDFOREACH-»
+
+</menu>
+«ENDFILE-»
+«ENDDEFINE-»
+
+
 «REM»--------------------------- menuApplication Layout XML Files ---------------------------«ENDREM»
-«DEFINE menuApplication FOR ViewController-»
+«DEFINE menuApplication FOR Scene-»
 
-«IF isAMenuDestination(name, application.menu.menuItems.navigation.destination) && launcher-»
-«EXPAND LauncherFragmentViewControllerXMLLayout FOR this»
-«ENDIF-»
-
-«IF isAMenuDestination(name, application.menu.menuItems.navigation.destination) -»
-«EXPAND FragmentViewControllerXMLLayout FOR this»
+«IF isAMenuDestination(name, application.menu.menuItems.navigation.destinationScene.name)-»
+«EXPAND ActivityWithMenuXMLLayout FOR this»
 «ELSE-»
-«EXPAND defaultViewControllerXMLLayout FOR this»
+«EXPAND SimpleActivityXMLLayout FOR this»
 «ENDIF-»
 
 «ENDDEFINE-»
 
 
 «REM»--------------------------- simpleApplication Layout XML Files ---------------------------«ENDREM»
-«DEFINE simpleApplication FOR ViewController-»
-«EXPAND defaultViewControllerXMLLayout FOR this»
+«DEFINE simpleApplication FOR Scene-»
+«EXPAND SimpleActivityXMLLayout FOR this»
+«ENDDEFINE-»
+
+«REM»
+	Layout expansion rules:
+	- viewControllers -> fragment_[vc_name].xml
+	- scenes with menu -> activity_[scene_name].xml (DrawerLayout, include app_bar_[scene_name].xml)
+	                      app_bar_[scene_name].xml (CoordinatorLayout, if present include content_[scene_name].xml)
+	                      content_[scene_name].xml (ConstraintLayout, present only for multiVC type scenes, otherwise app_bar_[].xml contains the ViewPager)
+	- scenes without menu -> activity_[scene_name].xml (CoordinatorLayout, if present include content_[scene_name].xml)
+	                         content_[scene_name].xml (ConstraintLayout, present only for multiVC type scenes, otherwise activity_[].xml contains the ViewPager)
+	For scenes with menu, activity_[].xml layout is one, app_bar_[].xml and content_[].xml may have two versions (one for smartphone and one for tablet)
+	For scenes without menu, both activity_[].xml and content_[].xml may have two versions (one for smartphone and one for tablet)
+«ENDREM»
+
+«REM»--------------------------- Activity With Menu Layout XML Files ---------------------------«ENDREM»
+«DEFINE ActivityWithMenuXMLLayout FOR Scene-»
+«FILE application.name+"/mobile/src/main/res/layout/"+"activity_"+name.toLowerCase()+".xml"-»
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
+
+    <include
+        layout="@layout/app_bar_«name.toLowerCase()»"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:menu="@menu/app_menu" />
+
+</android.support.v4.widget.DrawerLayout>
+«ENDFILE-»
+«REM» Export 2 app_bar layouts for scenes with typeSmartphone != typeTablet «ENDREM»
+«FILE application.name+"/mobile/src/main/res/layout/"+"app_bar_"+name.toLowerCase()+".xml"-»
+«EXPAND CoordinatorLayoutSmartphoneXMLLayout FOR this»
+«ENDFILE-»
+«IF !typeSmartphone.toString().matches(typeTablet.toString())-»
+«FILE application.name+"/mobile/src/main/res/layout-sw600dp/"+"app_bar_"+name.toLowerCase()+".xml"-»
+«EXPAND CoordinatorLayoutTabletXMLLayout FOR this»
+«ENDFILE-»
+«ENDIF-»
+«EXPAND ContentXMLLayout FOR this»
 «ENDDEFINE-»
 
 
-«REM»--------------------------- Launcher Menu Item Layout XML Files ---------------------------«ENDREM»
-«DEFINE LauncherFragmentViewControllerXMLLayout FOR ViewController-»
+«REM»--------------------------- Activity WITHOUT Menu Layout XML Files ---------------------------«ENDREM»
+«DEFINE SimpleActivityXMLLayout FOR Scene-»
+«REM» Export 2 activity layouts for scenes with typeSmartphone != typeTablet «ENDREM»
 «FILE application.name+"/mobile/src/main/res/layout/"+"activity_"+name.toLowerCase()+".xml"-»
+«EXPAND CoordinatorLayoutSmartphoneXMLLayout FOR this»
+«ENDFILE-»
+«IF !typeSmartphone.toString().matches(typeTablet.toString())-»
+«FILE application.name+"/mobile/src/main/res/layout-sw600dp/"+"activity_"+name.toLowerCase()+".xml"-»
+«EXPAND CoordinatorLayoutTabletXMLLayout FOR this»
+«ENDFILE-»
+«ENDIF-»
+«EXPAND ContentXMLLayout FOR this»
+«ENDDEFINE-»
+
+
+«REM»--------------------------- Coordinator Layout Expansion for Smartphone's Scene ---------------------------«ENDREM»
+«DEFINE CoordinatorLayoutSmartphoneXMLLayout FOR Scene-»
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
     tools:context="«application.companyIdentifier».«application.name.toLowerCase()».«name.toFirstUpper()»Activity">
 
     <android.support.design.widget.AppBarLayout
@@ -388,43 +483,157 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/«name.toLowerCase()»_toolbar"
+            android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-
-            app:popupTheme="@style/AppTheme.PopupOverlay">
-
-        </android.support.v7.widget.Toolbar>
-
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            
+        «IF typeSmartphone.toString().matches("singleVCTab")-»
         <android.support.design.widget.TabLayout
-            android:id="@+id/«name.toLowerCase()»_tabs"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            app:tabMode="scrollable"/>
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+			«FOREACH 1.upTo(sceneViewControllers.size) AS i -»
+			<android.support.design.widget.TabItem
+                android:id="@+id/tabItem«i»"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tab_text_«name.toLowerCase()»_«i»" />
+			«ENDFOREACH-»
+
+        </android.support.design.widget.TabLayout>
+        «ENDIF-»
 
     </android.support.design.widget.AppBarLayout>
-
+    
+    «IF typeSmartphone.toString().matches("singleVC") || typeSmartphone.toString().matches("singleVCTab")-»
     <android.support.v4.view.ViewPager
-        android:id="@+id/«name.toLowerCase()»_container"
+        android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    «ELSE-»
+    <include layout="@layout/content_«name.toLowerCase()»" />
+    «ENDIF-»
 
 </android.support.design.widget.CoordinatorLayout>
-«ENDFILE-»
 «ENDDEFINE-»
 
 
-«REM»--------------------------- Any Menu Item Layout XML Files ---------------------------«ENDREM»
-«DEFINE FragmentViewControllerXMLLayout FOR ViewController-»
-«FILE application.name+"/mobile/src/main/res/layout/"+"fragment_"+name.toLowerCase()+".xml"-»
+«REM»--------------------------- Coordinator Layout Expansion for Tablet's Scene ---------------------------«ENDREM»
+«DEFINE CoordinatorLayoutTabletXMLLayout FOR Scene-»
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="«application.companyIdentifier».«application.name.toLowerCase()».«name.toFirstUpper()»Activity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            
+        «IF typeTablet.toString().matches("singleVCTab")-»
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+			«FOREACH 1.upTo(sceneViewControllers.size) AS i -»
+			<android.support.design.widget.TabItem
+                android:id="@+id/tabItem«i»"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tab_text_«name.toLowerCase()»_«i»" />
+			«ENDFOREACH-»
+
+        </android.support.design.widget.TabLayout>
+        «ENDIF-»
+
+    </android.support.design.widget.AppBarLayout>
+    
+    «IF typeTablet.toString().matches("singleVC") || typeTablet.toString().matches("singleVCTab")-»
+    <android.support.v4.view.ViewPager
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+    «ELSE-»
+    <include layout="@layout/content_«name.toLowerCase()»" />
+    «ENDIF-»
+
+</android.support.design.widget.CoordinatorLayout>
+«ENDDEFINE-»
+
+
+«REM»--------------------------- Content Layout Expansion for multiVC type Activities ---------------------------«ENDREM»
+«DEFINE ContentXMLLayout FOR Scene-»
+«REM» Content layout for scenes with typeSmartphone or typeTablet == multiVC.
+      Export 1 content layout if typeSmartphone != typeTablet (one is multiVC and the other is singleVC or singleVCTab).
+      Export 2 content layouts for scenes with typeSmartphone == typeTablet == multiVC «ENDREM»
+«IF typeSmartphone.toString().matches("multiVC") || typeTablet.toString().matches("multiVC")-»
+«FILE application.name+"/mobile/src/main/res/layout/"+"content_"+name.toLowerCase()+".xml"-»
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    «IF !parentViewControllers.get(0).backgroundImage.matches("")-»
+    android:background="@drawable/«parentViewControllers.get(0).backgroundImage.split("\\.").get(0)»"
+    «ELSEIF !parentViewControllers.get(0).backgroundColor.matches("")-»
+    android:background="«parentViewControllers.get(0).backgroundColor»"
+    «ENDIF-»
+    tools:context="«application.companyIdentifier».«application.name.toLowerCase()».«name.toFirstUpper()»Activity"
+    tools:showIn="@layout/app_bar_«name.toLowerCase()»">
+    
+	«EXPAND ViewControllerControlsXMLLayout FOR parentViewControllers.get(0)»
+	
+</android.support.constraint.ConstraintLayout>
+«ENDFILE-»
+«IF typeSmartphone.toString().matches("multiVC") && typeTablet.toString().matches("multiVC")-»
+«FILE application.name+"/mobile/src/main/res/layout-sw600dp/"+"content_"+name.toLowerCase()+".xml"-»
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    «IF !parentViewControllers.get(1).backgroundImage.matches("")-»
+    android:background="@drawable/«parentViewControllers.get(1).backgroundImage.split("\\.").get(0)»"
+    «ELSEIF !parentViewControllers.get(1).backgroundColor.matches("")-»
+    android:background="«parentViewControllers.get(1).backgroundColor»"
+    «ENDIF-»
+    tools:context="«application.companyIdentifier».«application.name.toLowerCase()».«name.toFirstUpper()»Activity"
+    tools:showIn="@layout/app_bar_«name.toLowerCase()»">
+    
+	«EXPAND ViewControllerControlsXMLLayout FOR parentViewControllers.get(1)»
+	
+</android.support.constraint.ConstraintLayout>
+«ENDFILE-»
+«ENDIF-»
+«ENDIF-»
+«ENDDEFINE-»
+
+
+«REM»--------------------------- Fragment Layout XML Files ---------------------------«ENDREM»
+«DEFINE FragmentXMLLayout FOR ViewController-»
+«FILE application.name+"/mobile/src/main/res/layout/"+"fragment_"+name.toLowerCase()+".xml"-»
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     «IF !backgroundImage.matches("")-»
@@ -434,6 +643,22 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
     «ENDIF-»
     tools:context="«application.companyIdentifier».«application.name.toLowerCase()».«name.toFirstUpper()»Fragment">
     
+	«EXPAND ViewControllerControlsXMLLayout FOR this»
+	
+</android.support.constraint.ConstraintLayout>
+«ENDFILE-»
+«ENDDEFINE-»
+
+
+«REM»--------------------------- View Controller's Controls Layout Expansion ---------------------------«ENDREM»
+«DEFINE ViewControllerControlsXMLLayout FOR ViewController-»
+	«FOREACH containers AS c-»
+	<fragment
+        android:id="@+id/fragment_«c.childViewController.name-»"
+        android:name="«application.companyIdentifier».«application.name.toLowerCase()».«c.childViewController.name.toFirstUpper()»Fragment"
+        «EXPAND uiPhoneControl FOR c»
+        />
+	«ENDFOREACH-»
 	«FOREACH imageViews AS iv-»
 	<ImageView
 	    «EXPAND uiPhoneControl FOR iv»
@@ -695,327 +920,8 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
         android:horizontalSpacing="4dp"
         android:verticalSpacing="4dp" />
     «ENDFOREACH-»
-</RelativeLayout>
-«ENDFILE-»
 «ENDDEFINE-»
 
-
-«REM»--------------------------- Any Other ViewController Layout XML Files ---------------------------«ENDREM»
-«DEFINE defaultViewControllerXMLLayout FOR ViewController-»
-«FILE application.name+"/mobile/src/main/res/layout/"+"activity_"+name.toLowerCase()+".xml"-»
-<?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context="«application.companyIdentifier».«application.name.toLowerCase()».«name.toFirstUpper()»Activity">
-
-    <android.support.design.widget.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/«name.toLowerCase()»_toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            
-            app:popupTheme="@style/AppTheme.PopupOverlay">
-
-        </android.support.v7.widget.Toolbar>
-
-    </android.support.design.widget.AppBarLayout>
-
-    <include layout="@layout/content_«name.toLowerCase()»" />
-
-</android.support.design.widget.CoordinatorLayout>
-«ENDFILE-»
-
-«FILE application.name+"/mobile/src/main/res/layout/"+"content_"+name.toLowerCase()+".xml"-»
-<?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    «IF !backgroundImage.matches("")-»
-    android:background="@drawable/«backgroundImage.split("\\.").get(0)»"
-    «ELSEIF !backgroundColor.matches("")-»
-    android:background="«backgroundColor»"
-    «ENDIF-»
-    app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="«application.companyIdentifier».«application.name.toLowerCase()».«name.toFirstUpper()»Activity"
-    tools:showIn="@layout/activity_«name.toLowerCase()»">
-    
-	«FOREACH imageViews AS iv-»
-	<ImageView
-	    «EXPAND uiPhoneControl FOR iv»
-	    «IF iv.sourceType.toString().matches("localFile") && !iv.fileUri.matches("")-»
-	    android:src="@drawable/«iv.fileUri.split("\\.").get(0)»"
-	    «ENDIF-»
-	    android:background="#000000"/>
-    «ENDFOREACH-»
-    «FOREACH cards AS c-»
-    <!-- Height will be dinamically changed -->
-    <android.support.v7.widget.CardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        card_view:cardCornerRadius="2dp"
-        card_view:cardElevation="2dp"
-        «EXPAND uiPhoneControl FOR c»
-        android:gravity="center">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <!-- Height will be dinamically changed -->
-            <ImageView
-                android:id="@+id/«c.id»ImageView"
-                android:layout_width="match_parent"
-                android:layout_height="208dp"
-                android:background="#000"
-                android:src="@drawable/card_image"/>
-
-            <TextView
-                android:id="@+id/«c.id»Title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
-                android:layout_marginRight="16dp"
-                android:layout_marginBottom="16dp"
-                android:layout_marginLeft="16dp"
-                android:text="«c.title»"
-                android:textSize="24dp"
-                android:textColor="#333"/>
-
-            <TextView
-                android:id="@+id/«c.id»Subtitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:text="«c.subtitle»"
-                android:textSize="14dp"/>
-
-            <LinearLayout
-                android:id="@+id/«c.id»Buttons"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:orientation="horizontal"
-                android:layout_marginTop="32dp"
-                android:layout_marginBottom="8dp"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="4dp">
-				
-				«FOREACH 1.upTo(c.numActions) AS n-»
-                <Button
-                    android:id="@+id/«c.id»Button«n»"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
-                    android:text="Action «n»"
-                    android:textAllCaps="true"
-                    android:textSize="14dp"
-                    android:textColor="@color/colorAccent"
-                    style="?android:attr/borderlessButtonStyle"/>
-				«ENDFOREACH-»
-				
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </android.support.v7.widget.CardView>
-    «ENDFOREACH-»
-	«FOREACH buttons AS b-»
-	<Button
-        «EXPAND uiPhoneControl FOR b»
-        «IF b.textColor.matches("") == false»
-        android:textColor="«b.textColor»"
-        «ENDIF-»
-        «IF b.backgroundColor.matches("") == false || b.clickColor.matches("") == false»
-        android:background="@drawable/«b.id.toLowerCase()»_background"
-		style="?android:attr/borderlessButtonStyle"
-        «ENDIF-»
-        android:textAllCaps="false"
-        android:text="«b.title»"/>        
-	«ENDFOREACH-»
-	«FOREACH sliders AS s-»
-	<RelativeLayout
-		«EXPAND uiPhoneControl FOR s»
-		android:gravity="center">
-	
-		<android.support.v7.widget.AppCompatSeekBar
-			android:progress="50"
-			android:id="@+id/«s.id»Bar"
-        	android:layout_width="match_parent"
-			android:layout_height="wrap_content"/>
-	
-	</RelativeLayout>        
-	«ENDFOREACH-»
-	«FOREACH switches AS s-»
-	<RelativeLayout
-		«EXPAND uiPhoneControl FOR s»
-		android:gravity="center">
-	
-		<android.support.v7.widget.SwitchCompat
-			android:id="@+id/«s.id»Button"
-			android:checked="true"
-        	android:layout_width="wrap_content"
-			android:layout_height="wrap_content"/>
-	
-	</RelativeLayout>        
-	«ENDFOREACH-»
-	«FOREACH spinners AS s-»
-	<android.support.v7.widget.AppCompatSpinner
-		«EXPAND uiPhoneControl FOR s»
-        style="@style/Base.Widget.AppCompat.Spinner.Underlined"
-        android:spinnerMode="dropdown"/> 
-	«ENDFOREACH-»
-	«FOREACH timepickers AS t-»
-	<RelativeLayout
-		«EXPAND uiPhoneControl FOR t»
-		android:gravity="center">
-				
-		<picker.ugurtekbas.com.Picker.Picker
-			android:id="@+id/«t.id»Picker"
-			android:layout_width="346dp"
-			android:layout_height="346dp"
-			app:hourFormat="false"
-			app:canvasColor="@android:color/transparent"
-			app:textColor="#000000"
-			app:trackSize="8dp"
-			app:dialRadius="16dp"/>
-	
-	</RelativeLayout>        
-	«ENDFOREACH-»
-	«FOREACH datepickers AS d-»
-	<RelativeLayout
-		«EXPAND uiPhoneControl FOR d»
-		android:gravity="center">
-            
-        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
-			android:id="@+id/«d.id»Picker"
-			android:layout_width="348dp"
-			android:layout_height="365dp"
-			app:mcv_showOtherDates="all"
-			app:mcv_firstDayOfWeek="monday"
-			app:mcv_selectionColor="@color/colorAccent" />
-	
-	</RelativeLayout>        
-	«ENDFOREACH-»
-	«IF photocameraController!=null-»
-	«IF photocameraController.backgroundType.matches("icon")-»
-	<ImageButton
-		«EXPAND uiPhoneControl FOR photocameraController»
-		android:src="@drawable/photocamera_icon"/>
-	«ELSEIF photocameraController.backgroundType.matches("normal")-»
-	<Button
-		«EXPAND uiPhoneControl FOR photocameraController»
-		android:text="Photocamera"/>
-    «ENDIF-»
-    «ENDIF-»
-	«IF videocameraController!=null-»
-	«IF videocameraController.backgroundType.matches("icon")-»
-	<ImageButton
-		«EXPAND uiPhoneControl FOR videocameraController»
-		android:src="@drawable/videocamera_icon"/>
-	«ELSEIF videocameraController.backgroundType.matches("normal")-»
-	<Button
-		«EXPAND uiPhoneControl FOR videocameraController»
-		android:text="Videocamera"/>
-    «ENDIF-»
-    «ENDIF-»
-	«IF audioRecorder!=null-»
-	<Button
-		«EXPAND uiPhoneControl FOR audioRecorder»
-        android:text="Rec"/>
-	«ENDIF-»
-	«IF map != null-»
-	<fragment
-		«EXPAND uiPhoneControl FOR map»
-		android:name="com.google.android.gms.maps.SupportMapFragment"/>
-    «ENDIF-»
-	«FOREACH audioPlayers AS ap-»
-	<RelativeLayout
-		«EXPAND uiPhoneControl FOR ap»
-		android:gravity="center">
-		
-		<android.support.design.widget.FloatingActionButton
-			android:id="@+id/«ap.id»_playButton"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_margin="4dp"
-			android:src="@drawable/ic_play_arrow_white_36dp"/>
-		
-	    <android.support.design.widget.FloatingActionButton
-			android:id="@+id/«ap.id»_pauseButton"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_margin="4dp"
-			android:src="@drawable/ic_pause_white_36dp"
-			android:layout_toRightOf="@+id/«ap.id»_playButton"/>
-			
-		<android.support.design.widget.FloatingActionButton
-			android:id="@+id/«ap.id»_stopButton"
-			android:layout_width="wrap_content"
-			android:layout_height="wrap_content"
-			android:layout_margin="4dp"
-			android:src="@drawable/ic_stop_white_36dp"
-			android:layout_toRightOf="@+id/«ap.id»_pauseButton"/>		
-
-    </RelativeLayout>
-	«ENDFOREACH-»
-	«FOREACH textViews AS tv-»
-	<TextView
-		«EXPAND uiPhoneControl FOR tv»
-        «IF tv.textDecoration.matches("none")==false»
-        android:textStyle="«tv.textDecoration»"
-        «ENDIF-»
-        android:text="«tv.content»"
-        android:gravity="«tv.textAlign.toString()»|center_vertical"
-        android:textColor="«tv.textColor»"
-        android:textSize="«tv.textSize»dp"/>
-	«ENDFOREACH-»
-	«FOREACH editTexts AS et-»
-	<android.support.v7.widget.AppCompatEditText
-		«EXPAND uiPhoneControl FOR et»
-        android:text="«et.initialContent»"
-        android:hint="«et.placeholder»" 
-        android:textColor="«et.textColor»"
-        android:textSize="«et.textSize»dp" />
-    «ENDFOREACH-»
-    «FOREACH videoViews AS vv-»
-	<VideoView
-	    «EXPAND uiPhoneControl FOR vv» />
-	«ENDFOREACH-»
-	«FOREACH webViews AS wv-»
-	<WebView
-        «EXPAND uiPhoneControl FOR wv» />
-	«ENDFOREACH-» 
-    «FOREACH listViews AS lv-»
-    <ListView
-        «EXPAND uiPhoneControl FOR lv»
-        android:divider="#efefef"
-		android:dividerHeight="1dp" />
-    «ENDFOREACH-»   
-    «FOREACH gridViews AS gv-»
-    <GridView
-        «EXPAND uiPhoneControl FOR gv»
-        android:stretchMode="columnWidth"
-        android:numColumns="auto_fit"
-        android:horizontalSpacing="4dp"
-        android:verticalSpacing="4dp" />
-    «ENDFOREACH-»
-</RelativeLayout>
-«ENDFILE-»
-«ENDDEFINE-»
 
 «REM»--------------------------- UiPhoneControl Positioning XML Files ---------------------------«ENDREM»
 «DEFINE uiPhoneControl FOR UiPhoneControl-»
