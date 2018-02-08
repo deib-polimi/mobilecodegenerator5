@@ -50,10 +50,11 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 INSTRUCTIONS:
 
 1) edit the file local.properties with your Android SDK location 
-2) make sure to have installed Build-tools version 25.0.2 and SDK API 25 in Android Studio
+2) make sure to have installed Build-tools version 26.0.2 and SDK API 25 in Android Studio
 3) from Android Studio select import project (Eclipse ADT, Gradle, etc)
 4) if you are using Firebase you need to add your google-services.json file into your project,
  follow these instructions https://support.google.com/firebase/answer/7015592
+5) sync project with Gradle with Tools -> Android -> Sync Project with Gradle Files
 
  
 «ENDFILE-»
@@ -64,7 +65,7 @@ INSTRUCTIONS:
 #
 # WARNING: it is necessary to edit the path 
 # for Mac Os X users the path is /Users/<USERNAME>/Library/Android/sdk
-sdk.dir=/Users/alessiorossotti/Library/Android/sdk
+sdk.dir=C\:\\Users\\Max\\AppData\\Local\\Android\\Sdk
 «ENDFILE-»
 
 «REM»--------------------------- settings.gradle ---------------------------«ENDREM»
@@ -86,7 +87,7 @@ android {
 
     defaultConfig {
         applicationId "«companyIdentifier».«name.toLowerCase()»"
-        minSdkVersion 16
+        minSdkVersion 17
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
@@ -96,6 +97,7 @@ android {
     buildTypes {
         release {
             minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
 }
@@ -107,6 +109,7 @@ dependencies {
 	«ENDIF-»
 	compile 'com.android.support:appcompat-v7:25.4.0'
     compile 'com.android.support:design:25.4.0'
+    compile 'com.android.support.constraint:constraint-layout:1.1.0-beta4'
     «IF existsAtLeastOne(viewControllers.map) || existsAtLeastOne(watchControllers.watchVoiceMessage)-»
     implementation 'com.google.android.gms:play-services-base:11.8.0'
     «IF existsAtLeastOne(viewControllers.map)-»
@@ -138,6 +141,30 @@ apply plugin: 'com.google.gms.google-services'
 «ENDIF-»
 
 «ENDFILE-»
+
+«REM»----------------------------------- Constants -----------------------------------«ENDREM»
+«FILE name+"/mobile/src/main/java/"+companyIdentifier.replaceAll("\\.","/") +"/"+ name.toLowerCase() +"/utilities/Constants.java"-»
+package «companyIdentifier».«name.toLowerCase()».utilities;
+	
+public final class Constants {
+
+    public static int SCENE_TYPE_SINGLE_VC = 0;
+    public static int SCENE_TYPE_SINGLE_VC_TAB = 1;
+    public static int SCENE_TYPE_MULTI_VC = 2;
+
+}
+«ENDFILE-»
+
+«IF containsControlsWithNavigation(viewControllers.buttons, viewControllers.listViews, viewControllers.gridViews)-»
+«REM»----------------------------------- Navigation Interaction interface -----------------------------------«ENDREM»
+«FILE name+"/mobile/src/main/java/"+companyIdentifier.replaceAll("\\.","/") +"/"+ name.toLowerCase() +"/utilities/OnFragmentNavigationInteractionListener.java"-»
+package «companyIdentifier».«name.toLowerCase()».utilities;
+	
+public interface OnFragmentNavigationInteractionListener {
+        void onFragmentNavigationInteraction(String controlId, String clickedItem);
+}
+«ENDFILE-»
+«ENDIF-»
 
 «REM»--------------------------- MyWearableListenerService ---------------------------«ENDREM»
 «IF existsAtLeastOne(watchControllers.watchVoiceMessage)-»
@@ -213,7 +240,6 @@ public final class Utils {
 	}
 }
 «ENDFILE-»
-
 
 «REM»--------------------------- ImageDownloadingTask ---------------------------«ENDREM»
 «IF viewControllers.imageViews.sourceType.toString().contains("remoteFile")-»

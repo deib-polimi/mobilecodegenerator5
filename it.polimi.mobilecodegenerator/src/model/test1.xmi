@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metamodel:Application xmi:version="2.0"
+	xmlns:xmi="http://www.omg.org/XMI"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:metamodel="http://metamodel/1.0" xsi:schemaLocation="http://metamodel/1.0 ../metamodel/metamodel.ecore" name="newApp" companyIdentifier="it.polimi">
+	<dataHandler/>
+	<viewControllers id="rud41" name="rud41newView" backgroundColor="#ffffff" backgroundImage="">
+		<buttons id="vtvnButton" viewController="//@viewControllers[id='rud41']" defaultWidth="88" defaultHeight="40" width="88" height="25" posX="16" posY="80" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="16" marginBottom="0" marginStart="16" marginEnd="0" title="Button" textColor="" backgroundColor="" borderRadius="2" clickColor="">
+			<positionConstraints id="jmc77" uiPhoneControl="//@viewControllers[id='rud41']/@buttons[id='1vtvnButton']" layoutEdge="top" withParent="true" referenceLayoutEdge="top"/>
+			<positionConstraints id="rtaha" uiPhoneControl="//@viewControllers[id='rud41']/@buttons[id='1vtvnButton']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+			<navigations id="ljo1v" contextScene="//@scenes[id='db6m1']" destinationViewController="//@viewControllers[id='jb6vs']"/>
+		</buttons>
+	</viewControllers>
+	<viewControllers id="jb6vs" name="jb6vsnewView1" backgroundColor="#ffffff" backgroundImage="">
+		<textViews id="tkn35Label" viewController="//@viewControllers[id='jb6vs']" defaultWidth="88" defaultHeight="36" width="68.5" height="21" posX="163" posY="80" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="16" marginBottom="0" marginStart="0" marginEnd="0" content="Label" textAlign="left" textColor="#000000" textSize="16" textDecoration="none">
+			<positionConstraints id="i9cr" uiPhoneControl="//@viewControllers[id='jb6vs']/@textViews[id='tkn35Label']" layoutEdge="top" withParent="true" referenceLayoutEdge="top"/>
+			<positionConstraints id="n51ed" uiPhoneControl="//@viewControllers[id='jb6vs']/@textViews[id='tkn35Label']" layoutEdge="centerX" withParent="true" referenceLayoutEdge="centerX"/>
+		</textViews>
+	</viewControllers>
+	<scenes id="db6m1" name="newScene" launcher="true" typeSmartphone="singleVCTab" typeTablet="multiVC">
+		<parentViewControllers id="gu3ga" name="gu3gaparentVCTablet" backgroundColor="#ffffff" backgroundImage="">
+			<containers childViewController="//@viewControllers[id='rud41']" id="Container8kgk1" viewController="//@scenes[id='db6m1']/@parentViewControllers[id='gu3ga']" defaultWidth="300" defaultHeight="400" width="300" height="388" posX="340" posY="200" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="40" marginEnd="0">
+				<positionConstraints id="h6n7b" uiPhoneControl="//@scenes[id='db6m1']/@parentViewControllers[id='gu3ga']/@containers[id='Container8kgk1']" layoutEdge="centerY" withParent="true" referenceLayoutEdge="centerY"/>
+				<positionConstraints id="b0bi" uiPhoneControl="//@scenes[id='db6m1']/@parentViewControllers[id='gu3ga']/@containers[id='Container8kgk1']" layoutEdge="start" withParent="false" referenceElement="//@scenes[id='db6m1']/@parentViewControllers[id='gu3ga']/@containers[id='Container982ea']" referenceLayoutEdge="end"/>
+			</containers>
+			<containers childViewController="//@viewControllers[id='jb6vs']" id="Container982ea" viewController="//@scenes[id='db6m1']/@parentViewControllers[id='gu3ga']" defaultWidth="300" defaultHeight="400" width="300" height="388" posX="0" posY="200" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0">
+				<positionConstraints id="nr3ev" uiPhoneControl="//@scenes[id='db6m1']/@parentViewControllers[id='gu3ga']/@containers[id='Container982ea']" layoutEdge="centerY" withParent="true" referenceLayoutEdge="centerY"/>
+				<positionConstraints id="fhlv5" uiPhoneControl="//@scenes[id='db6m1']/@parentViewControllers[id='gu3ga']/@containers[id='Container982ea']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+			</containers>
+		</parentViewControllers>
+		<sceneViewControllers viewController="//@viewControllers[id='rud41']"/>
+		<sceneViewControllers viewController="//@viewControllers[id='jb6vs']"/>
+	</scenes>
+	<menu>
+		<menuItems title="Scene1" id="newMenuItem">
+			<navigation id="ijt5n" destinationScene="//@scenes[id='db6m1']"/>
+		</menuItems>
+	</menu>
+</metamodel:Application>

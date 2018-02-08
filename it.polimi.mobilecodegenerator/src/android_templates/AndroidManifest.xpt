@@ -1,5 +1,5 @@
 «REM»
-Copyright 2017 Gregorio Perego, Stefania Pezzetti, Aldo Pintus, Alessio Rossotti
+Copyright 2017 Gregorio Perego, Stefania Pezzetti, Aldo Pintus, Alessio Rossotti, Massimo Beccari
 This file is part of it.polimi.mobilecodegenerator.
 
 it.polimi.mobilecodegenerator is free software: 
@@ -67,7 +67,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
         «FOREACH scenes AS s-»
         «IF s.launcher-»
         <activity
-            android:name="«companyIdentifier».«name.toLowerCase()».«s.name.toFirstUpper()»Activity"
+            android:name="«companyIdentifier».«name.toLowerCase()».activities.«s.name.toFirstUpper()»Activity"
             android:label="«s.name.toFirstUpper()»" 
             android:theme="@style/AppTheme.NoActionBar">
 			<intent-filter>
@@ -77,7 +77,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
         </activity>
         «ELSE-»
         <activity
-            android:name="«companyIdentifier».«name.toLowerCase()».«s.name.toFirstUpper()»Activity"
+            android:name="«companyIdentifier».«name.toLowerCase()».activities.«s.name.toFirstUpper()»Activity"
             android:label="«s.name.toFirstUpper()»" 
             android:theme="@style/AppTheme.NoActionBar"/>
         «ENDIF-»

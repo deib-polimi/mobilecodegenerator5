@@ -183,4 +183,42 @@ public class AppJavaUtil {
 		}
 		return true;
 	}
+	
+	/**
+	 * @param buttons is a list of lists of buttons (a list of buttons for each view controller in the application/scene)
+	 * @param listViews is a list of lists of listViews (a list of listViews for each view controller in the application/scene) 
+	 * @param gridViews is a list of lists of gridViews (a list of gridViews for each view controller in the application/scene)
+	 * @return true if there is at least a button or a listView or a gridView, false otherwise
+	 */
+	public static boolean containsControlsWithNavigation(List<?> buttons, List<?> listViews, List<?> gridViews) {
+		int i;
+		for(i = 0; i < buttons.size(); i++) {
+			try {
+				List<?> l = (List<?>) buttons.get(i);
+				if(l.size() > 0)
+					return true;
+			} catch(ClassCastException e) {
+				return true;
+			}
+		}
+		for(i = 0; i < listViews.size(); i++) {
+			try {
+				List<?> l = (List<?>) buttons.get(i);
+				if(l.size() > 0)
+					return true;
+			} catch(ClassCastException e) {
+				return true;
+			}
+		}
+		for(i = 0; i < gridViews.size(); i++) {
+			try {
+				List<?> l = (List<?>) buttons.get(i);
+				if(l.size() > 0)
+					return true;
+			} catch(ClassCastException e) {
+				return true;
+			}
+		}
+		return false;
+	}
 }

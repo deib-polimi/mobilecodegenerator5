@@ -1,5 +1,5 @@
 «REM»
-Copyright 2017 Gregorio Perego, Stefania Pezzetti, Aldo Pintus, Alessio Rossotti
+Copyright 2017 Gregorio Perego, Stefania Pezzetti, Aldo Pintus, Alessio Rossotti, Massimo Beccari
 This file is part of it.polimi.mobilecodegenerator.
 
 it.polimi.mobilecodegenerator is free software: 
@@ -340,5 +340,8 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
+«ENDIF-»
+«IF buttons.size > 0 || listViews.size > 0 || gridViews.size > 0-»
+import «application.companyIdentifier».«application.name.toLowerCase()».utilities.OnFragmentNavigationInteractionListener;
 «ENDIF-»
 «ENDDEFINE-»

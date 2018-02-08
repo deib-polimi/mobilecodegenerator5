@@ -22,3 +22,4 @@ Boolean existsObject(Object c):JAVA app_extensions.AppJavaUtil.existsObject(java
 Boolean isAMenuDestination(String name, List menuItems):JAVA app_extensions.AppJavaUtil.isAMenuDestination(java.lang.String, java.util.List);
 Boolean dimensionIsUnbinded(Boolean isWidth, List layoutEdgesConstrained):JAVA app_extensions.AppJavaUtil.dimensionIsUnbinded(java.lang.Boolean, java.util.List);
 Boolean positionIsUnbinded(Boolean isWidth, List layoutEdgesConstrained):JAVA app_extensions.AppJavaUtil.positionIsUnbinded(java.lang.Boolean, java.util.List);
+Boolean containsControlsWithNavigation(List buttons, List listViews, List gridViews):JAVA app_extensions.AppJavaUtil.containsControlsWithNavigation(java.util.List, java.util.List, java.util.List);

@@ -1,5 +1,5 @@
 «REM»
-Copyright 2017 Gregorio Perego, Stefania Pezzetti, Aldo Pintus, Alessio Rossotti
+Copyright 2017 Gregorio Perego, Stefania Pezzetti, Aldo Pintus, Alessio Rossotti, Massimo Beccari
 This file is part of it.polimi.mobilecodegenerator.
 
 it.polimi.mobilecodegenerator is free software: 
@@ -24,6 +24,8 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="app_name">«name»</string>
+
 	<!-- shared preferences keys and default values -->
 	«FOREACH dataHandler.preferenceHandler.preferenceRecords AS pr-»
 	<string name="«pr.key»">«pr.key»</string>
@@ -37,6 +39,9 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 	«ENDFOREACH-»
 	«ENDIF-»
 	«ENDFOREACH-»
+	
+	<string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 
 </resources>
 «ENDFILE-»
@@ -352,7 +357,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 «EXPAND menuApplication FOREACH scenes-»
 «EXPAND menu FOR menu-»
 «ELSE-»
-«EXPAND simpleApplication FOREACH scenes-»
+«EXPAND SimpleActivityXMLLayout FOREACH scenes-»
 «ENDIF-»
 «ENDDEFINE-»
 
@@ -366,15 +371,9 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
     tools:showIn="navigation_view">
 	
 	«FOREACH menuItems AS item-»
-	«IF item.navigation.destinationScene != null -»
 	<item
-        android:id="@+id/nav_«item.navigation.destinationScene.name»"
+        android:id="@+id/nav_«item.navigation.destinationScene.name.toLowerCase()»"
         android:title="«item.navigation.destinationScene.name»" />
-    «ELSEIF item.navigation.destinationViewController != null-»
-    <item
-        android:id="@+id/nav_«item.navigation.destinationViewController.name»"
-        android:title="«item.navigation.destinationViewController.name»" />
-    «ENDIF-»
 	«ENDFOREACH-»
 
 </menu>
@@ -393,11 +392,6 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 
 «ENDDEFINE-»
 
-
-«REM»--------------------------- simpleApplication Layout XML Files ---------------------------«ENDREM»
-«DEFINE simpleApplication FOR Scene-»
-«EXPAND SimpleActivityXMLLayout FOR this»
-«ENDDEFINE-»
 
 «REM»
 	Layout expansion rules:
@@ -418,7 +412,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/drawer_layout"
+    android:id="@+id/«name.toLowerCase()»_drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fitsSystemWindows="true"
@@ -430,7 +424,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
         android:layout_height="match_parent" />
 
     <android.support.design.widget.NavigationView
-        android:id="@+id/nav_view"
+        android:id="@+id/«name.toLowerCase()»_nav_view"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
@@ -439,6 +433,8 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 
 </android.support.v4.widget.DrawerLayout>
 «ENDFILE-»
+«REM» Case of scene with more than one view controllers «ENDREM»
+«IF sceneViewControllers.size > 1-»
 «REM» Export 2 app_bar layouts for scenes with typeSmartphone != typeTablet «ENDREM»
 «FILE application.name+"/mobile/src/main/res/layout/"+"app_bar_"+name.toLowerCase()+".xml"-»
 «EXPAND CoordinatorLayoutSmartphoneXMLLayout FOR this»
@@ -449,11 +445,19 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 «ENDFILE-»
 «ENDIF-»
 «EXPAND ContentXMLLayout FOR this»
+«ELSE-»
+«REM» Case of scene with only one view controller «ENDREM»
+«FILE application.name+"/mobile/src/main/res/layout/"+"app_bar_"+name.toLowerCase()+".xml"-»
+«EXPAND SingleViewControllerSceneXMLLayout FOR this»
+«ENDFILE-»
+«ENDIF-»
 «ENDDEFINE-»
 
 
 «REM»--------------------------- Activity WITHOUT Menu Layout XML Files ---------------------------«ENDREM»
 «DEFINE SimpleActivityXMLLayout FOR Scene-»
+«REM» Case of scene with more than one view controllers «ENDREM»
+«IF sceneViewControllers.size > 1-»
 «REM» Export 2 activity layouts for scenes with typeSmartphone != typeTablet «ENDREM»
 «FILE application.name+"/mobile/src/main/res/layout/"+"activity_"+name.toLowerCase()+".xml"-»
 «EXPAND CoordinatorLayoutSmartphoneXMLLayout FOR this»
@@ -464,6 +468,12 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 «ENDFILE-»
 «ENDIF-»
 «EXPAND ContentXMLLayout FOR this»
+«ELSE-»
+«REM» Case of scene with only one view controller «ENDREM»
+«FILE application.name+"/mobile/src/main/res/layout/"+"activity_"+name.toLowerCase()+".xml"-»
+«EXPAND SingleViewControllerSceneXMLLayout FOR this»
+«ENDFILE-»
+«ENDIF-»
 «ENDDEFINE-»
 
 
@@ -475,7 +485,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="«application.companyIdentifier».«application.name.toLowerCase()».«name.toFirstUpper()»Activity">
+    tools:context="«application.companyIdentifier».«application.name.toLowerCase()».activities.«name.toFirstUpper()»Activity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -483,21 +493,22 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/«name.toLowerCase()»_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:title="@string/app_name" />
             
         «IF typeSmartphone.toString().matches("singleVCTab")-»
         <android.support.design.widget.TabLayout
-            android:id="@+id/tabs"
+            android:id="@+id/«name.toLowerCase()»_tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
 			«FOREACH 1.upTo(sceneViewControllers.size) AS i -»
 			<android.support.design.widget.TabItem
-                android:id="@+id/tabItem«i»"
+                android:id="@+id/tab_item_«name.toLowerCase()»_«i»"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/tab_text_«name.toLowerCase()»_«i»" />
@@ -510,7 +521,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
     
     «IF typeSmartphone.toString().matches("singleVC") || typeSmartphone.toString().matches("singleVCTab")-»
     <android.support.v4.view.ViewPager
-        android:id="@+id/container"
+        android:id="@+id/«name.toLowerCase()»_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
@@ -530,7 +541,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="«application.companyIdentifier».«application.name.toLowerCase()».«name.toFirstUpper()»Activity">
+    tools:context="«application.companyIdentifier».«application.name.toLowerCase()».activities.«name.toFirstUpper()»Activity">
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -538,21 +549,22 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+            android:id="@+id/«name.toLowerCase()»_toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:title="@string/app_name" />
             
         «IF typeTablet.toString().matches("singleVCTab")-»
         <android.support.design.widget.TabLayout
-            android:id="@+id/tabs"
+            android:id="@+id/«name.toLowerCase()»_tabs"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
 			«FOREACH 1.upTo(sceneViewControllers.size) AS i -»
 			<android.support.design.widget.TabItem
-                android:id="@+id/tabItem«i»"
+                android:id="@+id/tab_item_«name.toLowerCase()»_«i»"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/tab_text_«name.toLowerCase()»_«i»" />
@@ -565,7 +577,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
     
     «IF typeTablet.toString().matches("singleVC") || typeTablet.toString().matches("singleVCTab")-»
     <android.support.v4.view.ViewPager
-        android:id="@+id/container"
+        android:id="@+id/«name.toLowerCase()»_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
@@ -587,7 +599,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/constraintLayout"
+    android:id="@+id/«name.toLowerCase()»_constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     «IF !parentViewControllers.get(0).backgroundImage.matches("")-»
@@ -595,10 +607,15 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
     «ELSEIF !parentViewControllers.get(0).backgroundColor.matches("")-»
     android:background="«parentViewControllers.get(0).backgroundColor»"
     «ENDIF-»
-    tools:context="«application.companyIdentifier».«application.name.toLowerCase()».«name.toFirstUpper()»Activity"
+    tools:context="«application.companyIdentifier».«application.name.toLowerCase()».activities.«name.toFirstUpper()»Activity"
     tools:showIn="@layout/app_bar_«name.toLowerCase()»">
     
-	«EXPAND ViewControllerControlsXMLLayout FOR parentViewControllers.get(0)»
+	«FOREACH parentViewControllers.get(0).containers AS c-»
+	<fragment
+        android:name="«application.companyIdentifier».«application.name.toLowerCase()».fragments.«c.childViewController.name.toFirstUpper()»Fragment"
+        «EXPAND uiPhoneControl FOR c»
+        />
+	«ENDFOREACH-»
 	
 </android.support.constraint.ConstraintLayout>
 «ENDFILE-»
@@ -607,7 +624,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/constraintLayout"
+    android:id="@+id/«name.toLowerCase()»_constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     «IF !parentViewControllers.get(1).backgroundImage.matches("")-»
@@ -615,15 +632,63 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
     «ELSEIF !parentViewControllers.get(1).backgroundColor.matches("")-»
     android:background="«parentViewControllers.get(1).backgroundColor»"
     «ENDIF-»
-    tools:context="«application.companyIdentifier».«application.name.toLowerCase()».«name.toFirstUpper()»Activity"
+    tools:context="«application.companyIdentifier».«application.name.toLowerCase()».activities.«name.toFirstUpper()»Activity"
     tools:showIn="@layout/app_bar_«name.toLowerCase()»">
     
-	«EXPAND ViewControllerControlsXMLLayout FOR parentViewControllers.get(1)»
+	«FOREACH parentViewControllers.get(1).containers AS c-»
+	<fragment
+        android:name="«application.companyIdentifier».«application.name.toLowerCase()».fragments.«c.childViewController.name.toFirstUpper()»Fragment"
+        «EXPAND uiPhoneControl FOR c»
+        />
+	«ENDFOREACH-»
 	
 </android.support.constraint.ConstraintLayout>
 «ENDFILE-»
 «ENDIF-»
 «ENDIF-»
+«ENDDEFINE-»
+
+
+«REM»--------------------------- Scene Layout Expansion for Scenes with only one view controller ---------------------------«ENDREM»
+«DEFINE SingleViewControllerSceneXMLLayout FOR Scene-»
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="«application.companyIdentifier».«application.name.toLowerCase()».activities.«name.toFirstUpper()»Activity">
+
+	<RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+	    <android.support.design.widget.AppBarLayout
+	    	android:id="@+id/«name.toLowerCase()»_appbar"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:theme="@style/AppTheme.AppBarOverlay">
+	
+	        <android.support.v7.widget.Toolbar
+	            android:id="@+id/«name.toLowerCase()»_toolbar"
+	            android:layout_width="match_parent"
+	            android:layout_height="?attr/actionBarSize"
+	            android:background="?attr/colorPrimary"
+	            app:popupTheme="@style/AppTheme.PopupOverlay"
+	            app:title="@string/app_name" />
+	
+	    </android.support.design.widget.AppBarLayout>
+    
+    	<fragment
+            android:id="@+id/«name.toLowerCase()»_container"
+            android:name="«application.companyIdentifier».«application.name.toLowerCase()».fragments.«sceneViewControllers.first().viewController.name.toFirstUpper()»Fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/«name.toLowerCase()»_appbar"/>
+
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>
 «ENDDEFINE-»
 
 
@@ -633,7 +698,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/constraintLayout"
+    android:id="@+id/«name.toLowerCase()»_constraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     «IF !backgroundImage.matches("")-»
@@ -641,7 +706,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
     «ELSEIF !backgroundColor.matches("")-»
     android:background="«backgroundColor»"
     «ENDIF-»
-    tools:context="«application.companyIdentifier».«application.name.toLowerCase()».«name.toFirstUpper()»Fragment">
+    tools:context="«application.companyIdentifier».«application.name.toLowerCase()».fragments.«name.toFirstUpper()»Fragment">
     
 	«EXPAND ViewControllerControlsXMLLayout FOR this»
 	
@@ -652,13 +717,6 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 
 «REM»--------------------------- View Controller's Controls Layout Expansion ---------------------------«ENDREM»
 «DEFINE ViewControllerControlsXMLLayout FOR ViewController-»
-	«FOREACH containers AS c-»
-	<fragment
-        android:id="@+id/fragment_«c.childViewController.name-»"
-        android:name="«application.companyIdentifier».«application.name.toLowerCase()».«c.childViewController.name.toFirstUpper()»Fragment"
-        «EXPAND uiPhoneControl FOR c»
-        />
-	«ENDFOREACH-»
 	«FOREACH imageViews AS iv-»
 	<ImageView
 	    «EXPAND uiPhoneControl FOR iv»
@@ -941,13 +999,13 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 		«IF dimensionConstraint.fixedHeight != null-»
 		android:layout_height="«dimensionConstraint.fixedHeight»dp"
 		«ELSEIF dimensionConstraint.heightPercent != null || dimensionConstraint.fixedRatio != null || !dimensionIsUnbinded(false, positionConstraints.layoutEdge)-»
-		android:layout_width="0dp"
+		android:layout_height="0dp"
 		«ELSEIF controlChain == null-»
-		android:layout_width="«defaultHeight»dp"
+		android:layout_height="«defaultHeight»dp"
 		«ELSEIF controlChain.axis.toString().matches("vertical") && controlChain.type.toString().matches("weighted")-»
-		android:layout_width="0dp"
+		android:layout_height="0dp"
 		«ELSE»
-		android:layout_width="«defaultHeight»dp"
+		android:layout_height="«defaultHeight»dp"
 		«ENDIF-»
 		«IF dimensionConstraint.widthPercent != null-»
 		app:layout_constraintWidth_percent="«dimensionConstraint.widthPercent»"
@@ -960,136 +1018,136 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 		«ENDIF-»
 		«REM» Position Constraints «ENDREM»
 		«FOREACH positionConstraints AS constraint-»
-			«IF constraint.withParent-»
-				«IF constraint.layoutEdge.toString().matches("start") && constraint.referenceLayoutEdge.toString().matches("start")-»
-				app:layout_constraintStart_toStartOf="parent"
-				«ELSEIF constraint.layoutEdge.toString().matches("end") && constraint.referenceLayoutEdge.toString().matches("end")-»
-				app:layout_constraintEnd_toEndOf="parent"
-				«ELSEIF constraint.layoutEdge.toString().matches("top") && constraint.referenceLayoutEdge.toString().matches("top")-»
-				app:layout_constraintTop_toTopOf="parent"
-				«ELSEIF constraint.layoutEdge.toString().matches("bottom") && constraint.referenceLayoutEdge.toString().matches("bottom")-»
-				app:layout_constraintBottom_toBottomOf="parent"
-				«ELSEIF constraint.layoutEdge.toString().matches("centerX") && constraint.referenceLayoutEdge.toString().matches("centerX")-»
-				app:layout_constraintStart_toStartOf="parent"
-				app:layout_constraintEnd_toEndOf="parent"
-				«ELSEIF constraint.layoutEdge.toString().matches("centerY") && constraint.referenceLayoutEdge.toString().matches("centerY")-»
-				app:layout_constraintTop_toTopOf="parent"
-				app:layout_constraintBottom_toBottomOf="parent"
-				«ENDIF-»
-			«ELSE-»
-				«IF constraint.layoutEdge.toString().matches("start") && constraint.referenceLayoutEdge.toString().matches("start")-»
-				app:layout_constraintStart_toStartOf="@+id/«constraint.referenceElement.id»"
-				«ELSEIF constraint.layoutEdge.toString().matches("start") && constraint.referenceLayoutEdge.toString().matches("end")-»
-				app:layout_constraintStart_toEndOf="@+id/«constraint.referenceElement.id»"
-				«ELSEIF constraint.layoutEdge.toString().matches("end") && constraint.referenceLayoutEdge.toString().matches("start")-»
-				app:layout_constraintEnd_toStartOf="@+id/«constraint.referenceElement.id»"
-				«ELSEIF constraint.layoutEdge.toString().matches("end") && constraint.referenceLayoutEdge.toString().matches("end")-»
-				app:layout_constraintEnd_toEndOf="@+id/«constraint.referenceElement.id»"
-				«ELSEIF constraint.layoutEdge.toString().matches("top") && constraint.referenceLayoutEdge.toString().matches("top")-»
-				app:layout_constraintTop_toTopOf="@+id/«constraint.referenceElement.id»"
-				«ELSEIF constraint.layoutEdge.toString().matches("top") && constraint.referenceLayoutEdge.toString().matches("bottom")-»
-				app:layout_constraintTop_toBottomOf="@+id/«constraint.referenceElement.id»"
-				«ELSEIF constraint.layoutEdge.toString().matches("bottom") && constraint.referenceLayoutEdge.toString().matches("top")-»
-				app:layout_constraintBottom_toTopOf="@+id/«constraint.referenceElement.id»"
-				«ELSEIF constraint.layoutEdge.toString().matches("bottom") && constraint.referenceLayoutEdge.toString().matches("bottom")-»
-				app:layout_constraintBottom_toBottomOf="@+id/«constraint.referenceElement.id»"
-				«ELSEIF constraint.layoutEdge.toString().matches("centerX") && constraint.referenceLayoutEdge.toString().matches("centerX")-»
-				app:layout_constraintStart_toStartOf="@+id/«constraint.referenceElement.id»"
-				app:layout_constraintEnd_toEndOf="@+id/«constraint.referenceElement.id»"
-				«ELSEIF constraint.layoutEdge.toString().matches("centerY") && constraint.referenceLayoutEdge.toString().matches("centerY")-»
-				app:layout_constraintTop_toTopOf="@+id/«constraint.referenceElement.id»"
-				app:layout_constraintBottom_toBottomOf="@+id/«constraint.referenceElement.id»"
-				«ENDIF-»
-			«ENDIF-»
+		«IF constraint.withParent-»
+		«IF constraint.layoutEdge.toString().matches("start") && constraint.referenceLayoutEdge.toString().matches("start")-»
+		app:layout_constraintStart_toStartOf="parent"
+		«ELSEIF constraint.layoutEdge.toString().matches("end") && constraint.referenceLayoutEdge.toString().matches("end")-»
+		app:layout_constraintEnd_toEndOf="parent"
+		«ELSEIF constraint.layoutEdge.toString().matches("top") && constraint.referenceLayoutEdge.toString().matches("top")-»
+		app:layout_constraintTop_toTopOf="parent"
+		«ELSEIF constraint.layoutEdge.toString().matches("bottom") && constraint.referenceLayoutEdge.toString().matches("bottom")-»
+		app:layout_constraintBottom_toBottomOf="parent"
+		«ELSEIF constraint.layoutEdge.toString().matches("centerX") && constraint.referenceLayoutEdge.toString().matches("centerX")-»
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		«ELSEIF constraint.layoutEdge.toString().matches("centerY") && constraint.referenceLayoutEdge.toString().matches("centerY")-»
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintBottom_toBottomOf="parent"
+		«ENDIF-»
+		«ELSE-»
+		«IF constraint.layoutEdge.toString().matches("start") && constraint.referenceLayoutEdge.toString().matches("start")-»
+		app:layout_constraintStart_toStartOf="@+id/«constraint.referenceElement.id»"
+		«ELSEIF constraint.layoutEdge.toString().matches("start") && constraint.referenceLayoutEdge.toString().matches("end")-»
+		app:layout_constraintStart_toEndOf="@+id/«constraint.referenceElement.id»"
+		«ELSEIF constraint.layoutEdge.toString().matches("end") && constraint.referenceLayoutEdge.toString().matches("start")-»
+		app:layout_constraintEnd_toStartOf="@+id/«constraint.referenceElement.id»"
+		«ELSEIF constraint.layoutEdge.toString().matches("end") && constraint.referenceLayoutEdge.toString().matches("end")-»
+		app:layout_constraintEnd_toEndOf="@+id/«constraint.referenceElement.id»"
+		«ELSEIF constraint.layoutEdge.toString().matches("top") && constraint.referenceLayoutEdge.toString().matches("top")-»
+		app:layout_constraintTop_toTopOf="@+id/«constraint.referenceElement.id»"
+		«ELSEIF constraint.layoutEdge.toString().matches("top") && constraint.referenceLayoutEdge.toString().matches("bottom")-»
+		app:layout_constraintTop_toBottomOf="@+id/«constraint.referenceElement.id»"
+		«ELSEIF constraint.layoutEdge.toString().matches("bottom") && constraint.referenceLayoutEdge.toString().matches("top")-»
+		app:layout_constraintBottom_toTopOf="@+id/«constraint.referenceElement.id»"
+		«ELSEIF constraint.layoutEdge.toString().matches("bottom") && constraint.referenceLayoutEdge.toString().matches("bottom")-»
+		app:layout_constraintBottom_toBottomOf="@+id/«constraint.referenceElement.id»"
+		«ELSEIF constraint.layoutEdge.toString().matches("centerX") && constraint.referenceLayoutEdge.toString().matches("centerX")-»
+		app:layout_constraintStart_toStartOf="@+id/«constraint.referenceElement.id»"
+		app:layout_constraintEnd_toEndOf="@+id/«constraint.referenceElement.id»"
+		«ELSEIF constraint.layoutEdge.toString().matches("centerY") && constraint.referenceLayoutEdge.toString().matches("centerY")-»
+		app:layout_constraintTop_toTopOf="@+id/«constraint.referenceElement.id»"
+		app:layout_constraintBottom_toBottomOf="@+id/«constraint.referenceElement.id»"
+		«ENDIF-»
+		«ENDIF-»
     	«ENDFOREACH-»
     	«REM» Control Chains and margins «ENDREM»
     	«IF controlChain == null-»
-    		«IF positionIsUnbinded(true, positionConstraints.layoutEdge)-»
-			android:layout_marginStart="«posX + marginStart»dp"
-			«ELSE»
-			android:layout_marginStart="«marginStart»dp"
-			«ENDIF-»
-			«IF positionIsUnbinded(false, positionConstraints.layoutEdge)-»
-			android:layout_marginTop="«posY + marginTop»dp"	
-			«ELSE»
-			android:layout_marginTop="«marginTop»dp"
-			«ENDIF-»
-			android:layout_marginRight="«marginEnd»dp"
-			android:layout_marginBottom="«marginBottom»dp"
+		«IF positionIsUnbinded(true, positionConstraints.layoutEdge)-»
+		android:layout_marginStart="«posX + marginStart»dp"
+		«ELSE»
+		android:layout_marginStart="«marginStart»dp"
+		«ENDIF-»
+		«IF positionIsUnbinded(false, positionConstraints.layoutEdge)-»
+		android:layout_marginTop="«posY + marginTop»dp"	
+		«ELSE»
+		android:layout_marginTop="«marginTop»dp"
+		«ENDIF-»
+		android:layout_marginEnd="«marginEnd»dp"
+		android:layout_marginBottom="«marginBottom»dp"
     	«ELSEIF controlChain.axis.toString().matches("horizontal")-»
-    		«REM» Constraints, byas and weight «ENDREM»
-    		«IF controlChain.byas != null-»
-    		app:layout_constraintHorizontal_bias="«controlChain.byas»"
-    		«ENDIF-»
-    		«IF weight != null-»
-    		app:layout_constraintHorizontal_weight="«weight»"
-    		«ENDIF-»
-    		«IF precedentInChain == null-»
-    		app:layout_constraintStart_toStartOf="parent"
-    		app:layout_constraintEnd_toStartOf="@+id/«followingInChain.id»"
-    		«ELSEIF followingInChain == null-»
-    		app:layout_constraintStart_toEndOf="@+id/«precedentInChain.id»"
-    		app:layout_constraintEnd_toEndOf="parent"
-    		«ELSE-»
-    		app:layout_constraintStart_toEndOf="@+id/«precedentInChain.id»"
-    		app:layout_constraintEnd_toStartOf="@+id/«followingInChain.id»"
-    		«ENDIF-»
-    		«REM» Horizontal margins (A BIT STRANGE) «ENDREM»
-    		«IF controlChain.spacing == null-»
-    		android:layout_marginStart="«marginStart»dp"
-    		android:layout_marginEnd="«marginEnd»dp"
-    		«ELSEIF precedentInChain == null-»
-    		android:layout_marginStart="«marginStart»dp"
-    		«ELSEIF followingInChain == null-»
-    		android:layout_marginStart="«controlChain.spacing»dp"
-    		android:layout_marginEnd="«marginEnd»dp"
-    		«ELSE-»
-    		android:layout_marginStart="«controlChain.spacing»dp"
-    		«ENDIF-»
-    		«REM» Vertical margins as usual «ENDREM»
-    		«IF positionIsUnbinded(false, positionConstraints.layoutEdge)-»
-			android:layout_marginTop="«posY + marginTop»dp"	
-			«ELSE»
-			android:layout_marginTop="«marginTop»dp"
-			«ENDIF-»
-			android:layout_marginBottom="«marginBottom»dp"
+		«REM» Constraints, byas and weight «ENDREM»
+		«IF controlChain.byas != null-»
+		app:layout_constraintHorizontal_bias="«controlChain.byas»"
+		«ENDIF-»
+		«IF weight != null-»
+		app:layout_constraintHorizontal_weight="«weight»"
+		«ENDIF-»
+		«IF precedentInChain == null-»
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintEnd_toStartOf="@+id/«followingInChain.id»"
+		«ELSEIF followingInChain == null-»
+		app:layout_constraintStart_toEndOf="@+id/«precedentInChain.id»"
+		app:layout_constraintEnd_toEndOf="parent"
+		«ELSE-»
+		app:layout_constraintStart_toEndOf="@+id/«precedentInChain.id»"
+		app:layout_constraintEnd_toStartOf="@+id/«followingInChain.id»"
+		«ENDIF-»
+		«REM» Horizontal margins (A BIT STRANGE) «ENDREM»
+		«IF controlChain.spacing == null-»
+		android:layout_marginStart="«marginStart»dp"
+		android:layout_marginEnd="«marginEnd»dp"
+		«ELSEIF precedentInChain == null-»
+		android:layout_marginStart="«marginStart»dp"
+		«ELSEIF followingInChain == null-»
+		android:layout_marginStart="«controlChain.spacing»dp"
+		android:layout_marginEnd="«marginEnd»dp"
+		«ELSE-»
+		android:layout_marginStart="«controlChain.spacing»dp"
+		«ENDIF-»
+		«REM» Vertical margins as usual «ENDREM»
+		«IF positionIsUnbinded(false, positionConstraints.layoutEdge)-»
+		android:layout_marginTop="«posY + marginTop»dp"	
+		«ELSE»
+		android:layout_marginTop="«marginTop»dp"
+		«ENDIF-»
+		android:layout_marginBottom="«marginBottom»dp"
     	«ELSE»
-    		«REM» Constraints, byas and weight «ENDREM»
-    		«IF controlChain.byas != null-»
-    		app:layout_constraintVertical_bias="«controlChain.byas»"
-    		«ENDIF-»
-    		«IF weight != null-»
-    		app:layout_constraintVertical_weight="«weight»"
-    		«ENDIF-»
-    		«IF precedentInChain == null-»
-    		app:layout_constraintTop_toTopOf="parent"
-    		app:layout_constraintBottom_toTopOf="@+id/«followingInChain.id»"
-    		«ELSEIF followingInChain == null-»
-    		app:layout_constraintTop_toBottomOf="@+id/«precedentInChain.id»"
-    		app:layout_constraintBottom_toBottomOf="parent"
-    		«ELSE-»
-    		app:layout_constraintTop_toBottomOf="@+id/«precedentInChain.id»"
-    		app:layout_constraintBottom_toTopOf="@+id/«followingInChain.id»"
-    		«ENDIF-»
-    		«REM» Vertical margins (A BIT STRANGE) «ENDREM»
-    		«IF controlChain.spacing == null-»
-    		android:layout_marginTop="«marginTop»dp"
-    		android:layout_marginBottom="«marginBottom»dp"
-    		«ELSEIF precedentInChain == null-»
-    		android:layout_marginTop="«marginTop»dp"
-    		«ELSEIF followingInChain == null-»
-    		android:layout_marginTop="«controlChain.spacing»dp"
-    		android:layout_marginBottom="«marginBottom»dp"
-    		«ELSE-»
-    		android:layout_marginTop="«controlChain.spacing»dp"
-    		«ENDIF-»
-    		«REM» Horizontal margins as usual «ENDREM»
-    		«IF positionIsUnbinded(true, positionConstraints.layoutEdge)-»
-			android:layout_marginStart="«posX + marginStart»dp"
-			«ELSE»
-			android:layout_marginStart="«marginStart»dp"
-			«ENDIF-»
-			android:layout_marginRight="«marginEnd»dp"
+		«REM» Constraints, byas and weight «ENDREM»
+		«IF controlChain.byas != null-»
+		app:layout_constraintVertical_bias="«controlChain.byas»"
+		«ENDIF-»
+		«IF weight != null-»
+		app:layout_constraintVertical_weight="«weight»"
+		«ENDIF-»
+		«IF precedentInChain == null-»
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintBottom_toTopOf="@+id/«followingInChain.id»"
+		«ELSEIF followingInChain == null-»
+		app:layout_constraintTop_toBottomOf="@+id/«precedentInChain.id»"
+		app:layout_constraintBottom_toBottomOf="parent"
+		«ELSE-»
+		app:layout_constraintTop_toBottomOf="@+id/«precedentInChain.id»"
+		app:layout_constraintBottom_toTopOf="@+id/«followingInChain.id»"
+		«ENDIF-»
+		«REM» Vertical margins (A BIT STRANGE) «ENDREM»
+		«IF controlChain.spacing == null-»
+		android:layout_marginTop="«marginTop»dp"
+		android:layout_marginBottom="«marginBottom»dp"
+		«ELSEIF precedentInChain == null-»
+		android:layout_marginTop="«marginTop»dp"
+		«ELSEIF followingInChain == null-»
+		android:layout_marginTop="«controlChain.spacing»dp"
+		android:layout_marginBottom="«marginBottom»dp"
+		«ELSE-»
+		android:layout_marginTop="«controlChain.spacing»dp"
+		«ENDIF-»
+		«REM» Horizontal margins as usual «ENDREM»
+		«IF positionIsUnbinded(true, positionConstraints.layoutEdge)-»
+		android:layout_marginStart="«posX + marginStart»dp"
+		«ELSE»
+		android:layout_marginStart="«marginStart»dp"
+		«ENDIF-»
+		android:layout_marginRight="«marginEnd»dp"
     	«ENDIF-»
 		«REM» Padding «ENDREM»
 		android:paddingBottom="«paddingBottom»dp"

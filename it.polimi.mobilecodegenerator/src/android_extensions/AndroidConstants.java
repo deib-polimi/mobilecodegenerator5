@@ -1,5 +1,5 @@
 /************************************************************************************************************************
- * Copyright 2017 Gregorio Perego, Stefania Pezzetti, Aldo Pintus, Alessio Rossotti
+ * Copyright 2017 Gregorio Perego, Stefania Pezzetti, Aldo Pintus, Alessio Rossotti, Massimo Beccari
  * This file is part of it.polimi.mobilecodegenerator.
  * 
  * it.polimi.mobilecodegenerator is free software: 
@@ -22,6 +22,7 @@ public class AndroidConstants {
 	private static String sourceFilesFolder = "utils/android_default_files";
 	
 	public static String[] sourceFilesPaths = {
+		sourceFilesFolder+"/mobile/proguard-rules.pro",
 		sourceFilesFolder+"/mobile/src/main/res/drawable/grid_image.png",
 		sourceFilesFolder+"/mobile/src/main/res/drawable/card_image.png",
 		sourceFilesFolder+"/mobile/src/main/res/drawable-hdpi/ic_chevron_right_black_36dp.png",
@@ -86,6 +87,7 @@ public class AndroidConstants {
 	public static String destinationFilesFolder = "src-gen/android/"+AppJavaUtil.APPLICATION_NAME;
 	
 	public static String[] destinationFilesPaths = {
+		destinationFilesFolder+"/mobile/proguard-rules.pro",
 		destinationFilesFolder+"/mobile/src/main/res/drawable/grid_image.png",
 		destinationFilesFolder+"/mobile/src/main/res/drawable/card_image.png",
 		destinationFilesFolder+"/mobile/src/main/res/drawable-hdpi/ic_chevron_right_black_36dp.png",

@@ -1,5 +1,5 @@
 /************************************************************************************************************************
- * Copyright 2017 Gregorio Perego, Stefania Pezzetti, Aldo Pintus, Alessio Rossotti
+ * Copyright 2017 Gregorio Perego, Stefania Pezzetti, Aldo Pintus, Alessio Rossotti, Massimo Beccari
  * This file is part of it.polimi.mobilecodegenerator.
  * 
  * it.polimi.mobilecodegenerator is free software: 
@@ -47,9 +47,9 @@ context Application if(invalidFilesNames().size == 0) ERROR "Extensions of files
 context Application if(invalidFilesNames().size == 0 && invalidFilesExtensions().size == 0) ERROR "Files in user_files folder must have different names: " : duplicatedFilesNames().size == 0;
 	
 	
-context Navigation if(contextScene == null) ERROR "Navigation must have a destination [Navigation: '"+id+"']" : !(destinationScene == null && destinationViewController == null);
+context Navigation if(contextScene == null) ERROR "Navigation of a menu item must have a destination [Navigation: '"+id+"']" : destinationScene != null;
 
-context Navigation if(destinationScene != null) ERROR "Destination of Navigation must not be a Menu Item [Navigation: '"+id+"']" : isDestinationNotAMenuItem(destinationScene.id, destinationScene.application.menu.menuItems.navigation.destinationScene.id) == true;
+context Navigation if(contextScene != null && destinationScene != null) ERROR "Destination of Navigation must not be a Menu Item [Navigation: '"+id+"']" : isDestinationNotAMenuItem(destinationScene.id, destinationScene.application.menu.menuItems.navigation.destinationScene.id) == true;
 
 
 context WatchButton if(watchClickListener!=null && watchClickListener.watchNavigation!=null) ERROR "WatchNavigation must have a destination [WatchButton: '"+id+"']" : !watchClickListener.watchNavigation.destination.matches("");
@@ -88,7 +88,7 @@ context ViewController ERROR "Names of AsyncTasks must be of minimum one charact
 context ViewController ERROR "Names of AsyncTasks must be unique in the same ViewController" : asyncTasks.forAll(at1 | asyncTasks.select(at2 | at1.name.matches(at2.name)).size == 1);
 
 
-context Menu if (this != null && menuItems.size > 0) ERROR "Menu items must be all different ": ((duplicatedIds(menuItems.navigation.destinationScene.id).size == 0) && (duplicatedIds(menuItems.navigation.destinationViewController.id).size == 0));
+context Menu if (this != null && menuItems.size > 0) ERROR "Menu items must be all different ": duplicatedIds(menuItems.navigation.destinationScene.id).size == 0;
 
 context MenuItem ERROR "There must be a Navigation for every MenuItem [MenuItem: '"+id+"']" : navigation!=null;
 

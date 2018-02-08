@@ -1,5 +1,5 @@
 «REM»
-Copyright 2017 Gregorio Perego, Stefania Pezzetti, Aldo Pintus, Alessio Rossotti
+Copyright 2017 Gregorio Perego, Stefania Pezzetti, Aldo Pintus, Alessio Rossotti, Massimo Beccari
 This file is part of it.polimi.mobilecodegenerator.
 
 it.polimi.mobilecodegenerator is free software: 
@@ -69,9 +69,7 @@ this.«lv.id»Adapter = new MyListAdapter(this, R.layout.«lv.id.toLowerCase()»_sim
 «ENDIF-»
 this.«lv.id» = (ListView) this.findViewById(R.id.«lv.id»);
 this.«lv.id».setAdapter(this.«lv.id»Adapter);
-«IF lv.clickListener!=null-»
 this.«lv.id».setOnItemClickListener(this);
-«ENDIF-»
 «ENDFOREACH-»
 «ENDDEFINE-»
 
@@ -114,42 +112,27 @@ this.«lv.id»Adapter = new MyListAdapter(getActivity(), R.layout.«lv.id.toLowerCa
 «ENDIF-»
 this.«lv.id» = (ListView) rootView.findViewById(R.id.«lv.id»);
 this.«lv.id».setAdapter(this.«lv.id»Adapter);
-«IF lv.clickListener!=null-»
 this.«lv.id».setOnItemClickListener(this);
-«ENDIF-»
 «ENDFOREACH-»
 «ENDDEFINE-»
 
 «DEFINE onItemClick FOR ViewController-»
 «FOREACH listViews AS lv-»
-«IF lv.clickListener != null-»
 if(l.getId() == R.id.«lv.id»){
 	String clickedItem = this.«lv.id»Contents[position];
-	«IF lv.clickListener.navigation != null-»
-	Intent intent = new Intent(«name.toFirstUpper()»Activity.this, «lv.clickListener.navigation.destination.toFirstUpper()»Activity.class);
-	//use putExtra method of Intent here for passing additional information to «lv.clickListener.navigation.destination.toFirstUpper()»Activity
-	startActivity(intent);
-	«ELSE-»
 	//TODO implement the action
-	«ENDIF-»
 }
-«ENDIF-»
 «ENDFOREACH-»
 «ENDDEFINE-»
 
 «DEFINE onItemClickFrag FOR ViewController-»
 «FOREACH listViews AS lv-»
-«IF lv.clickListener!=null-»
 if(l.getId() == R.id.«lv.id»){
 	String clickedItem = this.«lv.id»Contents[position];
-	«IF lv.clickListener.navigation!=null-»
-	Intent intent = new Intent(getActivity(), «lv.clickListener.navigation.destination.toFirstUpper()»Activity.class);
-	//use putExtra method of Intent here for passing additional information to «lv.clickListener.navigation.destination.toFirstUpper()»Activity
-	startActivity(intent);
-	«ELSE-»
-	//TODO implement the action
-	«ENDIF-»
+	// Since a fragment may be used in multiple activities, ask parent activity what to do on the click event
+	if (mListener != null) {
+    	mListener.onFragmentNavigationInteraction("«lv.id»", clickedItem);
+    }
 }
-«ENDIF-»
 «ENDFOREACH-»
 «ENDDEFINE-»
