@@ -49,7 +49,7 @@ context Application if(invalidFilesNames().size == 0 && invalidFilesExtensions()
 	
 context Navigation if(contextScene == null) ERROR "Navigation of a menu item must have a destination [Navigation: '"+id+"']" : destinationScene != null;
 
-context Navigation if(contextScene != null && destinationScene != null) ERROR "Destination of Navigation must not be a Menu Item [Navigation: '"+id+"']" : isDestinationNotAMenuItem(destinationScene.id, destinationScene.application.menu.menuItems.navigation.destinationScene.id) == true;
+//context Navigation if(contextScene != null && destinationScene != null) ERROR "Destination of Navigation must not be a Menu Item [Navigation: '"+id+"']" : isDestinationNotAMenuItem(destinationScene.id, destinationScene.application.menu.menuItems.navigation.destinationScene.id) == true;
 
 
 context WatchButton if(watchClickListener!=null && watchClickListener.watchNavigation!=null) ERROR "WatchNavigation must have a destination [WatchButton: '"+id+"']" : !watchClickListener.watchNavigation.destination.matches("");

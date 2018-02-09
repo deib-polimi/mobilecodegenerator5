@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metamodel:Application xmi:version="2.0"
+	xmlns:xmi="http://www.omg.org/XMI"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:metamodel="http://metamodel/1.0" xsi:schemaLocation="http://metamodel/1.0 ../metamodel/metamodel.ecore" name="test" companyIdentifier="it.polimi">
+	<dataHandler/>
+	<viewControllers id="351ak" name="chainsView" backgroundColor="#ffffff" backgroundImage="">
+		<controlChains id="idmts2v" viewController="//@viewControllers[id='351ak']" axis="horizontal" type="spread" nControls="3"/>
+		<controlChains id="idsffb3" viewController="//@viewControllers[id='351ak']" axis="horizontal" type="packed" nControls="2" bias="0.7" spacing="10"/>
+		<controlChains id="idrqci4" viewController="//@viewControllers[id='351ak']" axis="horizontal" type="weighted" nControls="2" spacing="10"/>
+		<textViews id="idvb0q3Label" viewController="//@viewControllers[id='351ak']" defaultWidth="88" defaultHeight="36" width="88" height="NaN" posX="27.75" posY="NaN" controlChain="//@viewControllers[id='351ak']/@controlChains[id='idmts2v']" indexInChain="0" followingInChain="//@viewControllers[id='351ak']/@textViews[id='idfbgltLabel']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="10" marginBottom="0" marginStart="0" marginEnd="0" content="S1" textAlign="left" textColor="#000000" textSize="16" textDecoration="none">
+			<positionConstraints id="evt4o" uiPhoneControl="//@viewControllers[id='351ak']/@textViews[id='idvb0q3Label']" layoutEdge="top" withParent="true" referenceLayoutEdge="top"/>
+		</textViews>
+		<textViews id="idfbgltLabel" viewController="//@viewControllers[id='351ak']" defaultWidth="88" defaultHeight="36" width="88" height="46" posX="143.5" posY="49" controlChain="//@viewControllers[id='351ak']/@controlChains[id='idmts2v']" indexInChain="1" precedentInChain="//@viewControllers[id='351ak']/@textViews[id='idvb0q3Label']" followingInChain="//@viewControllers[id='351ak']/@textViews[id='idid8r5Label']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="S2" textAlign="left" textColor="#000000" textSize="16" textDecoration="none">
+			<positionConstraints id="ifd2b" uiPhoneControl="//@viewControllers[id='351ak']/@textViews[id='idfbgltLabel']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='351ak']/@textViews[id='idvb0q3Label']" referenceLayoutEdge="top"/>
+		</textViews>
+		<textViews id="idid8r5Label" viewController="//@viewControllers[id='351ak']" defaultWidth="88" defaultHeight="36" width="88" height="46" posX="259.25" posY="49" controlChain="//@viewControllers[id='351ak']/@controlChains[id='idmts2v']" indexInChain="2" precedentInChain="//@viewControllers[id='351ak']/@textViews[id='idfbgltLabel']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="S3" textAlign="left" textColor="#000000" textSize="16" textDecoration="none">
+			<positionConstraints id="8pbig" uiPhoneControl="//@viewControllers[id='351ak']/@textViews[id='idid8r5Label']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='351ak']/@textViews[id='idvb0q3Label']" referenceLayoutEdge="top"/>
+		</textViews>
+		<textViews id="id7a666Label" viewController="//@viewControllers[id='351ak']" defaultWidth="88" defaultHeight="36" width="88" height="36" posX="0" posY="105" controlChain="//@viewControllers[id='351ak']/@controlChains[id='idsffb3']" indexInChain="0" followingInChain="//@viewControllers[id='351ak']/@textViews[id='idue1nvLabel']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="10" marginBottom="0" marginStart="0" marginEnd="0" content="P1" textAlign="left" textColor="#000000" textSize="16" textDecoration="none">
+			<positionConstraints id="d39re" uiPhoneControl="//@viewControllers[id='351ak']/@textViews[id='id7a666Label']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='351ak']/@textViews[id='idvb0q3Label']" referenceLayoutEdge="bottom"/>
+		</textViews>
+		<textViews id="idue1nvLabel" viewController="//@viewControllers[id='351ak']" defaultWidth="88" defaultHeight="36" width="88" height="46" posX="98" posY="95" controlChain="//@viewControllers[id='351ak']/@controlChains[id='idsffb3']" indexInChain="1" precedentInChain="//@viewControllers[id='351ak']/@textViews[id='id7a666Label']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="P2" textAlign="left" textColor="#000000" textSize="16" textDecoration="none">
+			<positionConstraints id="35u18" uiPhoneControl="//@viewControllers[id='351ak']/@textViews[id='idue1nvLabel']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='351ak']/@textViews[id='id7a666Label']" referenceLayoutEdge="top"/>
+		</textViews>
+		<textViews id="iduk8mhLabel" viewController="//@viewControllers[id='351ak']" defaultWidth="88" defaultHeight="36" width="172.5" height="NaN" posX="10" posY="699" controlChain="//@viewControllers[id='351ak']/@controlChains[id='idrqci4']" indexInChain="0" followingInChain="//@viewControllers[id='351ak']/@textViews[id='idsnhjmLabel']" weight="1" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="40" marginStart="0" marginEnd="0" content="W1" textAlign="left" textColor="#000000" textSize="16" textDecoration="none">
+			<positionConstraints id="ctr7c" uiPhoneControl="//@viewControllers[id='351ak']/@textViews[id='iduk8mhLabel']" layoutEdge="bottom" withParent="true" referenceLayoutEdge="bottom"/>
+		</textViews>
+		<textViews id="idsnhjmLabel" viewController="//@viewControllers[id='351ak']" defaultWidth="88" defaultHeight="36" width="172.5" height="36" posX="192.5" posY="699" controlChain="//@viewControllers[id='351ak']/@controlChains[id='idrqci4']" indexInChain="1" precedentInChain="//@viewControllers[id='351ak']/@textViews[id='iduk8mhLabel']" weight="1" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="W1" textAlign="left" textColor="#000000" textSize="16" textDecoration="none">
+			<positionConstraints id="oe1lp" uiPhoneControl="//@viewControllers[id='351ak']/@textViews[id='idsnhjmLabel']" layoutEdge="bottom" withParent="false" referenceElement="//@viewControllers[id='351ak']/@textViews[id='iduk8mhLabel']" referenceLayoutEdge="bottom"/>
+		</textViews>
+	</viewControllers>
+	<viewControllers id="vcgf1" name="buttonView" backgroundColor="#ffffff" backgroundImage="">
+		<buttons id="idc0q5bButton" viewController="//@viewControllers[id='vcgf1']" defaultWidth="88" defaultHeight="40" width="130.5" height="25" posX="132" posY="112" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="48" marginBottom="0" marginStart="0" marginEnd="0" title="Button" textColor="" backgroundColor="" borderRadius="2" clickColor="">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='vcgf1']/@buttons[id='idc0q5bButton']" widthPercent="0.4"/>
+			<positionConstraints id="a8i5q" uiPhoneControl="//@viewControllers[id='vcgf1']/@buttons[id='idc0q5bButton']" layoutEdge="top" withParent="true" referenceLayoutEdge="top"/>
+			<positionConstraints id="uulap" uiPhoneControl="//@viewControllers[id='vcgf1']/@buttons[id='idc0q5bButton']" layoutEdge="centerX" withParent="true" referenceLayoutEdge="centerX"/>
+			<navigations id="cl46e" contextScene="//@scenes[id='s878i']" destinationScene="//@scenes[id='shaab']"/>
+			<navigations id="ingdm" contextScene="//@scenes[id='t7ee7']"/>
+			<navigations id="459q3" contextScene="//@scenes[id='shaab']" destinationScene="//@scenes[id='t7ee7']"/>
+		</buttons>
+	</viewControllers>
+	<scenes id="shaab" name="sceneComposed" launcher="false" typeSmartphone="singleVC" typeTablet="multiVC">
+		<parentViewControllers id="juip1" name="parentVCTablet" backgroundColor="#ffffff" backgroundImage="">
+			<containers childViewController="//@viewControllers[id='351ak']" id="id0e8mkContainer" viewController="//@scenes[id='shaab']/@parentViewControllers[id='juip1']" defaultWidth="300" defaultHeight="400" width="150" height="711" posX="0" posY="64" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0">
+				<dimensionConstraint uiPhoneControl="//@scenes[id='shaab']/@parentViewControllers[id='juip1']/@containers[id='id0e8mkContainer']" widthPercent="0.4" heightPercent="1"/>
+				<positionConstraints id="di1vm" uiPhoneControl="//@scenes[id='shaab']/@parentViewControllers[id='juip1']/@containers[id='id0e8mkContainer']" layoutEdge="top" withParent="true" referenceLayoutEdge="top"/>
+				<positionConstraints id="4p99e" uiPhoneControl="//@scenes[id='shaab']/@parentViewControllers[id='juip1']/@containers[id='id0e8mkContainer']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+			</containers>
+			<containers childViewController="//@viewControllers[id='vcgf1']" id="idlvs0dContainer" viewController="//@scenes[id='shaab']/@parentViewControllers[id='juip1']" defaultWidth="300" defaultHeight="400" width="189" height="711" posX="225" posY="64" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0">
+				<dimensionConstraint uiPhoneControl="//@scenes[id='shaab']/@parentViewControllers[id='juip1']/@containers[id='idlvs0dContainer']" widthPercent="0.4" heightPercent="1"/>
+				<positionConstraints id="b0gjs" uiPhoneControl="//@scenes[id='shaab']/@parentViewControllers[id='juip1']/@containers[id='idlvs0dContainer']" layoutEdge="top" withParent="true" referenceLayoutEdge="top"/>
+				<positionConstraints id="pnqhj" uiPhoneControl="//@scenes[id='shaab']/@parentViewControllers[id='juip1']/@containers[id='idlvs0dContainer']" layoutEdge="end" withParent="true" referenceLayoutEdge="end"/>
+			</containers>
+		</parentViewControllers>
+		<sceneViewControllers viewController="//@viewControllers[id='351ak']"/>
+		<sceneViewControllers viewController="//@viewControllers[id='vcgf1']"/>
+	</scenes>
+	<scenes id="s878i" name="singleScene" launcher="true" typeSmartphone="singleVC" typeTablet="singleVC">
+		<sceneViewControllers viewController="//@viewControllers[id='vcgf1']"/>
+	</scenes>
+	<scenes id="t7ee7" name="backButtonScene" launcher="false" typeSmartphone="singleVC" typeTablet="singleVC">
+		<sceneViewControllers viewController="//@viewControllers[id='vcgf1']"/>
+	</scenes>
+	<menu>
+		<menuItems title="Scene Composed" id="idScene1">
+			<navigation id="g0aqd" destinationScene="//@scenes[id='shaab']"/>
+		</menuItems>
+	</menu>
+</metamodel:Application>

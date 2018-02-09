@@ -354,11 +354,17 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 «EXPAND FragmentXMLLayout FOREACH viewControllers-»
 
 «IF menu.menuItems.size > 0 -»
-«EXPAND menuApplication FOREACH scenes-»
 «EXPAND menu FOR menu-»
-«ELSE-»
-«EXPAND SimpleActivityXMLLayout FOREACH scenes-»
 «ENDIF-»
+
+«FOREACH scenes AS s-»
+«IF isAMenuDestination(s.name, menu.menuItems.navigation.destinationScene.name)-»
+«EXPAND ActivityWithMenuXMLLayout FOR s»
+«ELSE-»
+«EXPAND SimpleActivityXMLLayout FOR s»
+«ENDIF-»
+«ENDFOREACH-»
+
 «ENDDEFINE-»
 
 
@@ -378,18 +384,6 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 
 </menu>
 «ENDFILE-»
-«ENDDEFINE-»
-
-
-«REM»--------------------------- menuApplication Layout XML Files ---------------------------«ENDREM»
-«DEFINE menuApplication FOR Scene-»
-
-«IF isAMenuDestination(name, application.menu.menuItems.navigation.destinationScene.name)-»
-«EXPAND ActivityWithMenuXMLLayout FOR this»
-«ELSE-»
-«EXPAND SimpleActivityXMLLayout FOR this»
-«ENDIF-»
-
 «ENDDEFINE-»
 
 
@@ -437,11 +431,11 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 «IF sceneViewControllers.size > 1-»
 «REM» Export 2 app_bar layouts for scenes with typeSmartphone != typeTablet «ENDREM»
 «FILE application.name+"/mobile/src/main/res/layout/"+"app_bar_"+name.toLowerCase()+".xml"-»
-«EXPAND CoordinatorLayoutSmartphoneXMLLayout FOR this»
+«EXPAND AppBarLayoutSmartphoneXMLLayout FOR this»
 «ENDFILE-»
 «IF !typeSmartphone.toString().matches(typeTablet.toString())-»
 «FILE application.name+"/mobile/src/main/res/layout-sw600dp/"+"app_bar_"+name.toLowerCase()+".xml"-»
-«EXPAND CoordinatorLayoutTabletXMLLayout FOR this»
+«EXPAND AppBarLayoutTabletXMLLayout FOR this»
 «ENDFILE-»
 «ENDIF-»
 «EXPAND ContentXMLLayout FOR this»
@@ -460,11 +454,11 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 «IF sceneViewControllers.size > 1-»
 «REM» Export 2 activity layouts for scenes with typeSmartphone != typeTablet «ENDREM»
 «FILE application.name+"/mobile/src/main/res/layout/"+"activity_"+name.toLowerCase()+".xml"-»
-«EXPAND CoordinatorLayoutSmartphoneXMLLayout FOR this»
+«EXPAND AppBarLayoutSmartphoneXMLLayout FOR this»
 «ENDFILE-»
 «IF !typeSmartphone.toString().matches(typeTablet.toString())-»
 «FILE application.name+"/mobile/src/main/res/layout-sw600dp/"+"activity_"+name.toLowerCase()+".xml"-»
-«EXPAND CoordinatorLayoutTabletXMLLayout FOR this»
+«EXPAND AppBarLayoutTabletXMLLayout FOR this»
 «ENDFILE-»
 «ENDIF-»
 «EXPAND ContentXMLLayout FOR this»
@@ -478,13 +472,24 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 
 
 «REM»--------------------------- Coordinator Layout Expansion for Smartphone's Scene ---------------------------«ENDREM»
-«DEFINE CoordinatorLayoutSmartphoneXMLLayout FOR Scene-»
+«DEFINE AppBarLayoutSmartphoneXMLLayout FOR Scene-»
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+«IF typeSmartphone.toString().matches("multiVC")-»
+<LinearLayout
+«ELSE-»
+<android.support.design.widget.CoordinatorLayout 
+«ENDIF-»
+	xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    «IF typeSmartphone.toString().matches("multiVC")-»
+	android:orientation="vertical"
+	«ENDIF-»
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    «IF !isAMenuDestination(name, application.menu.menuItems.navigation.destinationScene.name)-»
+    android:fitsSystemWindows="true"
+    «ENDIF-»
     tools:context="«application.companyIdentifier».«application.name.toLowerCase()».activities.«name.toFirstUpper()»Activity">
 
     <android.support.design.widget.AppBarLayout
@@ -519,28 +524,43 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 
     </android.support.design.widget.AppBarLayout>
     
-    «IF typeSmartphone.toString().matches("singleVC") || typeSmartphone.toString().matches("singleVCTab")-»
-    <android.support.v4.view.ViewPager
+    «IF typeSmartphone.toString().matches("multiVC")-»
+	<include layout="@layout/content_«name.toLowerCase()»" />
+	«ELSE-»
+	<android.support.v4.view.ViewPager
         android:id="@+id/«name.toLowerCase()»_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-    «ELSE-»
-    <include layout="@layout/content_«name.toLowerCase()»" />
-    «ENDIF-»
+	«ENDIF-»
 
+«IF typeSmartphone.toString().matches("multiVC")-»
+</LinearLayout>
+«ELSE-»
 </android.support.design.widget.CoordinatorLayout>
+«ENDIF-»
 «ENDDEFINE-»
 
 
 «REM»--------------------------- Coordinator Layout Expansion for Tablet's Scene ---------------------------«ENDREM»
-«DEFINE CoordinatorLayoutTabletXMLLayout FOR Scene-»
+«DEFINE AppBarLayoutTabletXMLLayout FOR Scene-»
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+«IF typeTablet.toString().matches("multiVC")-»
+<LinearLayout
+«ELSE-»
+<android.support.design.widget.CoordinatorLayout 
+«ENDIF-»
+	xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    «IF typeTablet.toString().matches("multiVC")-»
+	android:orientation="vertical"
+	«ENDIF-»
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    «IF !isAMenuDestination(name, application.menu.menuItems.navigation.destinationScene.name)-»
+    android:fitsSystemWindows="true"
+    «ENDIF-»
     tools:context="«application.companyIdentifier».«application.name.toLowerCase()».activities.«name.toFirstUpper()»Activity">
 
     <android.support.design.widget.AppBarLayout
@@ -575,17 +595,21 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 
     </android.support.design.widget.AppBarLayout>
     
-    «IF typeTablet.toString().matches("singleVC") || typeTablet.toString().matches("singleVCTab")-»
-    <android.support.v4.view.ViewPager
+    «IF typeTablet.toString().matches("multiVC")-»
+	<include layout="@layout/content_«name.toLowerCase()»" />
+	«ELSE-»
+	<android.support.v4.view.ViewPager
         android:id="@+id/«name.toLowerCase()»_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
-    «ELSE-»
-    <include layout="@layout/content_«name.toLowerCase()»" />
-    «ENDIF-»
+	«ENDIF-»
 
+«IF typeTablet.toString().matches("multiVC")-»
+</LinearLayout>
+«ELSE-»
 </android.support.design.widget.CoordinatorLayout>
+«ENDIF-»
 «ENDDEFINE-»
 
 
@@ -657,6 +681,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context="«application.companyIdentifier».«application.name.toLowerCase()».activities.«name.toFirstUpper()»Activity">
 
 	<RelativeLayout
@@ -988,7 +1013,11 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 		«IF dimensionConstraint.fixedWidth != null-»
 		android:layout_width="«dimensionConstraint.fixedWidth»dp"
 		«ELSEIF dimensionConstraint.widthPercent != null || dimensionConstraint.fixedRatio != null || !dimensionIsUnbinded(true, positionConstraints.layoutEdge)-»
+		«IF dimensionConstraint.widthPercent != null && dimensionConstraint.widthPercent == 1.0-»
+		android:layout_width="match_parent"
+		«ELSE»
 		android:layout_width="0dp"
+		«ENDIF-»
 		«ELSEIF controlChain == null-»
 		android:layout_width="«defaultWidth»dp"
 		«ELSEIF controlChain.axis.toString().matches("horizontal") && controlChain.type.toString().matches("weighted")-»
@@ -999,7 +1028,11 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 		«IF dimensionConstraint.fixedHeight != null-»
 		android:layout_height="«dimensionConstraint.fixedHeight»dp"
 		«ELSEIF dimensionConstraint.heightPercent != null || dimensionConstraint.fixedRatio != null || !dimensionIsUnbinded(false, positionConstraints.layoutEdge)-»
+		«IF dimensionConstraint.heightPercent != null && dimensionConstraint.heightPercent == 1.0-»
+		android:layout_height="match_parent"
+		«ELSE»
 		android:layout_height="0dp"
+		«ENDIF-»
 		«ELSEIF controlChain == null-»
 		android:layout_height="«defaultHeight»dp"
 		«ELSEIF controlChain.axis.toString().matches("vertical") && controlChain.type.toString().matches("weighted")-»
@@ -1075,9 +1108,9 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 		android:layout_marginEnd="«marginEnd»dp"
 		android:layout_marginBottom="«marginBottom»dp"
     	«ELSEIF controlChain.axis.toString().matches("horizontal")-»
-		«REM» Constraints, byas and weight «ENDREM»
-		«IF controlChain.byas != null-»
-		app:layout_constraintHorizontal_bias="«controlChain.byas»"
+		«REM» Constraints, bias and weight «ENDREM»
+		«IF controlChain.bias != null-»
+		app:layout_constraintHorizontal_bias="«controlChain.bias»"
 		«ENDIF-»
 		«IF weight != null-»
 		app:layout_constraintHorizontal_weight="«weight»"
@@ -1112,9 +1145,9 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 		«ENDIF-»
 		android:layout_marginBottom="«marginBottom»dp"
     	«ELSE»
-		«REM» Constraints, byas and weight «ENDREM»
-		«IF controlChain.byas != null-»
-		app:layout_constraintVertical_bias="«controlChain.byas»"
+		«REM» Constraints, bias and weight «ENDREM»
+		«IF controlChain.bias != null-»
+		app:layout_constraintVertical_bias="«controlChain.bias»"
 		«ENDIF-»
 		«IF weight != null-»
 		app:layout_constraintVertical_weight="«weight»"

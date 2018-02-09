@@ -251,7 +251,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 		«IF precedentInChain == null-»
 		<constraint firstItem="«controlChain.id»-GhostView0" firstAttribute="leading" secondItem="«viewController.name»ViewID" secondAttribute="leading" priority="750" constant="0" id="«controlChain.id»-GhostView0-constraintX"/>
 		<constraint firstItem="«controlChain.id»-GhostView0" firstAttribute="top" secondItem="«viewController.name»ViewID" secondAttribute="top" priority="750" constant="0" id="«controlChain.id»-GhostView0-constraintY"/>
-		<constraint firstItem="«controlChain.id»-GhostView0" firstAttribute="width" secondItem="«controlChain.id»-GhostView1" secondAttribute="width" priority="750" multiplier="«(controlChain.byas) / (1 - controlChain.byas)»" id="«controlChain.id»-GhostView0-constraint-width"/>
+		<constraint firstItem="«controlChain.id»-GhostView0" firstAttribute="width" secondItem="«controlChain.id»-GhostView1" secondAttribute="width" priority="750" multiplier="«(controlChain.bias) / (1 - controlChain.bias)»" id="«controlChain.id»-GhostView0-constraint-width"/>
 		«ENDIF-»
 		«REM» Horizontal and vertical positioning of the ghost view on the right of the controls (done by the last control) «ENDREM»
 		«IF followingInChain == null-»
@@ -324,7 +324,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 		«IF precedentInChain == null-»
 		<constraint firstItem="«controlChain.id»-GhostView0" firstAttribute="top" secondItem="«viewController.name»ViewID" secondAttribute="top" priority="750" constant="0" id="«controlChain.id»-GhostView0-constraintY"/>
 		<constraint firstItem="«controlChain.id»-GhostView0" firstAttribute="leading" secondItem="«viewController.name»ViewID" secondAttribute="leading" priority="750" constant="0" id="«controlChain.id»-GhostView0-constraintX"/>
-		<constraint firstItem="«controlChain.id»-GhostView0" firstAttribute="height" secondItem="«controlChain.id»-GhostView1" secondAttribute="height" priority="750" multiplier="«(controlChain.byas) / (1 - controlChain.byas)»" id="«controlChain.id»-GhostView0-constraint-height"/>
+		<constraint firstItem="«controlChain.id»-GhostView0" firstAttribute="height" secondItem="«controlChain.id»-GhostView1" secondAttribute="height" priority="750" multiplier="«(controlChain.bias) / (1 - controlChain.bias)»" id="«controlChain.id»-GhostView0-constraint-height"/>
 		«ENDIF-»
 		«REM» Horizontal and vertical positioning of the ghost view on the right of the controls (done by the last control) «ENDREM»
 		«IF followingInChain == null-»
