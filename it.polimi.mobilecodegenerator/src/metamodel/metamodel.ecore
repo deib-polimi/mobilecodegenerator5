@@ -114,6 +114,8 @@
   <eClassifiers xsi:type="ecore:EClass" name="ViewController">
     <eStructuralFeatures xsi:type="ecore:EReference" name="application" eType="#//Application"
         changeable="false" eOpposite="#//Application/viewControllers"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="scene" eType="#//Scene"
+        eOpposite="#//Scene/parentViewControllers"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"
         defaultValueLiteral=""/>
@@ -183,7 +185,8 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="typeTablet" lowerBound="1"
         eType="#//SceneType" defaultValueLiteral=""/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="parentViewControllers"
-        ordered="false" upperBound="2" eType="#//ViewController" eKeys="#//ViewController/id"/>
+        ordered="false" upperBound="2" eType="#//ViewController" containment="true"
+        eOpposite="#//ViewController/scene" eKeys="#//ViewController/id"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="sceneViewControllers" ordered="false"
         lowerBound="1" upperBound="-1" eType="#//SceneViewController" containment="true"
         eOpposite="#//SceneViewController/scene" eKeys="#//ViewController/id"/>

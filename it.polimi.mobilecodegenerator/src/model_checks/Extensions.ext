@@ -27,6 +27,8 @@ List[String] duplicatedFilesNames():JAVA model_checks.JavaChecks.duplicatedFiles
 
 Boolean isDestinationNotAMenuItem(String destination, List[String] menuItems):JAVA model_checks.JavaChecks.isDestinationNotAMenuItem(java.lang.String, java.util.List);
 
+Boolean dimensionIsUnbinded(Boolean isWidth, List layoutEdgesConstrained):JAVA model_checks.JavaChecks.dimensionIsUnbinded(java.lang.Boolean, java.util.List);
+
 List[String] ids(Application this) : 
 
 	if(menu!=null) then {
