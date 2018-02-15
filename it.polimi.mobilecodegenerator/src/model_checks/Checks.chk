@@ -91,6 +91,8 @@ context Scene ERROR "Number of ViewControllers in scene must be at least 1 [Scen
 
 context Scene ERROR "Number of parent ViewControllers in scene must be at most 2 [Scene: '"+id+"']" : parentViewControllers.size <= 2;
 
+context Scene if(sceneViewControllers.size == 1) ERROR "Scenes with one ViewController must have type = 'singleVC' [Scene: '"+id+"']" : typeSmartphone.toString().matches("singleVC") && typeTablet.toString().matches("singleVC");
+
 
 context ViewController ERROR "Names of AsyncTasks must be of minimum one character long" : asyncTasks.forAll(at| at.name.length>0);
 

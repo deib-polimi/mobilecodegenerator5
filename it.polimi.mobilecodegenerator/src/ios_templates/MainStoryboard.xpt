@@ -19,44 +19,29 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 «DEFINE main FOR Application-»
 
 
-«REM»initialViewController exists only in case viewController.size>0 and is the TabBarController if menu exists and menu.menuItems>0 (HP: one of the items references the launcher VC), otherwise is the NavigatorController of the launcher VC.«ENDREM»
 «FILE name+"/"+name+"/Base.lproj/Main.storyboard"-»
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-«IF viewControllers.size == 0-»
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
-«ELSEIF viewControllers.size > 0 && (menu != null && menu.menuItems.size > 0) -»
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="TabBarControllerID">
-«ELSEIF viewControllers.size > 0 && (menu == null || menu.menuItems.size <= 0) -»
-«FOREACH viewControllers AS vc-»
-«IF vc.launcher-»
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="NavigationControllerIDWithRoot«vc.name»ViewControllerID">
-«ENDIF-»
-«ENDFOREACH-»
-«ENDIF-»
 	<dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
     </dependencies>
 	<scenes>
 	«FOREACH viewControllers AS vc-»
-	<!--«vc.name»ViewController-->
-	<scene sceneID="«vc.name»ViewControllerSceneID">
+	<!--«vc.name.toFirstUpper()»ViewController-->
+	<scene sceneID="«vc.name.toFirstUpper()»ViewControllerSceneID">
 		<objects>
-			«IF isAMenuDestination(vc.name, vc.application.menu.menuItems.navigation.destinationScene.name)-»
-			<viewController id="«vc.name»ViewControllerID" customClass="«vc.name»ViewController" customModule="«name»" customModuleProvider="target" sceneMemberID="viewController" automaticallyAdjustsScrollViewInsets="NO">
-			«ELSE-»
-			<viewController id="«vc.name»ViewControllerID" hidesBottomBarWhenPushed="YES" customClass="«vc.name»ViewController" customModule="«name»" customModuleProvider="target" sceneMemberID="viewController" automaticallyAdjustsScrollViewInsets="NO">
-			«ENDIF-»
+			<viewController storyboardIdentifier="«vc.name.toFirstUpper()»ViewControllerStoryboardID" id="«vc.name.toFirstUpper()»ViewControllerID" customClass="«vc.name.toFirstUpper()»ViewController" customModule="«name»" customModuleProvider="target" sceneMemberID="viewController" automaticallyAdjustsScrollViewInsets="NO">
 		        <layoutGuides>
-	                <viewControllerLayoutGuide type="top" id="«vc.name»-guide-top"/>
-	            	<viewControllerLayoutGuide type="bottom" id="«vc.name»-guide-bottom"/>
+	                <viewControllerLayoutGuide type="top" id="«vc.name.toFirstUpper()»-guide-top"/>
+	            	<viewControllerLayoutGuide type="bottom" id="«vc.name.toFirstUpper()»-guide-bottom"/>
 	            </layoutGuides>
-	        	<view key="view" contentMode="scaleToFill" id="«vc.name»ViewID">
+	        	<view key="view" contentMode="scaleToFill" id="«vc.name.toFirstUpper()»ViewID">
 	        		<rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
 	                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
 	                <subviews>
 	                	«IF !vc.backgroundImage.matches("")-»
-	                	<imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="«vc.backgroundImage»" translatesAutoresizingMaskIntoConstraints="NO" id="«vc.name»BackgroundImageId">
+	                	<imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="«vc.backgroundImage»" translatesAutoresizingMaskIntoConstraints="NO" id="«vc.name.toFirstUpper()»BackgroundImageId">
                         	<rect key="frame" x="0.0" y="64" width="600" height="536"/>
                         </imageView>
 	                	«ENDIF-»
@@ -88,11 +73,8 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 	                        	«ENDIF-»
 	                    	</state>
 	                    	<connections>
-	                    		«IF b.clickListener!=null && b.clickListener.navigation!=null»
-	                    		<segue destination="«b.clickListener.navigation.destination»ViewControllerID" kind="show" id="SegueIDFrom«b.id»To«b.clickListener.navigation.destination»ViewControllerID"/>
-	                    		«ENDIF»
-	                    		<action selector="«b.id»TouchUpInside:" destination="«vc.name»ViewControllerID" eventType="touchUpInside" id="«b.id»TouchUpInsideActionID"/>
-	                    		<action selector="«b.id»TouchDown:" destination="«vc.name»ViewControllerID" eventType="touchDown" id="«b.id»TouchDownActionID"/>
+	                    		<action selector="«b.id»TouchUpInside:" destination="«vc.name.toFirstUpper()»ViewControllerID" eventType="touchUpInside" id="«b.id»TouchUpInsideActionID"/>
+	                    		<action selector="«b.id»TouchDown:" destination="«vc.name.toFirstUpper()»ViewControllerID" eventType="touchDown" id="«b.id»TouchDownActionID"/>
 	                        </connections>
 	                    </button>
 	                    «IF b.controlChain != null-»
@@ -137,7 +119,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
                                     </constraints>
                                     <state key="normal" title="Action «n»"/>
                                     <connections>
-                                        <action selector="«c.id»Action«n»TouchUpInside:" destination="«vc.name»ViewControllerID" eventType="touchUpInside" id="«c.id»«n»TouchUpInsideID"/>
+                                        <action selector="«c.id»Action«n»TouchUpInside:" destination="«vc.name.toFirstUpper()»ViewControllerID" eventType="touchUpInside" id="«c.id»«n»TouchUpInsideID"/>
                                     </connections>
                                 </button>
                                 «ENDFOREACH-»
@@ -185,7 +167,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 	                    <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="«s.id»">
                             «EXPAND uiPhoneControl FOR s»
                             <connections>
-                                <action selector="«s.id»ValueChangedAction:" destination="«vc.name»ViewControllerID" eventType="valueChanged" id="«s.id»ValueChangedActionID"/>
+                                <action selector="«s.id»ValueChangedAction:" destination="«vc.name.toFirstUpper()»ViewControllerID" eventType="valueChanged" id="«s.id»ValueChangedActionID"/>
                             </connections>
                         </slider>
 	                    «IF s.controlChain != null-»
@@ -213,7 +195,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
 	                        <connections>
-	                            <action selector="openPhotoCamera:" destination="«vc.name»ViewControllerID" eventType="touchUpInside" id="«vc.photocameraController.id»TouchUpInsideActionID"/>
+	                            <action selector="openPhotoCamera:" destination="«vc.name.toFirstUpper()»ViewControllerID" eventType="touchUpInside" id="«vc.photocameraController.id»TouchUpInsideActionID"/>
 	                        </connections>
 	                    </button>
 	                    «IF vc.photocameraController.controlChain != null-»
@@ -233,7 +215,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
 	                        <connections>
-	                            <action selector="openVideoCamera:" destination="«vc.name»ViewControllerID" eventType="touchUpInside" id="«vc.videocameraController.id»TouchUpInsideActionID"/>
+	                            <action selector="openVideoCamera:" destination="«vc.name.toFirstUpper()»ViewControllerID" eventType="touchUpInside" id="«vc.videocameraController.id»TouchUpInsideActionID"/>
 	                        </connections>
 	                    </button>
 	                    «IF vc.videocameraController.controlChain != null-»
@@ -257,7 +239,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </state>
 	                        <connections>
-	                            <action selector="record:" destination="«vc.name»ViewControllerID" eventType="touchUpInside" id="«vc.audioRecorder.id»TouchUpInsideActionID"/>
+	                            <action selector="record:" destination="«vc.name.toFirstUpper()»ViewControllerID" eventType="touchUpInside" id="«vc.audioRecorder.id»TouchUpInsideActionID"/>
 	                        </connections>
 	                    </button>
 	                    «IF vc.audioRecorder.controlChain != null-»
@@ -271,7 +253,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 			                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="«s.id»Button">    
 		                            <rect key="frame" x="0" y="0" width="51" height="31"/>
 		                            <connections>
-		                                <action selector="«s.id»ButtonValueChangedAction:" destination="«vc.name»ViewControllerID" eventType="valueChanged" id="«s.id»ButtonValueChangedActionID"/>
+		                                <action selector="«s.id»ButtonValueChangedAction:" destination="«vc.name.toFirstUpper()»ViewControllerID" eventType="valueChanged" id="«s.id»ButtonValueChangedActionID"/>
 		                            </connections>
 		                        </switch>
                         	</subviews>
@@ -295,7 +277,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
                                         <!--2016-05-10 10:43:34 +0000-->
                                     </date>
 		                            <connections>
-		                                <action selector="«d.id»PickerValueChangedAction:" destination="«vc.name»ViewControllerID" eventType="valueChanged" id="«d.id»PickerValueChangedActionID"/>
+		                                <action selector="«d.id»PickerValueChangedAction:" destination="«vc.name.toFirstUpper()»ViewControllerID" eventType="valueChanged" id="«d.id»PickerValueChangedActionID"/>
 		                            </connections>
 		                        </datePicker>
                         	</subviews>
@@ -319,7 +301,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
                                         <!--2016-05-10 10:43:34 +0000-->
                                     </date>
 		                            <connections>
-		                                <action selector="«t.id»PickerValueChangedAction:" destination="«vc.name»ViewControllerID" eventType="valueChanged" id="«t.id»PickerValueChangedActionID"/>
+		                                <action selector="«t.id»PickerValueChangedAction:" destination="«vc.name.toFirstUpper()»ViewControllerID" eventType="valueChanged" id="«t.id»PickerValueChangedActionID"/>
 		                            </connections>
 		                        </datePicker>
                         	</subviews>
@@ -348,7 +330,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 	                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
 	                                </state>
 	                                <connections>
-	                                    <action selector="«ap.id»Play:" destination="«vc.name»ViewControllerID" eventType="touchUpInside" id="«ap.id»AudioPlayerPlayButtonTouchUpInsideActionID"/>
+	                                    <action selector="«ap.id»Play:" destination="«vc.name.toFirstUpper()»ViewControllerID" eventType="touchUpInside" id="«ap.id»AudioPlayerPlayButtonTouchUpInsideActionID"/>
 	                                </connections>
 	                            </button>
 	                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="«ap.id»AudioPlayerPauseButton">
@@ -361,7 +343,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 	                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
 	                                </state>
 	                                <connections>
-	                                    <action selector="«ap.id»Pause:" destination="«vc.name»ViewControllerID" eventType="touchUpInside" id="«ap.id»AudioPlayerPauseButtonTouchUpInsideActionID"/>
+	                                    <action selector="«ap.id»Pause:" destination="«vc.name.toFirstUpper()»ViewControllerID" eventType="touchUpInside" id="«ap.id»AudioPlayerPauseButtonTouchUpInsideActionID"/>
 	                                </connections>
 	                            </button>
 	                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="«ap.id»AudioPlayerStopButton">
@@ -374,7 +356,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 	                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
 	                                </state>
 	                                <connections>
-	                                    <action selector="«ap.id»Stop:" destination="«vc.name»ViewControllerID" eventType="touchUpInside" id="«ap.id»AudioPlayerStopButtonTouchUpInsideActionID"/>
+	                                    <action selector="«ap.id»Stop:" destination="«vc.name.toFirstUpper()»ViewControllerID" eventType="touchUpInside" id="«ap.id»AudioPlayerStopButtonTouchUpInsideActionID"/>
 	                                </connections>
 	                            </button>
 	                        </subviews>
@@ -538,15 +520,12 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
                                         <outlet property="img" destination="«lv.id»CellImageID" id="«lv.id»ImageOutlet"/>
                                         «ENDIF-»
                                         <outlet property="label" destination="«lv.id»CellLabelID" id="«lv.id»LabelOutlet"/>
-                                        «IF lv.clickListener!=null && lv.clickListener.navigation!=null»
-			                    		<segue destination="«lv.clickListener.navigation.destination»ViewControllerID" kind="show" id="SegueIDFrom«lv.id»To«lv.clickListener.navigation.destination»ViewControllerID" identifier="SegueIdentifierFrom«lv.id»To«lv.clickListener.navigation.destination»ViewControllerID"/>
-			                    		«ENDIF»
                                     </connections>
 	                            </tableViewCell>
 	                        </prototypes>
 	                        <connections>
-	                            <outlet property="dataSource" destination="«vc.name»ViewControllerID" id="«lv.id»DataSourceOutletID"/>
-	                            <outlet property="delegate" destination="«vc.name»ViewControllerID" id="«lv.id»DelegateOutletID"/>
+	                            <outlet property="dataSource" destination="«vc.name.toFirstUpper()»ViewControllerID" id="«lv.id»DataSourceOutletID"/>
+	                            <outlet property="delegate" destination="«vc.name.toFirstUpper()»ViewControllerID" id="«lv.id»DelegateOutletID"/>
 	                        </connections>
 	                    </tableView>
 	                    «ENDFOREACH-»
@@ -661,15 +640,12 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 		                                «IF gv.gridType.matches("image") || gv.gridType.matches("detailed")-»
 		                                <outlet property="img" destination="«gv.id»CellImageID" id="«gv.id»ImageOutlet"/>
 		                                «ENDIF-»
-		                                «IF gv.clickListener!=null && gv.clickListener.navigation!=null»
-			                    		<segue destination="«gv.clickListener.navigation.destination»ViewControllerID" kind="show" id="SegueIDFrom«gv.id»To«gv.clickListener.navigation.destination»ViewControllerID" identifier="SegueIdentifierFrom«gv.id»To«gv.clickListener.navigation.destination»ViewControllerID"/>
-			                    		«ENDIF»
 	                                </connections>
 	                            </collectionViewCell>
 	                        </cells>
 	                        <connections>
-	                        	<outlet property="dataSource" destination="«vc.name»ViewControllerID" id="«gv.id»DataSourceOutletID"/>
-	                            <outlet property="delegate" destination="«vc.name»ViewControllerID" id="«gv.id»DelegateOutletID"/>
+	                        	<outlet property="dataSource" destination="«vc.name.toFirstUpper()»ViewControllerID" id="«gv.id»DataSourceOutletID"/>
+	                            <outlet property="delegate" destination="«vc.name.toFirstUpper()»ViewControllerID" id="«gv.id»DelegateOutletID"/>
 	                        </connections>
 	                    </collectionView>
 	                    «ENDFOREACH-»
@@ -681,15 +657,15 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 	                «ENDIF-»
 	                <constraints>
 	                «IF !vc.backgroundImage.matches("")-»
-	                <constraint firstAttribute="trailing" secondItem="«vc.name»BackgroundImageId" secondAttribute="trailing" id="«vc.name»BackImageConstA"/>
-                    <constraint firstAttribute="bottom" secondItem="«vc.name»BackgroundImageId" secondAttribute="bottom" id="«vc.name»BackImageConstB"/>
-                    <constraint firstItem="«vc.name»BackgroundImageId" firstAttribute="leading" secondItem="«vc.name»ViewID" secondAttribute="leading" id="«vc.name»BackImageConstC"/>
-                    <constraint firstItem="«vc.name»BackgroundImageId" firstAttribute="top" secondItem="«vc.name»-guide-top" secondAttribute="bottom" id="«vc.name»BackImageConstD"/>
+	                <constraint firstAttribute="trailing" secondItem="«vc.name.toFirstUpper()»BackgroundImageId" secondAttribute="trailing" id="«vc.name.toFirstUpper()»BackImageConstA"/>
+                    <constraint firstAttribute="bottom" secondItem="«vc.name.toFirstUpper()»BackgroundImageId" secondAttribute="bottom" id="«vc.name.toFirstUpper()»BackImageConstB"/>
+                    <constraint firstItem="«vc.name.toFirstUpper()»BackgroundImageId" firstAttribute="leading" secondItem="«vc.name.toFirstUpper()»ViewID" secondAttribute="leading" id="«vc.name.toFirstUpper()»BackImageConstC"/>
+                    <constraint firstItem="«vc.name.toFirstUpper()»BackgroundImageId" firstAttribute="top" secondItem="«vc.name.toFirstUpper()»-guide-top" secondAttribute="bottom" id="«vc.name.toFirstUpper()»BackImageConstD"/>
 	                «ENDIF-»
 	                «EXPAND ios_templates::ViewConstraints::constraints FOR vc»
 	                </constraints>
 	            </view>
-				<navigationItem key="navigationItem" id="«vc.name»ViewControllerNavigationItemID"/>
+				<navigationItem key="navigationItem" id="«vc.name.toFirstUpper()»ViewControllerNavigationItemID"/>
 	      		<connections>
 	      			«FOREACH vc.buttons AS b-»
 	                <outlet property="«b.id»" destination="«b.id»" id="«b.id»OutletID"/>
@@ -734,76 +710,54 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 	                «ENDFOREACH-»
 	      		</connections>
 	    	</viewController>
-	    	<placeholder placeholderIdentifier="IBFirstResponder" id="«vc.name»PlaceholderID" userLabel="First Responder" sceneMemberID="firstResponder"/>
+	    	<placeholder placeholderIdentifier="IBFirstResponder" id="«vc.name.toFirstUpper()»PlaceholderID" userLabel="First Responder" sceneMemberID="firstResponder"/>
 	  	</objects>
 	</scene>
 	«ENDFOREACH-»
-	«REM»If Menu exists we generate the TabBarController«ENDREM»
-	«IF menu != null && menu.menuItems.size > 0 -» 
-	<!--Tab Bar Controller-->
-    <scene sceneID="TabBarControllerSceneID">
+	«REM»If Menu exists we generate the MenuViewController«ENDREM»
+	«IF menu != null && menu.menuItems.size > 0-»
+	<scene sceneID="MenuViewControllerSceneID">
         <objects>
-            <tabBarController  automaticallyAdjustsScrollViewInsets="NO" id="TabBarControllerID" sceneMemberID="viewController">
-                <tabBar key="tabBar" contentMode="scaleToFill" id="TabBarControllerTabBarID">
-                    <autoresizingMask key="autoresizingMask"/>
-                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                </tabBar>
-                <connections>
-                	«REM»For each menuItem we create a segue to the NavigationController of the corresponding referenced ViewController (If menu.menuItems.size==0 the Menu remains isolated on the StoryBoard (no segues))«ENDREM»
-                	«FOREACH menu.menuItems AS i-»
-                	<segue destination="«i.navigation.destination»ViewControllerNavNavigationControllerID" kind="relationship" relationship="viewControllers" id="«i.id»SegueID"/>
-                	«ENDFOREACH-»
-                </connections>
-            </tabBarController>
-            <placeholder placeholderIdentifier="IBFirstResponder" id="TabBarPlaceholderID" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            <tableViewController id="MenuViewControllerID" customClass="MenuViewController" customModule="«name»" customModuleProvider="target" sceneMemberID="viewController">
+                <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="60" sectionHeaderHeight="28" sectionFooterHeight="28" id="MenuTableViewID">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <prototypes>
+                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MenuCell" rowHeight="45" id="MenuViewCellID" customClass="MenuViewCell" customModule="«name»" customModuleProvider="target">
+                            <frame key="frameInset" minY="153" width="600" height="45"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MenuViewCellID" id="MenuViewCellContentViewID">
+                                <frame key="frameInset" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Menu Item label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MenuItemLabelID">
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="MenuItemLabelID" firstAttribute="centerY" secondItem="MenuViewCellContentViewID" secondAttribute="centerY" id="MenuItemLabelConstraintY"/>
+                                    <constraint firstItem="MenuItemLabelID" firstAttribute="leading" secondItem="MenuViewCellContentViewID" secondAttribute="leading" constant"40" id="MenuItemLabelConstraintX"/>
+                                </constraints>
+                            </tableViewCellContentView>
+                            <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <connections>
+                                <outlet property="destinationLabel" destination="MenuItemLabelID" id="OutletMenuItemLabeltID"/>
+                            </connections>
+                        </tableViewCell>
+                    </prototypes>
+                    <connections>
+                        <outlet property="dataSource" destination="MenuViewControllerID" id="OutletMenuViewControllerDataSource"/>
+                        <outlet property="delegate" destination="MenuViewControllerID" id="OutletMenuViewControllerDelegate"/>
+                    </connections>
+                </tableView>
+            </tableViewController>
+            <placeholder placeholderIdentifier="IBFirstResponder" id="MenuPlaceholderID" userLabel="First Responder" sceneMemberID="firstResponder"/>
         </objects>
     </scene>
-    «REM»For each menuItem we create a NavigationController (which is the destination of the segue) for the referenced ViewController«ENDREM»
-    «REM»This is done only to display the navigation bar as top bar«ENDREM»
-    «FOREACH menu.menuItems AS i-»
-    <!-- «i.navigation.destination» ViewControllerNav -->
-	<scene sceneID="«i.navigation.destination»ViewControllerNavSceneID">
-        <objects>
-            <navigationController id="«i.navigation.destination»ViewControllerNavNavigationControllerID" sceneMemberID="viewController">
-                <tabBarItem key="tabBarItem" title="«i.navigation.destination»" id="«i.navigation.destination»TabBarItemID"/>
-                <toolbarItems/>
-                <navigationBar key="navigationBar" contentMode="scaleToFill" id="«i.navigation.destination»ViewControllerNavNavigationBarID">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                    <autoresizingMask key="autoresizingMask"/>
-                </navigationBar>
-                <nil name="viewControllers"/>
-                <connections>
-                    <segue destination="«i.navigation.destination»ViewControllerID" kind="relationship" relationship="rootViewController" id="SegueIDWithRoot«i.navigation.destination»ViewControllerID"/>
-                </connections>
-            </navigationController>
-            <placeholder placeholderIdentifier="IBFirstResponder" id="«i.navigation.destination»ViewControllerPlaceholderID" userLabel="First Responder" sceneMemberID="firstResponder"/>
-        </objects>
-    </scene>
-    «ENDFOREACH-» 
-	«ELSE-»
-	«REM»In case of absence of the Menu or presence with menuItems.size==0 (Empty Menu) we create a NavigationController for the launcher ViewController«ENDREM»
-	«FOREACH viewControllers AS vc-»
-	«IF vc.launcher-»
-	<!--«vc.name» Navigation Controller-->
-	<scene sceneID="NavigationControllerSceneIDWithRoot«vc.name»ViewControllerID">
-        <objects>
-            <navigationController id="NavigationControllerIDWithRoot«vc.name»ViewControllerID" sceneMemberID="viewController">
-                <toolbarItems/>
-                <navigationBar key="navigationBar" contentMode="scaleToFill" id="NavigationControllerBarIDWithRoot«vc.name»ViewControllerID">
-                    <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                    <autoresizingMask key="autoresizingMask"/>
-                </navigationBar>
-                <nil name="viewControllers"/>
-                <connections>
-                    <segue destination="«vc.name»ViewControllerID" kind="relationship" relationship="rootViewController" id="SegueIDWithRoot«vc.name»ViewControllerID"/>
-                </connections>
-            </navigationController>
-            <placeholder placeholderIdentifier="IBFirstResponder" id="NavigationPlaceholderIDWithRoot«vc.name»ViewControllerID" userLabel="First Responder" sceneMemberID="firstResponder"/>
-        </objects>
-    </scene>
-	«ENDIF-»
-	«ENDFOREACH-»
-	«ENDIF-»
+    «ENDIF-»
 	</scenes>
 	<resources>
 		«FOREACH viewControllers AS vc-»

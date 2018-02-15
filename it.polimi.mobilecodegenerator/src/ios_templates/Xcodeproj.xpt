@@ -30,7 +30,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 /* Begin PBXBuildFile section */
 		«getFirstHexadecimalId("AppDelegate.swift")» /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = «getSecondHexadecimalId("AppDelegate.swift")» /* AppDelegate.swift */; };
 		«IF this.dataHandler.databaseHandler.existsObject()-»
-		«getFirstHexadecimalId(this.name+".xcdatamodeld")» /* «this.name».xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = «getSecondHexadecimalId(this.name+".xcdatamodeld")» /* «this.name».xcdatamodeld */; };
+		«getFirstHexadecimalId(this.name.toFirstUpper()+".xcdatamodeld")» /* «this.name.toFirstUpper()».xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = «getSecondHexadecimalId(this.name.toFirstUpper()+".xcdatamodeld")» /* «this.name.toFirstUpper()».xcdatamodeld */; };
 		«getFirstHexadecimalId("DatabaseHandler.swift")» /* DatabaseHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = «getSecondHexadecimalId("DatabaseHandler.swift")» /* DatabaseHandler.swift */; };
 		«FOREACH this.dataHandler.databaseHandler.entities AS entity-»
 		«getFirstHexadecimalId(entity.name.toFirstUpper()+"+CoreDataClass.swift")» /* «entity.name»+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = «getSecondHexadecimalId(entity.name.toFirstUpper()+"+CoreDataClass.swift")» /* «entity.name.toFirstUpper()»+CoreDataClass.swift */; };
@@ -54,7 +54,10 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 		«getFirstHexadecimalId("App Assets.xcassets")» /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = «getSecondHexadecimalId("App Assets.xcassets")» /* Assets.xcassets */; };
 		«getFirstHexadecimalId("LaunchScreen.storyboard")» /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = «getSecondHexadecimalId("LaunchScreen.storyboard")» /* LaunchScreen.storyboard */; };
 		«FOREACH viewControllers AS vc-»
-		«getFirstHexadecimalId(vc.name+"ViewController.swift")» /* «vc.name»ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = «getSecondHexadecimalId(vc.name+"ViewController.swift")» /* «vc.name»ViewController.swift */; };
+		«getFirstHexadecimalId(vc.name.toFirstUpper()+"ViewController.swift")» /* «vc.name.toFirstUpper()»ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = «getSecondHexadecimalId(vc.name.toFirstUpper()+"ViewController.swift")» /* «vc.name.toFirstUpper()»ViewController.swift */; };
+		«ENDFOREACH-»
+		«FOREACH scenes AS s-»
+		«getFirstHexadecimalId(s.name.toFirstUpper()+"ParentViewController.swift")» /* «s.name.toFirstUpper()»ParentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = «getSecondHexadecimalId(s.name.toFirstUpper()+"ParentViewController.swift")» /* «s.name.toFirstUpper()»ParentViewController.swift */; };
 		«ENDFOREACH-»
 		«FOREACH watchControllers AS wc-»
 		«getFirstHexadecimalId(wc.name+"InterfaceController.swift")» /* «wc.name»InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = «getSecondHexadecimalId(wc.name+"InterfaceController.swift")» /* «wc.name»InterfaceController.swift */; };
@@ -146,7 +149,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 		«getFirstHexadecimalId("LaunchScreen Base")» /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		«getFirstHexadecimalId("App Info.plist")» /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		«IF this.dataHandler.databaseHandler.existsObject()-»
-		«getFirstHexadecimalId(this.name+".xcdatamodel")» /* «this.name».xcdatamodel  */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = «this.name».xcdatamodel; sourceTree = "<group>"; };
+		«getFirstHexadecimalId(this.name.toFirstUpper()+".xcdatamodel")» /* «this.name.toFirstUpper()».xcdatamodel  */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = «this.name.toFirstUpper()».xcdatamodel; sourceTree = "<group>"; };
 		«getSecondHexadecimalId("DatabaseHandler.swift")» /* DatabaseHandler.swift  */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseHandler.swift; sourceTree = "<group>"; };
 		«FOREACH this.dataHandler.databaseHandler.entities AS entity-»
 		«getSecondHexadecimalId(entity.name.toFirstUpper()+"+CoreDataClass.swift")» /* «entity.name»+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "«entity.name»+CoreDataClass.swift"; path = "«entity.name»+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -167,7 +170,10 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 		«ENDFOREACH-»
 		«ENDIF-»
 		«FOREACH viewControllers AS vc-»
-		«getSecondHexadecimalId(vc.name+"ViewController.swift")» /* «vc.name»ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = «vc.name»ViewController.swift; sourceTree = "<group>"; };
+		«getSecondHexadecimalId(vc.name.toFirstUpper()+"ViewController.swift")» /* «vc.name.toFirstUpper()»ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = «vc.name.toFirstUpper()»ViewController.swift; sourceTree = "<group>"; };
+		«ENDFOREACH-»
+		«FOREACH scenes AS s-»
+		«getSecondHexadecimalId(s.name.toFirstUpper()+"ParentViewController.swift")» /* «s.name.toFirstUpper()»ParentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = «s.name.toFirstUpper()»ParentViewController.swift; sourceTree = "<group>"; };
 		«ENDFOREACH-»
 		«FOREACH watchControllers AS wc-»
 		«getSecondHexadecimalId(wc.name+"InterfaceController.swift")» /* «wc.name»InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = «wc.name»InterfaceController.swift; sourceTree = "<group>"; };
@@ -258,13 +264,14 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 				«getSecondHexadecimalId("LaunchScreen.storyboard")» /* LaunchScreen.storyboard */,
 				«getSecondHexadecimalId("App Assets.xcassets")» /* Assets.xcassets */,
 				«getSecondHexadecimalId("DataHandlers")» /* DataHandlers */,
-				«getSecondHexadecimalId("ViewControllers")» /* ViewControllers */,
+				«getSecondHexadecimalId("ChildViewControllers")» /* ChildViewControllers */,
+				«getSecondHexadecimalId("ParentViewControllers")» /* ParentViewControllers */,
 				«IF this.dataHandler.cloudHandler.existsObject()-»
 				«getSecondHexadecimalId("CloudObjects")» /* CloudObjects */,
 				«ENDIF-»
 				«IF this.dataHandler.databaseHandler.existsObject()-»
 				«getSecondHexadecimalId("CoreDataModels")» /* CoreDataModels */,
-				«getSecondHexadecimalId(this.name+".xcdatamodeld")» /* «this.name».xcdatamodeld */,
+				«getSecondHexadecimalId(this.name.toFirstUpper()+".xcdatamodeld")» /* «this.name.toFirstUpper()».xcdatamodeld */,
 				«ENDIF-»
 				«IF viewControllers.imageViews.sourceType.toString().contains("remoteFile")-»
 				«getSecondHexadecimalId("ImageDownloadingTask.swift")» /* ImageDownloadingTask.swift */,
@@ -309,14 +316,25 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 		};
 		«ENDIF-»
 		
-		«getSecondHexadecimalId("ViewControllers")» /* ViewControllers */ = {
+		«getSecondHexadecimalId("ChildViewControllers")» /* ChildViewControllers */ = {
 			isa = PBXGroup;
 			children = (
 				«FOREACH viewControllers AS vc-»
-				«getSecondHexadecimalId(vc.name+"ViewController.swift")» /* «vc.name»ViewController.swift */,
+				«getSecondHexadecimalId(vc.name.toFirstUpper()+"ViewController.swift")» /* «vc.name.toFirstUpper()»ViewController.swift */,
 				«ENDFOREACH-»
 			);
-			path = "ViewControllers";
+			path = "ChildViewControllers";
+			sourceTree = "<group>";
+		};
+		
+		«getSecondHexadecimalId("ParentViewControllers")» /* ParentViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				«FOREACH scenes AS s-»
+				«getSecondHexadecimalId(s.name.toFirstUpper()+"ParentViewController.swift")» /* «s.name.toFirstUpper()»ParentViewController.swift */,
+				«ENDFOREACH-»
+			);
+			path = "ParentViewControllers";
 			sourceTree = "<group>";
 		};
 		
@@ -525,7 +543,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 			buildActionMask = 2147483647;
 			files = (
 				«IF this.dataHandler.databaseHandler.existsObject()-»
-				«getFirstHexadecimalId(this.name+".xcdatamodeld")» /* «this.name».xcdatamodeld in Sources */,
+				«getFirstHexadecimalId(this.name.toFirstUpper()+".xcdatamodeld")» /* «this.name.toFirstUpper()».xcdatamodeld in Sources */,
 				«getFirstHexadecimalId("DatabaseHandler.swift")» /* DatabaseHandler.swift in Sources */, 
 				«FOREACH this.dataHandler.databaseHandler.entities AS entity-»
 				«getFirstHexadecimalId(entity.name.toFirstUpper()+"+CoreDataClass.swift")» /* «entity.name.toFirstUpper()+"+CoreDataClass.swift"» in Sources*/,
@@ -547,7 +565,10 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 				«ENDIF-»
 				«getFirstHexadecimalId("AppDelegate.swift")» /* AppDelegate.swift in Sources */,
 				«FOREACH viewControllers AS vc-»
-				«getFirstHexadecimalId(vc.name+"ViewController.swift")» /* «vc.name»ViewController.swift in Sources*/,
+				«getFirstHexadecimalId(vc.name.toFirstUpper()+"ViewController.swift")» /* «vc.name.toFirstUpper()»ViewController.swift in Sources*/,
+				«ENDFOREACH-»
+				«FOREACH scenes AS s-»
+				«getFirstHexadecimalId(s.name.toFirstUpper()+"ParentViewController.swift")» /* «s.name.toFirstUpper()»ParentViewController.swift in Sources*/,
 				«ENDFOREACH-»
 				«IF viewControllers.imageViews.sourceType.toString().contains("remoteFile")-»
 				«getFirstHexadecimalId("ImageDownloadingTask.swift")» /* ImageDownloadingTask.swift in Sources*/,
@@ -856,13 +877,13 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		«getSecondHexadecimalId(this.name+".xcdatamodeld")» /* «this.name»".xcdatamodeld" */ = {
+		«getSecondHexadecimalId(this.name.toFirstUpper()+".xcdatamodeld")» /* «this.name.toFirstUpper()»".xcdatamodeld" */ = {
 			isa = XCVersionGroup;
 			children = (
-				«getFirstHexadecimalId(this.name+".xcdatamodel")» /* «this.name».xcdatamodel  */,
+				«getFirstHexadecimalId(this.name.toFirstUpper()+".xcdatamodel")» /* «this.name.toFirstUpper()».xcdatamodel  */,
 			);
-			currentVersion = «getFirstHexadecimalId(this.name+".xcdatamodel")» /* «this.name».xcdatamodel  */;
-			path = «this.name».xcdatamodeld;
+			currentVersion = «getFirstHexadecimalId(this.name.toFirstUpper()+".xcdatamodel")» /* «this.name.toFirstUpper()».xcdatamodel  */;
+			path = «this.name.toFirstUpper()».xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};

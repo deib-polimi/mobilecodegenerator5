@@ -142,6 +142,28 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 	«FOREACH positionConstraints AS constraint-»
 	«IF !constraint.withParent-»
 		«IF constraint.layoutEdge.toString().matches("start") && constraint.referenceLayoutEdge.toString().matches("start")-»
+		<constraint firstItem="«id»" firstAttribute="leading" secondItem="«constraint.referenceElement.id»" secondAttribute="leading" priority="750" constant="«(marginStart + paddingStart).toInteger()»" id="«id»-start-start"/>
+		«ELSEIF constraint.layoutEdge.toString().matches("start") && constraint.referenceLayoutEdge.toString().matches("end")-»
+		<constraint firstItem="«id»" firstAttribute="leading" secondItem="«constraint.referenceElement.id»" secondAttribute="trailing" priority="750" constant="«((marginStart + paddingStart) + constraint.referenceElement.marginEnd).toInteger()»" id="«id»-start-end"/>
+		«ELSEIF constraint.layoutEdge.toString().matches("end") && constraint.referenceLayoutEdge.toString().matches("start")-»
+		<constraint firstItem="«id»" firstAttribute="trailing" secondItem="«constraint.referenceElement.id»" secondAttribute="leading" priority="750" constant="«((marginEnd + paddingEnd) + constraint.referenceElement.marginStart).toInteger()»" id="«id»-end-start"/>
+		«ELSEIF constraint.layoutEdge.toString().matches("end") && constraint.referenceLayoutEdge.toString().matches("end")-»
+		<constraint firstItem="«id»" firstAttribute="leading" secondItem="«constraint.referenceElement.id»" secondAttribute="trailing" priority="750" constant="«(marginEnd + paddingEnd).toInteger()»" id="«id»-end-end"/>
+		«ELSEIF constraint.layoutEdge.toString().matches("top") && constraint.referenceLayoutEdge.toString().matches("top")-»
+		<constraint firstItem="«id»" firstAttribute="top" secondItem="«constraint.referenceElement.id»" secondAttribute="top" priority="750" constant="«(marginTop + paddingTop).toInteger()»" id="«id»-top-top"/>
+		«ELSEIF constraint.layoutEdge.toString().matches("top") && constraint.referenceLayoutEdge.toString().matches("bottom")-»
+		<constraint firstItem="«id»" firstAttribute="top" secondItem="«constraint.referenceElement.id»" secondAttribute="bottom" priority="750" constant="«((marginTop + paddingTop) + constraint.referenceElement.marginBottom).toInteger()»" id="«id»-top-bottom"/>
+		«ELSEIF constraint.layoutEdge.toString().matches("bottom") && constraint.referenceLayoutEdge.toString().matches("top")-»
+		<constraint firstItem="«id»" firstAttribute="bottom" secondItem="«constraint.referenceElement.id»" secondAttribute="top" priority="750" constant="«((marginBottom + paddingBottom) + constraint.referenceElement.marginTop).toInteger()»" id="«id»-bottom-top"/>
+		«ELSEIF constraint.layoutEdge.toString().matches("bottom") && constraint.referenceLayoutEdge.toString().matches("bottom")-»
+		<constraint firstItem="«id»" firstAttribute="bottom" secondItem="«constraint.referenceElement.id»" secondAttribute="bottom" priority="750" constant="«(marginBottom + paddingBottom).toInteger()»" id="«id»-bottom-bottom"/>
+		«ELSEIF constraint.layoutEdge.toString().matches("centerX") && constraint.referenceLayoutEdge.toString().matches("centerX")-»
+		<constraint firstItem="«id»" firstAttribute="centerX" secondItem="«constraint.referenceElement.id»" secondAttribute="centerX" priority="750" constant="«((marginStart + paddingStart) - (marginEnd + paddingEnd)).toInteger()»" id="«id»-centerX"/>
+		«ELSEIF constraint.layoutEdge.toString().matches("centerY") && constraint.referenceLayoutEdge.toString().matches("centerY")-»
+		<constraint firstItem="«id»" firstAttribute="centerY" secondItem="«constraint.referenceElement.id»" secondAttribute="centerY" priority="750" constant="«((marginTop + paddingTop) - (marginBottom + paddingBottom)).toInteger()»" id="«id»-centerY"/>
+		«ENDIF-»
+		«REM»
+		«IF constraint.layoutEdge.toString().matches("start") && constraint.referenceLayoutEdge.toString().matches("start")-»
 		<constraint firstItem="«id»" firstAttribute="leading" secondItem="«constraint.referenceElement.id»" secondAttribute="leading" priority="750" constant="«((marginStart + paddingStart) - constraint.referenceElement.marginStart).toInteger()»" id="«id»-start-start"/>
 		«ELSEIF constraint.layoutEdge.toString().matches("start") && constraint.referenceLayoutEdge.toString().matches("end")-»
 		<constraint firstItem="«id»" firstAttribute="leading" secondItem="«constraint.referenceElement.id»" secondAttribute="trailing" priority="750" constant="«((marginStart + paddingStart) + constraint.referenceElement.marginEnd).toInteger()»" id="«id»-start-end"/>
@@ -162,6 +184,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 		«ELSEIF constraint.layoutEdge.toString().matches("centerY") && constraint.referenceLayoutEdge.toString().matches("centerY")-»
 		<constraint firstItem="«id»" firstAttribute="centerY" secondItem="«constraint.referenceElement.id»" secondAttribute="centerY" priority="750" id="«id»-centerY"/>
 		«ENDIF-»
+		«ENDREM»
 	«ENDIF-»
 	«ENDFOREACH-»
 «ENDDEFINE-»
@@ -170,23 +193,23 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 «DEFINE parentConstraints FOR UiPhoneControl-»
 	«REM» Dimension Constraints «ENDREM»
 	«IF dimensionConstraint.widthPercent != null-»
-	<constraint firstItem="«id»" firstAttribute="width" secondItem="«viewController.name»ViewID" secondAttribute="width" multiplier="«dimensionConstraint.widthPercent»" id="«id»-width"/>
+	<constraint firstItem="«id»" firstAttribute="width" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="width" multiplier="«dimensionConstraint.widthPercent»" id="«id»-width"/>
 	«ENDIF-»
 	«REM» Position Constraints «ENDREM»
 	«FOREACH positionConstraints AS constraint-»
 	«IF constraint.withParent-»
 		«IF constraint.layoutEdge.toString().matches("start") && constraint.referenceLayoutEdge.toString().matches("start")-»
-		<constraint firstItem="«id»" firstAttribute="leading" secondItem="«viewController.name»ViewID" secondAttribute="leading" priority="750" constant="«(marginStart + paddingStart).toInteger()»" id="«id»-parent-start"/>
+		<constraint firstItem="«id»" firstAttribute="leading" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="leading" priority="750" constant="«(marginStart + paddingStart).toInteger()»" id="«id»-parent-start"/>
 		«ELSEIF constraint.layoutEdge.toString().matches("end") && constraint.referenceLayoutEdge.toString().matches("end")-»
-		<constraint firstItem="«id»" firstAttribute="leading" secondItem="«viewController.name»ViewID" secondAttribute="trailing" priority="750" constant="«-(marginEnd + paddingEnd).toInteger()»" id="«id»-parent-end"/>
+		<constraint firstItem="«id»" firstAttribute="leading" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="trailing" priority="750" constant="«(marginEnd + paddingEnd).toInteger()»" id="«id»-parent-end"/>
 		«ELSEIF constraint.layoutEdge.toString().matches("top") && constraint.referenceLayoutEdge.toString().matches("top")-»
-		<constraint firstItem="«id»" firstAttribute="top" secondItem="«viewController.name»-guide-top" secondAttribute="top" priority="750" constant="«(marginTop + paddingTop).toInteger()»" id="«id»-parent-top"/>
+		<constraint firstItem="«id»" firstAttribute="top" secondItem="«viewController.name.toFirstUpper()»-guide-top" secondAttribute="top" priority="750" constant="«(marginTop + paddingTop).toInteger()»" id="«id»-parent-top"/>
 		«ELSEIF constraint.layoutEdge.toString().matches("bottom") && constraint.referenceLayoutEdge.toString().matches("bottom")-»
-		<constraint firstItem="«viewController.name»-guide-bottom" firstAttribute="bottom" secondItem="«id»" secondAttribute="bottom" priority="750" constant="«(marginBottom + paddingBottom).toInteger()»" id="«id»-parent-bottom"/>
+		<constraint firstItem="«viewController.name.toFirstUpper()»-guide-bottom" firstAttribute="bottom" secondItem="«id»" secondAttribute="bottom" priority="750" constant="«(marginBottom + paddingBottom).toInteger()»" id="«id»-parent-bottom"/>
 		«ELSEIF constraint.layoutEdge.toString().matches("centerX") && constraint.referenceLayoutEdge.toString().matches("centerX")-»
-		<constraint firstItem="«id»" firstAttribute="centerX" secondItem="«viewController.name»ViewID" secondAttribute="centerX" priority="750" id="«id»-parent-centerX"/>
+		<constraint firstItem="«id»" firstAttribute="centerX" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="centerX" priority="750" constant="«((marginStart + paddingStart) - (marginEnd + paddingEnd)).toInteger()»" id="«id»-parent-centerX"/>
 		«ELSEIF constraint.layoutEdge.toString().matches("centerY") && constraint.referenceLayoutEdge.toString().matches("centerY")-»
-		<constraint firstItem="«id»" firstAttribute="centerY" secondItem="«viewController.name»ViewID" secondAttribute="centerY" priority="750" id="«id»-parent-centerY"/>
+		<constraint firstItem="«id»" firstAttribute="centerY" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="centerY" priority="750" constant="«((marginTop + paddingTop) - (marginBottom + paddingBottom)).toInteger()»" id="«id»-parent-centerY"/>
 		«ENDIF-»
 	«ENDIF-»
 	«ENDFOREACH-»
@@ -196,10 +219,10 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 «DEFINE chainAndDefaultConstraints FOR UiPhoneControl-»
 	«IF controlChain == null-»
 		«IF positionIsUnbinded(true, positionConstraints.layoutEdge)-»
-		<constraint firstItem="«id»" firstAttribute="leading" secondItem="«viewController.name»ViewID" secondAttribute="leading" constant="«posX.toInteger() + marginStart.toInteger() + paddingStart.toInteger()»" id="«id»-posX"/>
+		<constraint firstItem="«id»" firstAttribute="leading" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="leading" constant="«posX.toInteger() + marginStart.toInteger() + paddingStart.toInteger()»" id="«id»-posX"/>
 		«ENDIF-»
 		«IF positionIsUnbinded(false, positionConstraints.layoutEdge)-»
-		<constraint firstItem="«id»" firstAttribute="top" secondItem="«viewController.name»-guide-top" secondAttribute="bottom" constant="«posY.toInteger() + marginTop.toInteger() + paddingTop.toInteger()»" id="«id»-posY"/>
+		<constraint firstItem="«id»" firstAttribute="top" secondItem="«viewController.name.toFirstUpper()»-guide-top" secondAttribute="bottom" constant="«posY.toInteger() + marginTop.toInteger() + paddingTop.toInteger()»" id="«id»-posY"/>
 		«ENDIF-»
 	«ELSEIF controlChain.axis.toString().matches("horizontal")-»
 		«IF controlChain.type.toString().matches("spread")-»
@@ -207,34 +230,34 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 		<constraint firstItem="«id»" firstAttribute="leading" secondItem="«controlChain.id»-GhostView«indexInChain.toInteger()»" secondAttribute="trailing" priority="750" constant="0" id="«id»-constraint-chain"/>
 		«REM» Horizontal and vertical positioning of the ghost view on the left «ENDREM»
 		«IF precedentInChain == null-»
-		<constraint firstItem="«controlChain.id»-GhostView«indexInChain.toInteger()»" firstAttribute="leading" secondItem="«viewController.name»ViewID" secondAttribute="leading" priority="750" constant="0" id="«controlChain.id»-GhostView«indexInChain.toInteger()»-constraintX"/>
+		<constraint firstItem="«controlChain.id»-GhostView«indexInChain.toInteger()»" firstAttribute="leading" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="leading" priority="750" constant="0" id="«controlChain.id»-GhostView«indexInChain.toInteger()»-constraintX"/>
 		«ELSE-»
 		<constraint firstItem="«controlChain.id»-GhostView«indexInChain.toInteger()»" firstAttribute="leading" secondItem="«precedentInChain.id»" secondAttribute="trailing" priority="750" constant="0" id="«controlChain.id»-GhostView«indexInChain.toInteger()»-constraintX"/>
 		«REM» All ghost views' width binded to GhostView0 width «ENDREM»
 		<constraint firstItem="«controlChain.id»-GhostView«indexInChain.toInteger()»" firstAttribute="width" secondItem="«controlChain.id»-GhostView0" secondAttribute="width" priority="750" multiplier="1" id="«controlChain.id»-GhostView«indexInChain.toInteger()»-constraint-width"/>
 		«ENDIF-»
-		<constraint firstItem="«controlChain.id»-GhostView«indexInChain.toInteger()»" firstAttribute="top" secondItem="«viewController.name»ViewID" secondAttribute="top" priority="750" constant="0" id="«controlChain.id»-GhostView«indexInChain.toInteger()»-constraintY"/>
+		<constraint firstItem="«controlChain.id»-GhostView«indexInChain.toInteger()»" firstAttribute="top" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="top" priority="750" constant="0" id="«controlChain.id»-GhostView«indexInChain.toInteger()»-constraintY"/>
 		«REM» Horizontal and vertical positioning of the ghost view on the right of the last control of the chain «ENDREM»
 		«IF followingInChain == null-»
 		<constraint firstItem="«controlChain.id»-GhostView«indexInChain.toInteger()+1»" firstAttribute="leading" secondItem="«id»" secondAttribute="trailing" priority="750" constant="0" id="«controlChain.id»-GhostView«indexInChain.toInteger()+1»-constraintX"/>
-		<constraint firstItem="«controlChain.id»-GhostView«indexInChain.toInteger()+1»" firstAttribute="trailing" secondItem="«viewController.name»ViewID" secondAttribute="trailing" priority="750" constant="0" id="«controlChain.id»-GhostView«indexInChain.toInteger()+1»-constraintX-2"/>
-		<constraint firstItem="«controlChain.id»-GhostView«indexInChain.toInteger()+1»" firstAttribute="top" secondItem="«viewController.name»ViewID" secondAttribute="top" priority="750" constant="0" id="«controlChain.id»-GhostView«indexInChain.toInteger()+1»-constraintY"/>
+		<constraint firstItem="«controlChain.id»-GhostView«indexInChain.toInteger()+1»" firstAttribute="trailing" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="trailing" priority="750" constant="0" id="«controlChain.id»-GhostView«indexInChain.toInteger()+1»-constraintX-2"/>
+		<constraint firstItem="«controlChain.id»-GhostView«indexInChain.toInteger()+1»" firstAttribute="top" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="top" priority="750" constant="0" id="«controlChain.id»-GhostView«indexInChain.toInteger()+1»-constraintY"/>
 		<constraint firstItem="«controlChain.id»-GhostView«indexInChain.toInteger()+1»" firstAttribute="width" secondItem="«controlChain.id»-GhostView0" secondAttribute="width" priority="750" multiplier="1" id="«controlChain.id»-GhostView«indexInChain.toInteger()+1»-constraint-width"/>
 		«ENDIF-»
 		«ELSEIF controlChain.type.toString().matches("spread_inside")-»
 		«REM» Horizontal positioning of the control «ENDREM»
 		«IF precedentInChain == null-»
-		<constraint firstItem="«id»" firstAttribute="leading" secondItem="«viewController.name»ViewID" secondAttribute="leading" priority="750" constant="0" id="«id»-constraint-chain"/>
+		<constraint firstItem="«id»" firstAttribute="leading" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="leading" priority="750" constant="0" id="«id»-constraint-chain"/>
 		«ELSE-»
 		<constraint firstItem="«id»" firstAttribute="leading" secondItem="«controlChain.id»-GhostView«indexInChain.toInteger()»" secondAttribute="trailing" priority="750" constant="0" id="«id»-constraint-chain"/>
 		«ENDIF-»
 		«IF followingInChain == null-»
-		<constraint firstItem="«id»" firstAttribute="trailing" secondItem="«viewController.name»ViewID" secondAttribute="trailing" priority="750" constant="0" id="«id»-constraint-chain-2"/>
+		<constraint firstItem="«id»" firstAttribute="trailing" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="trailing" priority="750" constant="0" id="«id»-constraint-chain-2"/>
 		«ENDIF-»
 		«REM» Horizontal and vertical positioning of the ghost view on the left «ENDREM»
 		«IF precedentInChain != null-»
 		<constraint firstItem="«controlChain.id»-GhostView«indexInChain.toInteger()»" firstAttribute="leading" secondItem="«precedentInChain.id»" secondAttribute="trailing" priority="750" constant="0" id="«controlChain.id»-GhostView«indexInChain.toInteger()»-constraintX"/>
-		<constraint firstItem="«controlChain.id»-GhostView«indexInChain.toInteger()»" firstAttribute="top" secondItem="«viewController.name»ViewID" secondAttribute="top" priority="750" constant="0" id="«controlChain.id»-GhostView«indexInChain.toInteger()»-constraintY"/>
+		<constraint firstItem="«controlChain.id»-GhostView«indexInChain.toInteger()»" firstAttribute="top" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="top" priority="750" constant="0" id="«controlChain.id»-GhostView«indexInChain.toInteger()»-constraintY"/>
 		«ENDIF-»
 		«REM» All ghost views' width binded to GhostView1 width «ENDREM»
 		«IF indexInChain.toInteger() > 1-»
@@ -249,30 +272,30 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 		«ENDIF-»
 		«REM» Horizontal and vertical positioning of the ghost view on the left of the controls (done by the first control) «ENDREM»
 		«IF precedentInChain == null-»
-		<constraint firstItem="«controlChain.id»-GhostView0" firstAttribute="leading" secondItem="«viewController.name»ViewID" secondAttribute="leading" priority="750" constant="0" id="«controlChain.id»-GhostView0-constraintX"/>
-		<constraint firstItem="«controlChain.id»-GhostView0" firstAttribute="top" secondItem="«viewController.name»ViewID" secondAttribute="top" priority="750" constant="0" id="«controlChain.id»-GhostView0-constraintY"/>
+		<constraint firstItem="«controlChain.id»-GhostView0" firstAttribute="leading" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="leading" priority="750" constant="0" id="«controlChain.id»-GhostView0-constraintX"/>
+		<constraint firstItem="«controlChain.id»-GhostView0" firstAttribute="top" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="top" priority="750" constant="0" id="«controlChain.id»-GhostView0-constraintY"/>
 		<constraint firstItem="«controlChain.id»-GhostView0" firstAttribute="width" secondItem="«controlChain.id»-GhostView1" secondAttribute="width" priority="750" multiplier="«(controlChain.bias) / (1 - controlChain.bias)»" id="«controlChain.id»-GhostView0-constraint-width"/>
 		«ENDIF-»
 		«REM» Horizontal and vertical positioning of the ghost view on the right of the controls (done by the last control) «ENDREM»
 		«IF followingInChain == null-»
 		<constraint firstItem="«controlChain.id»-GhostView1" firstAttribute="leading" secondItem="«id»" secondAttribute="trailing" priority="750" constant="0" id="«controlChain.id»-GhostView1-constraintX"/>
-		<constraint firstItem="«controlChain.id»-GhostView1" firstAttribute="trailing" secondItem="«viewController.name»ViewID" secondAttribute="trailing" priority="750" constant="0" id="«controlChain.id»-GhostView1-constraintX-2"/>
-		<constraint firstItem="«controlChain.id»-GhostView1" firstAttribute="top" secondItem="«viewController.name»ViewID" secondAttribute="top" priority="750" constant="0" id="«controlChain.id»-GhostView1-constraintY"/>
+		<constraint firstItem="«controlChain.id»-GhostView1" firstAttribute="trailing" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="trailing" priority="750" constant="0" id="«controlChain.id»-GhostView1-constraintX-2"/>
+		<constraint firstItem="«controlChain.id»-GhostView1" firstAttribute="top" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="top" priority="750" constant="0" id="«controlChain.id»-GhostView1-constraintY"/>
 		«ENDIF-»
 		«ELSEIF controlChain.type.toString().matches("weighted")-»
 		«REM» Horizontal positioning of the control (no ghost views in weighted chain) «ENDREM»
 		«IF precedentInChain == null-»
-		<constraint firstItem="«id»" firstAttribute="leading" secondItem="«viewController.name»ViewID" secondAttribute="leading" priority="750" constant="«controlChain.spacing.toInteger() + marginStart.toInteger()»" id="«id»-constraint-chain"/>
+		<constraint firstItem="«id»" firstAttribute="leading" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="leading" priority="750" constant="«controlChain.spacing.toInteger() + marginStart.toInteger()»" id="«id»-constraint-chain"/>
 		«ELSE-»
 		<constraint firstItem="«id»" firstAttribute="leading" secondItem="«precedentInChain.id»" secondAttribute="trailing" priority="750" constant="«controlChain.spacing.toInteger()»" id="«id»-constraint-chain"/>
 		«ENDIF-»
 		«IF followingInChain == null-»
-		<constraint firstItem="«id»" firstAttribute="trailing" secondItem="«viewController.name»ViewID" secondAttribute="trailing" priority="750" constant="«controlChain.spacing.toInteger() + marginEnd.toInteger()»" id="«id»-constraint-chain-2"/>
+		<constraint firstItem="«id»" firstAttribute="trailing" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="trailing" priority="750" constant="«controlChain.spacing.toInteger() + marginEnd.toInteger()»" id="«id»-constraint-chain-2"/>
 		«ENDIF-»
 		«ENDIF-»
 		«REM» Vertical position if there are no constraints (as usual) «ENDREM»
 		«IF positionIsUnbinded(false, positionConstraints.layoutEdge)-»
-		<constraint firstItem="«id»" firstAttribute="top" secondItem="«viewController.name»-guide-top" secondAttribute="bottom" constant="«posY.toInteger() + marginTop.toInteger() + paddingTop.toInteger()»" id="«id»-posY"/>
+		<constraint firstItem="«id»" firstAttribute="top" secondItem="«viewController.name.toFirstUpper()»-guide-top" secondAttribute="bottom" constant="«posY.toInteger() + marginTop.toInteger() + paddingTop.toInteger()»" id="«id»-posY"/>
 		«ENDIF-»
 	«ELSE»
 		«IF controlChain.type.toString().matches("spread")-»
@@ -280,34 +303,34 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 		<constraint firstItem="«id»" firstAttribute="top" secondItem="«controlChain.id»-GhostView«indexInChain.toInteger()»" secondAttribute="bottom" priority="750" constant="0" id="«id»-constraint-chain"/>
 		«REM» Horizontal and vertical positioning of the ghost view on the left «ENDREM»
 		«IF precedentInChain == null-»
-		<constraint firstItem="«controlChain.id»-GhostView«indexInChain.toInteger()»" firstAttribute="top" secondItem="«viewController.name»ViewID" secondAttribute="top" priority="750" constant="0" id="«controlChain.id»-GhostView«indexInChain.toInteger()»-constraintY"/>
+		<constraint firstItem="«controlChain.id»-GhostView«indexInChain.toInteger()»" firstAttribute="top" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="top" priority="750" constant="0" id="«controlChain.id»-GhostView«indexInChain.toInteger()»-constraintY"/>
 		«ELSE-»
 		<constraint firstItem="«controlChain.id»-GhostView«indexInChain.toInteger()»" firstAttribute="top" secondItem="«precedentInChain.id»" secondAttribute="bottom" priority="750" constant="0" id="«controlChain.id»-GhostView«indexInChain.toInteger()»-constraintY"/>
 		«REM» All ghost views' height binded to GhostView0 height «ENDREM»
 		<constraint firstItem="«controlChain.id»-GhostView«indexInChain.toInteger()»" firstAttribute="height" secondItem="«controlChain.id»-GhostView0" secondAttribute="height" priority="750" multiplier="1" id="«controlChain.id»-GhostView«indexInChain.toInteger()»-constraint-height"/>
 		«ENDIF-»
-		<constraint firstItem="«controlChain.id»-GhostView«indexInChain.toInteger()»" firstAttribute="leading" secondItem="«viewController.name»ViewID" secondAttribute="leading" priority="750" constant="0" id="«controlChain.id»-GhostView«indexInChain.toInteger()»-constraintX"/>
+		<constraint firstItem="«controlChain.id»-GhostView«indexInChain.toInteger()»" firstAttribute="leading" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="leading" priority="750" constant="0" id="«controlChain.id»-GhostView«indexInChain.toInteger()»-constraintX"/>
 		«REM» Horizontal and vertical positioning of the ghost view on the right of the last control of the chain «ENDREM»
 		«IF followingInChain == null-»
 		<constraint firstItem="«controlChain.id»-GhostView«indexInChain.toInteger()+1»" firstAttribute="top" secondItem="«id»" secondAttribute="bottom" priority="750" constant="0" id="«controlChain.id»-GhostView«indexInChain.toInteger()+1»-constraintY"/>
-		<constraint firstItem="«controlChain.id»-GhostView«indexInChain.toInteger()+1»" firstAttribute="bottom" secondItem="«viewController.name»ViewID" secondAttribute="bottom" priority="750" constant="0" id="«controlChain.id»-GhostView«indexInChain.toInteger()+1»-constraintY-2"/>
-		<constraint firstItem="«controlChain.id»-GhostView«indexInChain.toInteger()+1»" firstAttribute="leading" secondItem="«viewController.name»ViewID" secondAttribute="leading" priority="750" constant="0" id="«controlChain.id»-GhostView«indexInChain.toInteger()+1»-constraintX"/>
+		<constraint firstItem="«controlChain.id»-GhostView«indexInChain.toInteger()+1»" firstAttribute="bottom" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="bottom" priority="750" constant="0" id="«controlChain.id»-GhostView«indexInChain.toInteger()+1»-constraintY-2"/>
+		<constraint firstItem="«controlChain.id»-GhostView«indexInChain.toInteger()+1»" firstAttribute="leading" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="leading" priority="750" constant="0" id="«controlChain.id»-GhostView«indexInChain.toInteger()+1»-constraintX"/>
 		<constraint firstItem="«controlChain.id»-GhostView«indexInChain.toInteger()+1»" firstAttribute="height" secondItem="«controlChain.id»-GhostView0" secondAttribute="height" priority="750" multiplier="1" id="«controlChain.id»-GhostView«indexInChain.toInteger()+1»-constraint-height"/>
 		«ENDIF-»
 		«ELSEIF controlChain.type.toString().matches("spread_inside")-»
 		«REM» Vertical positioning of the control «ENDREM»
 		«IF precedentInChain == null-»
-		<constraint firstItem="«id»" firstAttribute="top" secondItem="«viewController.name»ViewID" secondAttribute="top" priority="750" constant="0" id="«id»-constraint-chain"/>
+		<constraint firstItem="«id»" firstAttribute="top" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="top" priority="750" constant="0" id="«id»-constraint-chain"/>
 		«ELSE-»
 		<constraint firstItem="«id»" firstAttribute="top" secondItem="«controlChain.id»-GhostView«indexInChain.toInteger()»" secondAttribute="bottom" priority="750" constant="0" id="«id»-constraint-chain"/>
 		«ENDIF-»
 		«IF followingInChain == null-»
-		<constraint firstItem="«id»" firstAttribute="bottom" secondItem="«viewController.name»ViewID" secondAttribute="bottom" priority="750" constant="0" id="«id»-constraint-chain-2"/>
+		<constraint firstItem="«id»" firstAttribute="bottom" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="bottom" priority="750" constant="0" id="«id»-constraint-chain-2"/>
 		«ENDIF-»
 		«REM» Horizontal and vertical positioning of the ghost view on the left «ENDREM»
 		«IF precedentInChain != null-»
 		<constraint firstItem="«controlChain.id»-GhostView«indexInChain.toInteger()»" firstAttribute="top" secondItem="«precedentInChain.id»" secondAttribute="bottom" priority="750" constant="0" id="«controlChain.id»-GhostView«indexInChain.toInteger()»-constraintY"/>
-		<constraint firstItem="«controlChain.id»-GhostView«indexInChain.toInteger()»" firstAttribute="leading" secondItem="«viewController.name»ViewID" secondAttribute="leading" priority="750" constant="0" id="«controlChain.id»-GhostView«indexInChain.toInteger()»-constraintX"/>
+		<constraint firstItem="«controlChain.id»-GhostView«indexInChain.toInteger()»" firstAttribute="leading" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="leading" priority="750" constant="0" id="«controlChain.id»-GhostView«indexInChain.toInteger()»-constraintX"/>
 		«ENDIF-»
 		«REM» All ghost views' height binded to GhostView1 height «ENDREM»
 		«IF indexInChain.toInteger() > 1-»
@@ -322,30 +345,30 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 		«ENDIF-»
 		«REM» Horizontal and vertical positioning of the ghost view on the left of the controls (done by the first control) «ENDREM»
 		«IF precedentInChain == null-»
-		<constraint firstItem="«controlChain.id»-GhostView0" firstAttribute="top" secondItem="«viewController.name»ViewID" secondAttribute="top" priority="750" constant="0" id="«controlChain.id»-GhostView0-constraintY"/>
-		<constraint firstItem="«controlChain.id»-GhostView0" firstAttribute="leading" secondItem="«viewController.name»ViewID" secondAttribute="leading" priority="750" constant="0" id="«controlChain.id»-GhostView0-constraintX"/>
+		<constraint firstItem="«controlChain.id»-GhostView0" firstAttribute="top" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="top" priority="750" constant="0" id="«controlChain.id»-GhostView0-constraintY"/>
+		<constraint firstItem="«controlChain.id»-GhostView0" firstAttribute="leading" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="leading" priority="750" constant="0" id="«controlChain.id»-GhostView0-constraintX"/>
 		<constraint firstItem="«controlChain.id»-GhostView0" firstAttribute="height" secondItem="«controlChain.id»-GhostView1" secondAttribute="height" priority="750" multiplier="«(controlChain.bias) / (1 - controlChain.bias)»" id="«controlChain.id»-GhostView0-constraint-height"/>
 		«ENDIF-»
 		«REM» Horizontal and vertical positioning of the ghost view on the right of the controls (done by the last control) «ENDREM»
 		«IF followingInChain == null-»
 		<constraint firstItem="«controlChain.id»-GhostView1" firstAttribute="top" secondItem="«id»" secondAttribute="bottom" priority="750" constant="0" id="«controlChain.id»-GhostView1-constraintY"/>
-		<constraint firstItem="«controlChain.id»-GhostView1" firstAttribute="bottom" secondItem="«viewController.name»ViewID" secondAttribute="bottom" priority="750" constant="0" id="«controlChain.id»-GhostView1-constraintY-2"/>
-		<constraint firstItem="«controlChain.id»-GhostView1" firstAttribute="leading" secondItem="«viewController.name»ViewID" secondAttribute="leading" priority="750" constant="0" id="«controlChain.id»-GhostView1-constraintX"/>
+		<constraint firstItem="«controlChain.id»-GhostView1" firstAttribute="bottom" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="bottom" priority="750" constant="0" id="«controlChain.id»-GhostView1-constraintY-2"/>
+		<constraint firstItem="«controlChain.id»-GhostView1" firstAttribute="leading" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="leading" priority="750" constant="0" id="«controlChain.id»-GhostView1-constraintX"/>
 		«ENDIF-»
 		«ELSEIF controlChain.type.toString().matches("weighted")-»
 		«REM» Vertical positioning of the control (no ghost views in weighted chain) «ENDREM»
 		«IF precedentInChain == null-»
-		<constraint firstItem="«id»" firstAttribute="top" secondItem="«viewController.name»ViewID" secondAttribute="top" priority="750" constant="«controlChain.spacing.toInteger() + marginTop.toInteger()»" id="«id»-constraint-chain"/>
+		<constraint firstItem="«id»" firstAttribute="top" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="top" priority="750" constant="«controlChain.spacing.toInteger() + marginTop.toInteger()»" id="«id»-constraint-chain"/>
 		«ELSE-»
 		<constraint firstItem="«id»" firstAttribute="top" secondItem="«precedentInChain.id»" secondAttribute="bottom" priority="750" constant="«controlChain.spacing.toInteger()»" id="«id»-constraint-chain"/>
 		«ENDIF-»
 		«IF followingInChain == null-»
-		<constraint firstItem="«id»" firstAttribute="bottom" secondItem="«viewController.name»ViewID" secondAttribute="bottom" priority="750" constant="«controlChain.spacing.toInteger() + marginBottom.toInteger()»" id="«id»-constraint-chain-2"/>
+		<constraint firstItem="«id»" firstAttribute="bottom" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="bottom" priority="750" constant="«controlChain.spacing.toInteger() + marginBottom.toInteger()»" id="«id»-constraint-chain-2"/>
 		«ENDIF-»
 		«ENDIF-»
 		«REM» Horizontal position if there are no constraints (as usual) «ENDREM»
 		«IF positionIsUnbinded(true, positionConstraints.layoutEdge)-»
-		<constraint firstItem="«id»" firstAttribute="leading" secondItem="«viewController.name»ViewID" secondAttribute="leading" constant="«posX.toInteger() + marginStart.toInteger() + paddingStart.toInteger()»" id="«id»-posX"/>
+		<constraint firstItem="«id»" firstAttribute="leading" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="leading" constant="«posX.toInteger() + marginStart.toInteger() + paddingStart.toInteger()»" id="«id»-posX"/>
 		«ENDIF-»
 	«ENDIF-»
 «ENDDEFINE-»
