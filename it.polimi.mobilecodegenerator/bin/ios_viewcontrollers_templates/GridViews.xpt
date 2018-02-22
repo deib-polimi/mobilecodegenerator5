@@ -1,5 +1,5 @@
 «REM»
-Copyright 2017 Gregorio Perego, Stefania Pezzetti, Aldo Pintus, Alessio Rossotti
+Copyright 2018 Gregorio Perego, Stefania Pezzetti, Aldo Pintus, Alessio Rossotti, Massimo Beccari
 This file is part of it.polimi.mobilecodegenerator.
 
 it.polimi.mobilecodegenerator is free software: 
@@ -114,28 +114,12 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 
 	func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
 		«FOREACH gridViews AS gv-»
-		«IF gv.clickListener!=null-»
 	    if collectionView == self.«gv.id» {
-	        «IF gv.clickListener.navigation==null-»
-			//TODO implement the action
-			«ENDIF-»
+			// TODO: choose what to pass to parent view controller as selectedItem
+			(parent as! ChildViewControllerInteractionProtocol).childViewControllerInteraction(controlId: «gv.id», selectedItem: nil)
 	    }
-	    «ENDIF-»
 	    «ENDFOREACH-»
 	    collectionView.deselectItem(at: indexPath, animated: true)
 	}
 «ENDIF-»
-«ENDDEFINE-»
-
-«DEFINE prepareForSegue FOR ViewController-»
-	«FOREACH gridViews AS gv-»
-		«IF gv.clickListener != null && gv.clickListener.navigation != null-»
-		//You can reference to the next ViewController and the selected UICollectionViewCell     
-		if segue.identifier == "SegueIdentifierFrom«gv.id»To«gv.clickListener.navigation.destination»ViewControllerID" {
- 	        let index = self.«gv.id».indexPathsForSelectedItems()
-			let destination = segue.destinationViewController as! «gv.clickListener.navigation.destination»ViewController
-            // Pass the selected cell content to destination ...
-		}
-		«ENDIF-»
-	«ENDFOREACH-»
 «ENDDEFINE-»

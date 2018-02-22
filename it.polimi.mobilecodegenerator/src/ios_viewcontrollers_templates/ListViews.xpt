@@ -1,5 +1,5 @@
 «REM»
-Copyright 2017 Gregorio Perego, Stefania Pezzetti, Aldo Pintus, Alessio Rossotti
+Copyright 2018 Gregorio Perego, Stefania Pezzetti, Aldo Pintus, Alessio Rossotti, Massimo Beccari
 This file is part of it.polimi.mobilecodegenerator.
 
 it.polimi.mobilecodegenerator is free software: 
@@ -115,28 +115,12 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 	
 	func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
 	    «FOREACH listViews AS lv-»
-		«IF lv.clickListener != null-»
 	    if tableView == self.«lv.id» {
-	    	«IF lv.clickListener.navigation == null-»
-			//TODO implement the action
-			«ENDIF-»
+	    	// TODO: choose what to pass to parent view controller as selectedItem
+			(parent as! ChildViewControllerInteractionProtocol).childViewControllerInteraction(controlId: «lv.id», selectedItem: nil)
 	    }
-	    «ENDIF-»
 	    «ENDFOREACH-»
 	    tableView.deselectRow(at: indexPath, animated: true)
 	}
 «ENDIF-»
-«ENDDEFINE-»
-
-«DEFINE prepareForSegue FOR ViewController-»
-	«FOREACH listViews AS lv-»
-		«IF lv.clickListener != null && lv.clickListener.navigation != null-»
-		//You can reference to the next ViewController and the selected UITableViewRow     
-		if segue.identifier == "SegueIdentifierFrom«lv.id»To«lv.clickListener.navigation.destination»ViewControllerID" {
- 	        let index = self.«lv.id».indexPathForSelectedRow!
-			let destination = segue.destination as! «lv.clickListener.navigation.destination»ViewController
-            // Pass the selected cell content to destination ...
-		}
-		«ENDIF-»
-	«ENDFOREACH-»
 «ENDDEFINE-»

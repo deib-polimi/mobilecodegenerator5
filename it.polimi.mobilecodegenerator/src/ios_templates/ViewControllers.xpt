@@ -1,5 +1,5 @@
 «REM»
-Copyright 2017 Gregorio Perego, Stefania Pezzetti, Aldo Pintus, Alessio Rossotti, Massimo Beccari
+Copyright 2018 Gregorio Perego, Stefania Pezzetti, Aldo Pintus, Alessio Rossotti, Massimo Beccari
 This file is part of it.polimi.mobilecodegenerator.
 
 it.polimi.mobilecodegenerator is free software: 
@@ -46,6 +46,9 @@ class «name.toFirstUpper()»ParentViewController: UIViewController {
 	«IF !typeSmartphone.toString().matches(typeTablet.toString())-»
     fileprivate var layoutType: String = Constants.SCENE_TYPE_SINGLE_VC
     «ENDIF-»
+    «IF isAMenuDestination(name, application.menu.menuItems.navigation.destinationScene.name)-»
+    lazy var menuTransitioningDelegate = MenuPresentationManager()
+    «ENDIF-»
     
     «IF typeSmartphone.toString().matches("singleVCTab") || typeTablet.toString().matches("singleVCTab")-»
     fileprivate var tabBar: UITabBar? = nil
@@ -71,6 +74,11 @@ class «name.toFirstUpper()»ParentViewController: UIViewController {
     // MARK: UIViewController
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        «IF isAMenuDestination(name, application.menu.menuItems.navigation.destinationScene.name)-»
+	    let menuIcon = UIImage(named: "menu_icon")
+	    navigationItem.leftBarButtonItem = UIBarButtonItem(image: menuIcon, style: .plain, target: self, action: #selector(showMenu))
+	    «ENDIF-»	
         
         «IF typeSmartphone.toString().matches(typeTablet.toString())-»
         «IF typeSmartphone.toString().matches("singleVC")-»
@@ -108,6 +116,16 @@ class «name.toFirstUpper()»ParentViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    «IF isAMenuDestination(name, application.menu.menuItems.navigation.destinationScene.name)-»
+    func showMenu() {
+		let menuViewController = MenuViewController()
+		menuViewController.delegate = self
+		menuViewController.transitioningDelegate = menuTransitioningDelegate
+		menuViewController.modalPresentationStyle = .custom
+		present(menuViewController, animated: true, completion: nil)
+	}
+    «ENDIF-»
     
     «IF typeSmartphone.toString().matches(typeTablet.toString()) && !typeSmartphone.toString().matches("multiVC")-»
     // MARK: UI Setup
@@ -197,29 +215,33 @@ class «name.toFirstUpper()»ParentViewController: UIViewController {
     
 }
 
-«IF containsControlsWithNavigation(sceneViewControllers.viewController.buttons, sceneViewControllers.viewController.listViews, sceneViewControllers.viewController.gridViews)-»
-extension «name.toFirstUpper()»ParentViewController: ChildViewControllerInteractionProtocol {
-
-	func childViewControllerInteraction(_ controlId: String, _ selectedItem: String?) {
-		
+«IF isAMenuDestination(name, application.menu.menuItems.navigation.destinationScene.name)-»
+// MARK: MenuViewControllerDelegate
+extension «name.toFirstUpper()»ParentViewController: MenuViewControllerDelegate {
+	func menuViewController(controller: MenuViewController, didSelectItem selectedItem: MenuItem) {
+		var selectedViewController: UIViewController
+		switch selectedItem.destinationID {
+		«FOREACH application.menu.menuItems AS mi-»
+    	case "«mi.navigation.destinationScene.name.toFirstUpper()»":
+    		selectedViewController = «mi.navigation.destinationScene.name.toFirstUpper()»ParentViewController()
+    	«ENDFOREACH-»
+    	default:
+    		break
+		}
+		let nav = UINavigationController()
+		nav.viewControllers = [selectedViewController]
+		// Dismiss MenuViewController
+		dismiss(animated: true)
+		// Dismiss itself
+		dismiss(animated: true)
+		// Present the selected ViewController
+		present(nav, animated: true, completion: nil)
 	}
-    
-    func showDetail(_ item: Any) {
-        if isPhone == false {
-            (detailVC as! MySplitViewDetailProtocol).showDetail(item)
-        } else {
-            showDetailView()
-            (detailVC as! MySplitViewDetailProtocol).showDetail(item)
-        }
-    }
-    
-    func showMV() {
-        showMasterView()
-    }
 }
 «ENDIF-»
 
 «IF typeSmartphone.toString().matches("singleVCTab") || typeTablet.toString().matches("singleVCTab")-»
+// MARK: UITabBarDelegate
 extension «name.toFirstUpper()»ParentViewController: UITabBarDelegate {
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
     	switch item.tag {
@@ -231,6 +253,102 @@ extension «name.toFirstUpper()»ParentViewController: UITabBarDelegate {
     		break
     	}
     }
+}
+«ENDIF-»
+
+«IF containsControlsWithNavigation(sceneViewControllers.viewController.buttons, sceneViewControllers.viewController.listViews, sceneViewControllers.viewController.gridViews)-»
+// MARK: ChildViewControllerInteractionProtocol
+extension «name.toFirstUpper()»ParentViewController: ChildViewControllerInteractionProtocol {
+
+	func childViewControllerInteraction(_ controlId: String, _ selectedItem: Any?) {
+		switch controlId {
+    	«FOREACH sceneViewControllers AS svc-»
+		«REM» Buttons «ENDREM»
+		«FOREACH svc.viewController.buttons AS b-»
+		«FOREACH b.navigations AS n-»
+		«IF n.contextScene == this-»
+        case "«b.id»":
+            «IF n.destinationScene != null-»
+			let «n.destinationScene.name.toFirstLower()»VC = «n.destinationScene.name.toFirstUpper()»ParentViewController()
+			let nav = UINavigationController()
+			nav.viewControllers = [«n.destinationScene.name.toFirstLower()»VC]
+			dismiss(animated: true)
+			present(nav, animated: true, completion: nil)
+			«ELSEIF n.destinationViewController != null-»
+			«IF !typeSmartphone.toString().matches("multiVC") || !typeTablet.toString().matches("multiVC")-»
+			if layoutType != Constants.SCENE_TYPE_MULTI_VC {
+				show«n.destinationViewController.name.toFirstUpper()»VC()
+			} else {
+				// Do nothing
+			}
+			«ELSE-»
+			// TODO implement the action
+			«ENDIF-»
+			«ELSE-»
+			// TODO implement the action
+			«ENDIF-»
+        «ENDIF-»
+        «ENDFOREACH-»
+        «ENDFOREACH-»
+        «REM» ListViews «ENDREM»
+		«FOREACH svc.viewController.listViews AS lv-»
+		«FOREACH lv.navigations AS n-»
+		«IF n.contextScene == this-»
+		case "«lv.id»":
+	    	«IF n.destinationScene != null-»
+			let «n.destinationScene.name.toFirstLower()»VC = «n.destinationScene.name.toFirstUpper()»ParentViewController()
+			let nav = UINavigationController()
+			nav.viewControllers = [«n.destinationScene.name.toFirstLower()»VC]
+			dismiss(animated: true)
+			present(nav, animated: true, completion: nil)
+			«ELSEIF n.destinationViewController != null-»
+			«IF !typeSmartphone.toString().matches("multiVC") || !typeTablet.toString().matches("multiVC")-»
+			if layoutType != Constants.SCENE_TYPE_MULTI_VC {
+				show«n.destinationViewController.name.toFirstUpper()»VC()
+			} else {
+				// Do nothing
+			}
+			«ELSE-»
+			// TODO implement the action
+			«ENDIF-»
+			«ELSE-»
+			// TODO implement the action
+			«ENDIF-»
+		«ENDIF-»
+		«ENDFOREACH-»
+		«ENDFOREACH-»
+		«REM» GridViews «ENDREM»
+		«FOREACH svc.viewController.gridViews AS gv-»
+		«FOREACH gv.navigations AS n-»
+		«IF n.contextScene == this-»
+		case "«gv.id»":
+	    	«IF n.destinationScene != null-»
+			let «n.destinationScene.name.toFirstLower()»VC = «n.destinationScene.name.toFirstUpper()»ParentViewController()
+			let nav = UINavigationController()
+			nav.viewControllers = [«n.destinationScene.name.toFirstLower()»VC]
+			dismiss(animated: true)
+			present(nav, animated: true, completion: nil)
+			«ELSEIF n.destinationViewController != null-»
+			«IF !typeSmartphone.toString().matches("multiVC") || !typeTablet.toString().matches("multiVC")-»
+			if layoutType != Constants.SCENE_TYPE_MULTI_VC {
+				show«n.destinationViewController.name.toFirstUpper()»VC()
+			} else {
+				// Do nothing
+			}
+			«ELSE-»
+			// TODO implement the action
+			«ENDIF-»
+			«ELSE-»
+			// TODO implement the action
+			«ENDIF-»
+		«ENDIF-»
+		«ENDFOREACH-»
+		«ENDFOREACH-»
+      	«ENDFOREACH-»
+    	default:
+    		break
+		}
+	}
 }
 «ENDIF-»
 «ENDFILE-»
@@ -454,10 +572,6 @@ class «name.toFirstUpper()»ViewController: «EXPAND ios_viewcontrollers_templates
 	    super.didReceiveMemoryWarning()
 	    // Dispose of any resources that can be recreated.
 	}
-	
-	override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-	    «EXPAND ios_viewcontrollers_templates::PrepareForSegue::prepareForSegue-»
-	}
 }
 «ENDFILE-»
 «ENDDEFINE-»
@@ -475,22 +589,27 @@ class «name.toFirstUpper()»ViewController: «EXPAND ios_viewcontrollers_templates
 import UIKit
 
 protocol MenuViewControllerDelegate: class {
-	func menuViewController(controller: MenuViewController, didSelectItem selectedItem: String)
+	func menuViewController(controller: MenuViewController, didSelectItem selectedItem: MenuItem)
 }
 
 final class MenuViewController: UITableViewController {
 
 	// MARK: - Properties
 	weak var delegate: MenuViewControllerDelegate?
-	var menuItems: [String] = [
-		«FOREACH 0.upTo(menu.menuItems.size - 1) AS i-»
-		«IF i < (menu.menuItems.size - 1)-»
-		"«menu.menuItems.get(i).title»",
-		«ELSE-»
-		"«menu.menuItems.get(i).title»"
-		«ENDIF-»
+	var menuItems: [MenuItem] = []
+	
+	// MARK: Initialization
+    init() {
+        «FOREACH 0.upTo(menu.menuItems.size - 1) AS i-»
+    	let mi«(i+1)» = MenuItem(title: "«menu.menuItems.get(i).title»", destinationID: "«menu.menuItems.get(i).navigation.destinationScene.name.toFirstUpper()»")
+		menuItems.append(mi«(i+1)»)
 		«ENDFOREACH-»
-	]
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
 }
 
 // MARK: - UITableViewDataSource
@@ -504,7 +623,7 @@ extension MenuViewController {
 		let cell = tableView.dequeueReusableCell(withIdentifier: "MenuCell", for: indexPath) as! MenuViewCell
 
 		let item = menuItems[indexPath.row]
-		cell.destinationLabel.text = item
+		cell.destinationLabel.text = item.title
 
 		return cell
 	}
@@ -662,7 +781,7 @@ final class MenuPresentationAnimator: NSObject {
 extension MenuPresentationAnimator: UIViewControllerAnimatedTransitioning {
   
 	func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-		return 0.3
+		return 0.2
 	}
   
 	func animateTransition(using transitionContext: UIViewControllerContextTransitioning) {
@@ -705,6 +824,29 @@ final class MenuViewCell: UITableViewCell {
   
 	// MARK: - IBOutlets
 	@IBOutlet weak var destinationLabel: UILabel!
+}
+«ENDFILE-»
+
+«FILE name +"/"+name +"/Menu/MenuItem.swift"-»
+//
+//  MenuItem.swift"
+//
+//  Automatically generated by MobileCodeGenerator 4.
+//  Copyright © 2018 «companyIdentifier.split(".").last()-». All rights reserved.
+//
+
+import Foundation
+
+struct MenuItem {
+	// MARK: - Properties
+	let title: String
+	let destinationID: String
+  
+	// MARK: - Initializers
+	init(dictionary: [String: AnyObject]) {
+		self.title = dictionary["title"] as! String
+		self.destinationID = dictionary["destinationID"] as! String
+	}
 }
 «ENDFILE-»
 «ENDDEFINE-»

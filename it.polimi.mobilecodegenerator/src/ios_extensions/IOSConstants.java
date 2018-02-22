@@ -1,5 +1,5 @@
 /************************************************************************************************************************
- * Copyright 2017 Gregorio Perego, Stefania Pezzetti, Aldo Pintus, Alessio Rossotti
+ * Copyright 2018 Gregorio Perego, Stefania Pezzetti, Aldo Pintus, Alessio Rossotti, Massimo Beccari
  * This file is part of it.polimi.mobilecodegenerator.
  * 
  * it.polimi.mobilecodegenerator is free software: 
@@ -39,6 +39,10 @@ public class IOSConstants {
 		sourceFilesFolder+"/list_icon.imageset/list_icon@3x.png",
 		sourceFilesFolder+"/list_icon.imageset/list_icon@2x.png",
 		sourceFilesFolder+"/list_icon.imageset/list_icon.png",
+		sourceFilesFolder+"/menu_icon.imageset/Contents.json",
+		sourceFilesFolder+"/menu_icon.imageset/menu_icon@3x.png",
+		sourceFilesFolder+"/menu_icon.imageset/menu_icon@2x.png",
+		sourceFilesFolder+"/menu_icon.imageset/menu_icon.png",
 		sourceFilesFolder+"/play_icon.imageset/Contents.json",
 		sourceFilesFolder+"/play_icon.imageset/play_icon@3x.png",
 		sourceFilesFolder+"/play_icon.imageset/play_icon@2x.png",
@@ -86,6 +90,10 @@ public class IOSConstants {
 		destinationFilesFolder+"/"+AppJavaUtil.APPLICATION_NAME+"/Assets.xcassets/list_icon.imageset/list_icon@3x.png",
 		destinationFilesFolder+"/"+AppJavaUtil.APPLICATION_NAME+"/Assets.xcassets/list_icon.imageset/list_icon@2x.png",
 		destinationFilesFolder+"/"+AppJavaUtil.APPLICATION_NAME+"/Assets.xcassets/list_icon.imageset/list_icon.png",
+		destinationFilesFolder+"/"+AppJavaUtil.APPLICATION_NAME+"/Assets.xcassets/menu_icon.imageset/Contents.json",
+		destinationFilesFolder+"/"+AppJavaUtil.APPLICATION_NAME+"/Assets.xcassets/menu_icon.imageset/menu_icon@3x.png",
+		destinationFilesFolder+"/"+AppJavaUtil.APPLICATION_NAME+"/Assets.xcassets/menu_icon.imageset/menu_icon@2x.png",
+		destinationFilesFolder+"/"+AppJavaUtil.APPLICATION_NAME+"/Assets.xcassets/menu_icon.imageset/menu_icon.png",
 		destinationFilesFolder+"/"+AppJavaUtil.APPLICATION_NAME+"/Assets.xcassets/play_icon.imageset/Contents.json",
 		destinationFilesFolder+"/"+AppJavaUtil.APPLICATION_NAME+"/Assets.xcassets/play_icon.imageset/play_icon@3x.png",
 		destinationFilesFolder+"/"+AppJavaUtil.APPLICATION_NAME+"/Assets.xcassets/play_icon.imageset/play_icon@2x.png",

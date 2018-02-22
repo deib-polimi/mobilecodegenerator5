@@ -1,5 +1,5 @@
 «REM»
-Copyright 2017 Gregorio Perego, Stefania Pezzetti, Aldo Pintus, Alessio Rossotti, Massimo Beccari
+Copyright 2018 Gregorio Perego, Stefania Pezzetti, Aldo Pintus, Alessio Rossotti, Massimo Beccari
 This file is part of it.polimi.mobilecodegenerator.
 
 it.polimi.mobilecodegenerator is free software: 
@@ -267,7 +267,7 @@ import UIKit
 
 protocol ChildViewControllerInteractionProtocol: class {
     
-    func childViewControllerInteraction(_ controlId: String, _ selectedItem: String?)
+    func childViewControllerInteraction(_ controlId: String, _ selectedItem: Any?)
 }
 
 «ENDFILE-»
