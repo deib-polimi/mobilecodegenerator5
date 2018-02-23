@@ -1109,6 +1109,11 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 		android:layout_marginBottom="«marginBottom»dp"
     	«ELSEIF controlChain.axis.toString().matches("horizontal")-»
 		«REM» Constraints, bias and weight «ENDREM»
+		«IF controlChain.type.toString().matches("weighted")-»
+		app:layout_constraintHorizontal_chainStyle="spread"
+		«ELSE»
+		app:layout_constraintHorizontal_chainStyle="«controlChain.type.toString()»"
+		«ENDIF-»
 		«IF controlChain.bias != null-»
 		app:layout_constraintHorizontal_bias="«controlChain.bias»"
 		«ENDIF-»
@@ -1146,6 +1151,11 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 		android:layout_marginBottom="«marginBottom»dp"
     	«ELSE»
 		«REM» Constraints, bias and weight «ENDREM»
+		«IF controlChain.type.toString().matches("weighted")-»
+		app:layout_constraintVertical_chainStyle="spread"
+		«ELSE»
+		app:layout_constraintVertical_chainStyle="«controlChain.type.toString()»"
+		«ENDIF-»
 		«IF controlChain.bias != null-»
 		app:layout_constraintVertical_bias="«controlChain.bias»"
 		«ENDIF-»

@@ -37,7 +37,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
         // Changes background color of button when clicked
 		sender.backgroundColor = UIColor(red: «redFromHex(b.clickColor)», green: «greenFromHex(b.clickColor)», blue: «blueFromHex(b.clickColor)», alpha: 1)
 		«ENDIF-»
-        (parent as! ChildViewControllerInteractionProtocol).childViewControllerInteraction(controlId: «b.id», selectedItem: nil)
+        (parent as! ChildViewControllerInteractionProtocol).childViewControllerInteraction(controlId: "«b.id»", selectedItem: nil)
     }
     
 	@IBAction func «b.id»TouchUpInside(_ sender: UIButton) {

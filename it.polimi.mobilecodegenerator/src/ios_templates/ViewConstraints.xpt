@@ -122,14 +122,14 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 	«REM» Width «ENDREM»
 	«IF dimensionConstraint.fixedWidth != null-»
 	<constraint firstAttribute="width" constant="«dimensionConstraint.fixedWidth»" id="«id»-width"/>
-	«ELSEIF dimensionConstraint.widthPercent == null && dimensionConstraint.fixedRatio == null && controlChain == null && !dimensionIsUnbinded(true, positionConstraints.layoutEdge)-»
-	<constraint firstAttribute="width" constant="«defaultWidth»" id="«id»-width"/>
+	«ELSEIF dimensionConstraint.widthPercent == null && dimensionConstraint.fixedRatio == null && (((controlChain == null || controlChain.axis.toString().matches("vertical")) && dimensionIsUnbinded(true, positionConstraints.layoutEdge)) || (controlChain != null && !controlChain.type.toString().matches("weighted") && controlChain.axis.toString().matches("horizontal")))-»
+	<constraint firstAttribute="width" constant="«defaultWidth»" id="«id»-constraint-width"/>
 	«ENDIF-»
 	«REM» Height «ENDREM»
 	«IF dimensionConstraint.fixedHeight != null-»
 	<constraint firstAttribute="height" constant="«dimensionConstraint.fixedHeight»" id="«id»-height"/>
-	«ELSEIF dimensionConstraint.heightPercent == null && dimensionConstraint.fixedRatio == null && controlChain == null && !dimensionIsUnbinded(false, positionConstraints.layoutEdge)-»
-	<constraint firstAttribute="height" constant="«defaultHeight»" id="«id»-height"/>
+	«ELSEIF dimensionConstraint.heightPercent == null && dimensionConstraint.fixedRatio == null && (((controlChain == null || controlChain.axis.toString().matches("horizontal")) && dimensionIsUnbinded(false, positionConstraints.layoutEdge)) || (controlChain != null && !controlChain.type.toString().matches("weighted") && controlChain.axis.toString().matches("vertical")))-»
+	<constraint firstAttribute="height" constant="«defaultHeight»" id="«id»-constraint-height"/>
 	«ENDIF-»
 	«REM» Ratio «ENDREM»
 	«IF dimensionConstraint.fixedRatio != null-»
@@ -193,23 +193,26 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 «DEFINE parentConstraints FOR UiPhoneControl-»
 	«REM» Dimension Constraints «ENDREM»
 	«IF dimensionConstraint.widthPercent != null-»
-	<constraint firstItem="«id»" firstAttribute="width" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="width" multiplier="«dimensionConstraint.widthPercent»" id="«id»-width"/>
+	<constraint firstItem="«id»" firstAttribute="width" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="width" multiplier="«dimensionConstraint.widthPercent»" id="«id»-constraint-width"/>
+	«ENDIF-»
+	«IF dimensionConstraint.heightPercent != null-»
+	<constraint firstItem="«id»" firstAttribute="height" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="height" multiplier="«dimensionConstraint.heightPercent»" id="«id»-constraint-height"/>
 	«ENDIF-»
 	«REM» Position Constraints «ENDREM»
 	«FOREACH positionConstraints AS constraint-»
 	«IF constraint.withParent-»
 		«IF constraint.layoutEdge.toString().matches("start") && constraint.referenceLayoutEdge.toString().matches("start")-»
-		<constraint firstItem="«id»" firstAttribute="leading" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="leading" priority="750" constant="«(marginStart + paddingStart).toInteger()»" id="«id»-parent-start"/>
+		<constraint firstItem="«id»" firstAttribute="leading" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="leading" priority="750" constant="«(marginStart + paddingStart).toInteger()»" id="«id»-constraint-parent-start"/>
 		«ELSEIF constraint.layoutEdge.toString().matches("end") && constraint.referenceLayoutEdge.toString().matches("end")-»
-		<constraint firstItem="«id»" firstAttribute="leading" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="trailing" priority="750" constant="«(marginEnd + paddingEnd).toInteger()»" id="«id»-parent-end"/>
+		<constraint firstItem="«id»" firstAttribute="leading" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="trailing" priority="750" constant="«(marginEnd + paddingEnd).toInteger()»" id="«id»-constraint-parent-end"/>
 		«ELSEIF constraint.layoutEdge.toString().matches("top") && constraint.referenceLayoutEdge.toString().matches("top")-»
-		<constraint firstItem="«id»" firstAttribute="top" secondItem="«viewController.name.toFirstUpper()»-guide-top" secondAttribute="top" priority="750" constant="«(marginTop + paddingTop).toInteger()»" id="«id»-parent-top"/>
+		<constraint firstItem="«id»" firstAttribute="top" secondItem="«viewController.name.toFirstUpper()»-guide-top" secondAttribute="top" priority="750" constant="«(marginTop + paddingTop).toInteger()»" id="«id»-constraint-parent-top"/>
 		«ELSEIF constraint.layoutEdge.toString().matches("bottom") && constraint.referenceLayoutEdge.toString().matches("bottom")-»
-		<constraint firstItem="«viewController.name.toFirstUpper()»-guide-bottom" firstAttribute="bottom" secondItem="«id»" secondAttribute="bottom" priority="750" constant="«(marginBottom + paddingBottom).toInteger()»" id="«id»-parent-bottom"/>
+		<constraint firstItem="«viewController.name.toFirstUpper()»-guide-bottom" firstAttribute="bottom" secondItem="«id»" secondAttribute="bottom" priority="750" constant="«(marginBottom + paddingBottom).toInteger()»" id="«id»-constraint-parent-bottom"/>
 		«ELSEIF constraint.layoutEdge.toString().matches("centerX") && constraint.referenceLayoutEdge.toString().matches("centerX")-»
-		<constraint firstItem="«id»" firstAttribute="centerX" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="centerX" priority="750" constant="«((marginStart + paddingStart) - (marginEnd + paddingEnd)).toInteger()»" id="«id»-parent-centerX"/>
+		<constraint firstItem="«id»" firstAttribute="centerX" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="centerX" priority="750" constant="«((marginStart + paddingStart) - (marginEnd + paddingEnd)).toInteger()»" id="«id»-constraint-parent-centerX"/>
 		«ELSEIF constraint.layoutEdge.toString().matches("centerY") && constraint.referenceLayoutEdge.toString().matches("centerY")-»
-		<constraint firstItem="«id»" firstAttribute="centerY" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="centerY" priority="750" constant="«((marginTop + paddingTop) - (marginBottom + paddingBottom)).toInteger()»" id="«id»-parent-centerY"/>
+		<constraint firstItem="«id»" firstAttribute="centerY" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="centerY" priority="750" constant="«((marginTop + paddingTop) - (marginBottom + paddingBottom)).toInteger()»" id="«id»-constraint-parent-centerY"/>
 		«ENDIF-»
 	«ENDIF-»
 	«ENDFOREACH-»
@@ -219,10 +222,10 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 «DEFINE chainAndDefaultConstraints FOR UiPhoneControl-»
 	«IF controlChain == null-»
 		«IF positionIsUnbinded(true, positionConstraints.layoutEdge)-»
-		<constraint firstItem="«id»" firstAttribute="leading" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="leading" constant="«posX.toInteger() + marginStart.toInteger() + paddingStart.toInteger()»" id="«id»-posX"/>
+		<constraint firstItem="«id»" firstAttribute="leading" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="leading" constant="«posX.toInteger() + marginStart.toInteger() + paddingStart.toInteger()»" id="«id»-constraint-posX"/>
 		«ENDIF-»
 		«IF positionIsUnbinded(false, positionConstraints.layoutEdge)-»
-		<constraint firstItem="«id»" firstAttribute="top" secondItem="«viewController.name.toFirstUpper()»-guide-top" secondAttribute="bottom" constant="«posY.toInteger() + marginTop.toInteger() + paddingTop.toInteger()»" id="«id»-posY"/>
+		<constraint firstItem="«id»" firstAttribute="top" secondItem="«viewController.name.toFirstUpper()»-guide-top" secondAttribute="bottom" constant="«posY.toInteger() + marginTop.toInteger() + paddingTop.toInteger()»" id="«id»-constraint-posY"/>
 		«ENDIF-»
 	«ELSEIF controlChain.axis.toString().matches("horizontal")-»
 		«IF controlChain.type.toString().matches("spread")-»
@@ -287,6 +290,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 		«IF precedentInChain == null-»
 		<constraint firstItem="«id»" firstAttribute="leading" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="leading" priority="750" constant="«controlChain.spacing.toInteger() + marginStart.toInteger()»" id="«id»-constraint-chain"/>
 		«ELSE-»
+		<constraint firstItem="«id»" firstAttribute="width" secondItem="«precedentInChain.id»" secondAttribute="width" priority="750" multiplier="«(weight / precedentInChain.weight)»" id="«id»-constraint-width"/>
 		<constraint firstItem="«id»" firstAttribute="leading" secondItem="«precedentInChain.id»" secondAttribute="trailing" priority="750" constant="«controlChain.spacing.toInteger()»" id="«id»-constraint-chain"/>
 		«ENDIF-»
 		«IF followingInChain == null-»
@@ -360,6 +364,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 		«IF precedentInChain == null-»
 		<constraint firstItem="«id»" firstAttribute="top" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="top" priority="750" constant="«controlChain.spacing.toInteger() + marginTop.toInteger()»" id="«id»-constraint-chain"/>
 		«ELSE-»
+		<constraint firstItem="«id»" firstAttribute="height" secondItem="«precedentInChain.id»" secondAttribute="height" priority="750" multiplier="«(weight / precedentInChain.weight)»" id="«id»-constraint-height"/>
 		<constraint firstItem="«id»" firstAttribute="top" secondItem="«precedentInChain.id»" secondAttribute="bottom" priority="750" constant="«controlChain.spacing.toInteger()»" id="«id»-constraint-chain"/>
 		«ENDIF-»
 		«IF followingInChain == null-»

@@ -117,7 +117,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 	    «FOREACH listViews AS lv-»
 	    if tableView == self.«lv.id» {
 	    	// TODO: choose what to pass to parent view controller as selectedItem
-			(parent as! ChildViewControllerInteractionProtocol).childViewControllerInteraction(controlId: «lv.id», selectedItem: nil)
+			(parent as! ChildViewControllerInteractionProtocol).childViewControllerInteraction(controlId: "«lv.id»", selectedItem: nil)
 	    }
 	    «ENDFOREACH-»
 	    tableView.deselectRow(at: indexPath, animated: true)

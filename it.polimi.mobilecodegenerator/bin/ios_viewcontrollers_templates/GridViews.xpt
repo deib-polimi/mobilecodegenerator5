@@ -116,7 +116,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 		«FOREACH gridViews AS gv-»
 	    if collectionView == self.«gv.id» {
 			// TODO: choose what to pass to parent view controller as selectedItem
-			(parent as! ChildViewControllerInteractionProtocol).childViewControllerInteraction(controlId: «gv.id», selectedItem: nil)
+			(parent as! ChildViewControllerInteractionProtocol).childViewControllerInteraction(controlId: "«gv.id»", selectedItem: nil)
 	    }
 	    «ENDFOREACH-»
 	    collectionView.deselectItem(at: indexPath, animated: true)

@@ -238,7 +238,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 		«getSecondHexadecimalId("MenuItem.swift")» /* MenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuItem.swift; sourceTree = "<group>"; };
 		«getSecondHexadecimalId("MenuInteractionProtocol.swift")» /* MenuInteractionProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MenuInteractionProtocol.swift; sourceTree = "<group>"; };
 		«ENDIF-»
-		/* End PBXFileReference section */
+/* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		«getFirstHexadecimalId("Frameworks")» /* Frameworks */ = {
@@ -270,18 +270,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 			);
 			sourceTree = "<group>";
 		};
-		«getFirstHexadecimalId("Products")» /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				«getFirstHexadecimalId(name+".app")» /* «name».app */,
-				«IF !(this.watchControllers.isEmpty)-»
-				«getSecondHexadecimalId(name+" WatchKit App.app")» /* «name» WatchKit App.app */,
-				«getSecondHexadecimalId(name+" WatchKit Extension.appex")» /* «name» WatchKit Extension.appex */,
-				«ENDIF-»
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
+		
 		«getFirstHexadecimalId(name)» /* «name» */ = {
 			isa = PBXGroup;
 			children = (
@@ -289,12 +278,14 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 				«getSecondHexadecimalId("Main.storyboard")» /* Main.storyboard */,
 				«getSecondHexadecimalId("LaunchScreen.storyboard")» /* LaunchScreen.storyboard */,
 				«getSecondHexadecimalId("App Assets.xcassets")» /* Assets.xcassets */,
+				«IF dataHandler.cloudHandler != null || dataHandler.databaseHandler != null || dataHandler.preferenceHandler != null || dataHandler.storageHandler != null-»
 				«getSecondHexadecimalId("DataHandlers")» /* DataHandlers */,
+				«ENDIF-»
 				«getSecondHexadecimalId("ChildViewControllers")» /* ChildViewControllers */,
 				«getSecondHexadecimalId("ParentViewControllers")» /* ParentViewControllers */,
-				«getSecondHexadecimalId("Constants.swift")» /* Constants.swift */
+				«getSecondHexadecimalId("Constants.swift")» /* Constants.swift */,
 				«IF containsControlsWithNavigation(viewControllers.buttons, viewControllers.listViews, viewControllers.gridViews)-»
-				«getSecondHexadecimalId("ChildViewControllerInteractionProtocol.swift")» /* ChildViewControllerInteractionProtocol.swift */
+				«getSecondHexadecimalId("ChildViewControllerInteractionProtocol.swift")» /* ChildViewControllerInteractionProtocol.swift */,
 				«ENDIF-»
 				«IF menu != null && menu.menuItems.size > 0-»
 				«getSecondHexadecimalId("Menu")» /* Menu */,
@@ -335,6 +326,19 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 			path = «name»;
 			sourceTree = "<group>";
 		};
+		
+		«getFirstHexadecimalId("Products")» /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				«getFirstHexadecimalId(name+".app")» /* «name».app */,
+				«IF !(this.watchControllers.isEmpty)-»
+				«getSecondHexadecimalId(name+" WatchKit App.app")» /* «name» WatchKit App.app */,
+				«getSecondHexadecimalId(name+" WatchKit Extension.appex")» /* «name» WatchKit Extension.appex */,
+				«ENDIF-»
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		«IF this.dataHandler.databaseHandler.existsObject()-»
 		«getSecondHexadecimalId("CoreDataModels")» /* CoreDataModels */ = {
 			isa = PBXGroup;
@@ -344,7 +348,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 				«getSecondHexadecimalId(entity.name.toFirstUpper()+"+CoreDataProperties.swift")» /* «entity.name.toFirstUpper()»+CoreDataProperties.swift */,
 				«ENDFOREACH-»
 			);
-			path = "CoreDataModels";
+			path = CoreDataModels;
 			sourceTree = "<group>";
 		};
 		«ENDIF-»
@@ -356,7 +360,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 				«getSecondHexadecimalId(vc.name.toFirstUpper()+"ViewController.swift")» /* «vc.name.toFirstUpper()»ViewController.swift */,
 				«ENDFOREACH-»
 			);
-			path = "ChildViewControllers";
+			path = ChildViewControllers;
 			sourceTree = "<group>";
 		};
 		
@@ -367,7 +371,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 				«getSecondHexadecimalId(s.name.toFirstUpper()+"ParentViewController.swift")» /* «s.name.toFirstUpper()»ParentViewController.swift */,
 				«ENDFOREACH-»
 			);
-			path = "ParentViewControllers";
+			path = ParentViewControllers;
 			sourceTree = "<group>";
 		};
 		
@@ -375,15 +379,15 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 		«getSecondHexadecimalId("Menu")» /* Menu */ = {
 			isa = PBXGroup;
 			children = (
-				«getSecondHexadecimalId("MenuViewController.swift")» /* MenuViewController.swift */
-				«getSecondHexadecimalId("MenuPresentationManager.swift")» /* MenuPresentationManager.swift */
-				«getSecondHexadecimalId("MenuPresentationController.swift")» /* MenuPresentationController.swift */
-				«getSecondHexadecimalId("MenuPresentationAnimator.swift")» /* MenuPresentationAnimator.swift */
-				«getSecondHexadecimalId("MenuViewCell.swift")» /* MenuViewCell.swift */
-				«getSecondHexadecimalId("MenuItem.swift")» /* MenuItem.swift */
-				«getSecondHexadecimalId("MenuInteractionProtocol.swift")» /* MenuInteractionProtocol.swift */
+				«getSecondHexadecimalId("MenuViewController.swift")» /* MenuViewController.swift */,
+				«getSecondHexadecimalId("MenuPresentationManager.swift")» /* MenuPresentationManager.swift */,
+				«getSecondHexadecimalId("MenuPresentationController.swift")» /* MenuPresentationController.swift */,
+				«getSecondHexadecimalId("MenuPresentationAnimator.swift")» /* MenuPresentationAnimator.swift */,
+				«getSecondHexadecimalId("MenuViewCell.swift")» /* MenuViewCell.swift */,
+				«getSecondHexadecimalId("MenuItem.swift")» /* MenuItem.swift */,
+				«getSecondHexadecimalId("MenuInteractionProtocol.swift")» /* MenuInteractionProtocol.swift */,
 			);
-			path = "Menu";
+			path = Menu;
 			sourceTree = "<group>";
 		};
 		«ENDIF-»
@@ -396,11 +400,12 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 				«getSecondHexadecimalId(cObject.name.toFirstUpper()+".swift")» /* «cObject.name.toFirstUpper()».swift */,
 				«ENDFOREACH-»
 			);
-			path = "CloudObjects";
+			path = CloudObjects;
 			sourceTree = "<group>";
 		};
 		«ENDIF-»
 		
+		«IF dataHandler.cloudHandler != null || dataHandler.databaseHandler != null || dataHandler.preferenceHandler != null || dataHandler.storageHandler != null-»
 		«getSecondHexadecimalId("DataHandlers")» /* DataHandlers */ = {
 			isa = PBXGroup;
 			children = (
@@ -421,6 +426,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 			path = "DataHandlers";
 			sourceTree = "<group>";
 		};
+		«ENDIF-»
 		
 		«IF !(this.watchControllers.isEmpty)-»
 		«getFirstHexadecimalId(name+" WatchKit App")» /* «name» WatchKit App */ = {
@@ -517,7 +523,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 			attributes = {
 				LastSwiftUpdateCheck = 0830;
 				LastUpgradeCheck = 0830;
-				ORGANIZATIONNAME = "polimi";
+				ORGANIZATIONNAME = polimi;
 				TargetAttributes = {
 					«getSecondHexadecimalId(name)» = {
 						CreatedOnToolsVersion = 8.1;
@@ -596,8 +602,8 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 				«getFirstHexadecimalId(this.name.toFirstUpper()+".xcdatamodeld")» /* «this.name.toFirstUpper()».xcdatamodeld in Sources */,
 				«getFirstHexadecimalId("DatabaseHandler.swift")» /* DatabaseHandler.swift in Sources */, 
 				«FOREACH this.dataHandler.databaseHandler.entities AS entity-»
-				«getFirstHexadecimalId(entity.name.toFirstUpper()+"+CoreDataClass.swift")» /* «entity.name.toFirstUpper()+"+CoreDataClass.swift"» in Sources*/,
-				«getFirstHexadecimalId(entity.name.toFirstUpper()+"+CoreDataProperties.swift")» /* «entity.name.toFirstUpper()+"+CoreDataProperties.swift"» in Sources*/,
+				«getFirstHexadecimalId(entity.name.toFirstUpper()+"+CoreDataClass.swift")» /* «entity.name.toFirstUpper()+"+CoreDataClass.swift"» in Sources */,
+				«getFirstHexadecimalId(entity.name.toFirstUpper()+"+CoreDataProperties.swift")» /* «entity.name.toFirstUpper()+"+CoreDataProperties.swift"» in Sources */,
 				«ENDFOREACH-»
 				«ENDIF-»
 				«IF this.dataHandler.preferenceHandler.existsObject()-»
@@ -610,19 +616,19 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 				«getFirstHexadecimalId("CloudHandler.swift")» /* CloudHandler.swift in Sources */,
 				«getFirstHexadecimalId("FirebaseHandler.swift")» /* FirebaseHandler.swift in Sources */,
 				«FOREACH this.dataHandler.cloudHandler.cloudObjects AS cObject-»
-				«getFirstHexadecimalId(cObject.name.toFirstUpper()+".swift")» /* «cObject.name.toFirstUpper()+".swift"» in Sources*/,
+				«getFirstHexadecimalId(cObject.name.toFirstUpper()+".swift")» /* «cObject.name.toFirstUpper()+".swift"» in Sources */,
 				«ENDFOREACH-»
 				«ENDIF-»
 				«getFirstHexadecimalId("AppDelegate.swift")» /* AppDelegate.swift in Sources */,
-				«getFirstHexadecimalId("Constants.swift")» /* Constants.swift in Sources */
+				«getFirstHexadecimalId("Constants.swift")» /* Constants.swift in Sources */,
 				«IF containsControlsWithNavigation(viewControllers.buttons, viewControllers.listViews, viewControllers.gridViews)-»
-				«getFirstHexadecimalId("ChildViewControllerInteractionProtocol.swift")» /* ChildViewControllerInteractionProtocol.swift in Sources */
+				«getFirstHexadecimalId("ChildViewControllerInteractionProtocol.swift")» /* ChildViewControllerInteractionProtocol.swift in Sources */,
 				«ENDIF-»
 				«FOREACH viewControllers AS vc-»
-				«getFirstHexadecimalId(vc.name.toFirstUpper()+"ViewController.swift")» /* «vc.name.toFirstUpper()»ViewController.swift in Sources*/,
+				«getFirstHexadecimalId(vc.name.toFirstUpper()+"ViewController.swift")» /* «vc.name.toFirstUpper()»ViewController.swift in Sources */,
 				«ENDFOREACH-»
 				«FOREACH scenes AS s-»
-				«getFirstHexadecimalId(s.name.toFirstUpper()+"ParentViewController.swift")» /* «s.name.toFirstUpper()»ParentViewController.swift in Sources*/,
+				«getFirstHexadecimalId(s.name.toFirstUpper()+"ParentViewController.swift")» /* «s.name.toFirstUpper()»ParentViewController.swift in Sources */,
 				«ENDFOREACH-»
 				«IF viewControllers.imageViews.sourceType.toString().contains("remoteFile")-»
 				«getFirstHexadecimalId("ImageDownloadingTask.swift")» /* ImageDownloadingTask.swift in Sources*/,
@@ -646,13 +652,13 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 				«getFirstHexadecimalId("SimpleCollectionViewCell.swift")» /* SimpleCollectionViewCell.swift in Sources*/,
 				«ENDIF-»
 				«IF menu != null && menu.menuItems.size > 0-»
-				«getFirstHexadecimalId("MenuViewController.swift")» /* MenuViewController.swift in Sources */
-				«getFirstHexadecimalId("MenuPresentationManager.swift")» /* MenuPresentationManager.swift in Sources */
-				«getFirstHexadecimalId("MenuPresentationController.swift")» /* MenuPresentationController.swift in Sources */
-				«getFirstHexadecimalId("MenuPresentationAnimator.swift")» /* MenuPresentationAnimator.swift in Sources */
-				«getFirstHexadecimalId("MenuViewCell.swift")» /* MenuViewCell.swift in Sources */
-				«getFirstHexadecimalId("MenuItem.swift")» /* MenuItem.swift in Sources */
-				«getFirstHexadecimalId("MenuInteractionProtocol.swift")» /* MenuInteractionProtocol.swift in Sources */
+				«getFirstHexadecimalId("MenuViewController.swift")» /* MenuViewController.swift in Sources */,
+				«getFirstHexadecimalId("MenuPresentationManager.swift")» /* MenuPresentationManager.swift in Sources */,
+				«getFirstHexadecimalId("MenuPresentationController.swift")» /* MenuPresentationController.swift in Sources */,
+				«getFirstHexadecimalId("MenuPresentationAnimator.swift")» /* MenuPresentationAnimator.swift in Sources */,
+				«getFirstHexadecimalId("MenuViewCell.swift")» /* MenuViewCell.swift in Sources */,
+				«getFirstHexadecimalId("MenuItem.swift")» /* MenuItem.swift in Sources */,
+				«getFirstHexadecimalId("MenuInteractionProtocol.swift")» /* MenuInteractionProtocol.swift in Sources */,
 				«ENDIF-»
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -938,7 +944,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
-
+«IF this.dataHandler.databaseHandler.existsObject()-»
 /* Begin XCVersionGroup section */
 		«getSecondHexadecimalId(this.name.toFirstUpper()+".xcdatamodeld")» /* «this.name.toFirstUpper()»".xcdatamodeld" */ = {
 			isa = XCVersionGroup;
@@ -951,6 +957,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 			versionGroupType = wrapper.xcdatamodel;
 		};
 /* End XCVersionGroup section */
+«ENDIF-»
 	};
 	rootObject = «getFirstHexadecimalId("Project object")» /* Project object */;
 }
