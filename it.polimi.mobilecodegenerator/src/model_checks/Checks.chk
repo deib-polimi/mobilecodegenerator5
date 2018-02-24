@@ -110,6 +110,20 @@ context MenuItem ERROR "There must be a Navigation for every MenuItem [MenuItem:
 
 context ControlChain ERROR "Number of controls in control chain must be at least 2 [ControlChain: '"+id+"']" : nControls >= 2;
 
+context ControlChain if(type.toString().matches("packed")) ERROR "ControlChains of type 'packed' must have bias attribute [ControlChain: '"+id+"']" : bias != null;
+
+context ControlChain if(type.toString().matches("packed") || type.toString().matches("weighted")) ERROR "ControlChains of type 'weighted' or 'packed' must have spacing attribute [ControlChain: '"+id+"']" : spacing != null;
+
+context UiPhoneControl if(controlChain != null && indexInChain != 0 && indexInChain != (controlChain.nControls - 1)) ERROR "Non-first and non-last UiPhoneControls inside ControlChains must have zero margins on the chain's axis [UiPhoneControl: '"+id+"']" : ((controlChain.axis.toString().matches("horizontal") && marginStart == 0 && marginEnd == 0) || (controlChain.axis.toString().matches("vertical") && marginTop == 0 && marginBottom == 0));
+
+context UiPhoneControl if(controlChain != null && indexInChain == 0 && (controlChain.type.toString().matches("spread_inside") || controlChain.type.toString().matches("weighted"))) ERROR "First UiPhoneControl inside a ControlChain can have marginStart/marginTop in horizontal/vertical chain only if chain's type is 'spread_inside' or 'weighted' [UiPhoneControl: '"+id+"']" : ((controlChain.axis.toString().matches("horizontal") && marginEnd == 0) || (controlChain.axis.toString().matches("vertical") && marginBottom == 0));
+
+context UiPhoneControl if(controlChain != null && indexInChain == 0 && !(controlChain.type.toString().matches("spread_inside") || controlChain.type.toString().matches("weighted"))) ERROR "First UiPhoneControl inside a ControlChain can have marginStart/marginTop in horizontal/vertical chain only if chain's type is 'spread_inside' or 'weighted' [UiPhoneControl: '"+id+"']" : ((controlChain.axis.toString().matches("horizontal") && marginStart == 0 && marginEnd == 0) || (controlChain.axis.toString().matches("vertical") && marginTop == 0 && marginBottom == 0));
+
+context UiPhoneControl if(controlChain != null && indexInChain == (controlChain.nControls - 1) && (controlChain.type.toString().matches("spread_inside") || controlChain.type.toString().matches("weighted"))) ERROR "Last UiPhoneControl inside a ControlChain can have marginEnd/marginBottom in horizontal/vertical chain only if chain's type is 'spread_inside' or 'weighted' [UiPhoneControl: '"+id+"']" : ((controlChain.axis.toString().matches("horizontal") && marginStart == 0) || (controlChain.axis.toString().matches("vertical") && marginTop == 0));
+
+context UiPhoneControl if(controlChain != null && indexInChain == (controlChain.nControls - 1) && !(controlChain.type.toString().matches("spread_inside") || controlChain.type.toString().matches("weighted"))) ERROR "Last UiPhoneControl inside a ControlChain can have marginEnd/marginBottom in horizontal/vertical chain only if chain's type is 'spread_inside' or 'weighted' [UiPhoneControl: '"+id+"']" : ((controlChain.axis.toString().matches("horizontal") && marginStart == 0 && marginEnd == 0) || (controlChain.axis.toString().matches("vertical") && marginTop == 0 && marginBottom == 0));
+
 
 context PositionConstraint if(layoutEdge.toString().matches("start") || layoutEdge.toString().matches("end")) ERROR "Position constraints with layoutEdge = start|end must have referenceLayoutEdge = start|end [PositionConstraint: '"+id+"']" : (referenceLayoutEdge.toString().matches("start") || referenceLayoutEdge.toString().matches("end"));
 

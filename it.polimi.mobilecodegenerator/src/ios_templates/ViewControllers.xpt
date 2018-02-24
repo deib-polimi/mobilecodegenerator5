@@ -222,16 +222,12 @@ extension «name.toFirstUpper()»ParentViewController: MenuViewControllerDelegate 
     	default:
     		break
 		}
-		let nav = UINavigationController()
-		if selectedViewController != nil {
-			nav.viewControllers = [selectedViewController!]
-		}
 		// Dismiss MenuViewController
 		dismiss(animated: true)
-		// Dismiss itself
-		dismiss(animated: true)
-		// Present the selected ViewController
-		present(nav, animated: true, completion: nil)
+		if selectedViewController != nil {
+			navigationController!.viewControllers.append(selectedViewController!)
+			navigationController!.viewControllers.removeFirst()
+		}
 	}
 }
 «ENDIF-»
@@ -268,7 +264,6 @@ extension «name.toFirstUpper()»ParentViewController: ChildViewControllerInteract
 			let «n.destinationScene.name.toFirstLower()»VC = «n.destinationScene.name.toFirstUpper()»ParentViewController()
 			let nav = UINavigationController()
 			nav.viewControllers = [«n.destinationScene.name.toFirstLower()»VC]
-			dismiss(animated: true)
 			present(nav, animated: true, completion: nil)
 			«ELSEIF n.destinationViewController != null-»
 			«IF !typeSmartphone.toString().matches("multiVC") || !typeTablet.toString().matches("multiVC")-»
@@ -298,7 +293,6 @@ extension «name.toFirstUpper()»ParentViewController: ChildViewControllerInteract
 			let «n.destinationScene.name.toFirstLower()»VC = «n.destinationScene.name.toFirstUpper()»ParentViewController()
 			let nav = UINavigationController()
 			nav.viewControllers = [«n.destinationScene.name.toFirstLower()»VC]
-			dismiss(animated: true)
 			present(nav, animated: true, completion: nil)
 			«ELSEIF n.destinationViewController != null-»
 			«IF !typeSmartphone.toString().matches("multiVC") || !typeTablet.toString().matches("multiVC")-»
@@ -328,7 +322,6 @@ extension «name.toFirstUpper()»ParentViewController: ChildViewControllerInteract
 			let «n.destinationScene.name.toFirstLower()»VC = «n.destinationScene.name.toFirstUpper()»ParentViewController()
 			let nav = UINavigationController()
 			nav.viewControllers = [«n.destinationScene.name.toFirstLower()»VC]
-			//dismiss(animated: true)
 			present(nav, animated: true, completion: nil)
 			«ELSEIF n.destinationViewController != null-»
 			«IF !typeSmartphone.toString().matches("multiVC") || !typeTablet.toString().matches("multiVC")-»
@@ -394,14 +387,24 @@ extension «name.toFirstUpper()»ParentViewController: ChildViewControllerInteract
 
 «REM» UI Setup: add ViewControllers' views and constraints in multiVC scenes «ENDREM»
 «DEFINE setupUImultiVC FOR ViewController-»
-		view.backgroundColor = UIColor(colorLiteralRed: 255, green: 255, blue: 255, alpha: 1)
+		view.backgroundColor = UIColor(colorLiteralRed: 1, green: 1, blue: 1, alpha: 1)
+		let mainView = UIView()
+		mainView.backgroundColor = UIColor(colorLiteralRed: 1, green: 1, blue: 1, alpha: 1)
+		mainView.translatesAutoresizingMaskIntoConstraints = false
+		view.addSubview(mainView)
+		NSLayoutConstraint.activate([
+            mainView.topAnchor.constraint(equalTo: topLayoutGuide.bottomAnchor),
+            mainView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
+            mainView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            mainView.trailingAnchor.constraint(equalTo: view.trailingAnchor)
+            ])
 		
 		«FOREACH containers AS cont-»
 		addChildViewController(«cont.childViewController.name.toFirstLower()»VC)
 		«cont.childViewController.name.toFirstLower()»VC.didMove(toParentViewController: self)
 		let «cont.childViewController.name.toFirstLower()»View = «cont.childViewController.name.toFirstLower()»VC.view!
 		«cont.childViewController.name.toFirstLower()»View.translatesAutoresizingMaskIntoConstraints = false
-		view.addSubview(«cont.childViewController.name.toFirstLower()»View)
+		mainView.addSubview(«cont.childViewController.name.toFirstLower()»View)
 		
 		«ENDFOREACH-»
 		«FOREACH containers AS cont-»
@@ -431,11 +434,11 @@ extension «name.toFirstUpper()»ParentViewController: ChildViewControllerInteract
 			«ENDFOREACH-»
 			«IF positionIsUnbinded(true, cont.positionConstraints.layoutEdge)»
 			«cont.childViewController.name.toFirstLower()»View.leadingAnchor.constraint(
-				equalTo: view.leadingAnchor, constant: «cont.posX»)
+				equalTo: mainView.leadingAnchor, constant: «cont.posX»)
 			«ENDIF-»
 			«IF positionIsUnbinded(false, cont.positionConstraints.layoutEdge)»
 			«cont.childViewController.name.toFirstLower()»View.topAnchor.constraint(
-				equalTo: topLayoutGuide.bottomAnchor, constant: «cont.posY»)
+				equalTo: mainView.topAnchor, constant: «cont.posY»)
 			«ENDIF-»
 			«REM» Dimension Constraints «ENDREM»
 			«IF cont.dimensionConstraint != null-»
@@ -444,7 +447,7 @@ extension «name.toFirstUpper()»ParentViewController: ChildViewControllerInteract
 				equalToConstant: «cont.dimensionConstraint.fixedWidth»),
 			«ELSEIF cont.dimensionConstraint.widthPercent != null-»
 			«cont.childViewController.name.toFirstLower()»View.widthAnchor.constraint(
-				equalTo: view.widthAnchor, multiplier: «cont.dimensionConstraint.widthPercent»),
+				equalTo: mainView.widthAnchor, multiplier: «cont.dimensionConstraint.widthPercent»),
 			«REM» (***) If the only constraint is on the ratio (width and height are not binded by fixed values, percent values and position constraints), then we fix the width to its default value and leave the height be calculated from width value and ratio value «ENDREM»
 			«ELSEIF dimensionIsUnbinded(true, cont.positionConstraints.layoutEdge) && (cont.dimensionConstraint.fixedRatio == null || (cont.dimensionConstraint.fixedRatio != null && (cont.dimensionConstraint.fixedHeight == null && cont.dimensionConstraint.heightPercent == null && dimensionIsUnbinded(false, cont.positionConstraints.layoutEdge))))-»
 			«cont.childViewController.name.toFirstLower()»View.widthAnchor.constraint(
@@ -455,7 +458,7 @@ extension «name.toFirstUpper()»ParentViewController: ChildViewControllerInteract
 				equalToConstant: «cont.dimensionConstraint.fixedHeight»),
 			«ELSEIF cont.dimensionConstraint.heightPercent != null-»
 			«cont.childViewController.name.toFirstLower()»View.heightAnchor.constraint(
-				equalTo: view.heightAnchor, multiplier: «cont.dimensionConstraint.heightPercent»),
+				equalTo: mainView.heightAnchor, multiplier: «cont.dimensionConstraint.heightPercent»),
 			«REM» (***) «ENDREM»
 			«ELSEIF dimensionIsUnbinded(false, cont.positionConstraints.layoutEdge) && cont.dimensionConstraint.fixedRatio == null-»
 			«cont.childViewController.name.toFirstLower()»View.heightAnchor.constraint(
@@ -480,17 +483,17 @@ extension «name.toFirstUpper()»ParentViewController: ChildViewControllerInteract
 «DEFINE secondPartPositionConstraint FOR PositionConstraint-»
 			«IF withParent-»
 				«IF referenceLayoutEdge.toString().matches("top")-»
-				equalTo: topLayoutGuide.bottomAnchor, constant: «(uiPhoneControl.marginTop + uiPhoneControl.paddingTop)»),
+				equalTo: mainView.topAnchor, constant: «(uiPhoneControl.marginTop + uiPhoneControl.paddingTop)»),
 				«ELSEIF referenceLayoutEdge.toString().matches("bottom")-»
-				equalTo: view.bottomAnchor, constant: «(uiPhoneControl.marginBottom + uiPhoneControl.paddingBottom)»),
+				equalTo: mainView.bottomAnchor, constant: «(uiPhoneControl.marginBottom + uiPhoneControl.paddingBottom)»),
 				«ELSEIF referenceLayoutEdge.toString().matches("start")-»
-				equalTo: view.leadingAnchor, constant: «(uiPhoneControl.marginStart + uiPhoneControl.paddingStart)»),
+				equalTo: mainView.leadingAnchor, constant: «(uiPhoneControl.marginStart + uiPhoneControl.paddingStart)»),
 				«ELSEIF referenceLayoutEdge.toString().matches("end")-»
-				equalTo: view.trailingAnchor, constant: «(uiPhoneControl.marginEnd + uiPhoneControl.paddingEnd)»),
+				equalTo: mainView.trailingAnchor, constant: «(uiPhoneControl.marginEnd + uiPhoneControl.paddingEnd)»),
 				«ELSEIF referenceLayoutEdge.toString().matches("centerX")-»
-				equalTo: view.centerXAnchor, constant: «((uiPhoneControl.marginStart + uiPhoneControl.paddingStart) - (uiPhoneControl.marginEnd + uiPhoneControl.paddingEnd))»),
+				equalTo: mainView.centerXAnchor, constant: «((uiPhoneControl.marginStart + uiPhoneControl.paddingStart) - (uiPhoneControl.marginEnd + uiPhoneControl.paddingEnd))»),
 				«ELSEIF referenceLayoutEdge.toString().matches("centerY")-»
-				equalTo: view.centerYAnchor, constant: «((uiPhoneControl.marginTop + uiPhoneControl.paddingTop) - (uiPhoneControl.marginBottom + uiPhoneControl.paddingBottom))»),
+				equalTo: mainView.centerYAnchor, constant: «((uiPhoneControl.marginTop + uiPhoneControl.paddingTop) - (uiPhoneControl.marginBottom + uiPhoneControl.paddingBottom))»),
 				«ENDIF-»
 			«ELSE-»
 				«IF referenceLayoutEdge.toString().matches("top")-»
