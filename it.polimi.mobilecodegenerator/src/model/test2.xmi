@@ -40,7 +40,7 @@
 			<navigations id="459q3" contextScene="//@scenes[id='shaab']" destinationScene="//@scenes[id='t7ee7']"/>
 		</buttons>
 	</viewControllers>
-	<scenes id="shaab" name="sceneComposed" launcher="false" typeSmartphone="singleVC" typeTablet="multiVC">
+	<scenes id="shaab" name="sceneComposed" launcher="false" typeSmartphone="singleVCTab" typeTablet="multiVC">
 		<parentViewControllers id="juip1" name="parentVCTablet" backgroundColor="#ffffff" backgroundImage="">
 			<containers childViewController="//@viewControllers[id='351ak']" id="id0e8mkContainer" viewController="//@scenes[id='shaab']/@parentViewControllers[id='juip1']" defaultWidth="300" defaultHeight="400" posX="0" posY="64" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0">
 				<dimensionConstraint uiPhoneControl="//@scenes[id='shaab']/@parentViewControllers[id='juip1']/@containers[id='id0e8mkContainer']" widthPercent="0.4" heightPercent="1"/>

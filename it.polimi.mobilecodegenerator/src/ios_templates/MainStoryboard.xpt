@@ -686,7 +686,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 	                <outlet property="«wv.id»" destination="«wv.id»" id="«wv.id»OutletID"/>
 	                «ENDFOREACH-»
 	                «FOREACH vc.imageViews AS iv-»
-	                «IF !iv.sourceType.toString().matches("localFile")-»
+	                «IF !iv.sourceType.toString().matches("hardwareFile")-»
 	                <outlet property="«iv.id»" destination="«iv.id»" id="«iv.id»OutletID"/>
 	                «ENDIF-»
 	                «ENDFOREACH-»

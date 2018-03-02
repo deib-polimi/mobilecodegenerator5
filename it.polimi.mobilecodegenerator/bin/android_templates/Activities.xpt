@@ -1,0 +1,618 @@
+«REM»
+Copyright 2018 Gregorio Perego, Stefania Pezzetti, Aldo Pintus, Alessio Rossotti, Massimo Beccari
+This file is part of it.polimi.mobilecodegenerator.
+
+it.polimi.mobilecodegenerator is free software: 
+you can redistribute it and/or modify it under the terms of the 
+GNU General Public License as published by the Free Software Foundation, 
+either version 3 of the License, or (at your option) any later version.
+
+it.polimi.mobilecodegenerator is distributed in the hope that it will be useful, 
+but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+See the GNU General Public License for more details.You should have received a copy of the GNU General Public License
+along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licenses/>
+«ENDREM»
+«IMPORT metamodel»
+
+«EXTENSION app_extensions::Java»
+
+«DEFINE main FOR Application-»
+«FOREACH scenes AS s-»
+«IF s.sceneViewControllers.size > 1-»
+«EXPAND multiVCactivity FOR s-»
+«ELSE-»
+«EXPAND singleVCactivity FOR s-»
+«ENDIF-»
+«ENDFOREACH-»
+«EXPAND fragment FOREACH viewControllers-»
+«ENDDEFINE-»
+
+«REM» Scenes (with their parentViewControllers eventually) are translated into activities - Java Class expansion for scenes with more than one view controllers «ENDREM»
+«DEFINE multiVCactivity FOR Scene-»
+«FILE application.name+"/mobile/src/main/java/"+application.companyIdentifier.replaceAll("\\.","/") +"/"+application.name.toLowerCase() +"/activities/"+name.toFirstUpper()+"Activity.java"-»
+package «application.companyIdentifier».«application.name.toLowerCase()».activities;
+
+«EXPAND activityImports FOR this-»
+
+import «application.companyIdentifier».«application.name.toLowerCase()».R;
+import «application.companyIdentifier».«application.name.toLowerCase()».utilities.Constants;
+«IF containsControlsWithNavigation(sceneViewControllers.viewController.buttons, sceneViewControllers.viewController.listViews, sceneViewControllers.viewController.gridViews)-»
+import «application.companyIdentifier».«application.name.toLowerCase()».utilities.OnFragmentNavigationInteractionListener;
+«ENDIF-»
+«FOREACH sceneViewControllers AS svc-»
+import «application.companyIdentifier».«application.name.toLowerCase()».fragments.«svc.viewController.name.toFirstUpper()»Fragment;
+«ENDFOREACH-»
+
+«IF containsControlsWithNavigation(sceneViewControllers.viewController.buttons, sceneViewControllers.viewController.listViews, sceneViewControllers.viewController.gridViews) && isAMenuDestination(name, application.menu.menuItems.navigation.destinationScene.name)-»
+public class «name.toFirstUpper()»Activity extends AppCompatActivity 
+		implements OnFragmentNavigationInteractionListener, NavigationView.OnNavigationItemSelectedListener {
+«ELSEIF containsControlsWithNavigation(sceneViewControllers.viewController.buttons, sceneViewControllers.viewController.listViews, sceneViewControllers.viewController.gridViews)-»
+public class «name.toFirstUpper()»Activity extends AppCompatActivity 
+		implements OnFragmentNavigationInteractionListener {
+«ELSEIF isAMenuDestination(name, application.menu.menuItems.navigation.destinationScene.name)-»
+public class «name.toFirstUpper()»Activity extends AppCompatActivity 
+		implements NavigationView.OnNavigationItemSelectedListener {
+«ELSE-»
+public class «name.toFirstUpper()»Activity extends AppCompatActivity {
+«ENDIF-»
+
+	«IF !typeSmartphone.toString().matches(typeTablet.toString())-»
+	private int layoutType;
+	«ENDIF-»
+	«IF !typeSmartphone.toString().matches("multiVC") || !typeTablet.toString().matches("multiVC")-»
+    private SectionsPagerAdapter mSectionsPagerAdapter;
+    private ViewPager mViewPager;
+    «ENDIF-»
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_«name.toLowerCase()»);
+        Toolbar toolbar = (Toolbar) this.findViewById(R.id.«name.toLowerCase()»_toolbar);
+        setSupportActionBar(toolbar);
+		
+		«REM» Case 1: typeSmartphone == typeTablet «ENDREM»
+		«IF typeSmartphone.toString().matches(typeTablet.toString())-»
+		«REM» Case 1.1: both type are singleVC or singleVCTab «ENDREM»
+		«IF !typeSmartphone.toString().matches("multiVC")-»
+		// Setup ViewPager
+        mViewPager = (ViewPager) this.findViewById(R.id.«name.toLowerCase()»_container);
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        mViewPager.setAdapter(mSectionsPagerAdapter);
+        
+		«IF typeSmartphone.toString().matches("singleVCTab")-»
+		// Setup TabLayout
+        TabLayout tabLayout = (TabLayout) this.findViewById(R.id.«name.toLowerCase()»_tabs);
+        mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+        «ENDIF-»
+		«ELSE-»
+		«REM» Case 1.2: both type are multiVC «ENDREM»
+		// In multiVC layouts fragments are instantiated through the XML layout files.
+        // To access them simply call getSupportFragmentManager().findFragmentById(R.id.{FRAGMENT_ID})
+		«ENDIF-»
+		«ELSE-»
+		«REM» Case 2: typeSmartphone != typeTablet «ENDREM»
+		«REM» Case 2.1: one type is singleVC and the other singleVCTab «ENDREM»
+		«IF !typeSmartphone.toString().matches("multiVC") && !typeTablet.toString().matches("multiVC")-»
+		// Setup ViewPager
+        mViewPager = (ViewPager) this.findViewById(R.id.«name.toLowerCase()»_container);
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        mViewPager.setAdapter(mSectionsPagerAdapter);
+		
+		// Setup TabLayout and layoutType
+		TabLayout tabLayout = (TabLayout) this.findViewById(R.id.«name.toLowerCase()»_tabs);
+        if(tabLayout != null) {
+        	mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        	tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+        	layoutType = Constants.SCENE_TYPE_SINGLE_VC_TAB;
+        } else {
+        	layoutType = Constants.SCENE_TYPE_SINGLE_VC;
+        }
+        «REM» Case 2.2: one type is multiVC and the other is singleVC or singleVCTab «ENDREM»
+        «ELSE-»
+        // Setup ViewPager (if present) and type of the layout
+        mViewPager = (ViewPager) this.findViewById(R.id.«name.toLowerCase()»_container);
+        if(mViewPager != null) {
+	        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+	        mViewPager.setAdapter(mSectionsPagerAdapter);
+			
+			«IF typeSmartphone.toString().matches("singleVCTab") && typeTablet.toString().matches("singleVCTab")-»
+			// Setup TabLayout
+	        TabLayout tabLayout = (TabLayout) this.findViewById(R.id.«name.toLowerCase()»_tabs);
+        	mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        	tabLayout.addOnTabSelectedListener(new TabLayout.ViewPagerOnTabSelectedListener(mViewPager));
+        	layoutType = Constants.SCENE_TYPE_SINGLE_VC_TAB;
+	        «ELSE-»
+	        layoutType = Constants.SCENE_TYPE_SINGLE_VC;
+	        «ENDIF-»
+	        
+	     } else {
+            layoutType = Constants.SCENE_TYPE_MULTI_VC;
+            // In multiVC layouts fragments are instantiated through the XML layout files.
+            // To access them simply call getSupportFragmentManager().findFragmentById(R.id.{FRAGMENT_ID})
+        }
+        «ENDIF-»
+        «ENDIF-»
+        
+		«IF isAMenuDestination(name, application.menu.menuItems.navigation.destinationScene.name)-»
+		// Setup ActionBarDrawerToggle and NavigationView
+		DrawerLayout drawer = (DrawerLayout) findViewById(R.id.«name.toLowerCase()»_drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.«name.toLowerCase()»_nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+        «ELSEIF !launcher-»
+        ActionBar actionBar = getSupportActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(true);
+		«ENDIF-»
+    }
+
+	«IF isAMenuDestination(name, application.menu.menuItems.navigation.destinationScene.name)-»
+	@Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.«name.toLowerCase()»_drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+    
+	@SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch(id) {
+        	«FOREACH application.menu.menuItems AS item-»
+            «IF item.navigation.destinationScene != this-»
+            case R.id.nav_«item.navigation.destinationScene.name.toLowerCase()»:
+                Intent intent = new Intent(«name.toFirstUpper()»Activity.this, «item.navigation.destinationScene.name.toFirstUpper()»Activity.class);
+				//use putExtra method of Intent here for passing additional information to «item.navigation.destinationScene.name.toFirstUpper()»Activity
+				startActivity(intent);
+                break;
+            «ENDIF-»
+            «ENDFOREACH-»
+            
+            default:
+	            // Do nothing
+	            break;
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.«name.toLowerCase()»_drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+    «ELSEIF !launcher-»
+    @Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    switch (item.getItemId()) {
+	        case android.R.id.home:
+	            // app icon in action bar clicked; goto parent activity.
+	            this.finish();
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
+	}
+	«ENDIF-»
+	
+	«IF containsControlsWithNavigation(sceneViewControllers.viewController.buttons, sceneViewControllers.viewController.listViews, sceneViewControllers.viewController.gridViews)-»
+	«EXPAND OnFragmentNavigationInteractionListenerImplementation FOR this-»
+	«ENDIF-»
+
+	«IF !typeSmartphone.toString().matches("multiVC") || !typeTablet.toString().matches("multiVC")-»
+    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+
+        public SectionsPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            switch (position) {
+            	«FOREACH 0.upTo(sceneViewControllers.size - 1) AS i-»
+                case «i»:
+                    return «sceneViewControllers.get(i).viewController.name.toFirstUpper()»Fragment.newInstance();
+                «ENDFOREACH-»
+            }
+            return null;
+        }
+
+        @Override
+        public int getCount() {
+            return «sceneViewControllers.size»;
+        }
+    }
+    «ENDIF-»
+
+}
+«ENDFILE-»
+«ENDDEFINE-»
+
+«REM» Imports for scenes with more than one view controllers (based on the scene type) «ENDREM»
+«DEFINE activityImports FOR Scene-»
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.MenuItem;
+import android.content.Intent;
+«IF isAMenuDestination(name, application.menu.menuItems.navigation.destinationScene.name)-»
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+«ELSEIF !launcher-»
+import android.support.v7.app.ActionBar;
+«ENDIF-»
+«IF typeSmartphone.toString().matches("singleVC") || typeTablet.toString().matches("singleVC")-»
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+«ENDIF-»
+«IF typeSmartphone.toString().matches("singleVCTab") || typeTablet.toString().matches("singleVCTab")-»
+«IF !typeSmartphone.toString().matches("singleVC") && !typeTablet.toString().matches("singleVC")-»
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+«ENDIF-»
+import android.support.design.widget.TabLayout;
+«ENDIF-»
+«IF typeSmartphone.toString().matches("multiVC") || typeTablet.toString().matches("multiVC")-»
+import android.support.v4.app.FragmentManager;
+«ENDIF-»
+«ENDDEFINE-»
+
+
+«REM» Scenes (with their parentViewControllers eventually) are translated into activities - Java Class expansion for scenes with ONLY one view controller «ENDREM»
+«DEFINE singleVCactivity FOR Scene-»
+«FILE application.name+"/mobile/src/main/java/"+application.companyIdentifier.replaceAll("\\.","/") +"/"+application.name.toLowerCase() +"/activities/"+name.toFirstUpper()+"Activity.java"-»
+package «application.companyIdentifier».«application.name.toLowerCase()».activities;
+
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.view.MenuItem;
+import android.content.Intent;
+«IF isAMenuDestination(name, application.menu.menuItems.navigation.destinationScene.name)-»
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
+«ELSEIF !launcher-»
+import android.support.v7.app.ActionBar;
+«ENDIF-»
+
+import «application.companyIdentifier».«application.name.toLowerCase()».R;
+import «application.companyIdentifier».«application.name.toLowerCase()».utilities.Constants;
+«IF containsControlsWithNavigation(sceneViewControllers.viewController.buttons, sceneViewControllers.viewController.listViews, sceneViewControllers.viewController.gridViews)-»
+import «application.companyIdentifier».«application.name.toLowerCase()».utilities.OnFragmentNavigationInteractionListener;
+«ENDIF-»
+import «application.companyIdentifier».«application.name.toLowerCase()».fragments.«sceneViewControllers.first().viewController.name.toFirstUpper()»Fragment;
+
+«IF containsControlsWithNavigation(sceneViewControllers.viewController.buttons, sceneViewControllers.viewController.listViews, sceneViewControllers.viewController.gridViews) && isAMenuDestination(name, application.menu.menuItems.navigation.destinationScene.name)-»
+public class «name.toFirstUpper()»Activity extends AppCompatActivity 
+		implements OnFragmentNavigationInteractionListener, NavigationView.OnNavigationItemSelectedListener {
+«ELSEIF containsControlsWithNavigation(sceneViewControllers.viewController.buttons, sceneViewControllers.viewController.listViews, sceneViewControllers.viewController.gridViews)-»
+public class «name.toFirstUpper()»Activity extends AppCompatActivity 
+		implements OnFragmentNavigationInteractionListener {
+«ELSEIF isAMenuDestination(name, application.menu.menuItems.navigation.destinationScene.name)-»
+public class «name.toFirstUpper()»Activity extends AppCompatActivity 
+		implements NavigationView.OnNavigationItemSelectedListener {
+«ELSE-»
+public class «name.toFirstUpper()»Activity extends AppCompatActivity {
+«ENDIF-»
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_«name.toLowerCase()»);
+        Toolbar toolbar = (Toolbar) this.findViewById(R.id.«name.toLowerCase()»_toolbar);
+        setSupportActionBar(toolbar);
+        
+		«IF isAMenuDestination(name, application.menu.menuItems.navigation.destinationScene.name)-»
+		// Setup ActionBarDrawerToggle and NavigationView
+		DrawerLayout drawer = (DrawerLayout) findViewById(R.id.«name.toLowerCase()»_drawer_layout);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+        drawer.addDrawerListener(toggle);
+        toggle.syncState();
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.«name.toLowerCase()»_nav_view);
+        navigationView.setNavigationItemSelectedListener(this);
+		«ELSEIF !launcher-»
+        ActionBar actionBar = getSupportActionBar();
+		actionBar.setDisplayHomeAsUpEnabled(true);
+		«ENDIF-»
+    }
+
+	«IF isAMenuDestination(name, application.menu.menuItems.navigation.destinationScene.name)-»
+	@Override
+    public void onBackPressed() {
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.«name.toLowerCase()»_drawer_layout);
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
+        } else {
+            super.onBackPressed();
+        }
+    }
+	«ENDIF-»
+	
+	«IF isAMenuDestination(name, application.menu.menuItems.navigation.destinationScene.name)-»
+	@SuppressWarnings("StatementWithEmptyBody")
+    @Override
+    public boolean onNavigationItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        switch(id) {
+        	«FOREACH application.menu.menuItems AS item-»
+            «IF item.navigation.destinationScene != this-»
+            case R.id.nav_«item.navigation.destinationScene.name.toLowerCase()»:
+                Intent intent = new Intent(«name.toFirstUpper()»Activity.this, «item.navigation.destinationScene.name.toFirstUpper()»Activity.class);
+				//use putExtra method of Intent here for passing additional information to «item.navigation.destinationScene.name.toFirstUpper()»Activity
+				startActivity(intent);
+                break;
+            «ENDIF-»
+            «ENDFOREACH-»
+            
+            default:
+	            // Do nothing
+	            break;
+        }
+
+        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.«name.toLowerCase()»_drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
+    }
+	«ELSEIF !launcher-»
+    @Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    switch (item.getItemId()) {
+	        case android.R.id.home:
+	            // app icon in action bar clicked; goto parent activity.
+	            this.finish();
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
+	}
+	«ENDIF-»
+	
+	«IF containsControlsWithNavigation(sceneViewControllers.viewController.buttons, sceneViewControllers.viewController.listViews, sceneViewControllers.viewController.gridViews)-»
+	«EXPAND OnFragmentNavigationInteractionListenerImplementation FOR this-»
+	«ENDIF-»
+}
+«ENDFILE-»
+«ENDDEFINE-»
+
+«REM» OnFragmentNavigationInteractionListener interface implementation «ENDREM»
+«DEFINE OnFragmentNavigationInteractionListenerImplementation FOR Scene-»
+	@Override
+	public void onFragmentNavigationInteraction(String controlId, String clickedItem) {
+		switch(controlId) {
+        	«FOREACH sceneViewControllers AS svc-»
+			«REM» Buttons «ENDREM»
+			«FOREACH svc.viewController.buttons AS b-»
+			«FOREACH b.navigations AS n-»
+			«IF n.contextScene == this-»
+            case "«b.id»":
+                «IF n.destinationScene != null-»
+				Intent intent = new Intent(«name.toFirstUpper()»Activity.this, «n.destinationScene.name.toFirstUpper()»Activity.class);
+				//use putExtra method of Intent here for passing additional information to «n.destinationScene.name.toFirstUpper()»Activity
+				startActivity(intent);
+				«ELSEIF n.destinationViewController != null-»
+				«IF !typeSmartphone.toString().matches("multiVC") || !typeTablet.toString().matches("multiVC")-»
+				if(layoutType != Constants.SCENE_TYPE_MULTI_VC) {
+				«FOREACH 0.upTo(sceneViewControllers.size - 1) AS i-»
+					«IF sceneViewControllers.get(i).viewController == n.destinationViewController-»
+					mViewPager.setCurrentItem(«i»);
+					«ENDIF-»
+				«ENDFOREACH-»
+				} else {
+					// Do nothing
+				}
+				«ELSE-»
+				// TODO implement the action
+				«ENDIF-»
+				«ELSE-»
+				// TODO implement the action
+				«ENDIF-»
+				break;
+            «ENDIF-»
+            «ENDFOREACH-»
+            «ENDFOREACH-»
+            «REM» ListViews «ENDREM»
+			«FOREACH svc.viewController.listViews AS lv-»
+			«FOREACH lv.navigations AS n-»
+			«IF n.contextScene == this-»
+			case "«lv.id»":
+		    	«IF n.destinationScene != null-»
+				Intent intent = new Intent(«name.toFirstUpper()»Activity.this, «n.destinationScene.name.toFirstUpper()»Activity.class);
+				//use putExtra method of Intent here for passing additional information to «n.destinationScene.name.toFirstUpper()»Activity
+				startActivity(intent);
+				«ELSEIF n.destinationViewController != null-»
+				«IF !typeSmartphone.toString().matches("multiVC") || !typeTablet.toString().matches("multiVC")-»
+				if(layoutType != Constants.SCENE_TYPE_MULTI_VC) {
+				«FOREACH 0.upTo(sceneViewControllers.size - 1) AS i-»
+					«IF sceneViewControllers.get(i).viewController == n.destinationViewController-»
+					mViewPager.setCurrentItem(«i»);
+					«ENDIF-»
+				«ENDFOREACH-»
+				} else {
+					// Do nothing
+				}
+				«ELSE-»
+				// TODO implement the action
+				«ENDIF-»
+				«ELSE-»
+				// TODO implement the action
+				«ENDIF-»
+				break;
+			«ENDIF-»
+			«ENDFOREACH-»
+			«ENDFOREACH-»
+			«REM» GridViews «ENDREM»
+			«FOREACH svc.viewController.gridViews AS gv-»
+			«FOREACH gv.navigations AS n-»
+			«IF n.contextScene == this-»
+			case "«gv.id»":
+		    	«IF n.destinationScene != null-»
+				Intent intent = new Intent(«name.toFirstUpper()»Activity.this, «n.destinationScene.name.toFirstUpper()»Activity.class);
+				//use putExtra method of Intent here for passing additional information to «n.destinationScene.name.toFirstUpper()»Activity
+				startActivity(intent);
+				«ELSEIF n.destinationViewController != null-»
+				«IF !typeSmartphone.toString().matches("multiVC") || !typeTablet.toString().matches("multiVC")-»
+				if(layoutType != Constants.SCENE_TYPE_MULTI_VC) {
+				«FOREACH 0.upTo(sceneViewControllers.size - 1) AS i-»
+					«IF sceneViewControllers.get(i).viewController == n.destinationViewController-»
+					mViewPager.setCurrentItem(«i»);
+					«ENDIF-»
+				«ENDFOREACH-»
+				} else {
+					// Do nothing
+				}
+				«ELSE-»
+				// TODO implement the action
+				«ENDIF-»
+				«ELSE-»
+				// TODO implement the action
+				«ENDIF-»
+				break;
+			«ENDIF-»
+			«ENDFOREACH-»
+			«ENDFOREACH-»
+          	«ENDFOREACH-»
+            
+            default:
+	            // Do nothing
+	            break;
+        }
+	}
+«ENDDEFINE-»
+
+
+«REM» View Controllers are translated into fragments «ENDREM»
+«DEFINE fragment FOR ViewController-»
+«FILE application.name+"/mobile/src/main/java/"+application.companyIdentifier.replaceAll("\\.","/") +"/"+application.name.toLowerCase() +"/fragments/"+name.toFirstUpper()+"Fragment.java"-»
+package «application.companyIdentifier».«application.name.toLowerCase()».fragments;
+
+«EXPAND android_activities_templates::Imports::importsFrag-»
+import android.content.Context;
+import «application.companyIdentifier».«application.name.toLowerCase()».R;
+
+public class «name.toFirstUpper()»Fragment extends Fragment «EXPAND android_activities_templates::Implements::implements-» {
+
+	private View rootView;
+	«IF (buttons.size > 0) || (listViews.size > 0) || (gridViews.size > 0)-»
+	private OnFragmentNavigationInteractionListener mListener;
+	«ENDIF-»
+	«EXPAND android_activities_templates::AttributesDeclarations::attributesDeclarations-»	
+
+	public «name.toFirstUpper()»Fragment() {}
+	
+	/**
+     * Use this factory method to create a new instance of
+     * this fragment using the provided parameters.
+     * TODO: edit method's parameters
+     * @return A new instance of fragment «name.toFirstUpper()»Fragment.
+     */
+	public static «name.toFirstUpper()»Fragment newInstance() {
+        «name.toFirstUpper()»Fragment fragment = new «name.toFirstUpper()»Fragment(); 
+        // TODO: put needed arguments
+        // Bundle args = new Bundle();
+        // args.putInt("example", 0);
+        // fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            // TODO: setup fragment's attributes with passed arguments (ex. getArguments().getInt("example") )
+        }
+    }
+    
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    
+    	View rootView = inflater.inflate(R.layout.fragment_«name.toLowerCase()», container, false);
+    	this.rootView = rootView;
+    	
+    	«EXPAND android_activities_templates::OnCreateView::onCreateView-»
+    	
+    	return rootView;
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser){
+        super.setUserVisibleHint(isVisibleToUser);
+        
+        «EXPAND android_activities_templates::SetUserVisibleHint::setUserVisibleHint-»
+
+    }
+    
+    «IF listViews.size!=0 || gridViews.size!=0-»
+	@Override
+	public void onItemClick(AdapterView<?> l, View v, int position, long id) {
+		«EXPAND android_activities_templates::ListViews::onItemClickFrag-»
+		«EXPAND android_activities_templates::GridViews::onItemClickFrag-»
+	}
+	«ENDIF-»
+    
+    «EXPAND android_activities_templates::AsyncTasks::asyncTasks-»
+    
+    «EXPAND android_activities_templates::AlertDialogs::alertDialogsFrag-»
+    
+    «EXPAND android_activities_templates::ProgressDialogs::progressDialogsFrag-»
+	
+	«EXPAND android_activities_templates::Audio::audioFrag-»
+	
+	«EXPAND android_activities_templates::Camera::cameraFrag-»
+	
+	«EXPAND android_activities_templates::Permissions::permissionsFrag-»
+	
+	«EXPAND android_activities_templates::Cards::cardsFrag-»
+	
+	«EXPAND android_activities_templates::Map::map-»
+
+	«IF (buttons.size > 0) || (listViews.size > 0) || (gridViews.size > 0)-»
+	@Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnFragmentNavigationInteractionListener) {
+            mListener = (OnFragmentNavigationInteractionListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnFragmentNavigationInteractionListener");
+        }
+    }
+	«ENDIF-»
+
+	«IF (buttons.size > 0) || (listViews.size > 0) || (gridViews.size > 0)-»
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        mListener = null;
+    }
+	«ENDIF-»
+    
+    @Override
+	public void onResume() {
+		super.onResume();
+		«EXPAND android_activities_templates::OnResume::onResumeFrag-»
+	}
+	
+	@Override
+	public void onPause() {
+		super.onPause();
+		«EXPAND android_activities_templates::OnPause::onPauseFrag-»
+	}
+
+}
+«ENDFILE-»
+«ENDDEFINE-»

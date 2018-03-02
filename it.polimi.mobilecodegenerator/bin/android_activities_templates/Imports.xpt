@@ -60,7 +60,7 @@ import android.media.MediaPlayer;
 «IF audioRecorder != null-»
 import android.media.MediaRecorder;
 «ENDIF-»
-«IF this.listViews.size > 0-»
+«IF listViews.size > 0-»
 import «this.application.companyIdentifier-».«this.application.name.toLowerCase()-».MyListAdapter;
 «ENDIF-»
 «IF videoViews.size > 0-»
@@ -301,6 +301,7 @@ import android.widget.ImageView;
 «ENDIF-»
 «IF listViews.size > 0-»
 import android.widget.ListView;
+import «this.application.companyIdentifier-».«this.application.name.toLowerCase()-».MyListAdapter;
 «ENDIF-»
 «IF videoViews.size > 0-»
 import android.widget.MediaController;

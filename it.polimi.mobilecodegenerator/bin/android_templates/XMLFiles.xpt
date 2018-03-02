@@ -1,0 +1,1200 @@
+«REM»
+Copyright 2018 Gregorio Perego, Stefania Pezzetti, Aldo Pintus, Alessio Rossotti, Massimo Beccari
+This file is part of it.polimi.mobilecodegenerator.
+
+it.polimi.mobilecodegenerator is free software: 
+you can redistribute it and/or modify it under the terms of the 
+GNU General Public License as published by the Free Software Foundation, 
+either version 3 of the License, or (at your option) any later version.
+
+it.polimi.mobilecodegenerator is distributed in the hope that it will be useful, 
+but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+See the GNU General Public License for more details.You should have received a copy of the GNU General Public License
+along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licenses/>
+«ENDREM»
+
+«IMPORT metamodel»
+
+«EXTENSION app_extensions::Java»
+
+
+«DEFINE main FOR Application-»
+«REM»------------------------------------- strings.xml file --------------------------------------«ENDREM»
+«FILE name+"/mobile/src/main/res/values/strings.xml"-»
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">«name»</string>
+
+	<!-- shared preferences keys and default values -->
+	«FOREACH dataHandler.preferenceHandler.preferenceRecords AS pr-»
+	<string name="«pr.key»">«pr.key»</string>
+	<string name="«pr.key»_default">«pr.value»</string>
+	«ENDFOREACH-»
+	
+	«FOREACH scenes AS s-»
+	«IF s.typeSmartphone.toString().matches("singleVCTab") || s.typeTablet.toString().matches("singleVCTab")-»
+	«FOREACH 0.upTo(s.sceneViewControllers.size - 1) AS i-»
+	<string name="tab_text_«s.name.toLowerCase()»_«(i+1).toString()»">«s.sceneViewControllers.get(i).viewController.name.toFirstUpper()»</string>
+	«ENDFOREACH-»
+	«ENDIF-»
+	«ENDFOREACH-»
+	
+	<string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+</resources>
+«ENDFILE-»
+
+«REM»---------------------------------------------------------------------------------------------«ENDREM»
+«REM»---------------------------------------------------------------------------------------------«ENDREM»
+«REM»--------------------------------- Widgets Layout XML Files ----------------------------------«ENDREM»
+«REM»---------------------------------------------------------------------------------------------«ENDREM»
+«REM»---------------------------------------------------------------------------------------------«ENDREM»
+
+
+«REM»--------------------------- ListViews XML Files ---------------------------«ENDREM»
+«FOREACH viewControllers.listViews AS l-»
+
+«REM»--------------------------- ListViews "simple" ----------------------------«ENDREM»
+«IF l.listType.matches("simple")-»
+«FILE name+"/mobile/src/main/res/layout/"+l.id.toLowerCase()+"_simple_layout.xml"-»
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:paddingTop="8dp"
+    android:paddingRight="16dp"
+    android:paddingBottom="8dp"
+    android:paddingLeft="16dp"
+    «IF !l.backgroundColor.matches("")-»
+    android:background="@drawable/«l.id.toLowerCase()»_background"
+    «ENDIF-»
+    android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/listview_tv"
+        android:text="Single-line Item"
+        android:textColor="#333333"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="6dp"
+        android:textSize="16dp"/>
+
+</LinearLayout>
+«ENDFILE-»
+
+«REM»--------------------------- ListViews "image" -----------------------------«ENDREM»
+«ELSEIF l.listType.matches("image")-»
+«FILE name+"/mobile/src/main/res/layout/"+l.id.toLowerCase()+"_image_layout.xml"-»
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:paddingTop="8dp"
+    android:paddingRight="16dp"
+    android:paddingBottom="8dp"
+    android:paddingLeft="16dp"
+    «IF !l.backgroundColor.matches("")-»
+    android:background="@drawable/«l.id.toLowerCase()»_background"
+    «ENDIF-»
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/listview_img"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginRight="16dp"
+        android:src="@drawable/ic_stars_white"/>
+
+    <TextView
+        android:id="@+id/listview_tv"
+        android:text="Single-line Item"
+        android:textColor="#333333"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="6dp"
+        android:textSize="16dp"/>
+
+</LinearLayout>
+«ENDFILE-»
+
+«REM»--------------------------- ListViews "detailed" --------------------------«ENDREM»
+«ELSEIF l.listType.matches("detailed")-»
+«FILE name+"/mobile/src/main/res/layout/"+l.id.toLowerCase()+"_detailed_layout.xml"-»
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:paddingTop="8dp"
+    android:paddingRight="16dp"
+    android:paddingBottom="8dp"
+    android:paddingLeft="16dp"
+    «IF !l.backgroundColor.matches("")-»
+    android:background="@drawable/«l.id.toLowerCase()»_background"
+    «ENDIF-»
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/listview_img"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginRight="16dp"
+        android:src="@drawable/ic_stars_white"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/listview_tv_1"
+            android:text="Title"
+            android:textColor="#333333"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16dp"/>
+
+        <TextView
+            android:id="@+id/listview_tv_2"
+            android:text="Content"
+            android:textColor="#999999"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:textSize="14dp"/>
+
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/listview_ico"
+        android:layout_width="22dp"
+        android:layout_height="22dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="-16dp"
+        android:src="@drawable/ic_chevron_right_black_36dp"/>
+
+</LinearLayout>
+«ENDFILE-»
+«ENDIF-»
+
+«REM»--------------------------- ListViews Background Color ---------------------------«ENDREM»
+«IF !l.backgroundColor.matches("")-»
+«FILE name+"/mobile/src/main/res/drawable/"+l.id.toLowerCase()+"_background.xml"-»
+<?xml version="1.0" encoding="utf-8" ?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+	<item android:state_pressed="true" >
+        <shape>
+            <solid
+                android:color="#efefef" />
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <solid
+                android:color="«l.backgroundColor»" />
+        </shape>
+    </item>
+</selector>
+«ENDFILE-»
+«ENDIF-»
+
+«ENDFOREACH-»
+
+
+«REM»--------------------------- GridViews XML Files ---------------------------«ENDREM»
+«IF viewControllers.gridViews.size != 0-»
+«FILE name+"/mobile/src/main/res/drawable/my_grid_background.xml"-»
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:state_pressed="true" >
+        <shape>
+            <solid
+                android:color="#cc333333" />
+        </shape>
+    </item>
+    <item>
+        <shape>
+            <solid
+                android:color="#99333333" />
+        </shape>
+    </item>
+</selector>
+«ENDFILE-»
+
+«REM»--------------------------- GridViews "simple" ---------------------------«ENDREM»
+«FILE name+"/mobile/src/main/res/layout/my_grid_cell_simple.xml"-»
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <«companyIdentifier».«name.toLowerCase()».GridImageView
+        android:id="@+id/gridview_simple_img"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"/>
+
+    <TextView
+        android:id="@+id/gridview_simple_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="14dp"
+        android:paddingBottom="14dp"
+        android:layout_gravity="bottom"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:background="@drawable/my_grid_background"/>
+
+</FrameLayout>
+«ENDFILE-»
+
+«REM»--------------------------- GridViews "image" ---------------------------«ENDREM»
+«FILE name+"/mobile/src/main/res/layout/my_grid_cell_image.xml"-»
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <«companyIdentifier».«name.toLowerCase()».GridImageView
+        android:id="@+id/gridview_image_img"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"/>
+
+</FrameLayout>
+«ENDFILE-»
+
+«REM»--------------------------- GridViews "detailed" ---------------------------«ENDREM»
+«FILE name+"/mobile/src/main/res/layout/my_grid_cell_detailed.xml"-»
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <«companyIdentifier».«name.toLowerCase()».GridImageView
+        android:id="@+id/gridview_detailed_img"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"/>
+
+    <TextView
+        android:id="@+id/gridview_detailed_tv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="14dp"
+        android:paddingBottom="14dp"
+        android:layout_gravity="bottom"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:textColor="@android:color/white"
+        android:background="@drawable/my_grid_background"/>
+
+</FrameLayout>
+«ENDFILE-»
+«ENDIF-»
+
+
+«REM»--------------------------- Buttons Background Color ---------------------------«ENDREM»
+«FOREACH viewControllers.buttons AS b-»
+«IF b.backgroundColor.matches("") == false || b.clickColor.matches("") == false»
+«FILE name+"/mobile/src/main/res/drawable/"+b.id.toLowerCase()+"_background.xml"-»
+<?xml version="1.0" encoding="utf-8" ?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+    «IF b.clickColor.matches("")==false»
+	    <item android:state_pressed="true" >
+	        <shape>
+	            <solid
+	                android:color="«b.clickColor»" />
+	            <corners
+	                android:radius="«b.borderRadius»dp" />
+	        </shape>
+	    </item>
+	«ENDIF-»
+    <item>
+        <shape>
+            <solid
+            	«IF b.backgroundColor.matches("")»
+                android:color="#cecece"
+                «ELSE»
+                android:color="«b.backgroundColor»"
+                «ENDIF-»
+            />
+            <corners
+                android:radius="«b.borderRadius»dp" />
+        </shape>
+    </item>
+</selector>
+«ENDFILE-»
+«ENDIF-»
+«ENDFOREACH-»
+
+
+«REM»---------------------------------------------------------------------------------------------«ENDREM»
+«REM»---------------------------------------------------------------------------------------------«ENDREM»
+«REM»--------------------------- Activities/Fragments Layout XML Files ---------------------------«ENDREM»
+«REM»---------------------------------------------------------------------------------------------«ENDREM»
+«REM»---------------------------------------------------------------------------------------------«ENDREM»
+
+«EXPAND FragmentXMLLayout FOREACH viewControllers-»
+
+«IF menu.menuItems.size > 0 -»
+«EXPAND menu FOR menu-»
+«ENDIF-»
+
+«FOREACH scenes AS s-»
+«IF isAMenuDestination(s.name, menu.menuItems.navigation.destinationScene.name)-»
+«EXPAND ActivityWithMenuXMLLayout FOR s»
+«ELSE-»
+«EXPAND SimpleActivityXMLLayout FOR s»
+«ENDIF-»
+«ENDFOREACH-»
+
+«ENDDEFINE-»
+
+
+«REM»--------------------------- menu Layout XML File ---------------------------«ENDREM»
+«DEFINE menu FOR Menu-»
+«FILE application.name+"/mobile/src/main/res/menu/"+"app_menu.xml"-»
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+	
+	«FOREACH menuItems AS item-»
+	<item
+        android:id="@+id/nav_«item.navigation.destinationScene.name.toLowerCase()»"
+        android:title="«item.navigation.destinationScene.name»" />
+	«ENDFOREACH-»
+
+</menu>
+«ENDFILE-»
+«ENDDEFINE-»
+
+
+«REM»
+	Layout expansion rules:
+	- viewControllers -> fragment_[vc_name].xml
+	- scenes with menu -> activity_[scene_name].xml (DrawerLayout, include app_bar_[scene_name].xml)
+	                      app_bar_[scene_name].xml (CoordinatorLayout, if present include content_[scene_name].xml)
+	                      content_[scene_name].xml (ConstraintLayout, present only for multiVC type scenes, otherwise app_bar_[].xml contains the ViewPager)
+	- scenes without menu -> activity_[scene_name].xml (CoordinatorLayout, if present include content_[scene_name].xml)
+	                         content_[scene_name].xml (ConstraintLayout, present only for multiVC type scenes, otherwise activity_[].xml contains the ViewPager)
+	For scenes with menu, activity_[].xml layout is one, app_bar_[].xml and content_[].xml may have two versions (one for smartphone and one for tablet)
+	For scenes without menu, both activity_[].xml and content_[].xml may have two versions (one for smartphone and one for tablet)
+«ENDREM»
+
+«REM»--------------------------- Activity With Menu Layout XML Files ---------------------------«ENDREM»
+«DEFINE ActivityWithMenuXMLLayout FOR Scene-»
+«FILE application.name+"/mobile/src/main/res/layout/"+"activity_"+name.toLowerCase()+".xml"-»
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/«name.toLowerCase()»_drawer_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:openDrawer="start">
+
+    <include
+        layout="@layout/app_bar_«name.toLowerCase()»"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/«name.toLowerCase()»_nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:menu="@menu/app_menu" />
+
+</android.support.v4.widget.DrawerLayout>
+«ENDFILE-»
+«REM» Case of scene with more than one view controllers «ENDREM»
+«IF sceneViewControllers.size > 1-»
+«REM» Export 2 app_bar layouts for scenes with typeSmartphone != typeTablet «ENDREM»
+«FILE application.name+"/mobile/src/main/res/layout/"+"app_bar_"+name.toLowerCase()+".xml"-»
+«EXPAND AppBarLayoutSmartphoneXMLLayout FOR this»
+«ENDFILE-»
+«IF !typeSmartphone.toString().matches(typeTablet.toString())-»
+«FILE application.name+"/mobile/src/main/res/layout-sw600dp/"+"app_bar_"+name.toLowerCase()+".xml"-»
+«EXPAND AppBarLayoutTabletXMLLayout FOR this»
+«ENDFILE-»
+«ENDIF-»
+«EXPAND ContentXMLLayout FOR this»
+«ELSE-»
+«REM» Case of scene with only one view controller «ENDREM»
+«FILE application.name+"/mobile/src/main/res/layout/"+"app_bar_"+name.toLowerCase()+".xml"-»
+«EXPAND SingleViewControllerSceneXMLLayout FOR this»
+«ENDFILE-»
+«ENDIF-»
+«ENDDEFINE-»
+
+
+«REM»--------------------------- Activity WITHOUT Menu Layout XML Files ---------------------------«ENDREM»
+«DEFINE SimpleActivityXMLLayout FOR Scene-»
+«REM» Case of scene with more than one view controllers «ENDREM»
+«IF sceneViewControllers.size > 1-»
+«REM» Export 2 activity layouts for scenes with typeSmartphone != typeTablet «ENDREM»
+«FILE application.name+"/mobile/src/main/res/layout/"+"activity_"+name.toLowerCase()+".xml"-»
+«EXPAND AppBarLayoutSmartphoneXMLLayout FOR this»
+«ENDFILE-»
+«IF !typeSmartphone.toString().matches(typeTablet.toString())-»
+«FILE application.name+"/mobile/src/main/res/layout-sw600dp/"+"activity_"+name.toLowerCase()+".xml"-»
+«EXPAND AppBarLayoutTabletXMLLayout FOR this»
+«ENDFILE-»
+«ENDIF-»
+«EXPAND ContentXMLLayout FOR this»
+«ELSE-»
+«REM» Case of scene with only one view controller «ENDREM»
+«FILE application.name+"/mobile/src/main/res/layout/"+"activity_"+name.toLowerCase()+".xml"-»
+«EXPAND SingleViewControllerSceneXMLLayout FOR this»
+«ENDFILE-»
+«ENDIF-»
+«ENDDEFINE-»
+
+
+«REM»--------------------------- Coordinator Layout Expansion for Smartphone's Scene ---------------------------«ENDREM»
+«DEFINE AppBarLayoutSmartphoneXMLLayout FOR Scene-»
+<?xml version="1.0" encoding="utf-8"?>
+«IF typeSmartphone.toString().matches("multiVC")-»
+<LinearLayout
+«ELSE-»
+<android.support.design.widget.CoordinatorLayout 
+«ENDIF-»
+	xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    «IF typeSmartphone.toString().matches("multiVC")-»
+	android:orientation="vertical"
+	«ENDIF-»
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    «IF !isAMenuDestination(name, application.menu.menuItems.navigation.destinationScene.name)-»
+    android:fitsSystemWindows="true"
+    «ENDIF-»
+    tools:context="«application.companyIdentifier».«application.name.toLowerCase()».activities.«name.toFirstUpper()»Activity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/«name.toLowerCase()»_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:title="@string/app_name" />
+            
+        «IF typeSmartphone.toString().matches("singleVCTab")-»
+        <android.support.design.widget.TabLayout
+            android:id="@+id/«name.toLowerCase()»_tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+			«FOREACH 1.upTo(sceneViewControllers.size) AS i -»
+			<android.support.design.widget.TabItem
+                android:id="@+id/tab_item_«name.toLowerCase()»_«i»"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tab_text_«name.toLowerCase()»_«i»" />
+			«ENDFOREACH-»
+
+        </android.support.design.widget.TabLayout>
+        «ENDIF-»
+
+    </android.support.design.widget.AppBarLayout>
+    
+    «IF typeSmartphone.toString().matches("multiVC")-»
+	<include layout="@layout/content_«name.toLowerCase()»" />
+	«ELSE-»
+	<android.support.v4.view.ViewPager
+        android:id="@+id/«name.toLowerCase()»_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+	«ENDIF-»
+
+«IF typeSmartphone.toString().matches("multiVC")-»
+</LinearLayout>
+«ELSE-»
+</android.support.design.widget.CoordinatorLayout>
+«ENDIF-»
+«ENDDEFINE-»
+
+
+«REM»--------------------------- Coordinator Layout Expansion for Tablet's Scene ---------------------------«ENDREM»
+«DEFINE AppBarLayoutTabletXMLLayout FOR Scene-»
+<?xml version="1.0" encoding="utf-8"?>
+«IF typeTablet.toString().matches("multiVC")-»
+<LinearLayout
+«ELSE-»
+<android.support.design.widget.CoordinatorLayout 
+«ENDIF-»
+	xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    «IF typeTablet.toString().matches("multiVC")-»
+	android:orientation="vertical"
+	«ENDIF-»
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    «IF !isAMenuDestination(name, application.menu.menuItems.navigation.destinationScene.name)-»
+    android:fitsSystemWindows="true"
+    «ENDIF-»
+    tools:context="«application.companyIdentifier».«application.name.toLowerCase()».activities.«name.toFirstUpper()»Activity">
+
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/«name.toLowerCase()»_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:title="@string/app_name" />
+            
+        «IF typeTablet.toString().matches("singleVCTab")-»
+        <android.support.design.widget.TabLayout
+            android:id="@+id/«name.toLowerCase()»_tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+			«FOREACH 1.upTo(sceneViewControllers.size) AS i -»
+			<android.support.design.widget.TabItem
+                android:id="@+id/tab_item_«name.toLowerCase()»_«i»"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/tab_text_«name.toLowerCase()»_«i»" />
+			«ENDFOREACH-»
+
+        </android.support.design.widget.TabLayout>
+        «ENDIF-»
+
+    </android.support.design.widget.AppBarLayout>
+    
+    «IF typeTablet.toString().matches("multiVC")-»
+	<include layout="@layout/content_«name.toLowerCase()»" />
+	«ELSE-»
+	<android.support.v4.view.ViewPager
+        android:id="@+id/«name.toLowerCase()»_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+	«ENDIF-»
+
+«IF typeTablet.toString().matches("multiVC")-»
+</LinearLayout>
+«ELSE-»
+</android.support.design.widget.CoordinatorLayout>
+«ENDIF-»
+«ENDDEFINE-»
+
+
+«REM»--------------------------- Content Layout Expansion for multiVC type Activities ---------------------------«ENDREM»
+«DEFINE ContentXMLLayout FOR Scene-»
+«REM» Content layout for scenes with typeSmartphone or typeTablet == multiVC.
+      Export 1 content layout if typeSmartphone != typeTablet (one is multiVC and the other is singleVC or singleVCTab).
+      Export 2 content layouts for scenes with typeSmartphone == typeTablet == multiVC «ENDREM»
+«IF typeSmartphone.toString().matches("multiVC") || typeTablet.toString().matches("multiVC")-»
+«FILE application.name+"/mobile/src/main/res/layout/"+"content_"+name.toLowerCase()+".xml"-»
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/«name.toLowerCase()»_constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    «IF !parentViewControllers.get(0).backgroundImage.matches("")-»
+    android:background="@drawable/«parentViewControllers.get(0).backgroundImage.split("\\.").get(0)»"
+    «ELSEIF !parentViewControllers.get(0).backgroundColor.matches("")-»
+    android:background="«parentViewControllers.get(0).backgroundColor»"
+    «ENDIF-»
+    tools:context="«application.companyIdentifier».«application.name.toLowerCase()».activities.«name.toFirstUpper()»Activity"
+    tools:showIn="@layout/app_bar_«name.toLowerCase()»">
+    
+	«FOREACH parentViewControllers.get(0).containers AS c-»
+	<fragment
+        android:name="«application.companyIdentifier».«application.name.toLowerCase()».fragments.«c.childViewController.name.toFirstUpper()»Fragment"
+        «EXPAND uiPhoneControl FOR c»
+        />
+	«ENDFOREACH-»
+	
+</android.support.constraint.ConstraintLayout>
+«ENDFILE-»
+«IF typeSmartphone.toString().matches("multiVC") && typeTablet.toString().matches("multiVC")-»
+«FILE application.name+"/mobile/src/main/res/layout-sw600dp/"+"content_"+name.toLowerCase()+".xml"-»
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/«name.toLowerCase()»_constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    «IF !parentViewControllers.get(1).backgroundImage.matches("")-»
+    android:background="@drawable/«parentViewControllers.get(1).backgroundImage.split("\\.").get(0)»"
+    «ELSEIF !parentViewControllers.get(1).backgroundColor.matches("")-»
+    android:background="«parentViewControllers.get(1).backgroundColor»"
+    «ENDIF-»
+    tools:context="«application.companyIdentifier».«application.name.toLowerCase()».activities.«name.toFirstUpper()»Activity"
+    tools:showIn="@layout/app_bar_«name.toLowerCase()»">
+    
+	«FOREACH parentViewControllers.get(1).containers AS c-»
+	<fragment
+        android:name="«application.companyIdentifier».«application.name.toLowerCase()».fragments.«c.childViewController.name.toFirstUpper()»Fragment"
+        «EXPAND uiPhoneControl FOR c»
+        />
+	«ENDFOREACH-»
+	
+</android.support.constraint.ConstraintLayout>
+«ENDFILE-»
+«ENDIF-»
+«ENDIF-»
+«ENDDEFINE-»
+
+
+«REM»--------------------------- Scene Layout Expansion for Scenes with only one view controller ---------------------------«ENDREM»
+«DEFINE SingleViewControllerSceneXMLLayout FOR Scene-»
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    tools:context="«application.companyIdentifier».«application.name.toLowerCase()».activities.«name.toFirstUpper()»Activity">
+
+	<RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+	    <android.support.design.widget.AppBarLayout
+	    	android:id="@+id/«name.toLowerCase()»_appbar"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:theme="@style/AppTheme.AppBarOverlay">
+	
+	        <android.support.v7.widget.Toolbar
+	            android:id="@+id/«name.toLowerCase()»_toolbar"
+	            android:layout_width="match_parent"
+	            android:layout_height="?attr/actionBarSize"
+	            android:background="?attr/colorPrimary"
+	            app:popupTheme="@style/AppTheme.PopupOverlay"
+	            app:title="@string/app_name" />
+	
+	    </android.support.design.widget.AppBarLayout>
+    
+    	<fragment
+            android:id="@+id/«name.toLowerCase()»_container"
+            android:name="«application.companyIdentifier».«application.name.toLowerCase()».fragments.«sceneViewControllers.first().viewController.name.toFirstUpper()»Fragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/«name.toLowerCase()»_appbar"/>
+
+    </RelativeLayout>
+
+</android.support.design.widget.CoordinatorLayout>
+«ENDDEFINE-»
+
+
+«REM»--------------------------- Fragment Layout XML Files ---------------------------«ENDREM»
+«DEFINE FragmentXMLLayout FOR ViewController-»
+«FILE application.name+"/mobile/src/main/res/layout/"+"fragment_"+name.toLowerCase()+".xml"-»
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/«name.toLowerCase()»_constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    «IF !backgroundImage.matches("")-»
+    android:background="@drawable/«backgroundImage.split("\\.").get(0)»"
+    «ELSEIF !backgroundColor.matches("")-»
+    android:background="«backgroundColor»"
+    «ENDIF-»
+    tools:context="«application.companyIdentifier».«application.name.toLowerCase()».fragments.«name.toFirstUpper()»Fragment">
+    
+	«EXPAND ViewControllerControlsXMLLayout FOR this»
+	
+</android.support.constraint.ConstraintLayout>
+«ENDFILE-»
+«ENDDEFINE-»
+
+
+«REM»--------------------------- View Controller's Controls Layout Expansion ---------------------------«ENDREM»
+«DEFINE ViewControllerControlsXMLLayout FOR ViewController-»
+	«FOREACH imageViews AS iv-»
+	<ImageView
+	    «EXPAND uiPhoneControl FOR iv»
+	    «IF iv.sourceType.toString().matches("localFile") && !iv.fileUri.matches("")-»
+	    android:src="@drawable/«iv.fileUri.split("\\.").get(0)»"
+	    «ENDIF-»
+	    android:background="#000000"/>
+    «ENDFOREACH-»
+    «FOREACH cards AS c-»
+    <!-- Height will be dinamically changed -->
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        card_view:cardCornerRadius="2dp"
+        card_view:cardElevation="2dp"
+        «EXPAND uiPhoneControl FOR c»
+        android:gravity="center">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <!-- Height will be dinamically changed -->
+            <ImageView
+                android:id="@+id/«c.id»ImageView"
+                android:layout_width="match_parent"
+                android:layout_height="208dp"
+                android:background="#000"
+                android:src="@drawable/card_image"/>
+
+            <TextView
+                android:id="@+id/«c.id»Title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="16dp"
+                android:text="«c.title»"
+                android:textSize="24dp"
+                android:textColor="#333"/>
+
+            <TextView
+                android:id="@+id/«c.id»Subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginRight="16dp"
+                android:text="«c.subtitle»"
+                android:textSize="14dp"/>
+
+            <LinearLayout
+                android:id="@+id/«c.id»Buttons"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:orientation="horizontal"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="8dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp">
+				
+				«FOREACH 1.upTo(c.numActions) AS n-»
+                <Button
+                    android:id="@+id/«c.id»Button«n»"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    android:text="Action «n»"
+                    android:textAllCaps="true"
+                    android:textSize="14dp"
+                    android:textColor="@color/colorAccent"
+                    style="?android:attr/borderlessButtonStyle"/>
+				«ENDFOREACH-»
+				
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </android.support.v7.widget.CardView>
+    «ENDFOREACH-»
+	«FOREACH buttons AS b-»
+	<Button
+        «EXPAND uiPhoneControl FOR b»
+        «IF b.textColor.matches("")==false»
+        android:textColor="«b.textColor»"
+        «ENDIF-»
+        «IF b.backgroundColor.matches("")==false || b.clickColor.matches("")==false»
+        android:background="@drawable/«b.id.toLowerCase()»_background"
+		style="?android:attr/borderlessButtonStyle"
+        «ENDIF-»
+        android:textAllCaps="false"
+        android:text="«b.title»"/>        
+	«ENDFOREACH-»
+	«FOREACH sliders AS s-»
+	<RelativeLayout
+		«EXPAND uiPhoneControl FOR s»
+		android:gravity="center">
+	
+		<android.support.v7.widget.AppCompatSeekBar
+			android:progress="50"
+			android:id="@+id/«s.id»Bar"
+        	android:layout_width="match_parent"
+			android:layout_height="wrap_content"/>
+	
+	</RelativeLayout>        
+	«ENDFOREACH-»
+	«FOREACH switches AS s-»
+	<RelativeLayout
+		«EXPAND uiPhoneControl FOR s»
+		android:gravity="center">
+	
+		<android.support.v7.widget.SwitchCompat
+			android:id="@+id/«s.id»Button"
+			android:checked="true"
+        	android:layout_width="wrap_content"
+			android:layout_height="wrap_content"/>
+	
+	</RelativeLayout>        
+	«ENDFOREACH-»
+	«FOREACH spinners AS s-»
+	<android.support.v7.widget.AppCompatSpinner
+		«EXPAND uiPhoneControl FOR s»
+        style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+        android:spinnerMode="dropdown"/> 
+	«ENDFOREACH-»
+	«FOREACH timepickers AS t-»
+	<RelativeLayout
+		«EXPAND uiPhoneControl FOR t»
+		android:gravity="center">
+			
+		<picker.ugurtekbas.com.Picker.Picker
+			android:id="@+id/«t.id»Picker"
+			android:layout_width="346dp"
+			android:layout_height="346dp"
+			app:hourFormat="false"
+			app:canvasColor="@android:color/transparent"
+			app:textColor="#000000"
+			app:trackSize="8dp"
+			app:dialRadius="16dp"/>
+	
+	</RelativeLayout>        
+	«ENDFOREACH-»
+	«FOREACH datepickers AS d-»
+	<RelativeLayout
+		«EXPAND uiPhoneControl FOR d»
+		android:gravity="center">
+            
+        <com.prolificinteractive.materialcalendarview.MaterialCalendarView
+			android:id="@+id/«d.id»Picker"
+			android:layout_width="348dp"
+			android:layout_height="365dp"
+			app:mcv_showOtherDates="all"
+			app:mcv_firstDayOfWeek="monday"
+			app:mcv_selectionColor="@color/colorAccent" />
+	
+	</RelativeLayout>        
+	«ENDFOREACH-»
+	«IF photocameraController!=null-»
+	«IF photocameraController.backgroundType.matches("icon")-»
+	<ImageButton
+		«EXPAND uiPhoneControl FOR photocameraController»
+		android:src="@drawable/photocamera_icon"/>
+	«ELSEIF photocameraController.backgroundType.matches("normal")-»
+	<Button
+		«EXPAND uiPhoneControl FOR photocameraController»
+		android:text="Photocamera"/>
+    «ENDIF-»
+	«ENDIF-»
+	«IF videocameraController!=null-»
+	«IF videocameraController.backgroundType.matches("icon")-»
+	<ImageButton
+		«EXPAND uiPhoneControl FOR videocameraController»
+		android:src="@drawable/videocamera_icon"/>
+	«ELSEIF videocameraController.backgroundType.matches("normal")-»
+	<Button
+		«EXPAND uiPhoneControl FOR videocameraController»
+		android:text="Videocamera"/> 
+    «ENDIF-»
+    «ENDIF-»	
+	«IF audioRecorder!=null-»
+	<Button
+		«EXPAND uiPhoneControl FOR audioRecorder»
+        android:text="Rec"/>
+	«ENDIF-»
+	«IF map != null-»
+	<com.google.android.gms.maps.MapView
+		«EXPAND uiPhoneControl FOR map»
+	/>
+    «ENDIF-»
+	«FOREACH audioPlayers AS ap-»
+	<RelativeLayout
+		«EXPAND uiPhoneControl FOR ap»
+		android:gravity="center">
+		
+		<android.support.design.widget.FloatingActionButton
+			android:id="@+id/«ap.id»_playButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_margin="4dp"
+			android:src="@drawable/ic_play_arrow_white_36dp"/>
+		
+	    <android.support.design.widget.FloatingActionButton
+			android:id="@+id/«ap.id»_pauseButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_margin="4dp"
+			android:src="@drawable/ic_pause_white_36dp"
+			android:layout_toRightOf="@+id/«ap.id»_playButton"/>
+			
+		<android.support.design.widget.FloatingActionButton
+			android:id="@+id/«ap.id»_stopButton"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:layout_margin="4dp"
+			android:src="@drawable/ic_stop_white_36dp"
+			android:layout_toRightOf="@+id/«ap.id»_pauseButton"/>		
+
+    </RelativeLayout>
+	«ENDFOREACH-»
+	«FOREACH textViews AS tv-»
+	<TextView
+		«EXPAND uiPhoneControl FOR tv»
+        «IF tv.textDecoration.matches("none")==false»
+        android:textStyle="«tv.textDecoration»"
+        «ENDIF-»
+        android:text="«tv.content»"
+        android:gravity="«tv.textAlign.toString()»|center_vertical"
+        android:textColor="«tv.textColor»"
+        android:textSize="«tv.textSize»dp"/>
+	«ENDFOREACH-»
+	«FOREACH editTexts AS et-»
+	<android.support.v7.widget.AppCompatEditText
+		«EXPAND uiPhoneControl FOR et»       
+        android:text="«et.initialContent»"
+        android:hint="«et.placeholder»" 
+        android:textColor="«et.textColor»"
+        android:textSize="«et.textSize»dp"/>
+    «ENDFOREACH-»
+    «FOREACH videoViews AS vv-»
+	<VideoView
+	    «EXPAND uiPhoneControl FOR vv» />
+	«ENDFOREACH-»
+	«FOREACH webViews AS wv-»
+	<WebView
+        «EXPAND uiPhoneControl FOR wv» />
+	«ENDFOREACH-» 
+    «FOREACH listViews AS lv-»
+    <ListView
+        «EXPAND uiPhoneControl FOR lv»
+        android:divider="#efefef"
+		android:dividerHeight="1dp" />
+    «ENDFOREACH-»   
+    «FOREACH gridViews AS gv-»
+    <GridView
+        «EXPAND uiPhoneControl FOR gv»
+        android:stretchMode="columnWidth"
+        android:numColumns="auto_fit"
+        android:horizontalSpacing="4dp"
+        android:verticalSpacing="4dp" />
+    «ENDFOREACH-»
+«ENDDEFINE-»
+
+
+«REM»--------------------------- UiPhoneControl Positioning XML Files ---------------------------«ENDREM»
+«DEFINE uiPhoneControl FOR UiPhoneControl-»
+		android:id="@+id/«id»"
+		«REM» Dimension Constraints «ENDREM»
+		«IF dimensionConstraint.fixedWidth != null-»
+		android:layout_width="«dimensionConstraint.fixedWidth»dp"
+		«ELSEIF dimensionConstraint.widthPercent != null || dimensionConstraint.fixedRatio != null || !dimensionIsUnbinded(true, positionConstraints.layoutEdge)-»
+		«IF dimensionConstraint.widthPercent != null && dimensionConstraint.widthPercent == 1.0-»
+		android:layout_width="match_parent"
+		«ELSE»
+		android:layout_width="0dp"
+		«ENDIF-»
+		«ELSEIF controlChain == null-»
+		android:layout_width="«defaultWidth»dp"
+		«ELSEIF controlChain.axis.toString().matches("horizontal") && controlChain.type.toString().matches("weighted")-»
+		android:layout_width="0dp"
+		«ELSE»
+		android:layout_width="«defaultWidth»dp"
+		«ENDIF-»
+		«IF dimensionConstraint.fixedHeight != null-»
+		android:layout_height="«dimensionConstraint.fixedHeight»dp"
+		«ELSEIF dimensionConstraint.heightPercent != null || dimensionConstraint.fixedRatio != null || !dimensionIsUnbinded(false, positionConstraints.layoutEdge)-»
+		«IF dimensionConstraint.heightPercent != null && dimensionConstraint.heightPercent == 1.0-»
+		android:layout_height="match_parent"
+		«ELSE»
+		android:layout_height="0dp"
+		«ENDIF-»
+		«ELSEIF controlChain == null-»
+		android:layout_height="«defaultHeight»dp"
+		«ELSEIF controlChain.axis.toString().matches("vertical") && controlChain.type.toString().matches("weighted")-»
+		android:layout_height="0dp"
+		«ELSE»
+		android:layout_height="«defaultHeight»dp"
+		«ENDIF-»
+		«IF dimensionConstraint.widthPercent != null-»
+		app:layout_constraintWidth_percent="«dimensionConstraint.widthPercent»"
+		«ENDIF-»
+		«IF dimensionConstraint.heightPercent != null-»
+		app:layout_constraintHeight_percent="«dimensionConstraint.heightPercent»"
+		«ENDIF-»
+		«IF dimensionConstraint.fixedRatio != null-»
+		app:layout_constraintDimensionRatio="«dimensionConstraint.fixedRatio»"
+		«ENDIF-»
+		«REM» Position Constraints «ENDREM»
+		«FOREACH positionConstraints AS constraint-»
+		«IF constraint.withParent-»
+		«IF constraint.layoutEdge.toString().matches("start") && constraint.referenceLayoutEdge.toString().matches("start")-»
+		app:layout_constraintStart_toStartOf="parent"
+		«ELSEIF constraint.layoutEdge.toString().matches("end") && constraint.referenceLayoutEdge.toString().matches("end")-»
+		app:layout_constraintEnd_toEndOf="parent"
+		«ELSEIF constraint.layoutEdge.toString().matches("top") && constraint.referenceLayoutEdge.toString().matches("top")-»
+		app:layout_constraintTop_toTopOf="parent"
+		«ELSEIF constraint.layoutEdge.toString().matches("bottom") && constraint.referenceLayoutEdge.toString().matches("bottom")-»
+		app:layout_constraintBottom_toBottomOf="parent"
+		«ELSEIF constraint.layoutEdge.toString().matches("centerX") && constraint.referenceLayoutEdge.toString().matches("centerX")-»
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+		«ELSEIF constraint.layoutEdge.toString().matches("centerY") && constraint.referenceLayoutEdge.toString().matches("centerY")-»
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintBottom_toBottomOf="parent"
+		«ENDIF-»
+		«ELSE-»
+		«IF constraint.layoutEdge.toString().matches("start") && constraint.referenceLayoutEdge.toString().matches("start")-»
+		app:layout_constraintStart_toStartOf="@+id/«constraint.referenceElement.id»"
+		«ELSEIF constraint.layoutEdge.toString().matches("start") && constraint.referenceLayoutEdge.toString().matches("end")-»
+		app:layout_constraintStart_toEndOf="@+id/«constraint.referenceElement.id»"
+		«ELSEIF constraint.layoutEdge.toString().matches("end") && constraint.referenceLayoutEdge.toString().matches("start")-»
+		app:layout_constraintEnd_toStartOf="@+id/«constraint.referenceElement.id»"
+		«ELSEIF constraint.layoutEdge.toString().matches("end") && constraint.referenceLayoutEdge.toString().matches("end")-»
+		app:layout_constraintEnd_toEndOf="@+id/«constraint.referenceElement.id»"
+		«ELSEIF constraint.layoutEdge.toString().matches("top") && constraint.referenceLayoutEdge.toString().matches("top")-»
+		app:layout_constraintTop_toTopOf="@+id/«constraint.referenceElement.id»"
+		«ELSEIF constraint.layoutEdge.toString().matches("top") && constraint.referenceLayoutEdge.toString().matches("bottom")-»
+		app:layout_constraintTop_toBottomOf="@+id/«constraint.referenceElement.id»"
+		«ELSEIF constraint.layoutEdge.toString().matches("bottom") && constraint.referenceLayoutEdge.toString().matches("top")-»
+		app:layout_constraintBottom_toTopOf="@+id/«constraint.referenceElement.id»"
+		«ELSEIF constraint.layoutEdge.toString().matches("bottom") && constraint.referenceLayoutEdge.toString().matches("bottom")-»
+		app:layout_constraintBottom_toBottomOf="@+id/«constraint.referenceElement.id»"
+		«ELSEIF constraint.layoutEdge.toString().matches("centerX") && constraint.referenceLayoutEdge.toString().matches("centerX")-»
+		app:layout_constraintStart_toStartOf="@+id/«constraint.referenceElement.id»"
+		app:layout_constraintEnd_toEndOf="@+id/«constraint.referenceElement.id»"
+		«ELSEIF constraint.layoutEdge.toString().matches("centerY") && constraint.referenceLayoutEdge.toString().matches("centerY")-»
+		app:layout_constraintTop_toTopOf="@+id/«constraint.referenceElement.id»"
+		app:layout_constraintBottom_toBottomOf="@+id/«constraint.referenceElement.id»"
+		«ENDIF-»
+		«ENDIF-»
+    	«ENDFOREACH-»
+    	«REM» Control Chains and margins «ENDREM»
+    	«IF controlChain == null-»
+		«IF positionIsUnbinded(true, positionConstraints.layoutEdge)-»
+		android:layout_marginStart="«posX + marginStart»dp"
+		«ELSE»
+		android:layout_marginStart="«marginStart»dp"
+		«ENDIF-»
+		«IF positionIsUnbinded(false, positionConstraints.layoutEdge)-»
+		android:layout_marginTop="«posY + marginTop»dp"	
+		«ELSE»
+		android:layout_marginTop="«marginTop»dp"
+		«ENDIF-»
+		android:layout_marginEnd="«marginEnd»dp"
+		android:layout_marginBottom="«marginBottom»dp"
+    	«ELSEIF controlChain.axis.toString().matches("horizontal")-»
+		«REM» Constraints, bias and weight «ENDREM»
+		«IF controlChain.bias != null-»
+		app:layout_constraintHorizontal_bias="«controlChain.bias»"
+		«ENDIF-»
+		«IF weight != null-»
+		app:layout_constraintHorizontal_weight="«weight»"
+		«ENDIF-»
+		«IF precedentInChain == null-»
+		«IF controlChain.type.toString().matches("weighted")-»
+		app:layout_constraintHorizontal_chainStyle="spread"
+		«ELSE»
+		app:layout_constraintHorizontal_chainStyle="«controlChain.type.toString()»"
+		«ENDIF-»
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintEnd_toStartOf="@+id/«followingInChain.id»"
+		«ELSEIF followingInChain == null-»
+		app:layout_constraintStart_toEndOf="@+id/«precedentInChain.id»"
+		app:layout_constraintEnd_toEndOf="parent"
+		«ELSE-»
+		app:layout_constraintStart_toEndOf="@+id/«precedentInChain.id»"
+		app:layout_constraintEnd_toStartOf="@+id/«followingInChain.id»"
+		«ENDIF-»
+		«REM» Horizontal margins (A BIT STRANGE) «ENDREM»
+		«IF controlChain.spacing == null-»
+		android:layout_marginStart="«marginStart»dp"
+		android:layout_marginEnd="«marginEnd»dp"
+		«ELSEIF precedentInChain == null-»
+		android:layout_marginStart="«marginStart»dp"
+		«ELSEIF followingInChain == null-»
+		android:layout_marginStart="«controlChain.spacing»dp"
+		android:layout_marginEnd="«marginEnd»dp"
+		«ELSE-»
+		android:layout_marginStart="«controlChain.spacing»dp"
+		«ENDIF-»
+		«REM» Vertical margins as usual «ENDREM»
+		«IF positionIsUnbinded(false, positionConstraints.layoutEdge)-»
+		android:layout_marginTop="«posY + marginTop»dp"	
+		«ELSE»
+		android:layout_marginTop="«marginTop»dp"
+		«ENDIF-»
+		android:layout_marginBottom="«marginBottom»dp"
+    	«ELSE»
+		«REM» Constraints, bias and weight «ENDREM»
+		«IF controlChain.bias != null-»
+		app:layout_constraintVertical_bias="«controlChain.bias»"
+		«ENDIF-»
+		«IF weight != null-»
+		app:layout_constraintVertical_weight="«weight»"
+		«ENDIF-»
+		«IF precedentInChain == null-»
+		«IF controlChain.type.toString().matches("weighted")-»
+		app:layout_constraintVertical_chainStyle="spread"
+		«ELSE»
+		app:layout_constraintVertical_chainStyle="«controlChain.type.toString()»"
+		«ENDIF-»
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintBottom_toTopOf="@+id/«followingInChain.id»"
+		«ELSEIF followingInChain == null-»
+		app:layout_constraintTop_toBottomOf="@+id/«precedentInChain.id»"
+		app:layout_constraintBottom_toBottomOf="parent"
+		«ELSE-»
+		app:layout_constraintTop_toBottomOf="@+id/«precedentInChain.id»"
+		app:layout_constraintBottom_toTopOf="@+id/«followingInChain.id»"
+		«ENDIF-»
+		«REM» Vertical margins (A BIT STRANGE) «ENDREM»
+		«IF controlChain.spacing == null-»
+		android:layout_marginTop="«marginTop»dp"
+		android:layout_marginBottom="«marginBottom»dp"
+		«ELSEIF precedentInChain == null-»
+		android:layout_marginTop="«marginTop»dp"
+		«ELSEIF followingInChain == null-»
+		android:layout_marginTop="«controlChain.spacing»dp"
+		android:layout_marginBottom="«marginBottom»dp"
+		«ELSE-»
+		android:layout_marginTop="«controlChain.spacing»dp"
+		«ENDIF-»
+		«REM» Horizontal margins as usual «ENDREM»
+		«IF positionIsUnbinded(true, positionConstraints.layoutEdge)-»
+		android:layout_marginStart="«posX + marginStart»dp"
+		«ELSE»
+		android:layout_marginStart="«marginStart»dp"
+		«ENDIF-»
+		android:layout_marginRight="«marginEnd»dp"
+    	«ENDIF-»
+		«REM» Padding «ENDREM»
+		android:paddingBottom="«paddingBottom»dp"
+		android:paddingRight="«paddingEnd»dp"
+		android:paddingLeft="«paddingStart»dp"
+		android:paddingTop="«paddingTop»dp"
+«ENDDEFINE-»

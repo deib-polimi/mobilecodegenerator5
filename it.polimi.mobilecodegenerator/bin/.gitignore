@@ -1,13 +1,10 @@
 /android/
-/ios_viewcontrollers_templates/
-/ios_watchcontrollers_templates/
-/metamodel/
-/model/
-/model_checks/
-/workflow/
 /android_extensions/
 /app_extensions/
 /ios/
 /ios_extensions/
+/model_checks/
+/workflow/
+/android_activities_templates/
+/model/
 /ios_templates/
-/android_templates/

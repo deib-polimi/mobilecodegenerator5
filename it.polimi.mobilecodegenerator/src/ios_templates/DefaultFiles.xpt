@@ -135,6 +135,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate«IF existsAtLeastOne(watchC
         // Setup first view controller
         self.window = UIWindow(frame: UIScreen.main.bounds)
         let nav = UINavigationController()
+        nav.navigationBar.isTranslucent = false
+        nav.navigationBar.barTintColor = UIColor(colorLiteralRed: 0.968, green: 0.968, blue: 0.968, alpha: 1)
         «FOREACH scenes AS s-»
         «IF s.launcher == true -»
         let parentVC = «s.name.toFirstUpper()»ParentViewController()

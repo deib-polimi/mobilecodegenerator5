@@ -206,9 +206,9 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 		«ELSEIF constraint.layoutEdge.toString().matches("end") && constraint.referenceLayoutEdge.toString().matches("end")-»
 		<constraint firstItem="«id»" firstAttribute="leading" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="trailing" priority="750" constant="«(marginEnd + paddingEnd).toInteger()»" id="«id»-constraint-parent-end"/>
 		«ELSEIF constraint.layoutEdge.toString().matches("top") && constraint.referenceLayoutEdge.toString().matches("top")-»
-		<constraint firstItem="«id»" firstAttribute="top" secondItem="«viewController.name.toFirstUpper()»-guide-top" secondAttribute="top" priority="750" constant="«(marginTop + paddingTop).toInteger()»" id="«id»-constraint-parent-top"/>
+		<constraint firstItem="«id»" firstAttribute="top" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="top" priority="750" constant="«(marginTop + paddingTop).toInteger()»" id="«id»-constraint-parent-top"/>
 		«ELSEIF constraint.layoutEdge.toString().matches("bottom") && constraint.referenceLayoutEdge.toString().matches("bottom")-»
-		<constraint firstItem="«viewController.name.toFirstUpper()»-guide-bottom" firstAttribute="bottom" secondItem="«id»" secondAttribute="bottom" priority="750" constant="«(marginBottom + paddingBottom).toInteger()»" id="«id»-constraint-parent-bottom"/>
+		<constraint firstItem="«viewController.name.toFirstUpper()»ViewID" firstAttribute="bottom" secondItem="«id»" secondAttribute="bottom" priority="750" constant="«(marginBottom + paddingBottom).toInteger()»" id="«id»-constraint-parent-bottom"/>
 		«ELSEIF constraint.layoutEdge.toString().matches("centerX") && constraint.referenceLayoutEdge.toString().matches("centerX")-»
 		<constraint firstItem="«id»" firstAttribute="centerX" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="centerX" priority="750" constant="«((marginStart + paddingStart) - (marginEnd + paddingEnd)).toInteger()»" id="«id»-constraint-parent-centerX"/>
 		«ELSEIF constraint.layoutEdge.toString().matches("centerY") && constraint.referenceLayoutEdge.toString().matches("centerY")-»
@@ -225,7 +225,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 		<constraint firstItem="«id»" firstAttribute="leading" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="leading" constant="«posX.toInteger() + marginStart.toInteger() + paddingStart.toInteger()»" id="«id»-constraint-posX"/>
 		«ENDIF-»
 		«IF positionIsUnbinded(false, positionConstraints.layoutEdge)-»
-		<constraint firstItem="«id»" firstAttribute="top" secondItem="«viewController.name.toFirstUpper()»-guide-top" secondAttribute="bottom" constant="«posY.toInteger() + marginTop.toInteger() + paddingTop.toInteger()»" id="«id»-constraint-posY"/>
+		<constraint firstItem="«id»" firstAttribute="top" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="top" constant="«posY.toInteger() + marginTop.toInteger() + paddingTop.toInteger()»" id="«id»-constraint-posY"/>
 		«ENDIF-»
 	«ELSEIF controlChain.axis.toString().matches("horizontal")-»
 		«IF controlChain.type.toString().matches("spread")-»
@@ -299,7 +299,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 		«ENDIF-»
 		«REM» Vertical position if there are no constraints (as usual) «ENDREM»
 		«IF positionIsUnbinded(false, positionConstraints.layoutEdge)-»
-		<constraint firstItem="«id»" firstAttribute="top" secondItem="«viewController.name.toFirstUpper()»-guide-top" secondAttribute="bottom" constant="«posY.toInteger() + marginTop.toInteger() + paddingTop.toInteger()»" id="«id»-posY"/>
+		<constraint firstItem="«id»" firstAttribute="top" secondItem="«viewController.name.toFirstUpper()»ViewID" secondAttribute="top" constant="«posY.toInteger() + marginTop.toInteger() + paddingTop.toInteger()»" id="«id»-posY"/>
 		«ENDIF-»
 	«ELSE»
 		«IF controlChain.type.toString().matches("spread")-»

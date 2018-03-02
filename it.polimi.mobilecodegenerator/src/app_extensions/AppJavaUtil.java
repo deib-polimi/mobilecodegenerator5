@@ -203,7 +203,7 @@ public class AppJavaUtil {
 		}
 		for(i = 0; i < listViews.size(); i++) {
 			try {
-				List<?> l = (List<?>) buttons.get(i);
+				List<?> l = (List<?>) listViews.get(i);
 				if(l.size() > 0)
 					return true;
 			} catch(ClassCastException e) {
@@ -212,7 +212,7 @@ public class AppJavaUtil {
 		}
 		for(i = 0; i < gridViews.size(); i++) {
 			try {
-				List<?> l = (List<?>) buttons.get(i);
+				List<?> l = (List<?>) gridViews.get(i);
 				if(l.size() > 0)
 					return true;
 			} catch(ClassCastException e) {
