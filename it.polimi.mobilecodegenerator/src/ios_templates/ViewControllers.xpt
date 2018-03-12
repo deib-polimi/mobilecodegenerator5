@@ -40,7 +40,7 @@ import UIKit
 class «name.toFirstUpper()»ParentViewController: UIViewController {
     
     // MARK: Properties
-    «FOREACH sceneViewControllers AS svc-»
+    «FOREACH childViewControllers AS svc-»
 	fileprivate let «svc.viewController.name.toFirstLower()»VC: UIViewController
 	«ENDFOREACH-»
 	«IF !typeSmartphone.toString().matches(typeTablet.toString())-»
@@ -57,7 +57,7 @@ class «name.toFirstUpper()»ParentViewController: UIViewController {
     // MARK: Initialization
     init() {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        «FOREACH sceneViewControllers AS svc-»
+        «FOREACH childViewControllers AS svc-»
 		«svc.viewController.name.toFirstLower()»VC = storyboard.instantiateViewController(withIdentifier: "«svc.viewController.name.toFirstUpper()»ViewControllerStoryboardID")
 		«ENDFOREACH-»
         super.init(nibName: nil, bundle: nil)
@@ -65,7 +65,7 @@ class «name.toFirstUpper()»ParentViewController: UIViewController {
     
     required init?(coder aDecoder: NSCoder) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        «FOREACH sceneViewControllers AS svc-»
+        «FOREACH childViewControllers AS svc-»
 		«svc.viewController.name.toFirstLower()»VC = storyboard.instantiateViewController(withIdentifier: "«svc.viewController.name.toFirstUpper()»ViewControllerStoryboardID")
 		«ENDFOREACH-»
         super.init(coder: aDecoder)
@@ -141,7 +141,7 @@ class «name.toFirstUpper()»ParentViewController: UIViewController {
         «IF typeSmartphone.toString().matches("singleVCTab")-»
 		«EXPAND setupUIsingleVCTabConstraints FOR this-»
     	«ENDIF-»
-    	show«sceneViewControllers.first().viewController.name.toFirstUpper()»VC()
+    	show«childViewControllers.first().viewController.name.toFirstUpper()»VC()
     }
     «ELSE-»
     // MARK: Phone UI Setup
@@ -152,7 +152,7 @@ class «name.toFirstUpper()»ParentViewController: UIViewController {
         «IF typeSmartphone.toString().matches("singleVCTab")-»
 		«EXPAND setupUIsingleVCTabConstraints FOR this-»
     	«ENDIF-»
-    	show«sceneViewControllers.first().viewController.name.toFirstUpper()»VC()
+    	show«childViewControllers.first().viewController.name.toFirstUpper()»VC()
     	«ELSE-»
     	«EXPAND setupUImultiVC FOR parentViewControllers.first()-»
     	«ENDIF-»
@@ -166,7 +166,7 @@ class «name.toFirstUpper()»ParentViewController: UIViewController {
         «IF typeTablet.toString().matches("singleVCTab")-»
 		«EXPAND setupUIsingleVCTabConstraints FOR this-»
     	«ENDIF-»
-    	show«sceneViewControllers.first().viewController.name.toFirstUpper()»VC()
+    	show«childViewControllers.first().viewController.name.toFirstUpper()»VC()
     	«ELSE-»
     	«EXPAND setupUImultiVC FOR parentViewControllers.last()-»
     	«ENDIF-»
@@ -175,7 +175,7 @@ class «name.toFirstUpper()»ParentViewController: UIViewController {
     
     «IF !typeSmartphone.toString().matches("multiVC") || !typeTablet.toString().matches("multiVC")-»
     // MARK: functions that show each child view controller for singleVC/singleVCTab type scenes
-    «FOREACH sceneViewControllers AS svc-»
+    «FOREACH childViewControllers AS svc-»
 	fileprivate func show«svc.viewController.name.toFirstUpper()»VC() {
 		«IF typeSmartphone.toString().matches("singleVCTab") || typeTablet.toString().matches("singleVCTab")-»
 		for v in view.subviews {
@@ -252,9 +252,9 @@ extension «name.toFirstUpper()»ParentViewController: MenuViewControllerDelegate 
 extension «name.toFirstUpper()»ParentViewController: UITabBarDelegate {
     func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
     	switch item.tag {
-    	«FOREACH 0.upTo(sceneViewControllers.size - 1) AS i-»
+    	«FOREACH 0.upTo(childViewControllers.size - 1) AS i-»
     	case «i»:
-    		show«sceneViewControllers.get(i).viewController.name.toFirstUpper()»VC()
+    		show«childViewControllers.get(i).viewController.name.toFirstUpper()»VC()
     	«ENDFOREACH-»
     	default:
     		break
@@ -263,13 +263,13 @@ extension «name.toFirstUpper()»ParentViewController: UITabBarDelegate {
 }
 «ENDIF-»
 
-«IF containsControlsWithNavigation(sceneViewControllers.viewController.buttons, sceneViewControllers.viewController.listViews, sceneViewControllers.viewController.gridViews)-»
+«IF containsControlsWithNavigation(childViewControllers.viewController.buttons, childViewControllers.viewController.listViews, childViewControllers.viewController.gridViews)-»
 // MARK: ChildViewControllerInteractionProtocol
 extension «name.toFirstUpper()»ParentViewController: ChildViewControllerInteractionProtocol {
 
 	func childViewControllerInteraction(controlId: String, selectedItem: Any?) {
 		switch controlId {
-    	«FOREACH sceneViewControllers AS svc-»
+    	«FOREACH childViewControllers AS svc-»
 		«REM» Buttons «ENDREM»
 		«FOREACH svc.viewController.buttons AS b-»
 		«FOREACH b.navigations AS n-»
@@ -375,7 +375,7 @@ extension «name.toFirstUpper()»ParentViewController: ChildViewControllerInteract
 
 «REM» UI Setup: add child view controllers «ENDREM»
 «DEFINE setupUIAddChildViewControllers FOR Scene-»
-		«FOREACH sceneViewControllers AS svc-»
+		«FOREACH childViewControllers AS svc-»
 		addChildViewController(«svc.viewController.name.toFirstLower()»VC)
 		«svc.viewController.name.toFirstLower()»VC.didMove(toParentViewController: self)
 		«svc.viewController.name.toFirstLower()»VC.view.translatesAutoresizingMaskIntoConstraints = false
@@ -388,10 +388,10 @@ extension «name.toFirstUpper()»ParentViewController: ChildViewControllerInteract
         tabBar!.barStyle = UIBarStyle.default
         tabBar!.translatesAutoresizingMaskIntoConstraints = false
         var tabItems = [UITabBarItem]()
-        let firstItem = UITabBarItem(title: "«sceneViewControllers.first().viewController.name.toFirstUpper()»", image: nil, tag: 0)
+        let firstItem = UITabBarItem(title: "«childViewControllers.first().viewController.name.toFirstUpper()»", image: nil, tag: 0)
         tabItems.append(firstItem)
-        «FOREACH 1.upTo(sceneViewControllers.size - 1) AS i-»
-		tabItems.append(UITabBarItem(title: "«sceneViewControllers.get(i).viewController.name.toFirstUpper()»", image: nil, tag: «i»))
+        «FOREACH 1.upTo(childViewControllers.size - 1) AS i-»
+		tabItems.append(UITabBarItem(title: "«childViewControllers.get(i).viewController.name.toFirstUpper()»", image: nil, tag: «i»))
 		«ENDFOREACH-»
         tabBar!.setItems(tabItems, animated: true)
         tabBar!.selectedItem = firstItem

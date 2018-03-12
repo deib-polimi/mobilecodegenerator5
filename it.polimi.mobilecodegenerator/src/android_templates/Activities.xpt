@@ -18,7 +18,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 
 «DEFINE main FOR Application-»
 «FOREACH scenes AS s-»
-«IF s.sceneViewControllers.size > 1-»
+«IF s.childViewControllers.size > 1-»
 «EXPAND multiVCactivity FOR s-»
 «ELSE-»
 «EXPAND singleVCactivity FOR s-»
@@ -36,17 +36,17 @@ package «application.companyIdentifier».«application.name.toLowerCase()».activit
 
 import «application.companyIdentifier».«application.name.toLowerCase()».R;
 import «application.companyIdentifier».«application.name.toLowerCase()».utilities.Constants;
-«IF containsControlsWithNavigation(sceneViewControllers.viewController.buttons, sceneViewControllers.viewController.listViews, sceneViewControllers.viewController.gridViews)-»
+«IF containsControlsWithNavigation(childViewControllers.viewController.buttons, childViewControllers.viewController.listViews, childViewControllers.viewController.gridViews)-»
 import «application.companyIdentifier».«application.name.toLowerCase()».utilities.OnFragmentNavigationInteractionListener;
 «ENDIF-»
-«FOREACH sceneViewControllers AS svc-»
+«FOREACH childViewControllers AS svc-»
 import «application.companyIdentifier».«application.name.toLowerCase()».fragments.«svc.viewController.name.toFirstUpper()»Fragment;
 «ENDFOREACH-»
 
-«IF containsControlsWithNavigation(sceneViewControllers.viewController.buttons, sceneViewControllers.viewController.listViews, sceneViewControllers.viewController.gridViews) && isAMenuDestination(name, application.menu.menuItems.navigation.destinationScene.name)-»
+«IF containsControlsWithNavigation(childViewControllers.viewController.buttons, childViewControllers.viewController.listViews, childViewControllers.viewController.gridViews) && isAMenuDestination(name, application.menu.menuItems.navigation.destinationScene.name)-»
 public class «name.toFirstUpper()»Activity extends AppCompatActivity 
 		implements OnFragmentNavigationInteractionListener, NavigationView.OnNavigationItemSelectedListener {
-«ELSEIF containsControlsWithNavigation(sceneViewControllers.viewController.buttons, sceneViewControllers.viewController.listViews, sceneViewControllers.viewController.gridViews)-»
+«ELSEIF containsControlsWithNavigation(childViewControllers.viewController.buttons, childViewControllers.viewController.listViews, childViewControllers.viewController.gridViews)-»
 public class «name.toFirstUpper()»Activity extends AppCompatActivity 
 		implements OnFragmentNavigationInteractionListener {
 «ELSEIF isAMenuDestination(name, application.menu.menuItems.navigation.destinationScene.name)-»
@@ -201,7 +201,7 @@ public class «name.toFirstUpper()»Activity extends AppCompatActivity {
 	}
 	«ENDIF-»
 	
-	«IF containsControlsWithNavigation(sceneViewControllers.viewController.buttons, sceneViewControllers.viewController.listViews, sceneViewControllers.viewController.gridViews)-»
+	«IF containsControlsWithNavigation(childViewControllers.viewController.buttons, childViewControllers.viewController.listViews, childViewControllers.viewController.gridViews)-»
 	«EXPAND OnFragmentNavigationInteractionListenerImplementation FOR this-»
 	«ENDIF-»
 
@@ -215,9 +215,9 @@ public class «name.toFirstUpper()»Activity extends AppCompatActivity {
         @Override
         public Fragment getItem(int position) {
             switch (position) {
-            	«FOREACH 0.upTo(sceneViewControllers.size - 1) AS i-»
+            	«FOREACH 0.upTo(childViewControllers.size - 1) AS i-»
                 case «i»:
-                    return «sceneViewControllers.get(i).viewController.name.toFirstUpper()»Fragment.newInstance();
+                    return «childViewControllers.get(i).viewController.name.toFirstUpper()»Fragment.newInstance();
                 «ENDFOREACH-»
             }
             return null;
@@ -225,7 +225,7 @@ public class «name.toFirstUpper()»Activity extends AppCompatActivity {
 
         @Override
         public int getCount() {
-            return «sceneViewControllers.size»;
+            return «childViewControllers.size»;
         }
     }
     «ENDIF-»
@@ -289,15 +289,15 @@ import android.support.v7.app.ActionBar;
 
 import «application.companyIdentifier».«application.name.toLowerCase()».R;
 import «application.companyIdentifier».«application.name.toLowerCase()».utilities.Constants;
-«IF containsControlsWithNavigation(sceneViewControllers.viewController.buttons, sceneViewControllers.viewController.listViews, sceneViewControllers.viewController.gridViews)-»
+«IF containsControlsWithNavigation(childViewControllers.viewController.buttons, childViewControllers.viewController.listViews, childViewControllers.viewController.gridViews)-»
 import «application.companyIdentifier».«application.name.toLowerCase()».utilities.OnFragmentNavigationInteractionListener;
 «ENDIF-»
-import «application.companyIdentifier».«application.name.toLowerCase()».fragments.«sceneViewControllers.first().viewController.name.toFirstUpper()»Fragment;
+import «application.companyIdentifier».«application.name.toLowerCase()».fragments.«childViewControllers.first().viewController.name.toFirstUpper()»Fragment;
 
-«IF containsControlsWithNavigation(sceneViewControllers.viewController.buttons, sceneViewControllers.viewController.listViews, sceneViewControllers.viewController.gridViews) && isAMenuDestination(name, application.menu.menuItems.navigation.destinationScene.name)-»
+«IF containsControlsWithNavigation(childViewControllers.viewController.buttons, childViewControllers.viewController.listViews, childViewControllers.viewController.gridViews) && isAMenuDestination(name, application.menu.menuItems.navigation.destinationScene.name)-»
 public class «name.toFirstUpper()»Activity extends AppCompatActivity 
 		implements OnFragmentNavigationInteractionListener, NavigationView.OnNavigationItemSelectedListener {
-«ELSEIF containsControlsWithNavigation(sceneViewControllers.viewController.buttons, sceneViewControllers.viewController.listViews, sceneViewControllers.viewController.gridViews)-»
+«ELSEIF containsControlsWithNavigation(childViewControllers.viewController.buttons, childViewControllers.viewController.listViews, childViewControllers.viewController.gridViews)-»
 public class «name.toFirstUpper()»Activity extends AppCompatActivity 
 		implements OnFragmentNavigationInteractionListener {
 «ELSEIF isAMenuDestination(name, application.menu.menuItems.navigation.destinationScene.name)-»
@@ -382,7 +382,7 @@ public class «name.toFirstUpper()»Activity extends AppCompatActivity {
 	}
 	«ENDIF-»
 	
-	«IF containsControlsWithNavigation(sceneViewControllers.viewController.buttons, sceneViewControllers.viewController.listViews, sceneViewControllers.viewController.gridViews)-»
+	«IF containsControlsWithNavigation(childViewControllers.viewController.buttons, childViewControllers.viewController.listViews, childViewControllers.viewController.gridViews)-»
 	«EXPAND OnFragmentNavigationInteractionListenerImplementation FOR this-»
 	«ENDIF-»
 }
@@ -394,7 +394,7 @@ public class «name.toFirstUpper()»Activity extends AppCompatActivity {
 	@Override
 	public void onFragmentNavigationInteraction(String controlId, String clickedItem) {
 		switch(controlId) {
-        	«FOREACH sceneViewControllers AS svc-»
+        	«FOREACH childViewControllers AS svc-»
 			«REM» Buttons «ENDREM»
 			«FOREACH svc.viewController.buttons AS b-»
 			«FOREACH b.navigations AS n-»
@@ -407,8 +407,8 @@ public class «name.toFirstUpper()»Activity extends AppCompatActivity {
 				«ELSEIF n.destinationViewController != null-»
 				«IF !typeSmartphone.toString().matches("multiVC") || !typeTablet.toString().matches("multiVC")-»
 				if(layoutType != Constants.SCENE_TYPE_MULTI_VC) {
-				«FOREACH 0.upTo(sceneViewControllers.size - 1) AS i-»
-					«IF sceneViewControllers.get(i).viewController == n.destinationViewController-»
+				«FOREACH 0.upTo(childViewControllers.size - 1) AS i-»
+					«IF childViewControllers.get(i).viewController == n.destinationViewController-»
 					mViewPager.setCurrentItem(«i»);
 					«ENDIF-»
 				«ENDFOREACH-»
@@ -437,8 +437,8 @@ public class «name.toFirstUpper()»Activity extends AppCompatActivity {
 				«ELSEIF n.destinationViewController != null-»
 				«IF !typeSmartphone.toString().matches("multiVC") || !typeTablet.toString().matches("multiVC")-»
 				if(layoutType != Constants.SCENE_TYPE_MULTI_VC) {
-				«FOREACH 0.upTo(sceneViewControllers.size - 1) AS i-»
-					«IF sceneViewControllers.get(i).viewController == n.destinationViewController-»
+				«FOREACH 0.upTo(childViewControllers.size - 1) AS i-»
+					«IF childViewControllers.get(i).viewController == n.destinationViewController-»
 					mViewPager.setCurrentItem(«i»);
 					«ENDIF-»
 				«ENDFOREACH-»
@@ -467,8 +467,8 @@ public class «name.toFirstUpper()»Activity extends AppCompatActivity {
 				«ELSEIF n.destinationViewController != null-»
 				«IF !typeSmartphone.toString().matches("multiVC") || !typeTablet.toString().matches("multiVC")-»
 				if(layoutType != Constants.SCENE_TYPE_MULTI_VC) {
-				«FOREACH 0.upTo(sceneViewControllers.size - 1) AS i-»
-					«IF sceneViewControllers.get(i).viewController == n.destinationViewController-»
+				«FOREACH 0.upTo(childViewControllers.size - 1) AS i-»
+					«IF childViewControllers.get(i).viewController == n.destinationViewController-»
 					mViewPager.setCurrentItem(«i»);
 					«ENDIF-»
 				«ENDFOREACH-»

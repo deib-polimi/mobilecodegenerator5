@@ -34,8 +34,8 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 	
 	«FOREACH scenes AS s-»
 	«IF s.typeSmartphone.toString().matches("singleVCTab") || s.typeTablet.toString().matches("singleVCTab")-»
-	«FOREACH 0.upTo(s.sceneViewControllers.size - 1) AS i-»
-	<string name="tab_text_«s.name.toLowerCase()»_«(i+1).toString()»">«s.sceneViewControllers.get(i).viewController.name.toFirstUpper()»</string>
+	«FOREACH 0.upTo(s.childViewControllers.size - 1) AS i-»
+	<string name="tab_text_«s.name.toLowerCase()»_«(i+1).toString()»">«s.childViewControllers.get(i).viewController.name.toFirstUpper()»</string>
 	«ENDFOREACH-»
 	«ENDIF-»
 	«ENDFOREACH-»
@@ -428,7 +428,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 </android.support.v4.widget.DrawerLayout>
 «ENDFILE-»
 «REM» Case of scene with more than one view controllers «ENDREM»
-«IF sceneViewControllers.size > 1-»
+«IF childViewControllers.size > 1-»
 «REM» Export 2 app_bar layouts for scenes with typeSmartphone != typeTablet «ENDREM»
 «FILE application.name+"/mobile/src/main/res/layout/"+"app_bar_"+name.toLowerCase()+".xml"-»
 «EXPAND AppBarLayoutSmartphoneXMLLayout FOR this»
@@ -451,7 +451,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 «REM»--------------------------- Activity WITHOUT Menu Layout XML Files ---------------------------«ENDREM»
 «DEFINE SimpleActivityXMLLayout FOR Scene-»
 «REM» Case of scene with more than one view controllers «ENDREM»
-«IF sceneViewControllers.size > 1-»
+«IF childViewControllers.size > 1-»
 «REM» Export 2 activity layouts for scenes with typeSmartphone != typeTablet «ENDREM»
 «FILE application.name+"/mobile/src/main/res/layout/"+"activity_"+name.toLowerCase()+".xml"-»
 «EXPAND AppBarLayoutSmartphoneXMLLayout FOR this»
@@ -511,7 +511,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-			«FOREACH 1.upTo(sceneViewControllers.size) AS i -»
+			«FOREACH 1.upTo(childViewControllers.size) AS i -»
 			<android.support.design.widget.TabItem
                 android:id="@+id/tab_item_«name.toLowerCase()»_«i»"
                 android:layout_width="wrap_content"
@@ -582,7 +582,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-			«FOREACH 1.upTo(sceneViewControllers.size) AS i -»
+			«FOREACH 1.upTo(childViewControllers.size) AS i -»
 			<android.support.design.widget.TabItem
                 android:id="@+id/tab_item_«name.toLowerCase()»_«i»"
                 android:layout_width="wrap_content"
@@ -706,7 +706,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
     
     	<fragment
             android:id="@+id/«name.toLowerCase()»_container"
-            android:name="«application.companyIdentifier».«application.name.toLowerCase()».fragments.«sceneViewControllers.first().viewController.name.toFirstUpper()»Fragment"
+            android:name="«application.companyIdentifier».«application.name.toLowerCase()».fragments.«childViewControllers.first().viewController.name.toFirstUpper()»Fragment"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@id/«name.toLowerCase()»_appbar"/>

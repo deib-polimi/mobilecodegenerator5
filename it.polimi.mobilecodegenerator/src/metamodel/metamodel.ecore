@@ -187,13 +187,13 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="parentViewControllers"
         ordered="false" upperBound="2" eType="#//ViewController" containment="true"
         eOpposite="#//ViewController/scene" eKeys="#//ViewController/id"/>
-    <eStructuralFeatures xsi:type="ecore:EReference" name="sceneViewControllers" ordered="false"
-        lowerBound="1" upperBound="-1" eType="#//SceneViewController" containment="true"
-        eOpposite="#//SceneViewController/scene" eKeys="#//ViewController/id"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="childViewControllers" ordered="false"
+        lowerBound="1" upperBound="-1" eType="#//ChildViewController" containment="true"
+        eOpposite="#//ChildViewController/scene" eKeys="#//ViewController/id"/>
   </eClassifiers>
-  <eClassifiers xsi:type="ecore:EClass" name="SceneViewController">
+  <eClassifiers xsi:type="ecore:EClass" name="ChildViewController">
     <eStructuralFeatures xsi:type="ecore:EReference" name="scene" lowerBound="1" eType="#//Scene"
-        eOpposite="#//Scene/sceneViewControllers"/>
+        eOpposite="#//Scene/childViewControllers"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="viewController" lowerBound="1"
         eType="#//ViewController"/>
   </eClassifiers>

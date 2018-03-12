@@ -4,94 +4,64 @@
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:metamodel="http://metamodel/1.0" xsi:schemaLocation="http://metamodel/1.0 ../metamodel/metamodel.ecore" name="Test" companyIdentifier="it.polimi">
 	<dataHandler/>
-	<viewControllers id="geqt9" name="Map" backgroundColor="#ffffff" backgroundImage="">
-		<map id="idblb7kMap" viewController="//@viewControllers[id='geqt9']" defaultWidth="200" defaultHeight="330" posX="58.333333333333336" posY="30" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" lat="45.478" lon="9.227">
-			<dimensionConstraint uiPhoneControl="//@viewControllers[id='geqt9']/@map" widthPercent="0.9" heightPercent="0.9"/>
-			<positionConstraints id="kbo7q" uiPhoneControl="//@viewControllers[id='geqt9']/@map" layoutEdge="centerY" withParent="true" referenceLayoutEdge="centerY"/>
-			<positionConstraints id="3fhq7" uiPhoneControl="//@viewControllers[id='geqt9']/@map" layoutEdge="centerX" withParent="true" referenceLayoutEdge="centerX"/>
-		</map>
+	<viewControllers id="p54ol" name="First" backgroundColor="#ffffff" backgroundImage="">
+		<buttons id="nextButton" viewController="//@viewControllers[id='p54ol']" defaultWidth="88" defaultHeight="40" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="30" marginBottom="0" marginStart="0" marginEnd="0" title="Avanti" textColor="#fdfdfd" backgroundColor="#009422" borderRadius="2" clickColor="">
+			<positionConstraints id="kbfdr" uiPhoneControl="//@viewControllers[id='p54ol']/@buttons[id='nextButton']" layoutEdge="top" withParent="true" referenceLayoutEdge="top"/>
+			<positionConstraints id="fo1do" uiPhoneControl="//@viewControllers[id='p54ol']/@buttons[id='nextButton']" layoutEdge="centerX" withParent="true" referenceLayoutEdge="centerX"/>
+			<navigations id="gpa8v" contextScene="//@scenes[id='ae9aa']" destinationScene="//@scenes[id='d94f1']"/>
+		</buttons>
 	</viewControllers>
-	<viewControllers id="95nb0" name="CityList" backgroundColor="#ffffff" backgroundImage="">
-		<listViews id="idqpl87ListView" viewController="//@viewControllers[id='95nb0']" defaultWidth="270" defaultHeight="270" posX="30" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" backgroundColor="" listType="simple">
-			<dimensionConstraint uiPhoneControl="//@viewControllers[id='95nb0']/@listViews[id='idqpl87ListView']" widthPercent="0.9" heightPercent="0.9"/>
-			<positionConstraints id="s5q04" uiPhoneControl="//@viewControllers[id='95nb0']/@listViews[id='idqpl87ListView']" layoutEdge="centerX" withParent="true" referenceLayoutEdge="centerX"/>
-			<positionConstraints id="39136" uiPhoneControl="//@viewControllers[id='95nb0']/@listViews[id='idqpl87ListView']" layoutEdge="centerY" withParent="true" referenceLayoutEdge="centerY"/>
-			<navigations id="l4r62" contextScene="//@scenes[id='51rab']"/>
-			<listViewCells title="Rome" subtitle="Content"/>
-			<listViewCells title="Paris" subtitle="Content"/>
+	<viewControllers id="2ob0r" name="List" backgroundColor="#ffffff" backgroundImage="">
+		<listViews id="imageListView" viewController="//@viewControllers[id='2ob0r']" defaultWidth="270" defaultHeight="270" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" backgroundColor="" listType="detailed">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='2ob0r']/@listViews[id='imageListView']" widthPercent="1" heightPercent="1"/>
+			<positionConstraints id="bm5hq" uiPhoneControl="//@viewControllers[id='2ob0r']/@listViews[id='imageListView']" layoutEdge="top" withParent="true" referenceLayoutEdge="top"/>
+			<positionConstraints id="3icnr" uiPhoneControl="//@viewControllers[id='2ob0r']/@listViews[id='imageListView']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+			<navigations id="t898k" contextScene="//@scenes[id='d94f1']" destinationViewController="//@viewControllers[id='1259i']"/>
+			<listViewCells title="Immagine 1" subtitle=""/>
+			<listViewCells title="Immagine 2" subtitle=""/>
+			<listViewCells title="Immagine 3" subtitle=""/>
 		</listViews>
 	</viewControllers>
-	<viewControllers id="rsgf6" name="ImageList" backgroundColor="#ffffff" backgroundImage="">
-		<listViews id="idn70csListView" viewController="//@viewControllers[id='rsgf6']" defaultWidth="270" defaultHeight="270" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" backgroundColor="" listType="detailed">
-			<dimensionConstraint uiPhoneControl="//@viewControllers[id='rsgf6']/@listViews[id='idn70csListView']" widthPercent="1" heightPercent="1"/>
-			<positionConstraints id="23640" uiPhoneControl="//@viewControllers[id='rsgf6']/@listViews[id='idn70csListView']" layoutEdge="top" withParent="true" referenceLayoutEdge="top"/>
-			<positionConstraints id="qhhef" uiPhoneControl="//@viewControllers[id='rsgf6']/@listViews[id='idn70csListView']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
-			<navigations id="8og0q" contextScene="//@scenes[id='n5h41']" destinationViewController="//@viewControllers[id='nvius']"/>
-			<listViewCells title="Image1" subtitle="show image 1"/>
-			<listViewCells title="Image2" subtitle="show image 2"/>
-		</listViews>
-	</viewControllers>
-	<viewControllers id="nvius" name="ImageDetail" backgroundColor="#ffffff" backgroundImage="">
-		<controlChains id="idu4476Chain" viewController="//@viewControllers[id='nvius']" axis="vertical" type="packed" nControls="2" bias="0.1" spacing="30"/>
-		<textViews id="id3kan4Label" viewController="//@viewControllers[id='nvius']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" controlChain="//@viewControllers[id='nvius']/@controlChains[id='idu4476Chain']" indexInChain="0" followingInChain="//@viewControllers[id='nvius']/@imageViews[id='idtapd7ImageView']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="Image" textAlign="center" textColor="#000000" textSize="16" textDecoration="none">
-			<positionConstraints id="l88es" uiPhoneControl="//@viewControllers[id='nvius']/@textViews[id='id3kan4Label']" layoutEdge="centerX" withParent="true" referenceLayoutEdge="centerX"/>
+	<viewControllers id="1259i" name="ImageDetail" backgroundColor="#ffe8b4" backgroundImage="">
+		<controlChains id="idqhor6Chain" viewController="//@viewControllers[id='1259i']" axis="vertical" type="packed" nControls="3" bias="0.1" spacing="20"/>
+		<textViews id="titleLabel" viewController="//@viewControllers[id='1259i']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" controlChain="//@viewControllers[id='1259i']/@controlChains[id='idqhor6Chain']" indexInChain="0" followingInChain="//@viewControllers[id='1259i']/@imageViews[id='imageImageView']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="Titolo Immagine" textAlign="center" textColor="#000000" textSize="16" textDecoration="bold">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='1259i']/@textViews[id='titleLabel']" widthPercent="0.5"/>
+			<positionConstraints id="bjsks" uiPhoneControl="//@viewControllers[id='1259i']/@textViews[id='titleLabel']" layoutEdge="centerX" withParent="true" referenceLayoutEdge="centerX"/>
 		</textViews>
-		<imageViews id="idtapd7ImageView" viewController="//@viewControllers[id='nvius']" defaultWidth="240" defaultHeight="128" posX="0" posY="0" controlChain="//@viewControllers[id='nvius']/@controlChains[id='idu4476Chain']" indexInChain="1" precedentInChain="//@viewControllers[id='nvius']/@textViews[id='id3kan4Label']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" sourceType="hardwareFile" fileUri="">
-			<positionConstraints id="8eh1l" uiPhoneControl="//@viewControllers[id='nvius']/@imageViews[id='idtapd7ImageView']" layoutEdge="centerX" withParent="false" referenceElement="//@viewControllers[id='nvius']/@textViews[id='id3kan4Label']" referenceLayoutEdge="centerX"/>
+		<imageViews id="imageImageView" viewController="//@viewControllers[id='1259i']" defaultWidth="240" defaultHeight="128" posX="3.3333333333333335" posY="104.61110432942709" controlChain="//@viewControllers[id='1259i']/@controlChains[id='idqhor6Chain']" indexInChain="1" precedentInChain="//@viewControllers[id='1259i']/@textViews[id='titleLabel']" followingInChain="//@viewControllers[id='1259i']/@editTexts[id='descriptionEditText']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" sourceType="hardwareFile" fileUri="">
+			<positionConstraints id="ra2k3" uiPhoneControl="//@viewControllers[id='1259i']/@imageViews[id='imageImageView']" layoutEdge="centerX" withParent="true" referenceLayoutEdge="centerX"/>
 		</imageViews>
+		<editTexts id="descriptionEditText" viewController="//@viewControllers[id='1259i']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" controlChain="//@viewControllers[id='1259i']/@controlChains[id='idqhor6Chain']" indexInChain="2" precedentInChain="//@viewControllers[id='1259i']/@imageViews[id='imageImageView']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" initialContent="Descrizione..." placeholder="Descrizione" textColor="#000000" textSize="16">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='1259i']/@editTexts[id='descriptionEditText']" widthPercent="0.8" heightPercent="0.5"/>
+			<positionConstraints id="8o1g2" uiPhoneControl="//@viewControllers[id='1259i']/@editTexts[id='descriptionEditText']" layoutEdge="centerX" withParent="true" referenceLayoutEdge="centerX"/>
+		</editTexts>
 	</viewControllers>
-	<scenes id="51rab" name="CityMap" launcher="true" typeSmartphone="multiVC" typeTablet="multiVC">
-		<parentViewControllers id="je37t" name="parentVCSmartphone" backgroundColor="#ffffff" backgroundImage="">
-			<containers childViewController="//@viewControllers[id='geqt9']" id="idm6ubkContainer" viewController="//@scenes[id='51rab']/@parentViewControllers[id='je37t']" defaultWidth="300" defaultHeight="400" posX="53.333333333333336" posY="270" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0">
-				<positionConstraints id="d0qm3" uiPhoneControl="//@scenes[id='51rab']/@parentViewControllers[id='je37t']/@containers[id='idm6ubkContainer']" layoutEdge="top" withParent="false" referenceElement="//@scenes[id='51rab']/@parentViewControllers[id='je37t']/@containers[id='idvrml3Container']" referenceLayoutEdge="bottom"/>
-				<positionConstraints id="9gfah" uiPhoneControl="//@scenes[id='51rab']/@parentViewControllers[id='je37t']/@containers[id='idm6ubkContainer']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
-				<positionConstraints id="ijhhh" uiPhoneControl="//@scenes[id='51rab']/@parentViewControllers[id='je37t']/@containers[id='idm6ubkContainer']" layoutEdge="end" withParent="true" referenceLayoutEdge="end"/>
-				<positionConstraints id="pgosl" uiPhoneControl="//@scenes[id='51rab']/@parentViewControllers[id='je37t']/@containers[id='idm6ubkContainer']" layoutEdge="bottom" withParent="true" referenceLayoutEdge="bottom"/>
-			</containers>
-			<containers childViewController="//@viewControllers[id='95nb0']" id="idvrml3Container" viewController="//@scenes[id='51rab']/@parentViewControllers[id='je37t']" defaultWidth="300" defaultHeight="400" posX="26.666666666666668" posY="51.66666666666667" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0">
-				<dimensionConstraint uiPhoneControl="//@scenes[id='51rab']/@parentViewControllers[id='je37t']/@containers[id='idvrml3Container']" widthPercent="1" heightPercent="0.3"/>
-				<positionConstraints id="8ecui" uiPhoneControl="//@scenes[id='51rab']/@parentViewControllers[id='je37t']/@containers[id='idvrml3Container']" layoutEdge="top" withParent="true" referenceLayoutEdge="top"/>
-				<positionConstraints id="2s2sc" uiPhoneControl="//@scenes[id='51rab']/@parentViewControllers[id='je37t']/@containers[id='idvrml3Container']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
-			</containers>
-		</parentViewControllers>
-		<parentViewControllers id="577bo" name="parentVCTablet" backgroundColor="#ffffff" backgroundImage="">
-			<containers childViewController="//@viewControllers[id='geqt9']" id="idscvnqContainer" viewController="//@scenes[id='51rab']/@parentViewControllers[id='577bo']" defaultWidth="300" defaultHeight="400" posX="520" posY="26.000003814697266" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0">
-				<positionConstraints id="h9vq7" uiPhoneControl="//@scenes[id='51rab']/@parentViewControllers[id='577bo']/@containers[id='idscvnqContainer']" layoutEdge="top" withParent="true" referenceLayoutEdge="top"/>
-				<positionConstraints id="1k0bp" uiPhoneControl="//@scenes[id='51rab']/@parentViewControllers[id='577bo']/@containers[id='idscvnqContainer']" layoutEdge="start" withParent="false" referenceElement="//@scenes[id='51rab']/@parentViewControllers[id='577bo']/@containers[id='idfn0p4Container']" referenceLayoutEdge="end"/>
-				<positionConstraints id="4fgh2" uiPhoneControl="//@scenes[id='51rab']/@parentViewControllers[id='577bo']/@containers[id='idscvnqContainer']" layoutEdge="end" withParent="true" referenceLayoutEdge="end"/>
-				<positionConstraints id="mq53f" uiPhoneControl="//@scenes[id='51rab']/@parentViewControllers[id='577bo']/@containers[id='idscvnqContainer']" layoutEdge="bottom" withParent="true" referenceLayoutEdge="bottom"/>
-			</containers>
-			<containers childViewController="//@viewControllers[id='95nb0']" id="idfn0p4Container" viewController="//@scenes[id='51rab']/@parentViewControllers[id='577bo']" defaultWidth="300" defaultHeight="400" posX="62.5" posY="7.5" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0">
-				<dimensionConstraint uiPhoneControl="//@scenes[id='51rab']/@parentViewControllers[id='577bo']/@containers[id='idfn0p4Container']" widthPercent="0.3" heightPercent="1"/>
-				<positionConstraints id="cs4v6" uiPhoneControl="//@scenes[id='51rab']/@parentViewControllers[id='577bo']/@containers[id='idfn0p4Container']" layoutEdge="top" withParent="true" referenceLayoutEdge="top"/>
-				<positionConstraints id="cg61l" uiPhoneControl="//@scenes[id='51rab']/@parentViewControllers[id='577bo']/@containers[id='idfn0p4Container']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
-			</containers>
-		</parentViewControllers>
-		<sceneViewControllers viewController="//@viewControllers[id='geqt9']"/>
-		<sceneViewControllers viewController="//@viewControllers[id='95nb0']"/>
+	<scenes id="ae9aa" name="First" launcher="true" typeSmartphone="singleVC" typeTablet="singleVC">
+		<childViewControllers viewController="//@viewControllers[id='p54ol']"/>
 	</scenes>
-	<scenes id="n5h41" name="SplitView" launcher="false" typeSmartphone="singleVC" typeTablet="multiVC">
-		<parentViewControllers id="78ntt" name="parentVCTablet" backgroundColor="#ffffff" backgroundImage="">
-			<containers childViewController="//@viewControllers[id='rsgf6']" id="id5qppcContainer" viewController="//@scenes[id='n5h41']/@parentViewControllers[id='78ntt']" defaultWidth="300" defaultHeight="400" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0">
-				<dimensionConstraint uiPhoneControl="//@scenes[id='n5h41']/@parentViewControllers[id='78ntt']/@containers[id='id5qppcContainer']" widthPercent="0.3" heightPercent="1"/>
-				<positionConstraints id="bbdse" uiPhoneControl="//@scenes[id='n5h41']/@parentViewControllers[id='78ntt']/@containers[id='id5qppcContainer']" layoutEdge="top" withParent="true" referenceLayoutEdge="top"/>
-				<positionConstraints id="ussrn" uiPhoneControl="//@scenes[id='n5h41']/@parentViewControllers[id='78ntt']/@containers[id='id5qppcContainer']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+	<scenes id="d94f1" name="Main" launcher="false" typeSmartphone="singleVC" typeTablet="multiVC">
+		<parentViewControllers id="os3jh" name="parentVCTablet" backgroundColor="#ffffff" backgroundImage="">
+			<containers childViewController="//@viewControllers[id='2ob0r']" id="idvgb04Container" viewController="//@scenes[id='d94f1']/@parentViewControllers[id='os3jh']" defaultWidth="300" defaultHeight="400" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0">
+				<dimensionConstraint uiPhoneControl="//@scenes[id='d94f1']/@parentViewControllers[id='os3jh']/@containers[id='idvgb04Container']" widthPercent="0.3" heightPercent="1"/>
+				<positionConstraints id="egv87" uiPhoneControl="//@scenes[id='d94f1']/@parentViewControllers[id='os3jh']/@containers[id='idvgb04Container']" layoutEdge="top" withParent="true" referenceLayoutEdge="top"/>
+				<positionConstraints id="dqlvr" uiPhoneControl="//@scenes[id='d94f1']/@parentViewControllers[id='os3jh']/@containers[id='idvgb04Container']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
 			</containers>
-			<containers childViewController="//@viewControllers[id='nvius']" id="idkg9n0Container" viewController="//@scenes[id='n5h41']/@parentViewControllers[id='78ntt']" defaultWidth="300" defaultHeight="400" posX="288" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0">
-				<dimensionConstraint uiPhoneControl="//@scenes[id='n5h41']/@parentViewControllers[id='78ntt']/@containers[id='idkg9n0Container']" widthPercent="0.7" heightPercent="1"/>
-				<positionConstraints id="4k9ba" uiPhoneControl="//@scenes[id='n5h41']/@parentViewControllers[id='78ntt']/@containers[id='idkg9n0Container']" layoutEdge="top" withParent="true" referenceLayoutEdge="top"/>
-				<positionConstraints id="5mdoh" uiPhoneControl="//@scenes[id='n5h41']/@parentViewControllers[id='78ntt']/@containers[id='idkg9n0Container']" layoutEdge="start" withParent="false" referenceElement="//@scenes[id='n5h41']/@parentViewControllers[id='78ntt']/@containers[id='id5qppcContainer']" referenceLayoutEdge="end"/>
+			<containers childViewController="//@viewControllers[id='1259i']" id="id0eu3lContainer" viewController="//@scenes[id='d94f1']/@parentViewControllers[id='os3jh']" defaultWidth="300" defaultHeight="400" posX="535.0000508626302" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0">
+				<dimensionConstraint uiPhoneControl="//@scenes[id='d94f1']/@parentViewControllers[id='os3jh']/@containers[id='id0eu3lContainer']" heightPercent="1"/>
+				<positionConstraints id="22n2e" uiPhoneControl="//@scenes[id='d94f1']/@parentViewControllers[id='os3jh']/@containers[id='id0eu3lContainer']" layoutEdge="start" withParent="false" referenceElement="//@scenes[id='d94f1']/@parentViewControllers[id='os3jh']/@containers[id='idvgb04Container']" referenceLayoutEdge="end"/>
+				<positionConstraints id="en821" uiPhoneControl="//@scenes[id='d94f1']/@parentViewControllers[id='os3jh']/@containers[id='id0eu3lContainer']" layoutEdge="end" withParent="true" referenceLayoutEdge="end"/>
+				<positionConstraints id="02v4u" uiPhoneControl="//@scenes[id='d94f1']/@parentViewControllers[id='os3jh']/@containers[id='id0eu3lContainer']" layoutEdge="top" withParent="true" referenceLayoutEdge="top"/>
 			</containers>
 		</parentViewControllers>
-		<sceneViewControllers viewController="//@viewControllers[id='rsgf6']"/>
-		<sceneViewControllers viewController="//@viewControllers[id='nvius']"/>
+		<childViewControllers viewController="//@viewControllers[id='2ob0r']"/>
+		<childViewControllers viewController="//@viewControllers[id='1259i']"/>
 	</scenes>
 	<menu>
-		<menuItems title="City Map" id="idCityMap">
-			<navigation id="2lv6g" destinationScene="//@scenes[id='51rab']"/>
+		<menuItems title="Home" id="idhomeMenuItem">
+			<navigation id="j1r1i" destinationScene="//@scenes[id='ae9aa']"/>
 		</menuItems>
-		<menuItems title="Image SplitView" id="idImageSplitView">
-			<navigation id="j2d3i" destinationScene="//@scenes[id='n5h41']"/>
+		<menuItems title="Immagini" id="idmainMenuItem">
+			<navigation id="orqe8" destinationScene="//@scenes[id='d94f1']"/>
 		</menuItems>
 	</menu>
 </metamodel:Application>
