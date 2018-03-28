@@ -109,7 +109,7 @@ dependencies {
 	«ENDIF-»
 	compile 'com.android.support:appcompat-v7:25.4.0'
     compile 'com.android.support:design:25.4.0'
-    compile 'com.android.support.constraint:constraint-layout:1.1.0-beta5'
+    compile 'com.android.support.constraint:constraint-layout:1.1.0-beta6'
     «IF existsAtLeastOne(viewControllers.map) || existsAtLeastOne(watchControllers.watchVoiceMessage)-»
     implementation 'com.google.android.gms:play-services-base:11.8.0'
     «IF existsAtLeastOne(viewControllers.map)-»
@@ -169,7 +169,7 @@ public interface OnFragmentNavigationInteractionListener {
 «REM»--------------------------- MyWearableListenerService ---------------------------«ENDREM»
 «IF existsAtLeastOne(watchControllers.watchVoiceMessage)-»
 «FILE name+"/mobile/src/main/java/"+companyIdentifier.replaceAll("\\.","/") +"/"+ name.toLowerCase() +"/services/MyWearableListenerService.java"-»
-package «companyIdentifier».«name.toLowerCase()»;
+package «companyIdentifier».«name.toLowerCase()».services;
 
 import com.google.android.gms.wearable.MessageEvent;
 import com.google.android.gms.wearable.WearableListenerService;
@@ -209,42 +209,10 @@ public class MyWearableListenerService extends WearableListenerService {
 «ENDFILE-»
 «ENDIF-»
 
-«REM»----------------------------------- Utils -----------------------------------«ENDREM»
-«FILE name+"/mobile/src/main/java/"+companyIdentifier.replaceAll("\\.","/") +"/"+ name.toLowerCase() +"/utilities/Utils.java"-»
-package «companyIdentifier».«name.toLowerCase()».utilities;
-	
-import java.io.*;
-	
-public final class Utils {
-
-	/**
-	 * Returns the text (string) contained in the Input Stream passed as parameter
-	 * @param inputStream
-	 * @return string
-	 */
-	public static String fromInputStreamToString(InputStream inputStream) {
-		BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-	    String readLine = "";
-	    StringBuilder stringBuilder = new StringBuilder();
-	    try {
-	        while ((readLine = bufferedReader.readLine()) != null) {
-	        	stringBuilder.append(readLine);
-		    }
-	        inputStream.close(); 
-		    bufferedReader.close();
-	    }
-	    catch (IOException e) {
-	        e.printStackTrace();
-	    }
-	    return stringBuilder.toString();
-	}
-}
-«ENDFILE-»
-
 «REM»--------------------------- ImageDownloadingTask ---------------------------«ENDREM»
 «IF viewControllers.imageViews.sourceType.toString().contains("remoteFile")-»
 «FILE this.name+"/mobile/src/main/java/"+this.companyIdentifier.replaceAll("\\.","/") +"/"+this.name.toLowerCase() +"/utilities/ImageDownloadingTask.java"-»
-package «this.companyIdentifier».«this.name.toLowerCase()»;
+package «this.companyIdentifier».«this.name.toLowerCase()».utilities;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
@@ -322,7 +290,7 @@ public class ImageDownloadingTask extends AsyncTask<ImageView, Void, Bitmap>{
 «REM»-------------------------------- MyListAdapter --------------------------------«ENDREM»
 «IF viewControllers.listViews.size != 0-»
 «FILE name+"/mobile/src/main/java/"+companyIdentifier.replaceAll("\\.","/") +"/"+ name.toLowerCase() +"/adapters/MyListAdapter.java"-»
-package «companyIdentifier».«name.toLowerCase()»;
+package «companyIdentifier».«name.toLowerCase()».adapters;
 
 import android.app.Activity;
 import android.view.LayoutInflater;
@@ -423,7 +391,7 @@ public final class MyListAdapter extends ArrayAdapter<String> {
 «REM»-------------------------------- MyGridAdapter --------------------------------«ENDREM»
 «IF viewControllers.gridViews.size != 0-»
 «FILE name+"/mobile/src/main/java/"+companyIdentifier.replaceAll("\\.","/") +"/"+ name.toLowerCase() +"/adapters/MyGridAdapter.java"-»
-package «companyIdentifier».«name.toLowerCase()»;
+package «companyIdentifier».«name.toLowerCase()».adapters;
 
 import android.app.Activity;
 import android.graphics.drawable.Drawable;

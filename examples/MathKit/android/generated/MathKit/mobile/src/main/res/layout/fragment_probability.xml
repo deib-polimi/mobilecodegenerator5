@@ -1,0 +1,360 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/probability_constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    tools:context="it.polimi.mathkit.fragments.ProbabilityFragment">
+    
+	<Button
+		android:id="@+id/calcProbButton"
+		
+		android:layout_width="150.0dp"
+		
+		android:layout_height="40.0dp"
+		
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+    	
+    	
+		
+		app:layout_constraintVertical_bias="0.9"
+		app:layout_constraintTop_toBottomOf="@+id/permutationsLabel"
+		app:layout_constraintBottom_toBottomOf="parent"
+		
+		android:layout_marginTop="20dp"
+		android:layout_marginBottom="0dp"
+		
+		
+		android:layout_marginStart="0dp"
+		android:layout_marginEnd="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+        
+        android:textColor="#ffffff"
+        
+        android:background="@drawable/calcprobbutton_background"
+		style="?android:attr/borderlessButtonStyle"
+        android:textAllCaps="false"
+        android:text="Calculate"/>        
+	<RelativeLayout
+		android:id="@+id/orderSwitch"
+		
+		android:layout_width="51.0dp"
+		android:layout_height="36.0dp"
+		
+		app:layout_constraintTop_toTopOf="@+id/orderLabel"
+		app:layout_constraintStart_toEndOf="@+id/orderLabel"
+    	
+		
+		android:layout_marginStart="0dp"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginEnd="0dp"
+		android:layout_marginBottom="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+		android:gravity="center">
+	
+		<android.support.v7.widget.SwitchCompat
+			android:id="@+id/orderSwitchButton"
+			android:checked="true"
+        	android:layout_width="wrap_content"
+			android:layout_height="wrap_content"/>
+	
+	</RelativeLayout>        
+	<RelativeLayout
+		android:id="@+id/repeatSwitch"
+		
+		android:layout_width="51.0dp"
+		android:layout_height="36.0dp"
+		
+		app:layout_constraintTop_toTopOf="@+id/repeatLabel"
+		app:layout_constraintStart_toEndOf="@+id/repeatLabel"
+    	
+		
+		android:layout_marginStart="0dp"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginEnd="0dp"
+		android:layout_marginBottom="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+		android:gravity="center">
+	
+		<android.support.v7.widget.SwitchCompat
+			android:id="@+id/repeatSwitchButton"
+			android:checked="true"
+        	android:layout_width="wrap_content"
+			android:layout_height="wrap_content"/>
+	
+	</RelativeLayout>        
+	<TextView
+		android:id="@+id/cardinalityLabel"
+		
+		
+		android:layout_width="0dp"
+		
+		android:layout_height="36.0dp"
+		app:layout_constraintWidth_percent="0.5"
+		
+		app:layout_constraintStart_toStartOf="parent"
+    	
+    	
+		
+		app:layout_constraintVertical_bias="0.1"
+		
+		app:layout_constraintVertical_chainStyle="packed"
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintBottom_toTopOf="@+id/kLabel"
+		
+		android:layout_marginTop="0dp"
+		
+		
+		android:layout_marginStart="0dp"
+		android:layout_marginEnd="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+        
+        android:textStyle="bold"
+        android:text="Elements in the set ="
+        android:gravity="right|center_vertical"
+        android:textColor="#000000"
+        android:textSize="18dp"/>
+	<TextView
+		android:id="@+id/kLabel"
+		
+		
+		android:layout_width="0dp"
+		
+		android:layout_height="36.0dp"
+		app:layout_constraintWidth_percent="0.5"
+		
+		app:layout_constraintStart_toStartOf="parent"
+    	
+    	
+		
+		app:layout_constraintVertical_bias="0.1"
+		app:layout_constraintTop_toBottomOf="@+id/cardinalityLabel"
+		app:layout_constraintBottom_toBottomOf="parent"
+		
+		android:layout_marginTop="20dp"
+		android:layout_marginBottom="0dp"
+		
+		
+		android:layout_marginStart="0dp"
+		android:layout_marginEnd="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+        
+        android:textStyle="bold"
+        android:text="Elements to draw ="
+        android:gravity="right|center_vertical"
+        android:textColor="#000000"
+        android:textSize="18dp"/>
+	<TextView
+		android:id="@+id/orderLabel"
+		
+		
+		android:layout_width="0dp"
+		
+		android:layout_height="36.0dp"
+		app:layout_constraintWidth_percent="0.5"
+		
+		app:layout_constraintStart_toStartOf="parent"
+    	
+    	
+		
+		app:layout_constraintVertical_bias="0.5"
+		
+		app:layout_constraintVertical_chainStyle="packed"
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintBottom_toTopOf="@+id/repeatLabel"
+		
+		android:layout_marginTop="0dp"
+		
+		
+		android:layout_marginStart="0dp"
+		android:layout_marginEnd="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+        
+        android:textStyle="bold"
+        android:text="Order"
+        android:gravity="right|center_vertical"
+        android:textColor="#000000"
+        android:textSize="18dp"/>
+	<TextView
+		android:id="@+id/repeatLabel"
+		
+		
+		android:layout_width="0dp"
+		
+		android:layout_height="36.0dp"
+		app:layout_constraintWidth_percent="0.5"
+		
+		app:layout_constraintStart_toStartOf="parent"
+    	
+    	
+		
+		app:layout_constraintVertical_bias="0.5"
+		app:layout_constraintTop_toBottomOf="@+id/orderLabel"
+		app:layout_constraintBottom_toBottomOf="parent"
+		
+		android:layout_marginTop="20dp"
+		android:layout_marginBottom="0dp"
+		
+		
+		android:layout_marginStart="0dp"
+		android:layout_marginEnd="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+        
+        android:textStyle="bold"
+        android:text="Repetition"
+        android:gravity="right|center_vertical"
+        android:textColor="#000000"
+        android:textSize="18dp"/>
+	<TextView
+		android:id="@+id/permutationsLabel"
+		
+		
+		android:layout_width="0dp"
+		
+		android:layout_height="36.0dp"
+		app:layout_constraintWidth_percent="0.5"
+		
+		app:layout_constraintStart_toStartOf="parent"
+    	
+    	
+		
+		app:layout_constraintVertical_bias="0.9"
+		
+		app:layout_constraintVertical_chainStyle="packed"
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintBottom_toTopOf="@+id/calcProbButton"
+		
+		android:layout_marginTop="0dp"
+		
+		
+		android:layout_marginStart="0dp"
+		android:layout_marginEnd="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+        
+        android:textStyle="bold"
+        android:text="Permutations ="
+        android:gravity="right|center_vertical"
+        android:textColor="#000000"
+        android:textSize="20dp"/>
+	<TextView
+		android:id="@+id/resultPermLabel"
+		
+		android:layout_width="88.0dp"
+		android:layout_height="36.0dp"
+		
+		app:layout_constraintTop_toTopOf="@+id/permutationsLabel"
+		app:layout_constraintStart_toEndOf="@+id/permutationsLabel"
+    	
+		
+		android:layout_marginStart="10dp"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginEnd="0dp"
+		android:layout_marginBottom="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+        android:text="result"
+        android:gravity="left|center_vertical"
+        android:textColor="#000000"
+        android:textSize="20dp"/>
+	<android.support.v7.widget.AppCompatEditText
+		android:id="@+id/cardinalityEditText"
+		
+		android:layout_width="88.0dp"
+		android:layout_height="36.0dp"
+		
+		app:layout_constraintTop_toTopOf="@+id/cardinalityLabel"
+		app:layout_constraintStart_toEndOf="@+id/cardinalityLabel"
+    	
+		
+		android:layout_marginStart="10dp"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginEnd="0dp"
+		android:layout_marginBottom="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+       
+        android:text=""
+        android:hint="N" 
+        android:textColor="#000000"
+        android:textSize="18dp"/>
+	<android.support.v7.widget.AppCompatEditText
+		android:id="@+id/kEditText"
+		
+		android:layout_width="88.0dp"
+		android:layout_height="36.0dp"
+		
+		app:layout_constraintTop_toTopOf="@+id/kLabel"
+		app:layout_constraintStart_toEndOf="@+id/kLabel"
+    	
+		
+		android:layout_marginStart="10dp"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginEnd="0dp"
+		android:layout_marginBottom="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+       
+        android:text=""
+        android:hint="k" 
+        android:textColor="#000000"
+        android:textSize="18dp"/>
+
+	
+</android.support.constraint.ConstraintLayout>

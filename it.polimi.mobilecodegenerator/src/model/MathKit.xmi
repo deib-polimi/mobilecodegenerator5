@@ -1,0 +1,424 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metamodel:Application xmi:version="2.0"
+	xmlns:xmi="http://www.omg.org/XMI"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:metamodel="http://metamodel/1.0" xsi:schemaLocation="http://metamodel/1.0 ../metamodel/metamodel.ecore" name="MathKit" companyIdentifier="it.polimi">
+	<dataHandler/>
+	<viewControllers id="nl6g0" name="List" backgroundColor="#ffffff" backgroundImage="">
+		<listViews id="toolsListView" viewController="//@viewControllers[id='nl6g0']" defaultWidth="270" defaultHeight="270" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" backgroundColor="" listType="image">
+			<positionConstraints id="41cd2" uiPhoneControl="//@viewControllers[id='nl6g0']/@listViews[id='toolsListView']" layoutEdge="top" withParent="true" referenceLayoutEdge="top"/>
+			<positionConstraints id="lke3n" uiPhoneControl="//@viewControllers[id='nl6g0']/@listViews[id='toolsListView']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+			<positionConstraints id="7d79u" uiPhoneControl="//@viewControllers[id='nl6g0']/@listViews[id='toolsListView']" layoutEdge="bottom" withParent="true" referenceLayoutEdge="bottom"/>
+			<positionConstraints id="ol0eo" uiPhoneControl="//@viewControllers[id='nl6g0']/@listViews[id='toolsListView']" layoutEdge="end" withParent="true" referenceLayoutEdge="end"/>
+			<navigations id="l34od" contextScene="//@scenes[id='d13ce']"/>
+			<listViewCells title="Fractions" subtitle="Content"/>
+			<listViewCells title="Probability" subtitle="Content"/>
+			<listViewCells title="GCF-LCM" subtitle="Content"/>
+		</listViews>
+	</viewControllers>
+	<viewControllers id="0arqa" name="Fractions" backgroundColor="#ffffff" backgroundImage="">
+		<controlChains id="idd3l63Chain" viewController="//@viewControllers[id='0arqa']" axis="vertical" type="spread" nControls="8"/>
+		<textViews id="dtfLabel" viewController="//@viewControllers[id='0arqa']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" controlChain="//@viewControllers[id='0arqa']/@controlChains[id='idd3l63Chain']" indexInChain="0" followingInChain="//@viewControllers[id='0arqa']/@textViews[id='decimalLabel']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="Decimal To Fraction" textAlign="center" textColor="#000000" textSize="24" textDecoration="bold">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='0arqa']/@textViews[id='dtfLabel']" widthPercent="1"/>
+			<positionConstraints id="kku3q" uiPhoneControl="//@viewControllers[id='0arqa']/@textViews[id='dtfLabel']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+		</textViews>
+		<textViews id="decimalLabel" viewController="//@viewControllers[id='0arqa']" defaultWidth="88" defaultHeight="36" posX="0" posY="154.499994913737" controlChain="//@viewControllers[id='0arqa']/@controlChains[id='idd3l63Chain']" indexInChain="1" precedentInChain="//@viewControllers[id='0arqa']/@textViews[id='dtfLabel']" followingInChain="//@viewControllers[id='0arqa']/@textViews[id='fractionLabel']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="Decimal:" textAlign="right" textColor="#000000" textSize="20" textDecoration="bold">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='0arqa']/@textViews[id='decimalLabel']" widthPercent="0.5"/>
+			<positionConstraints id="ruefp" uiPhoneControl="//@viewControllers[id='0arqa']/@textViews[id='decimalLabel']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+		</textViews>
+		<textViews id="fractionLabel" viewController="//@viewControllers[id='0arqa']" defaultWidth="88" defaultHeight="36" posX="1.4285714285714286" posY="167.92859758649556" controlChain="//@viewControllers[id='0arqa']/@controlChains[id='idd3l63Chain']" indexInChain="2" precedentInChain="//@viewControllers[id='0arqa']/@textViews[id='decimalLabel']" followingInChain="//@viewControllers[id='0arqa']/@textViews[id='fsLabel']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="Fraction:" textAlign="right" textColor="#000000" textSize="20" textDecoration="bold">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='0arqa']/@textViews[id='fractionLabel']" widthPercent="0.5"/>
+			<positionConstraints id="gmap3" uiPhoneControl="//@viewControllers[id='0arqa']/@textViews[id='fractionLabel']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+		</textViews>
+		<textViews id="fsLabel" viewController="//@viewControllers[id='0arqa']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" controlChain="//@viewControllers[id='0arqa']/@controlChains[id='idd3l63Chain']" indexInChain="3" precedentInChain="//@viewControllers[id='0arqa']/@textViews[id='fractionLabel']" followingInChain="//@viewControllers[id='0arqa']/@textViews[id='slashLabel']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="Fraction Simplifier" textAlign="center" textColor="#000000" textSize="24" textDecoration="bold">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='0arqa']/@textViews[id='fsLabel']" widthPercent="1"/>
+			<positionConstraints id="2nepk" uiPhoneControl="//@viewControllers[id='0arqa']/@textViews[id='fsLabel']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+		</textViews>
+		<textViews id="slashLabel" viewController="//@viewControllers[id='0arqa']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" controlChain="//@viewControllers[id='0arqa']/@controlChains[id='idd3l63Chain']" indexInChain="4" precedentInChain="//@viewControllers[id='0arqa']/@textViews[id='fsLabel']" followingInChain="//@viewControllers[id='0arqa']/@textViews[id='simpleLabel']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="/" textAlign="center" textColor="#000000" textSize="18" textDecoration="none">
+			<positionConstraints id="b7ff4" uiPhoneControl="//@viewControllers[id='0arqa']/@textViews[id='slashLabel']" layoutEdge="centerX" withParent="true" referenceLayoutEdge="centerX"/>
+		</textViews>
+		<textViews id="simpleLabel" viewController="//@viewControllers[id='0arqa']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" controlChain="//@viewControllers[id='0arqa']/@controlChains[id='idd3l63Chain']" indexInChain="5" precedentInChain="//@viewControllers[id='0arqa']/@textViews[id='slashLabel']" followingInChain="//@viewControllers[id='0arqa']/@textViews[id='decSimpLabel']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="Simple:" textAlign="right" textColor="#000000" textSize="20" textDecoration="bold">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='0arqa']/@textViews[id='simpleLabel']" widthPercent="0.5"/>
+			<positionConstraints id="fj89k" uiPhoneControl="//@viewControllers[id='0arqa']/@textViews[id='simpleLabel']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+		</textViews>
+		<textViews id="decSimpLabel" viewController="//@viewControllers[id='0arqa']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" controlChain="//@viewControllers[id='0arqa']/@controlChains[id='idd3l63Chain']" indexInChain="6" precedentInChain="//@viewControllers[id='0arqa']/@textViews[id='simpleLabel']" followingInChain="//@viewControllers[id='0arqa']/@buttons[id='calcFractionsButton']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="Decimal:" textAlign="right" textColor="#000000" textSize="20" textDecoration="bold">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='0arqa']/@textViews[id='decSimpLabel']" widthPercent="0.5"/>
+			<positionConstraints id="mfr7i" uiPhoneControl="//@viewControllers[id='0arqa']/@textViews[id='decSimpLabel']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+		</textViews>
+		<editTexts id="decimalEditText" viewController="//@viewControllers[id='0arqa']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="10" marginEnd="0" initialContent="" placeholder="value" textColor="#000000" textSize="20">
+			<positionConstraints id="r6epb" uiPhoneControl="//@viewControllers[id='0arqa']/@editTexts[id='decimalEditText']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='0arqa']/@textViews[id='decimalLabel']" referenceLayoutEdge="top"/>
+			<positionConstraints id="n9orl" uiPhoneControl="//@viewControllers[id='0arqa']/@editTexts[id='decimalEditText']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='0arqa']/@textViews[id='decimalLabel']" referenceLayoutEdge="end"/>
+		</editTexts>
+		<textViews id="fractionResultLabel" viewController="//@viewControllers[id='0arqa']" defaultWidth="88" defaultHeight="36" posX="161.42857142857144" posY="166.5000261579241" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="15" marginEnd="0" content="result" textAlign="left" textColor="#000000" textSize="20" textDecoration="none">
+			<positionConstraints id="ntgsl" uiPhoneControl="//@viewControllers[id='0arqa']/@textViews[id='fractionResultLabel']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='0arqa']/@textViews[id='fractionLabel']" referenceLayoutEdge="top"/>
+			<positionConstraints id="o764l" uiPhoneControl="//@viewControllers[id='0arqa']/@textViews[id='fractionResultLabel']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='0arqa']/@textViews[id='fractionLabel']" referenceLayoutEdge="end"/>
+		</textViews>
+		<editTexts id="numEditText" viewController="//@viewControllers[id='0arqa']" defaultWidth="88" defaultHeight="36" posX="45.500030517578125" posY="267.3250198364258" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" initialContent="" placeholder="num" textColor="#000000" textSize="20">
+			<positionConstraints id="pstps" uiPhoneControl="//@viewControllers[id='0arqa']/@editTexts[id='numEditText']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='0arqa']/@textViews[id='slashLabel']" referenceLayoutEdge="top"/>
+			<positionConstraints id="3egga" uiPhoneControl="//@viewControllers[id='0arqa']/@editTexts[id='numEditText']" layoutEdge="end" withParent="false" referenceElement="//@viewControllers[id='0arqa']/@textViews[id='slashLabel']" referenceLayoutEdge="start"/>
+		</editTexts>
+		<editTexts id="denEditText" viewController="//@viewControllers[id='0arqa']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" initialContent="" placeholder="den" textColor="#000000" textSize="20">
+			<positionConstraints id="alojk" uiPhoneControl="//@viewControllers[id='0arqa']/@editTexts[id='denEditText']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='0arqa']/@textViews[id='slashLabel']" referenceLayoutEdge="top"/>
+			<positionConstraints id="s5l0q" uiPhoneControl="//@viewControllers[id='0arqa']/@editTexts[id='denEditText']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='0arqa']/@textViews[id='slashLabel']" referenceLayoutEdge="end"/>
+		</editTexts>
+		<textViews id="simpleResultLabel" viewController="//@viewControllers[id='0arqa']" defaultWidth="88" defaultHeight="36" posX="189.16666666666666" posY="469.32505289713544" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="15" marginEnd="0" content="result" textAlign="left" textColor="#000000" textSize="20" textDecoration="none">
+			<positionConstraints id="4au4q" uiPhoneControl="//@viewControllers[id='0arqa']/@textViews[id='simpleResultLabel']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='0arqa']/@textViews[id='simpleLabel']" referenceLayoutEdge="top"/>
+			<positionConstraints id="2ndbg" uiPhoneControl="//@viewControllers[id='0arqa']/@textViews[id='simpleResultLabel']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='0arqa']/@textViews[id='simpleLabel']" referenceLayoutEdge="end"/>
+		</textViews>
+		<textViews id="decimalResultLabel" viewController="//@viewControllers[id='0arqa']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="15" marginEnd="0" content="result" textAlign="left" textColor="#000000" textSize="20" textDecoration="none">
+			<positionConstraints id="a5iur" uiPhoneControl="//@viewControllers[id='0arqa']/@textViews[id='decimalResultLabel']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='0arqa']/@textViews[id='decSimpLabel']" referenceLayoutEdge="top"/>
+			<positionConstraints id="c2b6d" uiPhoneControl="//@viewControllers[id='0arqa']/@textViews[id='decimalResultLabel']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='0arqa']/@textViews[id='decSimpLabel']" referenceLayoutEdge="end"/>
+		</textViews>
+		<buttons id="calcFractionsButton" viewController="//@viewControllers[id='0arqa']" defaultWidth="88" defaultHeight="40" posX="790" posY="405.41248321533203" controlChain="//@viewControllers[id='0arqa']/@controlChains[id='idd3l63Chain']" indexInChain="7" precedentInChain="//@viewControllers[id='0arqa']/@textViews[id='decSimpLabel']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" title="Calculate" textColor="#ffffff" backgroundColor="#00bc30" borderRadius="5" clickColor="">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='0arqa']/@buttons[id='calcFractionsButton']" fixedWidth="150"/>
+			<positionConstraints id="g4shn" uiPhoneControl="//@viewControllers[id='0arqa']/@buttons[id='calcFractionsButton']" layoutEdge="centerX" withParent="true" referenceLayoutEdge="centerX"/>
+			<navigations id="m1619" contextScene="//@scenes[id='d13ce']"/>
+		</buttons>
+	</viewControllers>
+	<viewControllers id="4bipc" name="Probability" backgroundColor="#ffffff" backgroundImage="">
+		<controlChains id="idt7ofuChain" viewController="//@viewControllers[id='4bipc']" axis="vertical" type="packed" nControls="2" bias="0.1" spacing="20"/>
+		<controlChains id="ids8fh4Chain" viewController="//@viewControllers[id='4bipc']" axis="vertical" type="packed" nControls="2" bias="0.5" spacing="20"/>
+		<controlChains id="idrmgnsChain" viewController="//@viewControllers[id='4bipc']" axis="vertical" type="packed" nControls="2" bias="0.9" spacing="20"/>
+		<textViews id="cardinalityLabel" viewController="//@viewControllers[id='4bipc']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" controlChain="//@viewControllers[id='4bipc']/@controlChains[id='idt7ofuChain']" indexInChain="0" followingInChain="//@viewControllers[id='4bipc']/@textViews[id='kLabel']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="Elements in the set =" textAlign="right" textColor="#000000" textSize="18" textDecoration="bold">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='4bipc']/@textViews[id='cardinalityLabel']" widthPercent="0.5"/>
+			<positionConstraints id="bk4vn" uiPhoneControl="//@viewControllers[id='4bipc']/@textViews[id='cardinalityLabel']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+		</textViews>
+		<textViews id="kLabel" viewController="//@viewControllers[id='4bipc']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" controlChain="//@viewControllers[id='4bipc']/@controlChains[id='idt7ofuChain']" indexInChain="1" precedentInChain="//@viewControllers[id='4bipc']/@textViews[id='cardinalityLabel']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="Elements to draw =" textAlign="right" textColor="#000000" textSize="18" textDecoration="bold">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='4bipc']/@textViews[id='kLabel']" widthPercent="0.5"/>
+			<positionConstraints id="1ufrs" uiPhoneControl="//@viewControllers[id='4bipc']/@textViews[id='kLabel']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+		</textViews>
+		<textViews id="orderLabel" viewController="//@viewControllers[id='4bipc']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" controlChain="//@viewControllers[id='4bipc']/@controlChains[id='ids8fh4Chain']" indexInChain="0" followingInChain="//@viewControllers[id='4bipc']/@textViews[id='repeatLabel']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="Order" textAlign="right" textColor="#000000" textSize="18" textDecoration="bold">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='4bipc']/@textViews[id='orderLabel']" widthPercent="0.5"/>
+			<positionConstraints id="78aui" uiPhoneControl="//@viewControllers[id='4bipc']/@textViews[id='orderLabel']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+		</textViews>
+		<textViews id="repeatLabel" viewController="//@viewControllers[id='4bipc']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" controlChain="//@viewControllers[id='4bipc']/@controlChains[id='ids8fh4Chain']" indexInChain="1" precedentInChain="//@viewControllers[id='4bipc']/@textViews[id='orderLabel']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="Repetition" textAlign="right" textColor="#000000" textSize="18" textDecoration="bold">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='4bipc']/@textViews[id='repeatLabel']" widthPercent="0.5"/>
+			<positionConstraints id="gnuei" uiPhoneControl="//@viewControllers[id='4bipc']/@textViews[id='repeatLabel']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+		</textViews>
+		<editTexts id="cardinalityEditText" viewController="//@viewControllers[id='4bipc']" defaultWidth="88" defaultHeight="36" posX="208.75" posY="66.25" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="10" marginEnd="0" initialContent="" placeholder="N" textColor="#000000" textSize="18">
+			<positionConstraints id="p5eul" uiPhoneControl="//@viewControllers[id='4bipc']/@editTexts[id='cardinalityEditText']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='4bipc']/@textViews[id='cardinalityLabel']" referenceLayoutEdge="top"/>
+			<positionConstraints id="8st2f" uiPhoneControl="//@viewControllers[id='4bipc']/@editTexts[id='cardinalityEditText']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='4bipc']/@textViews[id='cardinalityLabel']" referenceLayoutEdge="end"/>
+		</editTexts>
+		<editTexts id="kEditText" viewController="//@viewControllers[id='4bipc']" defaultWidth="88" defaultHeight="36" posX="187.5" posY="128.40001424153647" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="10" marginEnd="0" initialContent="" placeholder="k" textColor="#000000" textSize="18">
+			<positionConstraints id="acekn" uiPhoneControl="//@viewControllers[id='4bipc']/@editTexts[id='kEditText']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='4bipc']/@textViews[id='kLabel']" referenceLayoutEdge="top"/>
+			<positionConstraints id="pjvq6" uiPhoneControl="//@viewControllers[id='4bipc']/@editTexts[id='kEditText']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='4bipc']/@textViews[id='kLabel']" referenceLayoutEdge="end"/>
+		</editTexts>
+		<switches id="orderSwitch" viewController="//@viewControllers[id='4bipc']" defaultWidth="51" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0">
+			<positionConstraints id="9352o" uiPhoneControl="//@viewControllers[id='4bipc']/@switches[id='orderSwitch']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='4bipc']/@textViews[id='orderLabel']" referenceLayoutEdge="top"/>
+			<positionConstraints id="r6bbf" uiPhoneControl="//@viewControllers[id='4bipc']/@switches[id='orderSwitch']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='4bipc']/@textViews[id='orderLabel']" referenceLayoutEdge="end"/>
+		</switches>
+		<switches id="repeatSwitch" viewController="//@viewControllers[id='4bipc']" defaultWidth="51" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0">
+			<positionConstraints id="id5il" uiPhoneControl="//@viewControllers[id='4bipc']/@switches[id='repeatSwitch']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='4bipc']/@textViews[id='repeatLabel']" referenceLayoutEdge="top"/>
+			<positionConstraints id="8b2fo" uiPhoneControl="//@viewControllers[id='4bipc']/@switches[id='repeatSwitch']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='4bipc']/@textViews[id='repeatLabel']" referenceLayoutEdge="end"/>
+		</switches>
+		<textViews id="permutationsLabel" viewController="//@viewControllers[id='4bipc']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" controlChain="//@viewControllers[id='4bipc']/@controlChains[id='idrmgnsChain']" indexInChain="0" followingInChain="//@viewControllers[id='4bipc']/@buttons[id='calcProbButton']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="Permutations =" textAlign="right" textColor="#000000" textSize="20" textDecoration="bold">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='4bipc']/@textViews[id='permutationsLabel']" widthPercent="0.5"/>
+			<positionConstraints id="ft94j" uiPhoneControl="//@viewControllers[id='4bipc']/@textViews[id='permutationsLabel']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+		</textViews>
+		<buttons id="calcProbButton" viewController="//@viewControllers[id='4bipc']" defaultWidth="88" defaultHeight="40" posX="0" posY="431.95003509521484" controlChain="//@viewControllers[id='4bipc']/@controlChains[id='idrmgnsChain']" indexInChain="1" precedentInChain="//@viewControllers[id='4bipc']/@textViews[id='permutationsLabel']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" title="Calculate" textColor="#ffffff" backgroundColor="#00bc30" borderRadius="5" clickColor="">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='4bipc']/@buttons[id='calcProbButton']" fixedWidth="150"/>
+			<positionConstraints id="l7h2g" uiPhoneControl="//@viewControllers[id='4bipc']/@buttons[id='calcProbButton']" layoutEdge="centerX" withParent="true" referenceLayoutEdge="centerX"/>
+			<navigations id="gc102" contextScene="//@scenes[id='d13ce']"/>
+		</buttons>
+		<textViews id="resultPermLabel" viewController="//@viewControllers[id='4bipc']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="10" marginEnd="0" content="result" textAlign="left" textColor="#000000" textSize="20" textDecoration="none">
+			<positionConstraints id="cf9ts" uiPhoneControl="//@viewControllers[id='4bipc']/@textViews[id='resultPermLabel']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='4bipc']/@textViews[id='permutationsLabel']" referenceLayoutEdge="top"/>
+			<positionConstraints id="37snr" uiPhoneControl="//@viewControllers[id='4bipc']/@textViews[id='resultPermLabel']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='4bipc']/@textViews[id='permutationsLabel']" referenceLayoutEdge="end"/>
+		</textViews>
+	</viewControllers>
+	<viewControllers id="7lagq" name="Commons" backgroundColor="#ffffff" backgroundImage="">
+		<controlChains id="id34c5kChain" viewController="//@viewControllers[id='7lagq']" axis="vertical" type="spread" nControls="7"/>
+		<textViews id="inputsLabel" viewController="//@viewControllers[id='7lagq']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" controlChain="//@viewControllers[id='7lagq']/@controlChains[id='id34c5kChain']" indexInChain="0" followingInChain="//@viewControllers[id='7lagq']/@textViews[id='firstLabel']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="Inputs" textAlign="center" textColor="#000000" textSize="24" textDecoration="bold">
+			<positionConstraints id="hckk4" uiPhoneControl="//@viewControllers[id='7lagq']/@textViews[id='inputsLabel']" layoutEdge="centerX" withParent="true" referenceLayoutEdge="centerX"/>
+		</textViews>
+		<textViews id="firstLabel" viewController="//@viewControllers[id='7lagq']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" controlChain="//@viewControllers[id='7lagq']/@controlChains[id='id34c5kChain']" indexInChain="1" precedentInChain="//@viewControllers[id='7lagq']/@textViews[id='inputsLabel']" followingInChain="//@viewControllers[id='7lagq']/@textViews[id='secondLabel']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="First number =" textAlign="right" textColor="#000000" textSize="18" textDecoration="bold">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='7lagq']/@textViews[id='firstLabel']" widthPercent="0.5"/>
+			<positionConstraints id="ru8f3" uiPhoneControl="//@viewControllers[id='7lagq']/@textViews[id='firstLabel']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+		</textViews>
+		<textViews id="secondLabel" viewController="//@viewControllers[id='7lagq']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" controlChain="//@viewControllers[id='7lagq']/@controlChains[id='id34c5kChain']" indexInChain="2" precedentInChain="//@viewControllers[id='7lagq']/@textViews[id='firstLabel']" followingInChain="//@viewControllers[id='7lagq']/@textViews[id='resultsCommonsLabel']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="Second number =" textAlign="right" textColor="#000000" textSize="18" textDecoration="bold">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='7lagq']/@textViews[id='secondLabel']" widthPercent="0.5"/>
+			<positionConstraints id="1rng4" uiPhoneControl="//@viewControllers[id='7lagq']/@textViews[id='secondLabel']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+		</textViews>
+		<textViews id="resultsCommonsLabel" viewController="//@viewControllers[id='7lagq']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" controlChain="//@viewControllers[id='7lagq']/@controlChains[id='id34c5kChain']" indexInChain="3" precedentInChain="//@viewControllers[id='7lagq']/@textViews[id='secondLabel']" followingInChain="//@viewControllers[id='7lagq']/@textViews[id='gcfLabel']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="Results" textAlign="center" textColor="#000000" textSize="24" textDecoration="bold">
+			<positionConstraints id="05034" uiPhoneControl="//@viewControllers[id='7lagq']/@textViews[id='resultsCommonsLabel']" layoutEdge="centerX" withParent="true" referenceLayoutEdge="centerX"/>
+		</textViews>
+		<textViews id="gcfLabel" viewController="//@viewControllers[id='7lagq']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" controlChain="//@viewControllers[id='7lagq']/@controlChains[id='id34c5kChain']" indexInChain="4" precedentInChain="//@viewControllers[id='7lagq']/@textViews[id='resultsCommonsLabel']" followingInChain="//@viewControllers[id='7lagq']/@textViews[id='lcmLabel']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="GCF =" textAlign="right" textColor="#000000" textSize="20" textDecoration="bold">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='7lagq']/@textViews[id='gcfLabel']" widthPercent="0.5"/>
+			<positionConstraints id="nsf8d" uiPhoneControl="//@viewControllers[id='7lagq']/@textViews[id='gcfLabel']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+		</textViews>
+		<textViews id="lcmLabel" viewController="//@viewControllers[id='7lagq']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" controlChain="//@viewControllers[id='7lagq']/@controlChains[id='id34c5kChain']" indexInChain="5" precedentInChain="//@viewControllers[id='7lagq']/@textViews[id='gcfLabel']" followingInChain="//@viewControllers[id='7lagq']/@buttons[id='calcCommButton']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="LCM =" textAlign="right" textColor="#000000" textSize="20" textDecoration="bold">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='7lagq']/@textViews[id='lcmLabel']" widthPercent="0.5"/>
+			<positionConstraints id="oao03" uiPhoneControl="//@viewControllers[id='7lagq']/@textViews[id='lcmLabel']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+		</textViews>
+		<buttons id="calcCommButton" viewController="//@viewControllers[id='7lagq']" defaultWidth="88" defaultHeight="40" posX="0" posY="0" controlChain="//@viewControllers[id='7lagq']/@controlChains[id='id34c5kChain']" indexInChain="6" precedentInChain="//@viewControllers[id='7lagq']/@textViews[id='lcmLabel']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" title="Calculate" textColor="#ffffff" backgroundColor="#00bc30" borderRadius="5" clickColor="">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='7lagq']/@buttons[id='calcCommButton']" fixedWidth="150"/>
+			<positionConstraints id="mrqvr" uiPhoneControl="//@viewControllers[id='7lagq']/@buttons[id='calcCommButton']" layoutEdge="centerX" withParent="true" referenceLayoutEdge="centerX"/>
+			<navigations id="t748c" contextScene="//@scenes[id='d13ce']"/>
+		</buttons>
+		<editTexts id="firstEditText" viewController="//@viewControllers[id='7lagq']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="10" marginEnd="0" initialContent="" placeholder="first" textColor="#000000" textSize="18">
+			<positionConstraints id="o6ij1" uiPhoneControl="//@viewControllers[id='7lagq']/@editTexts[id='firstEditText']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='7lagq']/@textViews[id='firstLabel']" referenceLayoutEdge="top"/>
+			<positionConstraints id="42q9n" uiPhoneControl="//@viewControllers[id='7lagq']/@editTexts[id='firstEditText']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='7lagq']/@textViews[id='firstLabel']" referenceLayoutEdge="end"/>
+		</editTexts>
+		<editTexts id="secondEditText" viewController="//@viewControllers[id='7lagq']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="10" marginEnd="0" initialContent="" placeholder="second" textColor="#000000" textSize="18">
+			<positionConstraints id="67flr" uiPhoneControl="//@viewControllers[id='7lagq']/@editTexts[id='secondEditText']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='7lagq']/@textViews[id='secondLabel']" referenceLayoutEdge="top"/>
+			<positionConstraints id="7tp2u" uiPhoneControl="//@viewControllers[id='7lagq']/@editTexts[id='secondEditText']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='7lagq']/@textViews[id='secondLabel']" referenceLayoutEdge="end"/>
+		</editTexts>
+		<textViews id="gcfResultLabel" viewController="//@viewControllers[id='7lagq']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="10" marginEnd="0" content="result" textAlign="left" textColor="#000000" textSize="20" textDecoration="none">
+			<positionConstraints id="f055b" uiPhoneControl="//@viewControllers[id='7lagq']/@textViews[id='gcfResultLabel']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='7lagq']/@textViews[id='gcfLabel']" referenceLayoutEdge="top"/>
+			<positionConstraints id="8c8ek" uiPhoneControl="//@viewControllers[id='7lagq']/@textViews[id='gcfResultLabel']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='7lagq']/@textViews[id='gcfLabel']" referenceLayoutEdge="end"/>
+		</textViews>
+		<textViews id="lcmResultLabel" viewController="//@viewControllers[id='7lagq']" defaultWidth="88" defaultHeight="36" posX="180" posY="373.5000228881836" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="10" marginEnd="0" content="result" textAlign="left" textColor="#000000" textSize="20" textDecoration="none">
+			<positionConstraints id="t8286" uiPhoneControl="//@viewControllers[id='7lagq']/@textViews[id='lcmResultLabel']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='7lagq']/@textViews[id='lcmLabel']" referenceLayoutEdge="top"/>
+			<positionConstraints id="0vvcb" uiPhoneControl="//@viewControllers[id='7lagq']/@textViews[id='lcmResultLabel']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='7lagq']/@textViews[id='lcmLabel']" referenceLayoutEdge="end"/>
+		</textViews>
+	</viewControllers>
+	<viewControllers id="88ri4" name="Linear" backgroundColor="#ffffff" backgroundImage="">
+		<controlChains id="iduco92Chain" viewController="//@viewControllers[id='88ri4']" axis="vertical" type="spread_inside" nControls="6"/>
+		<textViews id="titleLELabel" viewController="//@viewControllers[id='88ri4']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" controlChain="//@viewControllers[id='88ri4']/@controlChains[id='iduco92Chain']" indexInChain="0" followingInChain="//@viewControllers[id='88ri4']/@imageViews[id='guideLEImageView']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="20" marginBottom="0" marginStart="0" marginEnd="0" content="Linear Equation" textAlign="center" textColor="#000000" textSize="24" textDecoration="bold">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='88ri4']/@textViews[id='titleLELabel']" widthPercent="1"/>
+			<positionConstraints id="rcf76" uiPhoneControl="//@viewControllers[id='88ri4']/@textViews[id='titleLELabel']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+		</textViews>
+		<imageViews id="guideLEImageView" viewController="//@viewControllers[id='88ri4']" defaultWidth="240" defaultHeight="128" posX="0" posY="93.71251424153647" controlChain="//@viewControllers[id='88ri4']/@controlChains[id='iduco92Chain']" indexInChain="1" precedentInChain="//@viewControllers[id='88ri4']/@textViews[id='titleLELabel']" followingInChain="//@viewControllers[id='88ri4']/@textViews[id='mLabel']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" sourceType="localFile" fileUri="">
+			<positionConstraints id="rqbqs" uiPhoneControl="//@viewControllers[id='88ri4']/@imageViews[id='guideLEImageView']" layoutEdge="centerX" withParent="true" referenceLayoutEdge="centerX"/>
+		</imageViews>
+		<textViews id="mLabel" viewController="//@viewControllers[id='88ri4']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" controlChain="//@viewControllers[id='88ri4']/@controlChains[id='iduco92Chain']" indexInChain="2" precedentInChain="//@viewControllers[id='88ri4']/@imageViews[id='guideLEImageView']" followingInChain="//@viewControllers[id='88ri4']/@textViews[id='qLabel']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="m =" textAlign="right" textColor="#000000" textSize="20" textDecoration="bold">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='88ri4']/@textViews[id='mLabel']" widthPercent="0.5"/>
+			<positionConstraints id="1mn4q" uiPhoneControl="//@viewControllers[id='88ri4']/@textViews[id='mLabel']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+		</textViews>
+		<textViews id="qLabel" viewController="//@viewControllers[id='88ri4']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" controlChain="//@viewControllers[id='88ri4']/@controlChains[id='iduco92Chain']" indexInChain="3" precedentInChain="//@viewControllers[id='88ri4']/@textViews[id='mLabel']" followingInChain="//@viewControllers[id='88ri4']/@textViews[id='xLELabel']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="q =" textAlign="right" textColor="#000000" textSize="20" textDecoration="bold">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='88ri4']/@textViews[id='qLabel']" widthPercent="0.5"/>
+			<positionConstraints id="csbr2" uiPhoneControl="//@viewControllers[id='88ri4']/@textViews[id='qLabel']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+		</textViews>
+		<textViews id="xLELabel" viewController="//@viewControllers[id='88ri4']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" controlChain="//@viewControllers[id='88ri4']/@controlChains[id='iduco92Chain']" indexInChain="4" precedentInChain="//@viewControllers[id='88ri4']/@textViews[id='qLabel']" followingInChain="//@viewControllers[id='88ri4']/@buttons[id='calcLEButton']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="x =" textAlign="right" textColor="#000000" textSize="20" textDecoration="bold">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='88ri4']/@textViews[id='xLELabel']" widthPercent="0.5"/>
+			<positionConstraints id="jecon" uiPhoneControl="//@viewControllers[id='88ri4']/@textViews[id='xLELabel']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+		</textViews>
+		<buttons id="calcLEButton" viewController="//@viewControllers[id='88ri4']" defaultWidth="88" defaultHeight="40" posX="0" posY="0" controlChain="//@viewControllers[id='88ri4']/@controlChains[id='iduco92Chain']" indexInChain="5" precedentInChain="//@viewControllers[id='88ri4']/@textViews[id='xLELabel']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="20" marginStart="0" marginEnd="0" title="Calculate" textColor="#ffffff" backgroundColor="#00bc30" borderRadius="5" clickColor="">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='88ri4']/@buttons[id='calcLEButton']" fixedWidth="150"/>
+			<positionConstraints id="puj26" uiPhoneControl="//@viewControllers[id='88ri4']/@buttons[id='calcLEButton']" layoutEdge="centerX" withParent="true" referenceLayoutEdge="centerX"/>
+			<navigations id="9sv9t" contextScene="//@scenes[id='fig0g']"/>
+		</buttons>
+		<editTexts id="mEditText" viewController="//@viewControllers[id='88ri4']" defaultWidth="88" defaultHeight="36" posX="201.25" posY="246.25003814697266" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="10" marginEnd="0" initialContent="" placeholder="m" textColor="#000000" textSize="20">
+			<positionConstraints id="6amee" uiPhoneControl="//@viewControllers[id='88ri4']/@editTexts[id='mEditText']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='88ri4']/@textViews[id='mLabel']" referenceLayoutEdge="top"/>
+			<positionConstraints id="1fark" uiPhoneControl="//@viewControllers[id='88ri4']/@editTexts[id='mEditText']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='88ri4']/@textViews[id='mLabel']" referenceLayoutEdge="end"/>
+		</editTexts>
+		<editTexts id="qEditText" viewController="//@viewControllers[id='88ri4']" defaultWidth="88" defaultHeight="36" posX="206.25" posY="310.00003814697266" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="10" marginEnd="0" initialContent="" placeholder="q" textColor="#000000" textSize="20">
+			<positionConstraints id="bem5o" uiPhoneControl="//@viewControllers[id='88ri4']/@editTexts[id='qEditText']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='88ri4']/@textViews[id='qLabel']" referenceLayoutEdge="top"/>
+			<positionConstraints id="dtav2" uiPhoneControl="//@viewControllers[id='88ri4']/@editTexts[id='qEditText']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='88ri4']/@textViews[id='qLabel']" referenceLayoutEdge="end"/>
+		</editTexts>
+		<textViews id="resultLELabel" viewController="//@viewControllers[id='88ri4']" defaultWidth="88" defaultHeight="36" posX="208.75" posY="385" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="10" marginEnd="0" content="result" textAlign="left" textColor="#000000" textSize="20" textDecoration="none">
+			<positionConstraints id="no6s2" uiPhoneControl="//@viewControllers[id='88ri4']/@textViews[id='resultLELabel']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='88ri4']/@textViews[id='xLELabel']" referenceLayoutEdge="top"/>
+			<positionConstraints id="tql9a" uiPhoneControl="//@viewControllers[id='88ri4']/@textViews[id='resultLELabel']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='88ri4']/@textViews[id='xLELabel']" referenceLayoutEdge="end"/>
+		</textViews>
+	</viewControllers>
+	<viewControllers id="ool05" name="Quadratic" backgroundColor="#ffffff" backgroundImage="">
+		<controlChains id="id3jdl1Chain" viewController="//@viewControllers[id='ool05']" axis="vertical" type="spread_inside" nControls="7"/>
+		<textViews id="titleQELabel" viewController="//@viewControllers[id='ool05']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" controlChain="//@viewControllers[id='ool05']/@controlChains[id='id3jdl1Chain']" indexInChain="0" followingInChain="//@viewControllers[id='ool05']/@imageViews[id='guideQEImageView']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="20" marginBottom="0" marginStart="0" marginEnd="0" content="Quadratic Equation" textAlign="center" textColor="#000000" textSize="24" textDecoration="bold">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='ool05']/@textViews[id='titleQELabel']" widthPercent="1"/>
+			<positionConstraints id="0tad2" uiPhoneControl="//@viewControllers[id='ool05']/@textViews[id='titleQELabel']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+		</textViews>
+		<imageViews id="guideQEImageView" viewController="//@viewControllers[id='ool05']" defaultWidth="240" defaultHeight="128" posX="0" posY="0" controlChain="//@viewControllers[id='ool05']/@controlChains[id='id3jdl1Chain']" indexInChain="1" precedentInChain="//@viewControllers[id='ool05']/@textViews[id='titleQELabel']" followingInChain="//@viewControllers[id='ool05']/@textViews[id='aLabel']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" sourceType="localFile" fileUri="">
+			<positionConstraints id="7jnlq" uiPhoneControl="//@viewControllers[id='ool05']/@imageViews[id='guideQEImageView']" layoutEdge="centerX" withParent="true" referenceLayoutEdge="centerX"/>
+		</imageViews>
+		<textViews id="aLabel" viewController="//@viewControllers[id='ool05']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" controlChain="//@viewControllers[id='ool05']/@controlChains[id='id3jdl1Chain']" indexInChain="2" precedentInChain="//@viewControllers[id='ool05']/@imageViews[id='guideQEImageView']" followingInChain="//@viewControllers[id='ool05']/@textViews[id='bLabel']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="a =" textAlign="right" textColor="#000000" textSize="20" textDecoration="bold">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='ool05']/@textViews[id='aLabel']" widthPercent="0.5"/>
+			<positionConstraints id="jkj0p" uiPhoneControl="//@viewControllers[id='ool05']/@textViews[id='aLabel']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+		</textViews>
+		<textViews id="bLabel" viewController="//@viewControllers[id='ool05']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" controlChain="//@viewControllers[id='ool05']/@controlChains[id='id3jdl1Chain']" indexInChain="3" precedentInChain="//@viewControllers[id='ool05']/@textViews[id='aLabel']" followingInChain="//@viewControllers[id='ool05']/@textViews[id='cLabel']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="b =" textAlign="right" textColor="#000000" textSize="20" textDecoration="bold">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='ool05']/@textViews[id='bLabel']" widthPercent="0.5"/>
+			<positionConstraints id="u067g" uiPhoneControl="//@viewControllers[id='ool05']/@textViews[id='bLabel']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+		</textViews>
+		<textViews id="cLabel" viewController="//@viewControllers[id='ool05']" defaultWidth="88" defaultHeight="36" posX="1.25" posY="341.0000228881836" controlChain="//@viewControllers[id='ool05']/@controlChains[id='id3jdl1Chain']" indexInChain="4" precedentInChain="//@viewControllers[id='ool05']/@textViews[id='bLabel']" followingInChain="//@viewControllers[id='ool05']/@textViews[id='resultQELabel']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="c =" textAlign="right" textColor="#000000" textSize="20" textDecoration="bold">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='ool05']/@textViews[id='cLabel']" widthPercent="0.5"/>
+			<positionConstraints id="df40f" uiPhoneControl="//@viewControllers[id='ool05']/@textViews[id='cLabel']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+		</textViews>
+		<textViews id="resultQELabel" viewController="//@viewControllers[id='ool05']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" controlChain="//@viewControllers[id='ool05']/@controlChains[id='id3jdl1Chain']" indexInChain="5" precedentInChain="//@viewControllers[id='ool05']/@textViews[id='cLabel']" followingInChain="//@viewControllers[id='ool05']/@buttons[id='calcQEButton']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="x1, x2 =" textAlign="right" textColor="#000000" textSize="20" textDecoration="bold">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='ool05']/@textViews[id='resultQELabel']" widthPercent="0.4"/>
+			<positionConstraints id="pumuq" uiPhoneControl="//@viewControllers[id='ool05']/@textViews[id='resultQELabel']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+		</textViews>
+		<buttons id="calcQEButton" viewController="//@viewControllers[id='ool05']" defaultWidth="88" defaultHeight="40" posX="0" posY="0" controlChain="//@viewControllers[id='ool05']/@controlChains[id='id3jdl1Chain']" indexInChain="6" precedentInChain="//@viewControllers[id='ool05']/@textViews[id='resultQELabel']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="20" marginStart="0" marginEnd="0" title="Calculate" textColor="#ffffff" backgroundColor="#00bc30" borderRadius="5" clickColor="">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='ool05']/@buttons[id='calcQEButton']" fixedWidth="150"/>
+			<positionConstraints id="mv1ut" uiPhoneControl="//@viewControllers[id='ool05']/@buttons[id='calcQEButton']" layoutEdge="centerX" withParent="true" referenceLayoutEdge="centerX"/>
+			<navigations id="83gac" contextScene="//@scenes[id='fig0g']"/>
+		</buttons>
+		<editTexts id="aEditText" viewController="//@viewControllers[id='ool05']" defaultWidth="88" defaultHeight="36" posX="188.75" posY="225" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="10" marginEnd="0" initialContent="" placeholder="a" textColor="#000000" textSize="20">
+			<positionConstraints id="g2dl1" uiPhoneControl="//@viewControllers[id='ool05']/@editTexts[id='aEditText']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='ool05']/@textViews[id='aLabel']" referenceLayoutEdge="top"/>
+			<positionConstraints id="famgu" uiPhoneControl="//@viewControllers[id='ool05']/@editTexts[id='aEditText']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='ool05']/@textViews[id='aLabel']" referenceLayoutEdge="end"/>
+		</editTexts>
+		<editTexts id="bEditText" viewController="//@viewControllers[id='ool05']" defaultWidth="88" defaultHeight="36" posX="197.5" posY="278.75" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="10" marginEnd="0" initialContent="" placeholder="b" textColor="#000000" textSize="20">
+			<positionConstraints id="vlfsf" uiPhoneControl="//@viewControllers[id='ool05']/@editTexts[id='bEditText']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='ool05']/@textViews[id='bLabel']" referenceLayoutEdge="top"/>
+			<positionConstraints id="i3mm2" uiPhoneControl="//@viewControllers[id='ool05']/@editTexts[id='bEditText']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='ool05']/@textViews[id='bLabel']" referenceLayoutEdge="end"/>
+		</editTexts>
+		<editTexts id="cEditText" viewController="//@viewControllers[id='ool05']" defaultWidth="88" defaultHeight="36" posX="203.75" posY="337.5" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="10" marginEnd="0" initialContent="" placeholder="c" textColor="#000000" textSize="20">
+			<positionConstraints id="7tkrd" uiPhoneControl="//@viewControllers[id='ool05']/@editTexts[id='cEditText']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='ool05']/@textViews[id='cLabel']" referenceLayoutEdge="top"/>
+			<positionConstraints id="05smt" uiPhoneControl="//@viewControllers[id='ool05']/@editTexts[id='cEditText']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='ool05']/@textViews[id='cLabel']" referenceLayoutEdge="end"/>
+		</editTexts>
+		<textViews id="x1Label" viewController="//@viewControllers[id='ool05']" defaultWidth="88" defaultHeight="36" posX="201.25" posY="396.25" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="result" textAlign="center" textColor="#000000" textSize="20" textDecoration="none">
+			<positionConstraints id="padoa" uiPhoneControl="//@viewControllers[id='ool05']/@textViews[id='x1Label']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='ool05']/@textViews[id='resultQELabel']" referenceLayoutEdge="top"/>
+			<positionConstraints id="ftter" uiPhoneControl="//@viewControllers[id='ool05']/@textViews[id='x1Label']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='ool05']/@textViews[id='resultQELabel']" referenceLayoutEdge="end"/>
+		</textViews>
+		<textViews id="x2Label" viewController="//@viewControllers[id='ool05']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="result" textAlign="left" textColor="#000000" textSize="20" textDecoration="none">
+			<positionConstraints id="v2b56" uiPhoneControl="//@viewControllers[id='ool05']/@textViews[id='x2Label']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='ool05']/@textViews[id='resultQELabel']" referenceLayoutEdge="top"/>
+			<positionConstraints id="sjqa5" uiPhoneControl="//@viewControllers[id='ool05']/@textViews[id='x2Label']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='ool05']/@textViews[id='x1Label']" referenceLayoutEdge="end"/>
+		</textViews>
+	</viewControllers>
+	<viewControllers id="ghra8" name="System" backgroundColor="#ffffff" backgroundImage="">
+		<controlChains id="idaj63uChain" viewController="//@viewControllers[id='ghra8']" axis="vertical" type="spread_inside" nControls="6"/>
+		<textViews id="titleSELabel" viewController="//@viewControllers[id='ghra8']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" controlChain="//@viewControllers[id='ghra8']/@controlChains[id='idaj63uChain']" indexInChain="0" followingInChain="//@viewControllers[id='ghra8']/@imageViews[id='guideSEImageView']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="20" marginBottom="0" marginStart="0" marginEnd="0" content="Two Equations System" textAlign="center" textColor="#000000" textSize="24" textDecoration="bold">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='ghra8']/@textViews[id='titleSELabel']" widthPercent="1"/>
+			<positionConstraints id="req1c" uiPhoneControl="//@viewControllers[id='ghra8']/@textViews[id='titleSELabel']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+		</textViews>
+		<imageViews id="guideSEImageView" viewController="//@viewControllers[id='ghra8']" defaultWidth="240" defaultHeight="128" posX="0" posY="0" controlChain="//@viewControllers[id='ghra8']/@controlChains[id='idaj63uChain']" indexInChain="1" precedentInChain="//@viewControllers[id='ghra8']/@textViews[id='titleSELabel']" followingInChain="//@viewControllers[id='ghra8']/@textViews[id='firstEqLabel']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" sourceType="localFile" fileUri="">
+			<positionConstraints id="g98s8" uiPhoneControl="//@viewControllers[id='ghra8']/@imageViews[id='guideSEImageView']" layoutEdge="centerX" withParent="true" referenceLayoutEdge="centerX"/>
+		</imageViews>
+		<textViews id="firstEqLabel" viewController="//@viewControllers[id='ghra8']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" controlChain="//@viewControllers[id='ghra8']/@controlChains[id='idaj63uChain']" indexInChain="2" precedentInChain="//@viewControllers[id='ghra8']/@imageViews[id='guideSEImageView']" followingInChain="//@viewControllers[id='ghra8']/@textViews[id='secondEqLabel']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="First:" textAlign="right" textColor="#000000" textSize="20" textDecoration="bold">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='ghra8']/@textViews[id='firstEqLabel']" widthPercent="0.25"/>
+			<positionConstraints id="4g16t" uiPhoneControl="//@viewControllers[id='ghra8']/@textViews[id='firstEqLabel']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+		</textViews>
+		<textViews id="secondEqLabel" viewController="//@viewControllers[id='ghra8']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" controlChain="//@viewControllers[id='ghra8']/@controlChains[id='idaj63uChain']" indexInChain="3" precedentInChain="//@viewControllers[id='ghra8']/@textViews[id='firstEqLabel']" followingInChain="//@viewControllers[id='ghra8']/@textViews[id='xSELabel']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="Second:" textAlign="right" textColor="#000000" textSize="20" textDecoration="bold">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='ghra8']/@textViews[id='secondEqLabel']" widthPercent="0.25"/>
+			<positionConstraints id="fcnqr" uiPhoneControl="//@viewControllers[id='ghra8']/@textViews[id='secondEqLabel']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+		</textViews>
+		<textViews id="xSELabel" viewController="//@viewControllers[id='ghra8']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" controlChain="//@viewControllers[id='ghra8']/@controlChains[id='idaj63uChain']" indexInChain="4" precedentInChain="//@viewControllers[id='ghra8']/@textViews[id='secondEqLabel']" followingInChain="//@viewControllers[id='ghra8']/@buttons[id='calcSEButton']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="result" textAlign="center" textColor="#000000" textSize="20" textDecoration="none">
+			<positionConstraints id="6jsn0" uiPhoneControl="//@viewControllers[id='ghra8']/@textViews[id='xSELabel']" layoutEdge="centerX" withParent="true" referenceLayoutEdge="centerX"/>
+		</textViews>
+		<buttons id="calcSEButton" viewController="//@viewControllers[id='ghra8']" defaultWidth="88" defaultHeight="40" posX="0" posY="0" controlChain="//@viewControllers[id='ghra8']/@controlChains[id='idaj63uChain']" indexInChain="5" precedentInChain="//@viewControllers[id='ghra8']/@textViews[id='xSELabel']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="20" marginStart="0" marginEnd="0" title="Calculate" textColor="#ffffff" backgroundColor="#00bc30" borderRadius="5" clickColor="">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='ghra8']/@buttons[id='calcSEButton']" fixedWidth="150"/>
+			<positionConstraints id="58lps" uiPhoneControl="//@viewControllers[id='ghra8']/@buttons[id='calcSEButton']" layoutEdge="centerX" withParent="true" referenceLayoutEdge="centerX"/>
+			<navigations id="pp37h" contextScene="//@scenes[id='fig0g']"/>
+		</buttons>
+		<editTexts id="a1EditText" viewController="//@viewControllers[id='ghra8']" defaultWidth="88" defaultHeight="36" posX="108.75" posY="252.50003814697266" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="10" marginEnd="0" initialContent="" placeholder="a1" textColor="#000000" textSize="20">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='ghra8']/@editTexts[id='a1EditText']" widthPercent="0.2"/>
+			<positionConstraints id="95krv" uiPhoneControl="//@viewControllers[id='ghra8']/@editTexts[id='a1EditText']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='ghra8']/@textViews[id='firstEqLabel']" referenceLayoutEdge="top"/>
+			<positionConstraints id="l3mgi" uiPhoneControl="//@viewControllers[id='ghra8']/@editTexts[id='a1EditText']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='ghra8']/@textViews[id='firstEqLabel']" referenceLayoutEdge="end"/>
+		</editTexts>
+		<editTexts id="b1EditText" viewController="//@viewControllers[id='ghra8']" defaultWidth="88" defaultHeight="36" posX="198.75" posY="253.75" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="10" marginEnd="0" initialContent="" placeholder="b1" textColor="#000000" textSize="20">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='ghra8']/@editTexts[id='b1EditText']" widthPercent="0.2"/>
+			<positionConstraints id="pqkke" uiPhoneControl="//@viewControllers[id='ghra8']/@editTexts[id='b1EditText']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='ghra8']/@textViews[id='firstEqLabel']" referenceLayoutEdge="top"/>
+			<positionConstraints id="rd43n" uiPhoneControl="//@viewControllers[id='ghra8']/@editTexts[id='b1EditText']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='ghra8']/@editTexts[id='a1EditText']" referenceLayoutEdge="end"/>
+		</editTexts>
+		<editTexts id="c1EditText" viewController="//@viewControllers[id='ghra8']" defaultWidth="88" defaultHeight="36" posX="272.09999084472656" posY="207.09999084472656" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="10" marginEnd="0" initialContent="" placeholder="c1" textColor="#000000" textSize="20">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='ghra8']/@editTexts[id='c1EditText']" widthPercent="0.2"/>
+			<positionConstraints id="m6cit" uiPhoneControl="//@viewControllers[id='ghra8']/@editTexts[id='c1EditText']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='ghra8']/@textViews[id='firstEqLabel']" referenceLayoutEdge="top"/>
+			<positionConstraints id="82m95" uiPhoneControl="//@viewControllers[id='ghra8']/@editTexts[id='c1EditText']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='ghra8']/@editTexts[id='b1EditText']" referenceLayoutEdge="end"/>
+		</editTexts>
+		<editTexts id="a2EditText" viewController="//@viewControllers[id='ghra8']" defaultWidth="88" defaultHeight="36" posX="93.49998474121094" posY="276.9499969482422" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="10" marginEnd="0" initialContent="" placeholder="a2" textColor="#000000" textSize="20">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='ghra8']/@editTexts[id='a2EditText']" widthPercent="0.2"/>
+			<positionConstraints id="nhsfh" uiPhoneControl="//@viewControllers[id='ghra8']/@editTexts[id='a2EditText']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='ghra8']/@textViews[id='secondEqLabel']" referenceLayoutEdge="top"/>
+			<positionConstraints id="jq662" uiPhoneControl="//@viewControllers[id='ghra8']/@editTexts[id='a2EditText']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='ghra8']/@textViews[id='secondEqLabel']" referenceLayoutEdge="end"/>
+		</editTexts>
+		<editTexts id="b2EditText" viewController="//@viewControllers[id='ghra8']" defaultWidth="88" defaultHeight="36" posX="180" posY="315" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="10" marginEnd="0" initialContent="" placeholder="b2" textColor="#000000" textSize="20">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='ghra8']/@editTexts[id='b2EditText']" widthPercent="0.2"/>
+			<positionConstraints id="00brn" uiPhoneControl="//@viewControllers[id='ghra8']/@editTexts[id='b2EditText']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='ghra8']/@textViews[id='secondEqLabel']" referenceLayoutEdge="top"/>
+			<positionConstraints id="k7gk6" uiPhoneControl="//@viewControllers[id='ghra8']/@editTexts[id='b2EditText']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='ghra8']/@editTexts[id='a2EditText']" referenceLayoutEdge="end"/>
+		</editTexts>
+		<editTexts id="c2EditText" viewController="//@viewControllers[id='ghra8']" defaultWidth="88" defaultHeight="36" posX="272.09999084472656" posY="268.40003967285156" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="10" marginEnd="0" initialContent="" placeholder="c2" textColor="#000000" textSize="20">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='ghra8']/@editTexts[id='c2EditText']" widthPercent="0.2"/>
+			<positionConstraints id="fs2hc" uiPhoneControl="//@viewControllers[id='ghra8']/@editTexts[id='c2EditText']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='ghra8']/@textViews[id='secondEqLabel']" referenceLayoutEdge="top"/>
+			<positionConstraints id="rqia0" uiPhoneControl="//@viewControllers[id='ghra8']/@editTexts[id='c2EditText']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='ghra8']/@editTexts[id='b2EditText']" referenceLayoutEdge="end"/>
+		</editTexts>
+		<textViews id="resultSELabel" viewController="//@viewControllers[id='ghra8']" defaultWidth="88" defaultHeight="36" posX="39.25010681152344" posY="348.45001220703125" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="x, y =" textAlign="right" textColor="#000000" textSize="20" textDecoration="bold">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='ghra8']/@textViews[id='resultSELabel']" fixedWidth="100"/>
+			<positionConstraints id="71qch" uiPhoneControl="//@viewControllers[id='ghra8']/@textViews[id='resultSELabel']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='ghra8']/@textViews[id='xSELabel']" referenceLayoutEdge="top"/>
+			<positionConstraints id="uufus" uiPhoneControl="//@viewControllers[id='ghra8']/@textViews[id='resultSELabel']" layoutEdge="end" withParent="false" referenceElement="//@viewControllers[id='ghra8']/@textViews[id='xSELabel']" referenceLayoutEdge="start"/>
+		</textViews>
+		<textViews id="ySELabel" viewController="//@viewControllers[id='ghra8']" defaultWidth="88" defaultHeight="36" posX="246.25" posY="386.25003814697266" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="result" textAlign="left" textColor="#000000" textSize="20" textDecoration="none">
+			<positionConstraints id="46h4f" uiPhoneControl="//@viewControllers[id='ghra8']/@textViews[id='ySELabel']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='ghra8']/@textViews[id='xSELabel']" referenceLayoutEdge="top"/>
+			<positionConstraints id="kq8jb" uiPhoneControl="//@viewControllers[id='ghra8']/@textViews[id='ySELabel']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='ghra8']/@textViews[id='xSELabel']" referenceLayoutEdge="end"/>
+		</textViews>
+	</viewControllers>
+	<viewControllers id="1pv9i" name="Links" backgroundColor="#ffffff" backgroundImage="">
+		<controlChains id="idltl0cChain" viewController="//@viewControllers[id='1pv9i']" axis="vertical" type="spread" nControls="3"/>
+		<buttons id="algebraButton" viewController="//@viewControllers[id='1pv9i']" defaultWidth="88" defaultHeight="40" posX="1.4285714285714286" posY="94.57144601004465" controlChain="//@viewControllers[id='1pv9i']/@controlChains[id='idltl0cChain']" indexInChain="0" followingInChain="//@viewControllers[id='1pv9i']/@buttons[id='probabilityButton']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" title="Algebra" textColor="#ffffff" backgroundColor="#cea800" borderRadius="5" clickColor="">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='1pv9i']/@buttons[id='algebraButton']" widthPercent="0.8" heightPercent="0.1"/>
+			<positionConstraints id="vbri7" uiPhoneControl="//@viewControllers[id='1pv9i']/@buttons[id='algebraButton']" layoutEdge="centerX" withParent="true" referenceLayoutEdge="centerX"/>
+			<navigations id="6bbhp" contextScene="//@scenes[id='ebtne']" destinationViewController="//@viewControllers[id='au4gd']"/>
+		</buttons>
+		<buttons id="probabilityButton" viewController="//@viewControllers[id='1pv9i']" defaultWidth="88" defaultHeight="40" posX="2.857142857142857" posY="226.80001395089286" controlChain="//@viewControllers[id='1pv9i']/@controlChains[id='idltl0cChain']" indexInChain="1" precedentInChain="//@viewControllers[id='1pv9i']/@buttons[id='algebraButton']" followingInChain="//@viewControllers[id='1pv9i']/@buttons[id='equationsButton']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" title="Probability" textColor="#ffffff" backgroundColor="#cea800" borderRadius="5" clickColor="">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='1pv9i']/@buttons[id='probabilityButton']" widthPercent="0.8" heightPercent="0.1"/>
+			<positionConstraints id="oecpo" uiPhoneControl="//@viewControllers[id='1pv9i']/@buttons[id='probabilityButton']" layoutEdge="centerX" withParent="true" referenceLayoutEdge="centerX"/>
+			<navigations id="gcq9n" contextScene="//@scenes[id='ebtne']" destinationViewController="//@viewControllers[id='au4gd']"/>
+		</buttons>
+		<buttons id="equationsButton" viewController="//@viewControllers[id='1pv9i']" defaultWidth="88" defaultHeight="40" posX="0" posY="0" controlChain="//@viewControllers[id='1pv9i']/@controlChains[id='idltl0cChain']" indexInChain="2" precedentInChain="//@viewControllers[id='1pv9i']/@buttons[id='probabilityButton']" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" title="Equations" textColor="#ffffff" backgroundColor="#cea800" borderRadius="5" clickColor="">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='1pv9i']/@buttons[id='equationsButton']" widthPercent="0.8" heightPercent="0.1"/>
+			<positionConstraints id="rdta3" uiPhoneControl="//@viewControllers[id='1pv9i']/@buttons[id='equationsButton']" layoutEdge="centerX" withParent="true" referenceLayoutEdge="centerX"/>
+			<navigations id="4tdvt" contextScene="//@scenes[id='ebtne']" destinationViewController="//@viewControllers[id='au4gd']"/>
+		</buttons>
+	</viewControllers>
+	<viewControllers id="au4gd" name="Websites" backgroundColor="#ffffff" backgroundImage="">
+		<webViews id="webView" viewController="//@viewControllers[id='au4gd']" defaultWidth="240" defaultHeight="128" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" HTMLFileName="http://www.youmath.it/lezioni/algebra-elementare.html">
+			<positionConstraints id="5f11j" uiPhoneControl="//@viewControllers[id='au4gd']/@webViews[id='webView']" layoutEdge="top" withParent="true" referenceLayoutEdge="top"/>
+			<positionConstraints id="8knde" uiPhoneControl="//@viewControllers[id='au4gd']/@webViews[id='webView']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+			<positionConstraints id="tuond" uiPhoneControl="//@viewControllers[id='au4gd']/@webViews[id='webView']" layoutEdge="bottom" withParent="true" referenceLayoutEdge="bottom"/>
+			<positionConstraints id="4ld4a" uiPhoneControl="//@viewControllers[id='au4gd']/@webViews[id='webView']" layoutEdge="end" withParent="true" referenceLayoutEdge="end"/>
+		</webViews>
+	</viewControllers>
+	<viewControllers id="cv9uh" name="Info" backgroundColor="#ffffff" backgroundImage="">
+		<textViews id="titleInfoLabel" viewController="//@viewControllers[id='cv9uh']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="20" marginBottom="0" marginStart="0" marginEnd="0" content="About MathKit" textAlign="center" textColor="#000000" textSize="24" textDecoration="bold">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='cv9uh']/@textViews[id='titleInfoLabel']" widthPercent="1"/>
+			<positionConstraints id="deet9" uiPhoneControl="//@viewControllers[id='cv9uh']/@textViews[id='titleInfoLabel']" layoutEdge="top" withParent="true" referenceLayoutEdge="top"/>
+			<positionConstraints id="5b8l0" uiPhoneControl="//@viewControllers[id='cv9uh']/@textViews[id='titleInfoLabel']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+		</textViews>
+	</viewControllers>
+	<scenes id="d13ce" name="Algebra" launcher="true" typeSmartphone="singleVC" typeTablet="singleVC">
+		<childViewControllers viewController="//@viewControllers[id='nl6g0']"/>
+		<childViewControllers viewController="//@viewControllers[id='0arqa']"/>
+		<childViewControllers viewController="//@viewControllers[id='4bipc']"/>
+		<childViewControllers viewController="//@viewControllers[id='7lagq']"/>
+	</scenes>
+	<scenes id="fig0g" name="Equations" launcher="false" typeSmartphone="singleVCTab" typeTablet="multiVC">
+		<parentViewControllers id="v8nhs" name="parentVCTablet" backgroundColor="#ffffff" backgroundImage="">
+			<containers childViewController="//@viewControllers[id='88ri4']" id="idv5mjtContainer" viewController="//@scenes[id='fig0g']/@parentViewControllers[id='v8nhs']" defaultWidth="300" defaultHeight="400" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0">
+				<dimensionConstraint uiPhoneControl="//@scenes[id='fig0g']/@parentViewControllers[id='v8nhs']/@containers[id='idv5mjtContainer']" widthPercent="0.3" heightPercent="1"/>
+				<positionConstraints id="nkuu2" uiPhoneControl="//@scenes[id='fig0g']/@parentViewControllers[id='v8nhs']/@containers[id='idv5mjtContainer']" layoutEdge="top" withParent="true" referenceLayoutEdge="top"/>
+				<positionConstraints id="roioe" uiPhoneControl="//@scenes[id='fig0g']/@parentViewControllers[id='v8nhs']/@containers[id='idv5mjtContainer']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+			</containers>
+			<containers childViewController="//@viewControllers[id='ool05']" id="idhstvpContainer" viewController="//@scenes[id='fig0g']/@parentViewControllers[id='v8nhs']" defaultWidth="300" defaultHeight="400" posX="308.75" posY="26.25" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0">
+				<dimensionConstraint uiPhoneControl="//@scenes[id='fig0g']/@parentViewControllers[id='v8nhs']/@containers[id='idhstvpContainer']" widthPercent="0.3" heightPercent="1"/>
+				<positionConstraints id="c587l" uiPhoneControl="//@scenes[id='fig0g']/@parentViewControllers[id='v8nhs']/@containers[id='idhstvpContainer']" layoutEdge="top" withParent="true" referenceLayoutEdge="top"/>
+				<positionConstraints id="ufo12" uiPhoneControl="//@scenes[id='fig0g']/@parentViewControllers[id='v8nhs']/@containers[id='idhstvpContainer']" layoutEdge="start" withParent="false" referenceElement="//@scenes[id='fig0g']/@parentViewControllers[id='v8nhs']/@containers[id='idv5mjtContainer']" referenceLayoutEdge="end"/>
+			</containers>
+			<containers childViewController="//@viewControllers[id='ghra8']" id="idqmaidContainer" viewController="//@scenes[id='fig0g']/@parentViewControllers[id='v8nhs']" defaultWidth="300" defaultHeight="400" posX="576" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0">
+				<dimensionConstraint uiPhoneControl="//@scenes[id='fig0g']/@parentViewControllers[id='v8nhs']/@containers[id='idqmaidContainer']" widthPercent="0.4" heightPercent="1"/>
+				<positionConstraints id="6dehr" uiPhoneControl="//@scenes[id='fig0g']/@parentViewControllers[id='v8nhs']/@containers[id='idqmaidContainer']" layoutEdge="top" withParent="true" referenceLayoutEdge="top"/>
+				<positionConstraints id="1jcar" uiPhoneControl="//@scenes[id='fig0g']/@parentViewControllers[id='v8nhs']/@containers[id='idqmaidContainer']" layoutEdge="start" withParent="false" referenceElement="//@scenes[id='fig0g']/@parentViewControllers[id='v8nhs']/@containers[id='idhstvpContainer']" referenceLayoutEdge="end"/>
+			</containers>
+		</parentViewControllers>
+		<childViewControllers viewController="//@viewControllers[id='88ri4']"/>
+		<childViewControllers viewController="//@viewControllers[id='ool05']"/>
+		<childViewControllers viewController="//@viewControllers[id='ghra8']"/>
+	</scenes>
+	<scenes id="ebtne" name="Guide" launcher="false" typeSmartphone="singleVC" typeTablet="multiVC">
+		<parentViewControllers id="nd17f" name="parentVCTablet" backgroundColor="#ffffff" backgroundImage="">
+			<containers childViewController="//@viewControllers[id='1pv9i']" id="idbn2qkContainer" viewController="//@scenes[id='ebtne']/@parentViewControllers[id='nd17f']" defaultWidth="300" defaultHeight="400" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0">
+				<dimensionConstraint uiPhoneControl="//@scenes[id='ebtne']/@parentViewControllers[id='nd17f']/@containers[id='idbn2qkContainer']" widthPercent="0.25" heightPercent="1"/>
+				<positionConstraints id="ii7h6" uiPhoneControl="//@scenes[id='ebtne']/@parentViewControllers[id='nd17f']/@containers[id='idbn2qkContainer']" layoutEdge="top" withParent="true" referenceLayoutEdge="top"/>
+				<positionConstraints id="tsenb" uiPhoneControl="//@scenes[id='ebtne']/@parentViewControllers[id='nd17f']/@containers[id='idbn2qkContainer']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+			</containers>
+			<containers childViewController="//@viewControllers[id='au4gd']" id="id8j14mContainer" viewController="//@scenes[id='ebtne']/@parentViewControllers[id='nd17f']" defaultWidth="300" defaultHeight="400" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0">
+				<positionConstraints id="0n2jh" uiPhoneControl="//@scenes[id='ebtne']/@parentViewControllers[id='nd17f']/@containers[id='id8j14mContainer']" layoutEdge="top" withParent="true" referenceLayoutEdge="top"/>
+				<positionConstraints id="tgusd" uiPhoneControl="//@scenes[id='ebtne']/@parentViewControllers[id='nd17f']/@containers[id='id8j14mContainer']" layoutEdge="start" withParent="false" referenceElement="//@scenes[id='ebtne']/@parentViewControllers[id='nd17f']/@containers[id='idbn2qkContainer']" referenceLayoutEdge="end"/>
+				<positionConstraints id="i09t6" uiPhoneControl="//@scenes[id='ebtne']/@parentViewControllers[id='nd17f']/@containers[id='id8j14mContainer']" layoutEdge="bottom" withParent="true" referenceLayoutEdge="bottom"/>
+				<positionConstraints id="65glu" uiPhoneControl="//@scenes[id='ebtne']/@parentViewControllers[id='nd17f']/@containers[id='id8j14mContainer']" layoutEdge="end" withParent="true" referenceLayoutEdge="end"/>
+			</containers>
+		</parentViewControllers>
+		<childViewControllers viewController="//@viewControllers[id='1pv9i']"/>
+		<childViewControllers viewController="//@viewControllers[id='au4gd']"/>
+	</scenes>
+	<scenes id="9gvh4" name="About" launcher="false" typeSmartphone="singleVC" typeTablet="singleVC">
+		<childViewControllers viewController="//@viewControllers[id='cv9uh']"/>
+	</scenes>
+	<menu>
+		<menuItems title="Algebra" id="idAlgebraMenuItem">
+			<navigation id="17rqc" destinationScene="//@scenes[id='d13ce']"/>
+		</menuItems>
+		<menuItems title="Equations" id="idEquationsMenuItem">
+			<navigation id="b1qra" destinationScene="//@scenes[id='fig0g']"/>
+		</menuItems>
+		<menuItems title="Guide" id="idGuideMenuItem">
+			<navigation id="shlsv" destinationScene="//@scenes[id='ebtne']"/>
+		</menuItems>
+		<menuItems title="About" id="idAboutMenuItem">
+			<navigation id="hr4gs" destinationScene="//@scenes[id='9gvh4']"/>
+		</menuItems>
+	</menu>
+</metamodel:Application>

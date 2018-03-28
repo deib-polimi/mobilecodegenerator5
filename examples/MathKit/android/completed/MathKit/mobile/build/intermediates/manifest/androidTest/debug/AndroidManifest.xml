@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="it.polimi.mathkit.test">
+
+    <uses-sdk android:minSdkVersion="17" android:targetSdkVersion="25" />
+
+    <application android:debuggable="true" >
+        <uses-library android:name="android.test.runner" />
+    </application>
+
+    <instrumentation android:name="android.support.test.runner.AndroidJUnitRunner"
+                     android:targetPackage="it.polimi.mathkit"
+                     android:handleProfiling="false"
+                     android:functionalTest="false"
+                     android:label="Tests for it.polimi.mathkit"/>
+</manifest>

@@ -1,0 +1,53 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	xmlns:tools="http://schemas.android.com/tools"
+	android:id="@+id/info_constraintLayout"
+	android:layout_width="match_parent"
+	android:layout_height="match_parent"
+	android:background="#ffffff"
+	tools:context="it.polimi.mathkit.fragments.InfoFragment">
+
+	<TextView
+		android:id="@+id/titleInfoLabel"
+
+		android:layout_width="match_parent"
+		android:layout_height="36.0dp"
+		android:layout_marginBottom="0dp"
+
+		android:layout_marginEnd="0dp"
+		android:layout_marginStart="0dp"
+
+
+		android:layout_marginTop="20dp"
+
+		android:gravity="center|center_vertical"
+		android:paddingBottom="0dp"
+		android:paddingLeft="0dp"
+
+		android:paddingRight="0dp"
+		android:paddingTop="0dp"
+		android:text="About MathKit"
+		android:textColor="#000000"
+
+		android:textSize="24dp"
+		android:textStyle="bold"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintWidth_percent="1.0" />
+
+	<TextView
+		android:id="@+id/infoText"
+		android:layout_width="0dp"
+		android:layout_height="0dp"
+		android:layout_marginTop="20dp"
+        android:textAlignment="center"
+		android:text="@string/app_about"
+		app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintHorizontal_bias="0.5"
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintTop_toBottomOf="@id/titleInfoLabel"
+		app:layout_constraintWidth_percent="0.7"
+		app:layout_constraintHeight_percent="0.8"/>
+
+
+</android.support.constraint.ConstraintLayout>

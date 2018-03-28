@@ -1,0 +1,287 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linear_constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    tools:context="it.polimi.mathkit.fragments.LinearFragment">
+    
+	<ImageView
+		android:id="@+id/guideLEImageView"
+		
+		
+		android:layout_width="240.0dp"
+		
+		android:layout_height="128.0dp"
+		
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+    	
+    	
+		
+		app:layout_constraintTop_toBottomOf="@+id/titleLELabel"
+		app:layout_constraintBottom_toTopOf="@+id/mLabel"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginBottom="0dp"
+		
+		
+		android:layout_marginStart="0dp"
+		android:layout_marginEnd="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+	    android:background="#000000"/>
+	<Button
+		android:id="@+id/calcLEButton"
+		
+		android:layout_width="150.0dp"
+		
+		android:layout_height="40.0dp"
+		
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+    	
+    	
+		
+		app:layout_constraintTop_toBottomOf="@+id/xLELabel"
+		app:layout_constraintBottom_toBottomOf="parent"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginBottom="20dp"
+		
+		
+		android:layout_marginStart="0dp"
+		android:layout_marginEnd="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+        
+        android:textColor="#ffffff"
+        
+        android:background="@drawable/calclebutton_background"
+		style="?android:attr/borderlessButtonStyle"
+        android:textAllCaps="false"
+        android:text="Calculate"/>        
+	<TextView
+		android:id="@+id/titleLELabel"
+		
+		android:layout_width="match_parent"
+		
+		android:layout_height="36.0dp"
+		app:layout_constraintWidth_percent="1.0"
+		
+		app:layout_constraintStart_toStartOf="parent"
+    	
+    	
+		
+		
+		app:layout_constraintVertical_chainStyle="spread_inside"
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintBottom_toTopOf="@+id/guideLEImageView"
+		
+		android:layout_marginTop="20dp"
+		android:layout_marginBottom="0dp"
+		
+		
+		android:layout_marginStart="0dp"
+		android:layout_marginEnd="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+        
+        android:textStyle="bold"
+        android:text="Linear Equation"
+        android:gravity="center|center_vertical"
+        android:textColor="#000000"
+        android:textSize="24dp"/>
+	<TextView
+		android:id="@+id/mLabel"
+		
+		
+		android:layout_width="0dp"
+		
+		android:layout_height="36.0dp"
+		app:layout_constraintWidth_percent="0.5"
+		
+		app:layout_constraintStart_toStartOf="parent"
+    	
+    	
+		
+		app:layout_constraintTop_toBottomOf="@+id/guideLEImageView"
+		app:layout_constraintBottom_toTopOf="@+id/qLabel"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginBottom="0dp"
+		
+		
+		android:layout_marginStart="0dp"
+		android:layout_marginEnd="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+        
+        android:textStyle="bold"
+        android:text="m ="
+        android:gravity="right|center_vertical"
+        android:textColor="#000000"
+        android:textSize="20dp"/>
+	<TextView
+		android:id="@+id/qLabel"
+		
+		
+		android:layout_width="0dp"
+		
+		android:layout_height="36.0dp"
+		app:layout_constraintWidth_percent="0.5"
+		
+		app:layout_constraintStart_toStartOf="parent"
+    	
+    	
+		
+		app:layout_constraintTop_toBottomOf="@+id/mLabel"
+		app:layout_constraintBottom_toTopOf="@+id/xLELabel"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginBottom="0dp"
+		
+		
+		android:layout_marginStart="0dp"
+		android:layout_marginEnd="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+        
+        android:textStyle="bold"
+        android:text="q ="
+        android:gravity="right|center_vertical"
+        android:textColor="#000000"
+        android:textSize="20dp"/>
+	<TextView
+		android:id="@+id/xLELabel"
+		
+		
+		android:layout_width="0dp"
+		
+		android:layout_height="36.0dp"
+		app:layout_constraintWidth_percent="0.5"
+		
+		app:layout_constraintStart_toStartOf="parent"
+    	
+    	
+		
+		app:layout_constraintTop_toBottomOf="@+id/qLabel"
+		app:layout_constraintBottom_toTopOf="@+id/calcLEButton"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginBottom="0dp"
+		
+		
+		android:layout_marginStart="0dp"
+		android:layout_marginEnd="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+        
+        android:textStyle="bold"
+        android:text="x ="
+        android:gravity="right|center_vertical"
+        android:textColor="#000000"
+        android:textSize="20dp"/>
+	<TextView
+		android:id="@+id/resultLELabel"
+		
+		android:layout_width="88.0dp"
+		android:layout_height="36.0dp"
+		
+		app:layout_constraintTop_toTopOf="@+id/xLELabel"
+		app:layout_constraintStart_toEndOf="@+id/xLELabel"
+    	
+		
+		android:layout_marginStart="10dp"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginEnd="0dp"
+		android:layout_marginBottom="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+        android:text="result"
+        android:gravity="left|center_vertical"
+        android:textColor="#000000"
+        android:textSize="20dp"/>
+	<android.support.v7.widget.AppCompatEditText
+		android:id="@+id/mEditText"
+		
+		android:layout_width="88.0dp"
+		android:layout_height="36.0dp"
+		
+		app:layout_constraintTop_toTopOf="@+id/mLabel"
+		app:layout_constraintStart_toEndOf="@+id/mLabel"
+    	
+		
+		android:layout_marginStart="10dp"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginEnd="0dp"
+		android:layout_marginBottom="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+       
+        android:text=""
+        android:hint="m" 
+        android:textColor="#000000"
+        android:textSize="20dp"/>
+	<android.support.v7.widget.AppCompatEditText
+		android:id="@+id/qEditText"
+		
+		android:layout_width="88.0dp"
+		android:layout_height="36.0dp"
+		
+		app:layout_constraintTop_toTopOf="@+id/qLabel"
+		app:layout_constraintStart_toEndOf="@+id/qLabel"
+    	
+		
+		android:layout_marginStart="10dp"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginEnd="0dp"
+		android:layout_marginBottom="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+       
+        android:text=""
+        android:hint="q" 
+        android:textColor="#000000"
+        android:textSize="20dp"/>
+
+	
+</android.support.constraint.ConstraintLayout>

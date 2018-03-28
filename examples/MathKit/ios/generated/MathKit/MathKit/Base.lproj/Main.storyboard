@@ -1,0 +1,2797 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+	<dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+	<scenes>
+	<!--ListViewController-->
+	<scene sceneID="ListViewControllerSceneID">
+		<objects>
+			<viewController storyboardIdentifier="ListViewControllerStoryboardID" id="ListViewControllerID" customClass="ListViewController" customModule="MathKit" customModuleProvider="target" sceneMemberID="viewController" automaticallyAdjustsScrollViewInsets="NO">
+		        <layoutGuides>
+	                <viewControllerLayoutGuide type="top" id="List-guide-top"/>
+	            	<viewControllerLayoutGuide type="bottom" id="List-guide-bottom"/>
+	            </layoutGuides>
+	        	<view key="view" contentMode="scaleToFill" id="ListViewID">
+	        		<rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+	                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+	                <subviews>
+	                    <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="57" sectionHeaderHeight="0.0" sectionFooterHeight="0.0" translatesAutoresizingMaskIntoConstraints="NO" id="toolsListView">
+<rect key="frame" />
+<constraints>
+	
+	
+	
+</constraints>
+
+			                <color key="backgroundColor" red="1.0" green="1.0" blue="1.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <prototypes>
+	                        	<tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationWidth="0.0" reuseIdentifier="toolsListViewTableViewCell" rowHeight="57" id="toolsListViewCellID" customClass="ImageTableViewCell" customModule="MathKit" customModuleProvider="target">
+	                                <rect key="frame" x="0.0" y="64" width="414" height="57"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+	                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="toolsListViewCellID" id="toolsListViewContentViewID">
+	                                    <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+	                                    <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="toolsListViewCellImageID">
+                                                <rect key="frame" x="16" y="8" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="40" id="toolsListViewCellImageWidth"/>
+                                                </constraints>
+                                            </imageView>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="toolsListViewCellLabelID">
+                                                <rect key="frame" x="72" y="8" width="288" height="40"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <constraints>
+                                        	<constraint firstItem="toolsListViewCellImageID" firstAttribute="leading" secondItem="toolsListViewContentViewID" secondAttribute="leading" constant="16" id="toolsListViewConstA"/>
+                                            <constraint firstItem="toolsListViewCellLabelID" firstAttribute="leading" secondItem="toolsListViewCellImageID" secondAttribute="trailing" constant="16" id="toolsListViewConstB"/>
+                                            <constraint firstAttribute="bottom" secondItem="toolsListViewCellLabelID" secondAttribute="bottom" constant="8" id="toolsListViewConstC"/>
+                                            <constraint firstItem="toolsListViewCellLabelID" firstAttribute="top" secondItem="toolsListViewContentViewID" secondAttribute="top" constant="8" id="toolsListViewConstD"/>
+                                            <constraint firstAttribute="trailing" secondItem="toolsListViewCellLabelID" secondAttribute="trailing" constant="54" id="toolsListViewConstE"/>
+                                            <constraint firstItem="toolsListViewCellImageID" firstAttribute="top" secondItem="toolsListViewContentViewID" secondAttribute="top" constant="8" id="toolsListViewConstF"/>
+                                            <constraint firstAttribute="bottom" secondItem="toolsListViewCellImageID" secondAttribute="bottom" constant="8" id="toolsListViewConstG"/>
+                                        </constraints>
+                                   	</tableViewCellContentView>
+					                <color key="backgroundColor" red="1.0" green="1.0" blue="1.0" alpha="1" colorSpace="calibratedRGB"/>
+                                	<connections>
+                                        <outlet property="img" destination="toolsListViewCellImageID" id="toolsListViewImageOutlet"/>
+                                        <outlet property="label" destination="toolsListViewCellLabelID" id="toolsListViewLabelOutlet"/>
+                                    </connections>
+	                            </tableViewCell>
+	                        </prototypes>
+	                        <connections>
+	                            <outlet property="dataSource" destination="ListViewControllerID" id="toolsListViewDataSourceOutletID"/>
+	                            <outlet property="delegate" destination="ListViewControllerID" id="toolsListViewDelegateOutletID"/>
+	                        </connections>
+	                    </tableView>
+	                    
+	                </subviews>
+	                <color key="backgroundColor" red="1.0" green="1.0" blue="1.0" alpha="1" colorSpace="calibratedRGB"/>
+	                <constraints>
+
+
+	
+	
+		<constraint firstItem="toolsListView" firstAttribute="top" secondItem="ListViewID" secondAttribute="top" priority="750" constant="0" id="toolsListView-constraint-parent-top"/>
+		<constraint firstItem="toolsListView" firstAttribute="leading" secondItem="ListViewID" secondAttribute="leading" priority="750" constant="0" id="toolsListView-constraint-parent-start"/>
+		<constraint firstItem="ListViewID" firstAttribute="bottom" secondItem="toolsListView" secondAttribute="bottom" priority="750" constant="0" id="toolsListView-constraint-parent-bottom"/>
+		<constraint firstItem="toolsListView" firstAttribute="trailing" secondItem="ListViewID" secondAttribute="trailing" priority="750" constant="0" id="toolsListView-constraint-parent-end"/>
+
+
+
+
+	                </constraints>
+	            </view>
+				<navigationItem key="navigationItem" id="ListViewControllerNavigationItemID"/>
+	      		<connections>
+	                <outlet property="toolsListView" destination="toolsListView" id="toolsListViewOutletID"/>
+	      		</connections>
+	    	</viewController>
+	    	<placeholder placeholderIdentifier="IBFirstResponder" id="ListPlaceholderID" userLabel="First Responder" sceneMemberID="firstResponder"/>
+	  	</objects>
+	</scene>
+	<!--FractionsViewController-->
+	<scene sceneID="FractionsViewControllerSceneID">
+		<objects>
+			<viewController storyboardIdentifier="FractionsViewControllerStoryboardID" id="FractionsViewControllerID" customClass="FractionsViewController" customModule="MathKit" customModuleProvider="target" sceneMemberID="viewController" automaticallyAdjustsScrollViewInsets="NO">
+		        <layoutGuides>
+	                <viewControllerLayoutGuide type="top" id="Fractions-guide-top"/>
+	            	<viewControllerLayoutGuide type="bottom" id="Fractions-guide-bottom"/>
+	            </layoutGuides>
+	        	<view key="view" contentMode="scaleToFill" id="FractionsViewID">
+	        		<rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+	                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+	                <subviews>
+	                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="calcFractionsButton">
+<rect key="frame" />
+<constraints>
+	
+	<constraint firstAttribute="width" constant="150.0" id="calcFractionsButton-width"/>
+	
+	<constraint firstAttribute="height" constant="40.0" id="calcFractionsButton-constraint-height"/>
+	
+</constraints>
+
+	                    	<color key="backgroundColor" red="0.0" green="0.7372549" blue="0.1882353" alpha="1" colorSpace="calibratedRGB"/>
+	                    	<state key="normal" title="Calculate">
+	                        	<color key="titleColor" red="1.0" green="1.0" blue="1.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        </state>
+	                        <state key="highlighted">
+	                        	<color key="titleColor" red="1.0" green="1.0" blue="1.0" alpha="1" colorSpace="calibratedRGB"/>
+	                    	</state>
+	                    	<connections>
+	                    		<action selector="calcFractionsButtonTouchUpInside:" destination="FractionsViewControllerID" eventType="touchUpInside" id="calcFractionsButtonTouchUpInsideActionID"/>
+	                    		<action selector="calcFractionsButtonTouchDown:" destination="FractionsViewControllerID" eventType="touchDown" id="calcFractionsButtonTouchDownActionID"/>
+	                        </connections>
+	                    </button>
+
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="idd3l63Chain-GhostView7">
+	<rect key="frame" />
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="idd3l63Chain-GhostView8">
+	<rect key="frame" />
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+
+	                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" text="Decimal To Fraction" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dtfLabel">
+<rect key="frame" />
+<constraints>
+	
+	
+	<constraint firstAttribute="height" constant="36.0" id="dtfLabel-constraint-height"/>
+	
+</constraints>
+
+	                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <nil key="highlightedColor"/>
+	                    </label>
+
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="idd3l63Chain-GhostView0">
+	<rect key="frame" />
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+
+
+	                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="right" text="Decimal:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="decimalLabel">
+<rect key="frame" />
+<constraints>
+	
+	
+	<constraint firstAttribute="height" constant="36.0" id="decimalLabel-constraint-height"/>
+	
+</constraints>
+
+	                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <nil key="highlightedColor"/>
+	                    </label>
+
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="idd3l63Chain-GhostView1">
+	<rect key="frame" />
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+
+
+	                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="right" text="Fraction:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fractionLabel">
+<rect key="frame" />
+<constraints>
+	
+	
+	<constraint firstAttribute="height" constant="36.0" id="fractionLabel-constraint-height"/>
+	
+</constraints>
+
+	                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <nil key="highlightedColor"/>
+	                    </label>
+
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="idd3l63Chain-GhostView2">
+	<rect key="frame" />
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+
+
+	                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" text="Fraction Simplifier" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fsLabel">
+<rect key="frame" />
+<constraints>
+	
+	
+	<constraint firstAttribute="height" constant="36.0" id="fsLabel-constraint-height"/>
+	
+</constraints>
+
+	                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <nil key="highlightedColor"/>
+	                    </label>
+
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="idd3l63Chain-GhostView3">
+	<rect key="frame" />
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+
+
+	                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" text="/" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="slashLabel">
+<rect key="frame" />
+<constraints>
+	
+	<constraint firstAttribute="width" constant="88.0" id="slashLabel-constraint-width"/>
+	
+	<constraint firstAttribute="height" constant="36.0" id="slashLabel-constraint-height"/>
+	
+</constraints>
+
+	                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <nil key="highlightedColor"/>
+	                    </label>
+
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="idd3l63Chain-GhostView4">
+	<rect key="frame" />
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+
+
+	                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="right" text="Simple:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="simpleLabel">
+<rect key="frame" />
+<constraints>
+	
+	
+	<constraint firstAttribute="height" constant="36.0" id="simpleLabel-constraint-height"/>
+	
+</constraints>
+
+	                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <nil key="highlightedColor"/>
+	                    </label>
+
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="idd3l63Chain-GhostView5">
+	<rect key="frame" />
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+
+
+	                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="right" text="Decimal:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="decSimpLabel">
+<rect key="frame" />
+<constraints>
+	
+	
+	<constraint firstAttribute="height" constant="36.0" id="decSimpLabel-constraint-height"/>
+	
+</constraints>
+
+	                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <nil key="highlightedColor"/>
+	                    </label>
+
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="idd3l63Chain-GhostView6">
+	<rect key="frame" />
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+
+
+	                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="left" text="result" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fractionResultLabel">
+<rect key="frame" />
+<constraints>
+	
+	<constraint firstAttribute="width" constant="88.0" id="fractionResultLabel-constraint-width"/>
+	
+	<constraint firstAttribute="height" constant="36.0" id="fractionResultLabel-constraint-height"/>
+	
+</constraints>
+
+	                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <nil key="highlightedColor"/>
+	                    </label>
+	                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="left" text="result" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="simpleResultLabel">
+<rect key="frame" />
+<constraints>
+	
+	<constraint firstAttribute="width" constant="88.0" id="simpleResultLabel-constraint-width"/>
+	
+	<constraint firstAttribute="height" constant="36.0" id="simpleResultLabel-constraint-height"/>
+	
+</constraints>
+
+	                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <nil key="highlightedColor"/>
+	                    </label>
+	                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="left" text="result" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="decimalResultLabel">
+<rect key="frame" />
+<constraints>
+	
+	<constraint firstAttribute="width" constant="88.0" id="decimalResultLabel-constraint-width"/>
+	
+	<constraint firstAttribute="height" constant="36.0" id="decimalResultLabel-constraint-height"/>
+	
+</constraints>
+
+	                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <nil key="highlightedColor"/>
+	                    </label>
+	                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="value" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" text="" id="decimalEditText">
+<rect key="frame" />
+<constraints>
+	
+	<constraint firstAttribute="width" constant="88.0" id="decimalEditText-constraint-width"/>
+	
+	<constraint firstAttribute="height" constant="36.0" id="decimalEditText-constraint-height"/>
+	
+</constraints>
+
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+	                        <textInputTraits key="textInputTraits"/>
+	                    </textField>
+	                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="num" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" text="" id="numEditText">
+<rect key="frame" />
+<constraints>
+	
+	<constraint firstAttribute="width" constant="88.0" id="numEditText-constraint-width"/>
+	
+	<constraint firstAttribute="height" constant="36.0" id="numEditText-constraint-height"/>
+	
+</constraints>
+
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+	                        <textInputTraits key="textInputTraits"/>
+	                    </textField>
+	                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="den" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" text="" id="denEditText">
+<rect key="frame" />
+<constraints>
+	
+	<constraint firstAttribute="width" constant="88.0" id="denEditText-constraint-width"/>
+	
+	<constraint firstAttribute="height" constant="36.0" id="denEditText-constraint-height"/>
+	
+</constraints>
+
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+	                        <textInputTraits key="textInputTraits"/>
+	                    </textField>
+	                    
+	                </subviews>
+	                <color key="backgroundColor" red="1.0" green="1.0" blue="1.0" alpha="1" colorSpace="calibratedRGB"/>
+	                <constraints>
+
+
+	
+	
+		<constraint firstItem="calcFractionsButton" firstAttribute="centerX" secondItem="FractionsViewID" secondAttribute="centerX" priority="750" constant="0" id="calcFractionsButton-constraint-parent-centerX"/>
+
+	
+		
+		<constraint firstItem="calcFractionsButton" firstAttribute="top" secondItem="idd3l63Chain-GhostView7" secondAttribute="bottom" priority="750" constant="0" id="calcFractionsButton-constraint-chain"/>
+		
+		<constraint firstItem="idd3l63Chain-GhostView7" firstAttribute="top" secondItem="decSimpLabel" secondAttribute="bottom" priority="750" constant="0" id="idd3l63Chain-GhostView7-constraintY"/>
+		
+		<constraint firstItem="idd3l63Chain-GhostView7" firstAttribute="height" secondItem="idd3l63Chain-GhostView0" secondAttribute="height" priority="750" multiplier="1" id="idd3l63Chain-GhostView7-constraint-height"/>
+		<constraint firstItem="idd3l63Chain-GhostView7" firstAttribute="leading" secondItem="FractionsViewID" secondAttribute="leading" priority="750" constant="0" id="idd3l63Chain-GhostView7-constraintX"/>
+		
+		<constraint firstItem="idd3l63Chain-GhostView8" firstAttribute="top" secondItem="calcFractionsButton" secondAttribute="bottom" priority="750" constant="0" id="idd3l63Chain-GhostView8-constraintY"/>
+		<constraint firstItem="idd3l63Chain-GhostView8" firstAttribute="bottom" secondItem="FractionsViewID" secondAttribute="bottom" priority="750" constant="0" id="idd3l63Chain-GhostView8-constraintY-2"/>
+		<constraint firstItem="idd3l63Chain-GhostView8" firstAttribute="leading" secondItem="FractionsViewID" secondAttribute="leading" priority="750" constant="0" id="idd3l63Chain-GhostView8-constraintX"/>
+		<constraint firstItem="idd3l63Chain-GhostView8" firstAttribute="height" secondItem="idd3l63Chain-GhostView0" secondAttribute="height" priority="750" multiplier="1" id="idd3l63Chain-GhostView8-constraint-height"/>
+		
+
+
+	
+	<constraint firstItem="dtfLabel" firstAttribute="width" secondItem="FractionsViewID" secondAttribute="width" multiplier="1.0" id="dtfLabel-constraint-width"/>
+	
+		<constraint firstItem="dtfLabel" firstAttribute="leading" secondItem="FractionsViewID" secondAttribute="leading" priority="750" constant="0" id="dtfLabel-constraint-parent-start"/>
+
+	
+		
+		<constraint firstItem="dtfLabel" firstAttribute="top" secondItem="idd3l63Chain-GhostView0" secondAttribute="bottom" priority="750" constant="0" id="dtfLabel-constraint-chain"/>
+		
+		<constraint firstItem="idd3l63Chain-GhostView0" firstAttribute="top" secondItem="FractionsViewID" secondAttribute="top" priority="750" constant="0" id="idd3l63Chain-GhostView0-constraintY"/>
+		<constraint firstItem="idd3l63Chain-GhostView0" firstAttribute="leading" secondItem="FractionsViewID" secondAttribute="leading" priority="750" constant="0" id="idd3l63Chain-GhostView0-constraintX"/>
+		
+		
+
+
+	
+	<constraint firstItem="decimalLabel" firstAttribute="width" secondItem="FractionsViewID" secondAttribute="width" multiplier="0.5" id="decimalLabel-constraint-width"/>
+	
+		<constraint firstItem="decimalLabel" firstAttribute="leading" secondItem="FractionsViewID" secondAttribute="leading" priority="750" constant="0" id="decimalLabel-constraint-parent-start"/>
+
+	
+		
+		<constraint firstItem="decimalLabel" firstAttribute="top" secondItem="idd3l63Chain-GhostView1" secondAttribute="bottom" priority="750" constant="0" id="decimalLabel-constraint-chain"/>
+		
+		<constraint firstItem="idd3l63Chain-GhostView1" firstAttribute="top" secondItem="dtfLabel" secondAttribute="bottom" priority="750" constant="0" id="idd3l63Chain-GhostView1-constraintY"/>
+		
+		<constraint firstItem="idd3l63Chain-GhostView1" firstAttribute="height" secondItem="idd3l63Chain-GhostView0" secondAttribute="height" priority="750" multiplier="1" id="idd3l63Chain-GhostView1-constraint-height"/>
+		<constraint firstItem="idd3l63Chain-GhostView1" firstAttribute="leading" secondItem="FractionsViewID" secondAttribute="leading" priority="750" constant="0" id="idd3l63Chain-GhostView1-constraintX"/>
+		
+		
+
+
+	
+	<constraint firstItem="fractionLabel" firstAttribute="width" secondItem="FractionsViewID" secondAttribute="width" multiplier="0.5" id="fractionLabel-constraint-width"/>
+	
+		<constraint firstItem="fractionLabel" firstAttribute="leading" secondItem="FractionsViewID" secondAttribute="leading" priority="750" constant="0" id="fractionLabel-constraint-parent-start"/>
+
+	
+		
+		<constraint firstItem="fractionLabel" firstAttribute="top" secondItem="idd3l63Chain-GhostView2" secondAttribute="bottom" priority="750" constant="0" id="fractionLabel-constraint-chain"/>
+		
+		<constraint firstItem="idd3l63Chain-GhostView2" firstAttribute="top" secondItem="decimalLabel" secondAttribute="bottom" priority="750" constant="0" id="idd3l63Chain-GhostView2-constraintY"/>
+		
+		<constraint firstItem="idd3l63Chain-GhostView2" firstAttribute="height" secondItem="idd3l63Chain-GhostView0" secondAttribute="height" priority="750" multiplier="1" id="idd3l63Chain-GhostView2-constraint-height"/>
+		<constraint firstItem="idd3l63Chain-GhostView2" firstAttribute="leading" secondItem="FractionsViewID" secondAttribute="leading" priority="750" constant="0" id="idd3l63Chain-GhostView2-constraintX"/>
+		
+		
+
+
+	
+	<constraint firstItem="fsLabel" firstAttribute="width" secondItem="FractionsViewID" secondAttribute="width" multiplier="1.0" id="fsLabel-constraint-width"/>
+	
+		<constraint firstItem="fsLabel" firstAttribute="leading" secondItem="FractionsViewID" secondAttribute="leading" priority="750" constant="0" id="fsLabel-constraint-parent-start"/>
+
+	
+		
+		<constraint firstItem="fsLabel" firstAttribute="top" secondItem="idd3l63Chain-GhostView3" secondAttribute="bottom" priority="750" constant="0" id="fsLabel-constraint-chain"/>
+		
+		<constraint firstItem="idd3l63Chain-GhostView3" firstAttribute="top" secondItem="fractionLabel" secondAttribute="bottom" priority="750" constant="0" id="idd3l63Chain-GhostView3-constraintY"/>
+		
+		<constraint firstItem="idd3l63Chain-GhostView3" firstAttribute="height" secondItem="idd3l63Chain-GhostView0" secondAttribute="height" priority="750" multiplier="1" id="idd3l63Chain-GhostView3-constraint-height"/>
+		<constraint firstItem="idd3l63Chain-GhostView3" firstAttribute="leading" secondItem="FractionsViewID" secondAttribute="leading" priority="750" constant="0" id="idd3l63Chain-GhostView3-constraintX"/>
+		
+		
+
+
+	
+	
+		<constraint firstItem="slashLabel" firstAttribute="centerX" secondItem="FractionsViewID" secondAttribute="centerX" priority="750" constant="0" id="slashLabel-constraint-parent-centerX"/>
+
+	
+		
+		<constraint firstItem="slashLabel" firstAttribute="top" secondItem="idd3l63Chain-GhostView4" secondAttribute="bottom" priority="750" constant="0" id="slashLabel-constraint-chain"/>
+		
+		<constraint firstItem="idd3l63Chain-GhostView4" firstAttribute="top" secondItem="fsLabel" secondAttribute="bottom" priority="750" constant="0" id="idd3l63Chain-GhostView4-constraintY"/>
+		
+		<constraint firstItem="idd3l63Chain-GhostView4" firstAttribute="height" secondItem="idd3l63Chain-GhostView0" secondAttribute="height" priority="750" multiplier="1" id="idd3l63Chain-GhostView4-constraint-height"/>
+		<constraint firstItem="idd3l63Chain-GhostView4" firstAttribute="leading" secondItem="FractionsViewID" secondAttribute="leading" priority="750" constant="0" id="idd3l63Chain-GhostView4-constraintX"/>
+		
+		
+
+
+	
+	<constraint firstItem="simpleLabel" firstAttribute="width" secondItem="FractionsViewID" secondAttribute="width" multiplier="0.5" id="simpleLabel-constraint-width"/>
+	
+		<constraint firstItem="simpleLabel" firstAttribute="leading" secondItem="FractionsViewID" secondAttribute="leading" priority="750" constant="0" id="simpleLabel-constraint-parent-start"/>
+
+	
+		
+		<constraint firstItem="simpleLabel" firstAttribute="top" secondItem="idd3l63Chain-GhostView5" secondAttribute="bottom" priority="750" constant="0" id="simpleLabel-constraint-chain"/>
+		
+		<constraint firstItem="idd3l63Chain-GhostView5" firstAttribute="top" secondItem="slashLabel" secondAttribute="bottom" priority="750" constant="0" id="idd3l63Chain-GhostView5-constraintY"/>
+		
+		<constraint firstItem="idd3l63Chain-GhostView5" firstAttribute="height" secondItem="idd3l63Chain-GhostView0" secondAttribute="height" priority="750" multiplier="1" id="idd3l63Chain-GhostView5-constraint-height"/>
+		<constraint firstItem="idd3l63Chain-GhostView5" firstAttribute="leading" secondItem="FractionsViewID" secondAttribute="leading" priority="750" constant="0" id="idd3l63Chain-GhostView5-constraintX"/>
+		
+		
+
+
+	
+	<constraint firstItem="decSimpLabel" firstAttribute="width" secondItem="FractionsViewID" secondAttribute="width" multiplier="0.5" id="decSimpLabel-constraint-width"/>
+	
+		<constraint firstItem="decSimpLabel" firstAttribute="leading" secondItem="FractionsViewID" secondAttribute="leading" priority="750" constant="0" id="decSimpLabel-constraint-parent-start"/>
+
+	
+		
+		<constraint firstItem="decSimpLabel" firstAttribute="top" secondItem="idd3l63Chain-GhostView6" secondAttribute="bottom" priority="750" constant="0" id="decSimpLabel-constraint-chain"/>
+		
+		<constraint firstItem="idd3l63Chain-GhostView6" firstAttribute="top" secondItem="simpleLabel" secondAttribute="bottom" priority="750" constant="0" id="idd3l63Chain-GhostView6-constraintY"/>
+		
+		<constraint firstItem="idd3l63Chain-GhostView6" firstAttribute="height" secondItem="idd3l63Chain-GhostView0" secondAttribute="height" priority="750" multiplier="1" id="idd3l63Chain-GhostView6-constraint-height"/>
+		<constraint firstItem="idd3l63Chain-GhostView6" firstAttribute="leading" secondItem="FractionsViewID" secondAttribute="leading" priority="750" constant="0" id="idd3l63Chain-GhostView6-constraintX"/>
+		
+		
+
+		<constraint firstItem="fractionResultLabel" firstAttribute="top" secondItem="fractionLabel" secondAttribute="top" priority="750" constant="0" id="fractionResultLabel-top-top"/>
+		<constraint firstItem="fractionResultLabel" firstAttribute="leading" secondItem="fractionLabel" secondAttribute="trailing" priority="750" constant="15" id="fractionResultLabel-start-end"/>
+
+	
+	
+
+
+		<constraint firstItem="simpleResultLabel" firstAttribute="top" secondItem="simpleLabel" secondAttribute="top" priority="750" constant="0" id="simpleResultLabel-top-top"/>
+		<constraint firstItem="simpleResultLabel" firstAttribute="leading" secondItem="simpleLabel" secondAttribute="trailing" priority="750" constant="15" id="simpleResultLabel-start-end"/>
+
+	
+	
+
+
+		<constraint firstItem="decimalResultLabel" firstAttribute="top" secondItem="decSimpLabel" secondAttribute="top" priority="750" constant="0" id="decimalResultLabel-top-top"/>
+		<constraint firstItem="decimalResultLabel" firstAttribute="leading" secondItem="decSimpLabel" secondAttribute="trailing" priority="750" constant="15" id="decimalResultLabel-start-end"/>
+
+	
+	
+
+
+		<constraint firstItem="decimalEditText" firstAttribute="top" secondItem="decimalLabel" secondAttribute="top" priority="750" constant="0" id="decimalEditText-top-top"/>
+		<constraint firstItem="decimalEditText" firstAttribute="leading" secondItem="decimalLabel" secondAttribute="trailing" priority="750" constant="10" id="decimalEditText-start-end"/>
+
+	
+	
+
+
+		<constraint firstItem="numEditText" firstAttribute="top" secondItem="slashLabel" secondAttribute="top" priority="750" constant="0" id="numEditText-top-top"/>
+		<constraint firstItem="numEditText" firstAttribute="trailing" secondItem="slashLabel" secondAttribute="leading" priority="750" constant="0" id="numEditText-end-start"/>
+
+	
+	
+
+
+		<constraint firstItem="denEditText" firstAttribute="top" secondItem="slashLabel" secondAttribute="top" priority="750" constant="0" id="denEditText-top-top"/>
+		<constraint firstItem="denEditText" firstAttribute="leading" secondItem="slashLabel" secondAttribute="trailing" priority="750" constant="0" id="denEditText-start-end"/>
+
+	
+	
+
+
+
+
+	                </constraints>
+	            </view>
+				<navigationItem key="navigationItem" id="FractionsViewControllerNavigationItemID"/>
+	      		<connections>
+	                <outlet property="calcFractionsButton" destination="calcFractionsButton" id="calcFractionsButtonOutletID"/>
+	                <outlet property="decimalEditText" destination="decimalEditText" id="decimalEditTextOutletID"/>
+	                <outlet property="numEditText" destination="numEditText" id="numEditTextOutletID"/>
+	                <outlet property="denEditText" destination="denEditText" id="denEditTextOutletID"/>
+	      		</connections>
+	    	</viewController>
+	    	<placeholder placeholderIdentifier="IBFirstResponder" id="FractionsPlaceholderID" userLabel="First Responder" sceneMemberID="firstResponder"/>
+	  	</objects>
+	</scene>
+	<!--ProbabilityViewController-->
+	<scene sceneID="ProbabilityViewControllerSceneID">
+		<objects>
+			<viewController storyboardIdentifier="ProbabilityViewControllerStoryboardID" id="ProbabilityViewControllerID" customClass="ProbabilityViewController" customModule="MathKit" customModuleProvider="target" sceneMemberID="viewController" automaticallyAdjustsScrollViewInsets="NO">
+		        <layoutGuides>
+	                <viewControllerLayoutGuide type="top" id="Probability-guide-top"/>
+	            	<viewControllerLayoutGuide type="bottom" id="Probability-guide-bottom"/>
+	            </layoutGuides>
+	        	<view key="view" contentMode="scaleToFill" id="ProbabilityViewID">
+	        		<rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+	                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+	                <subviews>
+	                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="calcProbButton">
+<rect key="frame" />
+<constraints>
+	
+	<constraint firstAttribute="width" constant="150.0" id="calcProbButton-width"/>
+	
+	<constraint firstAttribute="height" constant="40.0" id="calcProbButton-constraint-height"/>
+	
+</constraints>
+
+	                    	<color key="backgroundColor" red="0.0" green="0.7372549" blue="0.1882353" alpha="1" colorSpace="calibratedRGB"/>
+	                    	<state key="normal" title="Calculate">
+	                        	<color key="titleColor" red="1.0" green="1.0" blue="1.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        </state>
+	                        <state key="highlighted">
+	                        	<color key="titleColor" red="1.0" green="1.0" blue="1.0" alpha="1" colorSpace="calibratedRGB"/>
+	                    	</state>
+	                    	<connections>
+	                    		<action selector="calcProbButtonTouchUpInside:" destination="ProbabilityViewControllerID" eventType="touchUpInside" id="calcProbButtonTouchUpInsideActionID"/>
+	                    		<action selector="calcProbButtonTouchDown:" destination="ProbabilityViewControllerID" eventType="touchDown" id="calcProbButtonTouchDownActionID"/>
+	                        </connections>
+	                    </button>
+
+
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="idrmgnsChain-GhostView1">
+	<rect key="frame" />
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+
+	                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="orderSwitch">
+	                    	<rect key="frame" />
+	                    	<subviews>
+			                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="orderSwitchButton">    
+		                            <rect key="frame" x="0" y="0" width="51" height="31"/>
+		                            <connections>
+		                                <action selector="orderSwitchButtonValueChangedAction:" destination="ProbabilityViewControllerID" eventType="valueChanged" id="orderSwitchButtonValueChangedActionID"/>
+		                            </connections>
+		                        </switch>
+                        	</subviews>
+                            <constraints>
+	
+	<constraint firstAttribute="width" constant="51.0" id="orderSwitch-constraint-width"/>
+	
+	<constraint firstAttribute="height" constant="36.0" id="orderSwitch-constraint-height"/>
+	
+                                <constraint firstItem="orderSwitchButton" firstAttribute="centerX" secondItem="orderSwitch" secondAttribute="centerX" id="orderSwitchButtonConstCenterX"/>
+                                <constraint firstItem="orderSwitchButton" firstAttribute="centerY" secondItem="orderSwitch" secondAttribute="centerY" id="orderSwitchButtonConstCenterY"/>
+                            </constraints>
+                        </view>
+	                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="repeatSwitch">
+	                    	<rect key="frame" />
+	                    	<subviews>
+			                    <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="repeatSwitchButton">    
+		                            <rect key="frame" x="0" y="0" width="51" height="31"/>
+		                            <connections>
+		                                <action selector="repeatSwitchButtonValueChangedAction:" destination="ProbabilityViewControllerID" eventType="valueChanged" id="repeatSwitchButtonValueChangedActionID"/>
+		                            </connections>
+		                        </switch>
+                        	</subviews>
+                            <constraints>
+	
+	<constraint firstAttribute="width" constant="51.0" id="repeatSwitch-constraint-width"/>
+	
+	<constraint firstAttribute="height" constant="36.0" id="repeatSwitch-constraint-height"/>
+	
+                                <constraint firstItem="repeatSwitchButton" firstAttribute="centerX" secondItem="repeatSwitch" secondAttribute="centerX" id="repeatSwitchButtonConstCenterX"/>
+                                <constraint firstItem="repeatSwitchButton" firstAttribute="centerY" secondItem="repeatSwitch" secondAttribute="centerY" id="repeatSwitchButtonConstCenterY"/>
+                            </constraints>
+                        </view>
+	                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="right" text="Elements in the set =" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cardinalityLabel">
+<rect key="frame" />
+<constraints>
+	
+	
+	<constraint firstAttribute="height" constant="36.0" id="cardinalityLabel-constraint-height"/>
+	
+</constraints>
+
+	                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <nil key="highlightedColor"/>
+	                    </label>
+
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="idt7ofuChain-GhostView0">
+	<rect key="frame" x="0" y="0" />
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+
+
+	                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="right" text="Elements to draw =" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kLabel">
+<rect key="frame" />
+<constraints>
+	
+	
+	<constraint firstAttribute="height" constant="36.0" id="kLabel-constraint-height"/>
+	
+</constraints>
+
+	                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <nil key="highlightedColor"/>
+	                    </label>
+
+
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="idt7ofuChain-GhostView1">
+	<rect key="frame" />
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+
+	                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="right" text="Order" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="orderLabel">
+<rect key="frame" />
+<constraints>
+	
+	
+	<constraint firstAttribute="height" constant="36.0" id="orderLabel-constraint-height"/>
+	
+</constraints>
+
+	                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <nil key="highlightedColor"/>
+	                    </label>
+
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ids8fh4Chain-GhostView0">
+	<rect key="frame" x="0" y="0" />
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+
+
+	                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="right" text="Repetition" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="repeatLabel">
+<rect key="frame" />
+<constraints>
+	
+	
+	<constraint firstAttribute="height" constant="36.0" id="repeatLabel-constraint-height"/>
+	
+</constraints>
+
+	                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <nil key="highlightedColor"/>
+	                    </label>
+
+
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ids8fh4Chain-GhostView1">
+	<rect key="frame" />
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+
+	                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="right" text="Permutations =" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="permutationsLabel">
+<rect key="frame" />
+<constraints>
+	
+	
+	<constraint firstAttribute="height" constant="36.0" id="permutationsLabel-constraint-height"/>
+	
+</constraints>
+
+	                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <nil key="highlightedColor"/>
+	                    </label>
+
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="idrmgnsChain-GhostView0">
+	<rect key="frame" x="0" y="0" />
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+
+
+	                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="left" text="result" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="resultPermLabel">
+<rect key="frame" />
+<constraints>
+	
+	<constraint firstAttribute="width" constant="88.0" id="resultPermLabel-constraint-width"/>
+	
+	<constraint firstAttribute="height" constant="36.0" id="resultPermLabel-constraint-height"/>
+	
+</constraints>
+
+	                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <nil key="highlightedColor"/>
+	                    </label>
+	                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="N" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" text="" id="cardinalityEditText">
+<rect key="frame" />
+<constraints>
+	
+	<constraint firstAttribute="width" constant="88.0" id="cardinalityEditText-constraint-width"/>
+	
+	<constraint firstAttribute="height" constant="36.0" id="cardinalityEditText-constraint-height"/>
+	
+</constraints>
+
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+	                        <textInputTraits key="textInputTraits"/>
+	                    </textField>
+	                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="k" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" text="" id="kEditText">
+<rect key="frame" />
+<constraints>
+	
+	<constraint firstAttribute="width" constant="88.0" id="kEditText-constraint-width"/>
+	
+	<constraint firstAttribute="height" constant="36.0" id="kEditText-constraint-height"/>
+	
+</constraints>
+
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+	                        <textInputTraits key="textInputTraits"/>
+	                    </textField>
+	                    
+	                </subviews>
+	                <color key="backgroundColor" red="1.0" green="1.0" blue="1.0" alpha="1" colorSpace="calibratedRGB"/>
+	                <constraints>
+
+
+	
+	
+		<constraint firstItem="calcProbButton" firstAttribute="centerX" secondItem="ProbabilityViewID" secondAttribute="centerX" priority="750" constant="0" id="calcProbButton-constraint-parent-centerX"/>
+
+	
+		
+		<constraint firstItem="calcProbButton" firstAttribute="top" secondItem="permutationsLabel" secondAttribute="bottom" priority="750" constant="20" id="calcProbButton-constraint-chain"/>
+		
+		
+		<constraint firstItem="idrmgnsChain-GhostView1" firstAttribute="top" secondItem="calcProbButton" secondAttribute="bottom" priority="750" constant="0" id="idrmgnsChain-GhostView1-constraintY"/>
+		<constraint firstItem="idrmgnsChain-GhostView1" firstAttribute="bottom" secondItem="ProbabilityViewID" secondAttribute="bottom" priority="750" constant="0" id="idrmgnsChain-GhostView1-constraintY-2"/>
+		<constraint firstItem="idrmgnsChain-GhostView1" firstAttribute="leading" secondItem="ProbabilityViewID" secondAttribute="leading" priority="750" constant="0" id="idrmgnsChain-GhostView1-constraintX"/>
+		
+
+		<constraint firstItem="orderSwitch" firstAttribute="top" secondItem="orderLabel" secondAttribute="top" priority="750" constant="0" id="orderSwitch-top-top"/>
+		<constraint firstItem="orderSwitch" firstAttribute="leading" secondItem="orderLabel" secondAttribute="trailing" priority="750" constant="0" id="orderSwitch-start-end"/>
+
+	
+	
+
+
+		<constraint firstItem="repeatSwitch" firstAttribute="top" secondItem="repeatLabel" secondAttribute="top" priority="750" constant="0" id="repeatSwitch-top-top"/>
+		<constraint firstItem="repeatSwitch" firstAttribute="leading" secondItem="repeatLabel" secondAttribute="trailing" priority="750" constant="0" id="repeatSwitch-start-end"/>
+
+	
+	
+
+
+
+	
+	<constraint firstItem="cardinalityLabel" firstAttribute="width" secondItem="ProbabilityViewID" secondAttribute="width" multiplier="0.5" id="cardinalityLabel-constraint-width"/>
+	
+		<constraint firstItem="cardinalityLabel" firstAttribute="leading" secondItem="ProbabilityViewID" secondAttribute="leading" priority="750" constant="0" id="cardinalityLabel-constraint-parent-start"/>
+
+	
+		
+		<constraint firstItem="cardinalityLabel" firstAttribute="top" secondItem="idt7ofuChain-GhostView0" secondAttribute="bottom" priority="750" constant="0" id="cardinalityLabel-constraint-chain"/>
+		
+		<constraint firstItem="idt7ofuChain-GhostView0" firstAttribute="top" secondItem="ProbabilityViewID" secondAttribute="top" priority="750" constant="0" id="idt7ofuChain-GhostView0-constraintY"/>
+		<constraint firstItem="idt7ofuChain-GhostView0" firstAttribute="leading" secondItem="ProbabilityViewID" secondAttribute="leading" priority="750" constant="0" id="idt7ofuChain-GhostView0-constraintX"/>
+		<constraint firstItem="idt7ofuChain-GhostView0" firstAttribute="height" secondItem="idt7ofuChain-GhostView1" secondAttribute="height" priority="750" multiplier="0.11111111295076065" id="idt7ofuChain-GhostView0-constraint-height"/>
+		
+		
+
+
+	
+	<constraint firstItem="kLabel" firstAttribute="width" secondItem="ProbabilityViewID" secondAttribute="width" multiplier="0.5" id="kLabel-constraint-width"/>
+	
+		<constraint firstItem="kLabel" firstAttribute="leading" secondItem="ProbabilityViewID" secondAttribute="leading" priority="750" constant="0" id="kLabel-constraint-parent-start"/>
+
+	
+		
+		<constraint firstItem="kLabel" firstAttribute="top" secondItem="cardinalityLabel" secondAttribute="bottom" priority="750" constant="20" id="kLabel-constraint-chain"/>
+		
+		
+		<constraint firstItem="idt7ofuChain-GhostView1" firstAttribute="top" secondItem="kLabel" secondAttribute="bottom" priority="750" constant="0" id="idt7ofuChain-GhostView1-constraintY"/>
+		<constraint firstItem="idt7ofuChain-GhostView1" firstAttribute="bottom" secondItem="ProbabilityViewID" secondAttribute="bottom" priority="750" constant="0" id="idt7ofuChain-GhostView1-constraintY-2"/>
+		<constraint firstItem="idt7ofuChain-GhostView1" firstAttribute="leading" secondItem="ProbabilityViewID" secondAttribute="leading" priority="750" constant="0" id="idt7ofuChain-GhostView1-constraintX"/>
+		
+
+
+	
+	<constraint firstItem="orderLabel" firstAttribute="width" secondItem="ProbabilityViewID" secondAttribute="width" multiplier="0.5" id="orderLabel-constraint-width"/>
+	
+		<constraint firstItem="orderLabel" firstAttribute="leading" secondItem="ProbabilityViewID" secondAttribute="leading" priority="750" constant="0" id="orderLabel-constraint-parent-start"/>
+
+	
+		
+		<constraint firstItem="orderLabel" firstAttribute="top" secondItem="ids8fh4Chain-GhostView0" secondAttribute="bottom" priority="750" constant="0" id="orderLabel-constraint-chain"/>
+		
+		<constraint firstItem="ids8fh4Chain-GhostView0" firstAttribute="top" secondItem="ProbabilityViewID" secondAttribute="top" priority="750" constant="0" id="ids8fh4Chain-GhostView0-constraintY"/>
+		<constraint firstItem="ids8fh4Chain-GhostView0" firstAttribute="leading" secondItem="ProbabilityViewID" secondAttribute="leading" priority="750" constant="0" id="ids8fh4Chain-GhostView0-constraintX"/>
+		<constraint firstItem="ids8fh4Chain-GhostView0" firstAttribute="height" secondItem="ids8fh4Chain-GhostView1" secondAttribute="height" priority="750" multiplier="1.0" id="ids8fh4Chain-GhostView0-constraint-height"/>
+		
+		
+
+
+	
+	<constraint firstItem="repeatLabel" firstAttribute="width" secondItem="ProbabilityViewID" secondAttribute="width" multiplier="0.5" id="repeatLabel-constraint-width"/>
+	
+		<constraint firstItem="repeatLabel" firstAttribute="leading" secondItem="ProbabilityViewID" secondAttribute="leading" priority="750" constant="0" id="repeatLabel-constraint-parent-start"/>
+
+	
+		
+		<constraint firstItem="repeatLabel" firstAttribute="top" secondItem="orderLabel" secondAttribute="bottom" priority="750" constant="20" id="repeatLabel-constraint-chain"/>
+		
+		
+		<constraint firstItem="ids8fh4Chain-GhostView1" firstAttribute="top" secondItem="repeatLabel" secondAttribute="bottom" priority="750" constant="0" id="ids8fh4Chain-GhostView1-constraintY"/>
+		<constraint firstItem="ids8fh4Chain-GhostView1" firstAttribute="bottom" secondItem="ProbabilityViewID" secondAttribute="bottom" priority="750" constant="0" id="ids8fh4Chain-GhostView1-constraintY-2"/>
+		<constraint firstItem="ids8fh4Chain-GhostView1" firstAttribute="leading" secondItem="ProbabilityViewID" secondAttribute="leading" priority="750" constant="0" id="ids8fh4Chain-GhostView1-constraintX"/>
+		
+
+
+	
+	<constraint firstItem="permutationsLabel" firstAttribute="width" secondItem="ProbabilityViewID" secondAttribute="width" multiplier="0.5" id="permutationsLabel-constraint-width"/>
+	
+		<constraint firstItem="permutationsLabel" firstAttribute="leading" secondItem="ProbabilityViewID" secondAttribute="leading" priority="750" constant="0" id="permutationsLabel-constraint-parent-start"/>
+
+	
+		
+		<constraint firstItem="permutationsLabel" firstAttribute="top" secondItem="idrmgnsChain-GhostView0" secondAttribute="bottom" priority="750" constant="0" id="permutationsLabel-constraint-chain"/>
+		
+		<constraint firstItem="idrmgnsChain-GhostView0" firstAttribute="top" secondItem="ProbabilityViewID" secondAttribute="top" priority="750" constant="0" id="idrmgnsChain-GhostView0-constraintY"/>
+		<constraint firstItem="idrmgnsChain-GhostView0" firstAttribute="leading" secondItem="ProbabilityViewID" secondAttribute="leading" priority="750" constant="0" id="idrmgnsChain-GhostView0-constraintX"/>
+		<constraint firstItem="idrmgnsChain-GhostView0" firstAttribute="height" secondItem="idrmgnsChain-GhostView1" secondAttribute="height" priority="750" multiplier="8.999997615814777" id="idrmgnsChain-GhostView0-constraint-height"/>
+		
+		
+
+		<constraint firstItem="resultPermLabel" firstAttribute="top" secondItem="permutationsLabel" secondAttribute="top" priority="750" constant="0" id="resultPermLabel-top-top"/>
+		<constraint firstItem="resultPermLabel" firstAttribute="leading" secondItem="permutationsLabel" secondAttribute="trailing" priority="750" constant="10" id="resultPermLabel-start-end"/>
+
+	
+	
+
+
+		<constraint firstItem="cardinalityEditText" firstAttribute="top" secondItem="cardinalityLabel" secondAttribute="top" priority="750" constant="0" id="cardinalityEditText-top-top"/>
+		<constraint firstItem="cardinalityEditText" firstAttribute="leading" secondItem="cardinalityLabel" secondAttribute="trailing" priority="750" constant="10" id="cardinalityEditText-start-end"/>
+
+	
+	
+
+
+		<constraint firstItem="kEditText" firstAttribute="top" secondItem="kLabel" secondAttribute="top" priority="750" constant="0" id="kEditText-top-top"/>
+		<constraint firstItem="kEditText" firstAttribute="leading" secondItem="kLabel" secondAttribute="trailing" priority="750" constant="10" id="kEditText-start-end"/>
+
+	
+	
+
+
+
+
+	                </constraints>
+	            </view>
+				<navigationItem key="navigationItem" id="ProbabilityViewControllerNavigationItemID"/>
+	      		<connections>
+	                <outlet property="calcProbButton" destination="calcProbButton" id="calcProbButtonOutletID"/>
+	                <outlet property="cardinalityEditText" destination="cardinalityEditText" id="cardinalityEditTextOutletID"/>
+	                <outlet property="kEditText" destination="kEditText" id="kEditTextOutletID"/>
+	                <outlet property="orderSwitchButton" destination="orderSwitchButton" id="orderSwitchButtonOutletID"/>
+	                <outlet property="repeatSwitchButton" destination="repeatSwitchButton" id="repeatSwitchButtonOutletID"/>
+	      		</connections>
+	    	</viewController>
+	    	<placeholder placeholderIdentifier="IBFirstResponder" id="ProbabilityPlaceholderID" userLabel="First Responder" sceneMemberID="firstResponder"/>
+	  	</objects>
+	</scene>
+	<!--CommonsViewController-->
+	<scene sceneID="CommonsViewControllerSceneID">
+		<objects>
+			<viewController storyboardIdentifier="CommonsViewControllerStoryboardID" id="CommonsViewControllerID" customClass="CommonsViewController" customModule="MathKit" customModuleProvider="target" sceneMemberID="viewController" automaticallyAdjustsScrollViewInsets="NO">
+		        <layoutGuides>
+	                <viewControllerLayoutGuide type="top" id="Commons-guide-top"/>
+	            	<viewControllerLayoutGuide type="bottom" id="Commons-guide-bottom"/>
+	            </layoutGuides>
+	        	<view key="view" contentMode="scaleToFill" id="CommonsViewID">
+	        		<rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+	                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+	                <subviews>
+	                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="calcCommButton">
+<rect key="frame" />
+<constraints>
+	
+	<constraint firstAttribute="width" constant="150.0" id="calcCommButton-width"/>
+	
+	<constraint firstAttribute="height" constant="40.0" id="calcCommButton-constraint-height"/>
+	
+</constraints>
+
+	                    	<color key="backgroundColor" red="0.0" green="0.7372549" blue="0.1882353" alpha="1" colorSpace="calibratedRGB"/>
+	                    	<state key="normal" title="Calculate">
+	                        	<color key="titleColor" red="1.0" green="1.0" blue="1.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        </state>
+	                        <state key="highlighted">
+	                        	<color key="titleColor" red="1.0" green="1.0" blue="1.0" alpha="1" colorSpace="calibratedRGB"/>
+	                    	</state>
+	                    	<connections>
+	                    		<action selector="calcCommButtonTouchUpInside:" destination="CommonsViewControllerID" eventType="touchUpInside" id="calcCommButtonTouchUpInsideActionID"/>
+	                    		<action selector="calcCommButtonTouchDown:" destination="CommonsViewControllerID" eventType="touchDown" id="calcCommButtonTouchDownActionID"/>
+	                        </connections>
+	                    </button>
+
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="id34c5kChain-GhostView6">
+	<rect key="frame" />
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="id34c5kChain-GhostView7">
+	<rect key="frame" />
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+
+	                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" text="Inputs" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="inputsLabel">
+<rect key="frame" />
+<constraints>
+	
+	<constraint firstAttribute="width" constant="88.0" id="inputsLabel-constraint-width"/>
+	
+	<constraint firstAttribute="height" constant="36.0" id="inputsLabel-constraint-height"/>
+	
+</constraints>
+
+	                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <nil key="highlightedColor"/>
+	                    </label>
+
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="id34c5kChain-GhostView0">
+	<rect key="frame" />
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+
+
+	                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="right" text="First number =" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="firstLabel">
+<rect key="frame" />
+<constraints>
+	
+	
+	<constraint firstAttribute="height" constant="36.0" id="firstLabel-constraint-height"/>
+	
+</constraints>
+
+	                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <nil key="highlightedColor"/>
+	                    </label>
+
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="id34c5kChain-GhostView1">
+	<rect key="frame" />
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+
+
+	                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="right" text="Second number =" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="secondLabel">
+<rect key="frame" />
+<constraints>
+	
+	
+	<constraint firstAttribute="height" constant="36.0" id="secondLabel-constraint-height"/>
+	
+</constraints>
+
+	                        <fontDescription key="fontDescription" type="boldSystem" pointSize="18"/>
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <nil key="highlightedColor"/>
+	                    </label>
+
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="id34c5kChain-GhostView2">
+	<rect key="frame" />
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+
+
+	                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" text="Results" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="resultsCommonsLabel">
+<rect key="frame" />
+<constraints>
+	
+	<constraint firstAttribute="width" constant="88.0" id="resultsCommonsLabel-constraint-width"/>
+	
+	<constraint firstAttribute="height" constant="36.0" id="resultsCommonsLabel-constraint-height"/>
+	
+</constraints>
+
+	                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <nil key="highlightedColor"/>
+	                    </label>
+
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="id34c5kChain-GhostView3">
+	<rect key="frame" />
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+
+
+	                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="right" text="GCF =" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gcfLabel">
+<rect key="frame" />
+<constraints>
+	
+	
+	<constraint firstAttribute="height" constant="36.0" id="gcfLabel-constraint-height"/>
+	
+</constraints>
+
+	                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <nil key="highlightedColor"/>
+	                    </label>
+
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="id34c5kChain-GhostView4">
+	<rect key="frame" />
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+
+
+	                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="right" text="LCM =" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lcmLabel">
+<rect key="frame" />
+<constraints>
+	
+	
+	<constraint firstAttribute="height" constant="36.0" id="lcmLabel-constraint-height"/>
+	
+</constraints>
+
+	                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <nil key="highlightedColor"/>
+	                    </label>
+
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="id34c5kChain-GhostView5">
+	<rect key="frame" />
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+
+
+	                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="left" text="result" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gcfResultLabel">
+<rect key="frame" />
+<constraints>
+	
+	<constraint firstAttribute="width" constant="88.0" id="gcfResultLabel-constraint-width"/>
+	
+	<constraint firstAttribute="height" constant="36.0" id="gcfResultLabel-constraint-height"/>
+	
+</constraints>
+
+	                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <nil key="highlightedColor"/>
+	                    </label>
+	                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="left" text="result" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lcmResultLabel">
+<rect key="frame" />
+<constraints>
+	
+	<constraint firstAttribute="width" constant="88.0" id="lcmResultLabel-constraint-width"/>
+	
+	<constraint firstAttribute="height" constant="36.0" id="lcmResultLabel-constraint-height"/>
+	
+</constraints>
+
+	                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <nil key="highlightedColor"/>
+	                    </label>
+	                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="first" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" text="" id="firstEditText">
+<rect key="frame" />
+<constraints>
+	
+	<constraint firstAttribute="width" constant="88.0" id="firstEditText-constraint-width"/>
+	
+	<constraint firstAttribute="height" constant="36.0" id="firstEditText-constraint-height"/>
+	
+</constraints>
+
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+	                        <textInputTraits key="textInputTraits"/>
+	                    </textField>
+	                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="second" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" text="" id="secondEditText">
+<rect key="frame" />
+<constraints>
+	
+	<constraint firstAttribute="width" constant="88.0" id="secondEditText-constraint-width"/>
+	
+	<constraint firstAttribute="height" constant="36.0" id="secondEditText-constraint-height"/>
+	
+</constraints>
+
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <fontDescription key="fontDescription" type="system" pointSize="18"/>
+	                        <textInputTraits key="textInputTraits"/>
+	                    </textField>
+	                    
+	                </subviews>
+	                <color key="backgroundColor" red="1.0" green="1.0" blue="1.0" alpha="1" colorSpace="calibratedRGB"/>
+	                <constraints>
+
+
+	
+	
+		<constraint firstItem="calcCommButton" firstAttribute="centerX" secondItem="CommonsViewID" secondAttribute="centerX" priority="750" constant="0" id="calcCommButton-constraint-parent-centerX"/>
+
+	
+		
+		<constraint firstItem="calcCommButton" firstAttribute="top" secondItem="id34c5kChain-GhostView6" secondAttribute="bottom" priority="750" constant="0" id="calcCommButton-constraint-chain"/>
+		
+		<constraint firstItem="id34c5kChain-GhostView6" firstAttribute="top" secondItem="lcmLabel" secondAttribute="bottom" priority="750" constant="0" id="id34c5kChain-GhostView6-constraintY"/>
+		
+		<constraint firstItem="id34c5kChain-GhostView6" firstAttribute="height" secondItem="id34c5kChain-GhostView0" secondAttribute="height" priority="750" multiplier="1" id="id34c5kChain-GhostView6-constraint-height"/>
+		<constraint firstItem="id34c5kChain-GhostView6" firstAttribute="leading" secondItem="CommonsViewID" secondAttribute="leading" priority="750" constant="0" id="id34c5kChain-GhostView6-constraintX"/>
+		
+		<constraint firstItem="id34c5kChain-GhostView7" firstAttribute="top" secondItem="calcCommButton" secondAttribute="bottom" priority="750" constant="0" id="id34c5kChain-GhostView7-constraintY"/>
+		<constraint firstItem="id34c5kChain-GhostView7" firstAttribute="bottom" secondItem="CommonsViewID" secondAttribute="bottom" priority="750" constant="0" id="id34c5kChain-GhostView7-constraintY-2"/>
+		<constraint firstItem="id34c5kChain-GhostView7" firstAttribute="leading" secondItem="CommonsViewID" secondAttribute="leading" priority="750" constant="0" id="id34c5kChain-GhostView7-constraintX"/>
+		<constraint firstItem="id34c5kChain-GhostView7" firstAttribute="height" secondItem="id34c5kChain-GhostView0" secondAttribute="height" priority="750" multiplier="1" id="id34c5kChain-GhostView7-constraint-height"/>
+		
+
+
+	
+	
+		<constraint firstItem="inputsLabel" firstAttribute="centerX" secondItem="CommonsViewID" secondAttribute="centerX" priority="750" constant="0" id="inputsLabel-constraint-parent-centerX"/>
+
+	
+		
+		<constraint firstItem="inputsLabel" firstAttribute="top" secondItem="id34c5kChain-GhostView0" secondAttribute="bottom" priority="750" constant="0" id="inputsLabel-constraint-chain"/>
+		
+		<constraint firstItem="id34c5kChain-GhostView0" firstAttribute="top" secondItem="CommonsViewID" secondAttribute="top" priority="750" constant="0" id="id34c5kChain-GhostView0-constraintY"/>
+		<constraint firstItem="id34c5kChain-GhostView0" firstAttribute="leading" secondItem="CommonsViewID" secondAttribute="leading" priority="750" constant="0" id="id34c5kChain-GhostView0-constraintX"/>
+		
+		
+
+
+	
+	<constraint firstItem="firstLabel" firstAttribute="width" secondItem="CommonsViewID" secondAttribute="width" multiplier="0.5" id="firstLabel-constraint-width"/>
+	
+		<constraint firstItem="firstLabel" firstAttribute="leading" secondItem="CommonsViewID" secondAttribute="leading" priority="750" constant="0" id="firstLabel-constraint-parent-start"/>
+
+	
+		
+		<constraint firstItem="firstLabel" firstAttribute="top" secondItem="id34c5kChain-GhostView1" secondAttribute="bottom" priority="750" constant="0" id="firstLabel-constraint-chain"/>
+		
+		<constraint firstItem="id34c5kChain-GhostView1" firstAttribute="top" secondItem="inputsLabel" secondAttribute="bottom" priority="750" constant="0" id="id34c5kChain-GhostView1-constraintY"/>
+		
+		<constraint firstItem="id34c5kChain-GhostView1" firstAttribute="height" secondItem="id34c5kChain-GhostView0" secondAttribute="height" priority="750" multiplier="1" id="id34c5kChain-GhostView1-constraint-height"/>
+		<constraint firstItem="id34c5kChain-GhostView1" firstAttribute="leading" secondItem="CommonsViewID" secondAttribute="leading" priority="750" constant="0" id="id34c5kChain-GhostView1-constraintX"/>
+		
+		
+
+
+	
+	<constraint firstItem="secondLabel" firstAttribute="width" secondItem="CommonsViewID" secondAttribute="width" multiplier="0.5" id="secondLabel-constraint-width"/>
+	
+		<constraint firstItem="secondLabel" firstAttribute="leading" secondItem="CommonsViewID" secondAttribute="leading" priority="750" constant="0" id="secondLabel-constraint-parent-start"/>
+
+	
+		
+		<constraint firstItem="secondLabel" firstAttribute="top" secondItem="id34c5kChain-GhostView2" secondAttribute="bottom" priority="750" constant="0" id="secondLabel-constraint-chain"/>
+		
+		<constraint firstItem="id34c5kChain-GhostView2" firstAttribute="top" secondItem="firstLabel" secondAttribute="bottom" priority="750" constant="0" id="id34c5kChain-GhostView2-constraintY"/>
+		
+		<constraint firstItem="id34c5kChain-GhostView2" firstAttribute="height" secondItem="id34c5kChain-GhostView0" secondAttribute="height" priority="750" multiplier="1" id="id34c5kChain-GhostView2-constraint-height"/>
+		<constraint firstItem="id34c5kChain-GhostView2" firstAttribute="leading" secondItem="CommonsViewID" secondAttribute="leading" priority="750" constant="0" id="id34c5kChain-GhostView2-constraintX"/>
+		
+		
+
+
+	
+	
+		<constraint firstItem="resultsCommonsLabel" firstAttribute="centerX" secondItem="CommonsViewID" secondAttribute="centerX" priority="750" constant="0" id="resultsCommonsLabel-constraint-parent-centerX"/>
+
+	
+		
+		<constraint firstItem="resultsCommonsLabel" firstAttribute="top" secondItem="id34c5kChain-GhostView3" secondAttribute="bottom" priority="750" constant="0" id="resultsCommonsLabel-constraint-chain"/>
+		
+		<constraint firstItem="id34c5kChain-GhostView3" firstAttribute="top" secondItem="secondLabel" secondAttribute="bottom" priority="750" constant="0" id="id34c5kChain-GhostView3-constraintY"/>
+		
+		<constraint firstItem="id34c5kChain-GhostView3" firstAttribute="height" secondItem="id34c5kChain-GhostView0" secondAttribute="height" priority="750" multiplier="1" id="id34c5kChain-GhostView3-constraint-height"/>
+		<constraint firstItem="id34c5kChain-GhostView3" firstAttribute="leading" secondItem="CommonsViewID" secondAttribute="leading" priority="750" constant="0" id="id34c5kChain-GhostView3-constraintX"/>
+		
+		
+
+
+	
+	<constraint firstItem="gcfLabel" firstAttribute="width" secondItem="CommonsViewID" secondAttribute="width" multiplier="0.5" id="gcfLabel-constraint-width"/>
+	
+		<constraint firstItem="gcfLabel" firstAttribute="leading" secondItem="CommonsViewID" secondAttribute="leading" priority="750" constant="0" id="gcfLabel-constraint-parent-start"/>
+
+	
+		
+		<constraint firstItem="gcfLabel" firstAttribute="top" secondItem="id34c5kChain-GhostView4" secondAttribute="bottom" priority="750" constant="0" id="gcfLabel-constraint-chain"/>
+		
+		<constraint firstItem="id34c5kChain-GhostView4" firstAttribute="top" secondItem="resultsCommonsLabel" secondAttribute="bottom" priority="750" constant="0" id="id34c5kChain-GhostView4-constraintY"/>
+		
+		<constraint firstItem="id34c5kChain-GhostView4" firstAttribute="height" secondItem="id34c5kChain-GhostView0" secondAttribute="height" priority="750" multiplier="1" id="id34c5kChain-GhostView4-constraint-height"/>
+		<constraint firstItem="id34c5kChain-GhostView4" firstAttribute="leading" secondItem="CommonsViewID" secondAttribute="leading" priority="750" constant="0" id="id34c5kChain-GhostView4-constraintX"/>
+		
+		
+
+
+	
+	<constraint firstItem="lcmLabel" firstAttribute="width" secondItem="CommonsViewID" secondAttribute="width" multiplier="0.5" id="lcmLabel-constraint-width"/>
+	
+		<constraint firstItem="lcmLabel" firstAttribute="leading" secondItem="CommonsViewID" secondAttribute="leading" priority="750" constant="0" id="lcmLabel-constraint-parent-start"/>
+
+	
+		
+		<constraint firstItem="lcmLabel" firstAttribute="top" secondItem="id34c5kChain-GhostView5" secondAttribute="bottom" priority="750" constant="0" id="lcmLabel-constraint-chain"/>
+		
+		<constraint firstItem="id34c5kChain-GhostView5" firstAttribute="top" secondItem="gcfLabel" secondAttribute="bottom" priority="750" constant="0" id="id34c5kChain-GhostView5-constraintY"/>
+		
+		<constraint firstItem="id34c5kChain-GhostView5" firstAttribute="height" secondItem="id34c5kChain-GhostView0" secondAttribute="height" priority="750" multiplier="1" id="id34c5kChain-GhostView5-constraint-height"/>
+		<constraint firstItem="id34c5kChain-GhostView5" firstAttribute="leading" secondItem="CommonsViewID" secondAttribute="leading" priority="750" constant="0" id="id34c5kChain-GhostView5-constraintX"/>
+		
+		
+
+		<constraint firstItem="gcfResultLabel" firstAttribute="top" secondItem="gcfLabel" secondAttribute="top" priority="750" constant="0" id="gcfResultLabel-top-top"/>
+		<constraint firstItem="gcfResultLabel" firstAttribute="leading" secondItem="gcfLabel" secondAttribute="trailing" priority="750" constant="10" id="gcfResultLabel-start-end"/>
+
+	
+	
+
+
+		<constraint firstItem="lcmResultLabel" firstAttribute="top" secondItem="lcmLabel" secondAttribute="top" priority="750" constant="0" id="lcmResultLabel-top-top"/>
+		<constraint firstItem="lcmResultLabel" firstAttribute="leading" secondItem="lcmLabel" secondAttribute="trailing" priority="750" constant="10" id="lcmResultLabel-start-end"/>
+
+	
+	
+
+
+		<constraint firstItem="firstEditText" firstAttribute="top" secondItem="firstLabel" secondAttribute="top" priority="750" constant="0" id="firstEditText-top-top"/>
+		<constraint firstItem="firstEditText" firstAttribute="leading" secondItem="firstLabel" secondAttribute="trailing" priority="750" constant="10" id="firstEditText-start-end"/>
+
+	
+	
+
+
+		<constraint firstItem="secondEditText" firstAttribute="top" secondItem="secondLabel" secondAttribute="top" priority="750" constant="0" id="secondEditText-top-top"/>
+		<constraint firstItem="secondEditText" firstAttribute="leading" secondItem="secondLabel" secondAttribute="trailing" priority="750" constant="10" id="secondEditText-start-end"/>
+
+	
+	
+
+
+
+
+	                </constraints>
+	            </view>
+				<navigationItem key="navigationItem" id="CommonsViewControllerNavigationItemID"/>
+	      		<connections>
+	                <outlet property="calcCommButton" destination="calcCommButton" id="calcCommButtonOutletID"/>
+	                <outlet property="firstEditText" destination="firstEditText" id="firstEditTextOutletID"/>
+	                <outlet property="secondEditText" destination="secondEditText" id="secondEditTextOutletID"/>
+	      		</connections>
+	    	</viewController>
+	    	<placeholder placeholderIdentifier="IBFirstResponder" id="CommonsPlaceholderID" userLabel="First Responder" sceneMemberID="firstResponder"/>
+	  	</objects>
+	</scene>
+	<!--LinearViewController-->
+	<scene sceneID="LinearViewControllerSceneID">
+		<objects>
+			<viewController storyboardIdentifier="LinearViewControllerStoryboardID" id="LinearViewControllerID" customClass="LinearViewController" customModule="MathKit" customModuleProvider="target" sceneMemberID="viewController" automaticallyAdjustsScrollViewInsets="NO">
+		        <layoutGuides>
+	                <viewControllerLayoutGuide type="top" id="Linear-guide-top"/>
+	            	<viewControllerLayoutGuide type="bottom" id="Linear-guide-bottom"/>
+	            </layoutGuides>
+	        	<view key="view" contentMode="scaleToFill" id="LinearViewID">
+	        		<rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+	                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+	                <subviews>
+	                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO"  id="guideLEImageView">
+	                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+<rect key="frame" />
+<constraints>
+	
+	<constraint firstAttribute="width" constant="240.0" id="guideLEImageView-constraint-width"/>
+	
+	<constraint firstAttribute="height" constant="128.0" id="guideLEImageView-constraint-height"/>
+	
+</constraints>
+
+	                    </imageView>
+
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iduco92Chain-GhostView1">
+	<rect key="frame" />
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+
+	                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="calcLEButton">
+<rect key="frame" />
+<constraints>
+	
+	<constraint firstAttribute="width" constant="150.0" id="calcLEButton-width"/>
+	
+	<constraint firstAttribute="height" constant="40.0" id="calcLEButton-constraint-height"/>
+	
+</constraints>
+
+	                    	<color key="backgroundColor" red="0.0" green="0.7372549" blue="0.1882353" alpha="1" colorSpace="calibratedRGB"/>
+	                    	<state key="normal" title="Calculate">
+	                        	<color key="titleColor" red="1.0" green="1.0" blue="1.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        </state>
+	                        <state key="highlighted">
+	                        	<color key="titleColor" red="1.0" green="1.0" blue="1.0" alpha="1" colorSpace="calibratedRGB"/>
+	                    	</state>
+	                    	<connections>
+	                    		<action selector="calcLEButtonTouchUpInside:" destination="LinearViewControllerID" eventType="touchUpInside" id="calcLEButtonTouchUpInsideActionID"/>
+	                    		<action selector="calcLEButtonTouchDown:" destination="LinearViewControllerID" eventType="touchDown" id="calcLEButtonTouchDownActionID"/>
+	                        </connections>
+	                    </button>
+
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iduco92Chain-GhostView5">
+	<rect key="frame" />
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+
+	                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" text="Linear Equation" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="titleLELabel">
+<rect key="frame" />
+<constraints>
+	
+	
+	<constraint firstAttribute="height" constant="36.0" id="titleLELabel-constraint-height"/>
+	
+</constraints>
+
+	                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <nil key="highlightedColor"/>
+	                    </label>
+
+
+	                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="right" text="m =" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mLabel">
+<rect key="frame" />
+<constraints>
+	
+	
+	<constraint firstAttribute="height" constant="36.0" id="mLabel-constraint-height"/>
+	
+</constraints>
+
+	                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <nil key="highlightedColor"/>
+	                    </label>
+
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iduco92Chain-GhostView2">
+	<rect key="frame" />
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+
+	                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="right" text="q =" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qLabel">
+<rect key="frame" />
+<constraints>
+	
+	
+	<constraint firstAttribute="height" constant="36.0" id="qLabel-constraint-height"/>
+	
+</constraints>
+
+	                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <nil key="highlightedColor"/>
+	                    </label>
+
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iduco92Chain-GhostView3">
+	<rect key="frame" />
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+
+	                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="right" text="x =" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xLELabel">
+<rect key="frame" />
+<constraints>
+	
+	
+	<constraint firstAttribute="height" constant="36.0" id="xLELabel-constraint-height"/>
+	
+</constraints>
+
+	                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <nil key="highlightedColor"/>
+	                    </label>
+
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="iduco92Chain-GhostView4">
+	<rect key="frame" />
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+
+	                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="left" text="result" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="resultLELabel">
+<rect key="frame" />
+<constraints>
+	
+	<constraint firstAttribute="width" constant="88.0" id="resultLELabel-constraint-width"/>
+	
+	<constraint firstAttribute="height" constant="36.0" id="resultLELabel-constraint-height"/>
+	
+</constraints>
+
+	                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <nil key="highlightedColor"/>
+	                    </label>
+	                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="m" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" text="" id="mEditText">
+<rect key="frame" />
+<constraints>
+	
+	<constraint firstAttribute="width" constant="88.0" id="mEditText-constraint-width"/>
+	
+	<constraint firstAttribute="height" constant="36.0" id="mEditText-constraint-height"/>
+	
+</constraints>
+
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+	                        <textInputTraits key="textInputTraits"/>
+	                    </textField>
+	                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="q" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" text="" id="qEditText">
+<rect key="frame" />
+<constraints>
+	
+	<constraint firstAttribute="width" constant="88.0" id="qEditText-constraint-width"/>
+	
+	<constraint firstAttribute="height" constant="36.0" id="qEditText-constraint-height"/>
+	
+</constraints>
+
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+	                        <textInputTraits key="textInputTraits"/>
+	                    </textField>
+	                    
+	                </subviews>
+	                <color key="backgroundColor" red="1.0" green="1.0" blue="1.0" alpha="1" colorSpace="calibratedRGB"/>
+	                <constraints>
+
+
+	
+	
+		<constraint firstItem="calcLEButton" firstAttribute="centerX" secondItem="LinearViewID" secondAttribute="centerX" priority="750" constant="0" id="calcLEButton-constraint-parent-centerX"/>
+
+	
+		
+		<constraint firstItem="calcLEButton" firstAttribute="top" secondItem="iduco92Chain-GhostView5" secondAttribute="bottom" priority="750" constant="0" id="calcLEButton-constraint-chain"/>
+		<constraint firstItem="calcLEButton" firstAttribute="bottom" secondItem="LinearViewID" secondAttribute="bottom" priority="750" constant="-20" id="calcLEButton-constraint-chain-2"/>
+		
+		<constraint firstItem="iduco92Chain-GhostView5" firstAttribute="top" secondItem="xLELabel" secondAttribute="bottom" priority="750" constant="0" id="iduco92Chain-GhostView5-constraintY"/>
+		<constraint firstItem="iduco92Chain-GhostView5" firstAttribute="leading" secondItem="LinearViewID" secondAttribute="leading" priority="750" constant="0" id="iduco92Chain-GhostView5-constraintX"/>
+		
+		<constraint firstItem="iduco92Chain-GhostView5" firstAttribute="height" secondItem="iduco92Chain-GhostView1" secondAttribute="height" priority="750" multiplier="1" id="iduco92Chain-GhostView5-constraint-height"/>
+		
+
+
+	
+	<constraint firstItem="titleLELabel" firstAttribute="width" secondItem="LinearViewID" secondAttribute="width" multiplier="1.0" id="titleLELabel-constraint-width"/>
+	
+		<constraint firstItem="titleLELabel" firstAttribute="leading" secondItem="LinearViewID" secondAttribute="leading" priority="750" constant="0" id="titleLELabel-constraint-parent-start"/>
+
+	
+		
+		<constraint firstItem="titleLELabel" firstAttribute="top" secondItem="LinearViewID" secondAttribute="top" priority="750" constant="20" id="titleLELabel-constraint-chain"/>
+		
+		
+		
+
+
+	
+	<constraint firstItem="mLabel" firstAttribute="width" secondItem="LinearViewID" secondAttribute="width" multiplier="0.5" id="mLabel-constraint-width"/>
+	
+		<constraint firstItem="mLabel" firstAttribute="leading" secondItem="LinearViewID" secondAttribute="leading" priority="750" constant="0" id="mLabel-constraint-parent-start"/>
+
+	
+		
+		<constraint firstItem="mLabel" firstAttribute="top" secondItem="iduco92Chain-GhostView2" secondAttribute="bottom" priority="750" constant="0" id="mLabel-constraint-chain"/>
+		
+		<constraint firstItem="iduco92Chain-GhostView2" firstAttribute="top" secondItem="guideLEImageView" secondAttribute="bottom" priority="750" constant="0" id="iduco92Chain-GhostView2-constraintY"/>
+		<constraint firstItem="iduco92Chain-GhostView2" firstAttribute="leading" secondItem="LinearViewID" secondAttribute="leading" priority="750" constant="0" id="iduco92Chain-GhostView2-constraintX"/>
+		
+		<constraint firstItem="iduco92Chain-GhostView2" firstAttribute="height" secondItem="iduco92Chain-GhostView1" secondAttribute="height" priority="750" multiplier="1" id="iduco92Chain-GhostView2-constraint-height"/>
+		
+
+
+	
+	<constraint firstItem="qLabel" firstAttribute="width" secondItem="LinearViewID" secondAttribute="width" multiplier="0.5" id="qLabel-constraint-width"/>
+	
+		<constraint firstItem="qLabel" firstAttribute="leading" secondItem="LinearViewID" secondAttribute="leading" priority="750" constant="0" id="qLabel-constraint-parent-start"/>
+
+	
+		
+		<constraint firstItem="qLabel" firstAttribute="top" secondItem="iduco92Chain-GhostView3" secondAttribute="bottom" priority="750" constant="0" id="qLabel-constraint-chain"/>
+		
+		<constraint firstItem="iduco92Chain-GhostView3" firstAttribute="top" secondItem="mLabel" secondAttribute="bottom" priority="750" constant="0" id="iduco92Chain-GhostView3-constraintY"/>
+		<constraint firstItem="iduco92Chain-GhostView3" firstAttribute="leading" secondItem="LinearViewID" secondAttribute="leading" priority="750" constant="0" id="iduco92Chain-GhostView3-constraintX"/>
+		
+		<constraint firstItem="iduco92Chain-GhostView3" firstAttribute="height" secondItem="iduco92Chain-GhostView1" secondAttribute="height" priority="750" multiplier="1" id="iduco92Chain-GhostView3-constraint-height"/>
+		
+
+
+	
+	<constraint firstItem="xLELabel" firstAttribute="width" secondItem="LinearViewID" secondAttribute="width" multiplier="0.5" id="xLELabel-constraint-width"/>
+	
+		<constraint firstItem="xLELabel" firstAttribute="leading" secondItem="LinearViewID" secondAttribute="leading" priority="750" constant="0" id="xLELabel-constraint-parent-start"/>
+
+	
+		
+		<constraint firstItem="xLELabel" firstAttribute="top" secondItem="iduco92Chain-GhostView4" secondAttribute="bottom" priority="750" constant="0" id="xLELabel-constraint-chain"/>
+		
+		<constraint firstItem="iduco92Chain-GhostView4" firstAttribute="top" secondItem="qLabel" secondAttribute="bottom" priority="750" constant="0" id="iduco92Chain-GhostView4-constraintY"/>
+		<constraint firstItem="iduco92Chain-GhostView4" firstAttribute="leading" secondItem="LinearViewID" secondAttribute="leading" priority="750" constant="0" id="iduco92Chain-GhostView4-constraintX"/>
+		
+		<constraint firstItem="iduco92Chain-GhostView4" firstAttribute="height" secondItem="iduco92Chain-GhostView1" secondAttribute="height" priority="750" multiplier="1" id="iduco92Chain-GhostView4-constraint-height"/>
+		
+
+		<constraint firstItem="resultLELabel" firstAttribute="top" secondItem="xLELabel" secondAttribute="top" priority="750" constant="0" id="resultLELabel-top-top"/>
+		<constraint firstItem="resultLELabel" firstAttribute="leading" secondItem="xLELabel" secondAttribute="trailing" priority="750" constant="10" id="resultLELabel-start-end"/>
+
+	
+	
+
+
+		<constraint firstItem="mEditText" firstAttribute="top" secondItem="mLabel" secondAttribute="top" priority="750" constant="0" id="mEditText-top-top"/>
+		<constraint firstItem="mEditText" firstAttribute="leading" secondItem="mLabel" secondAttribute="trailing" priority="750" constant="10" id="mEditText-start-end"/>
+
+	
+	
+
+
+		<constraint firstItem="qEditText" firstAttribute="top" secondItem="qLabel" secondAttribute="top" priority="750" constant="0" id="qEditText-top-top"/>
+		<constraint firstItem="qEditText" firstAttribute="leading" secondItem="qLabel" secondAttribute="trailing" priority="750" constant="10" id="qEditText-start-end"/>
+
+	
+	
+
+
+
+	
+	
+		<constraint firstItem="guideLEImageView" firstAttribute="centerX" secondItem="LinearViewID" secondAttribute="centerX" priority="750" constant="0" id="guideLEImageView-constraint-parent-centerX"/>
+
+	
+		
+		<constraint firstItem="guideLEImageView" firstAttribute="top" secondItem="iduco92Chain-GhostView1" secondAttribute="bottom" priority="750" constant="0" id="guideLEImageView-constraint-chain"/>
+		
+		<constraint firstItem="iduco92Chain-GhostView1" firstAttribute="top" secondItem="titleLELabel" secondAttribute="bottom" priority="750" constant="0" id="iduco92Chain-GhostView1-constraintY"/>
+		<constraint firstItem="iduco92Chain-GhostView1" firstAttribute="leading" secondItem="LinearViewID" secondAttribute="leading" priority="750" constant="0" id="iduco92Chain-GhostView1-constraintX"/>
+		
+		
+
+
+
+	                </constraints>
+	            </view>
+				<navigationItem key="navigationItem" id="LinearViewControllerNavigationItemID"/>
+	      		<connections>
+	                <outlet property="calcLEButton" destination="calcLEButton" id="calcLEButtonOutletID"/>
+	                <outlet property="mEditText" destination="mEditText" id="mEditTextOutletID"/>
+	                <outlet property="qEditText" destination="qEditText" id="qEditTextOutletID"/>
+	                <outlet property="guideLEImageView" destination="guideLEImageView" id="guideLEImageViewOutletID"/>
+	      		</connections>
+	    	</viewController>
+	    	<placeholder placeholderIdentifier="IBFirstResponder" id="LinearPlaceholderID" userLabel="First Responder" sceneMemberID="firstResponder"/>
+	  	</objects>
+	</scene>
+	<!--QuadraticViewController-->
+	<scene sceneID="QuadraticViewControllerSceneID">
+		<objects>
+			<viewController storyboardIdentifier="QuadraticViewControllerStoryboardID" id="QuadraticViewControllerID" customClass="QuadraticViewController" customModule="MathKit" customModuleProvider="target" sceneMemberID="viewController" automaticallyAdjustsScrollViewInsets="NO">
+		        <layoutGuides>
+	                <viewControllerLayoutGuide type="top" id="Quadratic-guide-top"/>
+	            	<viewControllerLayoutGuide type="bottom" id="Quadratic-guide-bottom"/>
+	            </layoutGuides>
+	        	<view key="view" contentMode="scaleToFill" id="QuadraticViewID">
+	        		<rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+	                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+	                <subviews>
+	                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO"  id="guideQEImageView">
+	                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+<rect key="frame" />
+<constraints>
+	
+	<constraint firstAttribute="width" constant="240.0" id="guideQEImageView-constraint-width"/>
+	
+	<constraint firstAttribute="height" constant="128.0" id="guideQEImageView-constraint-height"/>
+	
+</constraints>
+
+	                    </imageView>
+
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="id3jdl1Chain-GhostView1">
+	<rect key="frame" />
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+
+	                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="calcQEButton">
+<rect key="frame" />
+<constraints>
+	
+	<constraint firstAttribute="width" constant="150.0" id="calcQEButton-width"/>
+	
+	<constraint firstAttribute="height" constant="40.0" id="calcQEButton-constraint-height"/>
+	
+</constraints>
+
+	                    	<color key="backgroundColor" red="0.0" green="0.7372549" blue="0.1882353" alpha="1" colorSpace="calibratedRGB"/>
+	                    	<state key="normal" title="Calculate">
+	                        	<color key="titleColor" red="1.0" green="1.0" blue="1.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        </state>
+	                        <state key="highlighted">
+	                        	<color key="titleColor" red="1.0" green="1.0" blue="1.0" alpha="1" colorSpace="calibratedRGB"/>
+	                    	</state>
+	                    	<connections>
+	                    		<action selector="calcQEButtonTouchUpInside:" destination="QuadraticViewControllerID" eventType="touchUpInside" id="calcQEButtonTouchUpInsideActionID"/>
+	                    		<action selector="calcQEButtonTouchDown:" destination="QuadraticViewControllerID" eventType="touchDown" id="calcQEButtonTouchDownActionID"/>
+	                        </connections>
+	                    </button>
+
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="id3jdl1Chain-GhostView6">
+	<rect key="frame" />
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+
+	                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" text="Quadratic Equation" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="titleQELabel">
+<rect key="frame" />
+<constraints>
+	
+	
+	<constraint firstAttribute="height" constant="36.0" id="titleQELabel-constraint-height"/>
+	
+</constraints>
+
+	                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <nil key="highlightedColor"/>
+	                    </label>
+
+
+	                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="right" text="a =" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aLabel">
+<rect key="frame" />
+<constraints>
+	
+	
+	<constraint firstAttribute="height" constant="36.0" id="aLabel-constraint-height"/>
+	
+</constraints>
+
+	                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <nil key="highlightedColor"/>
+	                    </label>
+
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="id3jdl1Chain-GhostView2">
+	<rect key="frame" />
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+
+	                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="right" text="b =" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bLabel">
+<rect key="frame" />
+<constraints>
+	
+	
+	<constraint firstAttribute="height" constant="36.0" id="bLabel-constraint-height"/>
+	
+</constraints>
+
+	                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <nil key="highlightedColor"/>
+	                    </label>
+
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="id3jdl1Chain-GhostView3">
+	<rect key="frame" />
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+
+	                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="right" text="c =" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cLabel">
+<rect key="frame" />
+<constraints>
+	
+	
+	<constraint firstAttribute="height" constant="36.0" id="cLabel-constraint-height"/>
+	
+</constraints>
+
+	                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <nil key="highlightedColor"/>
+	                    </label>
+
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="id3jdl1Chain-GhostView4">
+	<rect key="frame" />
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+
+	                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="right" text="x1, x2 =" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="resultQELabel">
+<rect key="frame" />
+<constraints>
+	
+	
+	<constraint firstAttribute="height" constant="36.0" id="resultQELabel-constraint-height"/>
+	
+</constraints>
+
+	                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <nil key="highlightedColor"/>
+	                    </label>
+
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="id3jdl1Chain-GhostView5">
+	<rect key="frame" />
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+
+	                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" text="result" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x1Label">
+<rect key="frame" />
+<constraints>
+	
+	<constraint firstAttribute="width" constant="88.0" id="x1Label-constraint-width"/>
+	
+	<constraint firstAttribute="height" constant="36.0" id="x1Label-constraint-height"/>
+	
+</constraints>
+
+	                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <nil key="highlightedColor"/>
+	                    </label>
+	                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="left" text="result" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="x2Label">
+<rect key="frame" />
+<constraints>
+	
+	<constraint firstAttribute="width" constant="88.0" id="x2Label-constraint-width"/>
+	
+	<constraint firstAttribute="height" constant="36.0" id="x2Label-constraint-height"/>
+	
+</constraints>
+
+	                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <nil key="highlightedColor"/>
+	                    </label>
+	                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="a" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" text="" id="aEditText">
+<rect key="frame" />
+<constraints>
+	
+	<constraint firstAttribute="width" constant="88.0" id="aEditText-constraint-width"/>
+	
+	<constraint firstAttribute="height" constant="36.0" id="aEditText-constraint-height"/>
+	
+</constraints>
+
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+	                        <textInputTraits key="textInputTraits"/>
+	                    </textField>
+	                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="b" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" text="" id="bEditText">
+<rect key="frame" />
+<constraints>
+	
+	<constraint firstAttribute="width" constant="88.0" id="bEditText-constraint-width"/>
+	
+	<constraint firstAttribute="height" constant="36.0" id="bEditText-constraint-height"/>
+	
+</constraints>
+
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+	                        <textInputTraits key="textInputTraits"/>
+	                    </textField>
+	                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="c" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" text="" id="cEditText">
+<rect key="frame" />
+<constraints>
+	
+	<constraint firstAttribute="width" constant="88.0" id="cEditText-constraint-width"/>
+	
+	<constraint firstAttribute="height" constant="36.0" id="cEditText-constraint-height"/>
+	
+</constraints>
+
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+	                        <textInputTraits key="textInputTraits"/>
+	                    </textField>
+	                    
+	                </subviews>
+	                <color key="backgroundColor" red="1.0" green="1.0" blue="1.0" alpha="1" colorSpace="calibratedRGB"/>
+	                <constraints>
+
+
+	
+	
+		<constraint firstItem="calcQEButton" firstAttribute="centerX" secondItem="QuadraticViewID" secondAttribute="centerX" priority="750" constant="0" id="calcQEButton-constraint-parent-centerX"/>
+
+	
+		
+		<constraint firstItem="calcQEButton" firstAttribute="top" secondItem="id3jdl1Chain-GhostView6" secondAttribute="bottom" priority="750" constant="0" id="calcQEButton-constraint-chain"/>
+		<constraint firstItem="calcQEButton" firstAttribute="bottom" secondItem="QuadraticViewID" secondAttribute="bottom" priority="750" constant="-20" id="calcQEButton-constraint-chain-2"/>
+		
+		<constraint firstItem="id3jdl1Chain-GhostView6" firstAttribute="top" secondItem="resultQELabel" secondAttribute="bottom" priority="750" constant="0" id="id3jdl1Chain-GhostView6-constraintY"/>
+		<constraint firstItem="id3jdl1Chain-GhostView6" firstAttribute="leading" secondItem="QuadraticViewID" secondAttribute="leading" priority="750" constant="0" id="id3jdl1Chain-GhostView6-constraintX"/>
+		
+		<constraint firstItem="id3jdl1Chain-GhostView6" firstAttribute="height" secondItem="id3jdl1Chain-GhostView1" secondAttribute="height" priority="750" multiplier="1" id="id3jdl1Chain-GhostView6-constraint-height"/>
+		
+
+
+	
+	<constraint firstItem="titleQELabel" firstAttribute="width" secondItem="QuadraticViewID" secondAttribute="width" multiplier="1.0" id="titleQELabel-constraint-width"/>
+	
+		<constraint firstItem="titleQELabel" firstAttribute="leading" secondItem="QuadraticViewID" secondAttribute="leading" priority="750" constant="0" id="titleQELabel-constraint-parent-start"/>
+
+	
+		
+		<constraint firstItem="titleQELabel" firstAttribute="top" secondItem="QuadraticViewID" secondAttribute="top" priority="750" constant="20" id="titleQELabel-constraint-chain"/>
+		
+		
+		
+
+
+	
+	<constraint firstItem="aLabel" firstAttribute="width" secondItem="QuadraticViewID" secondAttribute="width" multiplier="0.5" id="aLabel-constraint-width"/>
+	
+		<constraint firstItem="aLabel" firstAttribute="leading" secondItem="QuadraticViewID" secondAttribute="leading" priority="750" constant="0" id="aLabel-constraint-parent-start"/>
+
+	
+		
+		<constraint firstItem="aLabel" firstAttribute="top" secondItem="id3jdl1Chain-GhostView2" secondAttribute="bottom" priority="750" constant="0" id="aLabel-constraint-chain"/>
+		
+		<constraint firstItem="id3jdl1Chain-GhostView2" firstAttribute="top" secondItem="guideQEImageView" secondAttribute="bottom" priority="750" constant="0" id="id3jdl1Chain-GhostView2-constraintY"/>
+		<constraint firstItem="id3jdl1Chain-GhostView2" firstAttribute="leading" secondItem="QuadraticViewID" secondAttribute="leading" priority="750" constant="0" id="id3jdl1Chain-GhostView2-constraintX"/>
+		
+		<constraint firstItem="id3jdl1Chain-GhostView2" firstAttribute="height" secondItem="id3jdl1Chain-GhostView1" secondAttribute="height" priority="750" multiplier="1" id="id3jdl1Chain-GhostView2-constraint-height"/>
+		
+
+
+	
+	<constraint firstItem="bLabel" firstAttribute="width" secondItem="QuadraticViewID" secondAttribute="width" multiplier="0.5" id="bLabel-constraint-width"/>
+	
+		<constraint firstItem="bLabel" firstAttribute="leading" secondItem="QuadraticViewID" secondAttribute="leading" priority="750" constant="0" id="bLabel-constraint-parent-start"/>
+
+	
+		
+		<constraint firstItem="bLabel" firstAttribute="top" secondItem="id3jdl1Chain-GhostView3" secondAttribute="bottom" priority="750" constant="0" id="bLabel-constraint-chain"/>
+		
+		<constraint firstItem="id3jdl1Chain-GhostView3" firstAttribute="top" secondItem="aLabel" secondAttribute="bottom" priority="750" constant="0" id="id3jdl1Chain-GhostView3-constraintY"/>
+		<constraint firstItem="id3jdl1Chain-GhostView3" firstAttribute="leading" secondItem="QuadraticViewID" secondAttribute="leading" priority="750" constant="0" id="id3jdl1Chain-GhostView3-constraintX"/>
+		
+		<constraint firstItem="id3jdl1Chain-GhostView3" firstAttribute="height" secondItem="id3jdl1Chain-GhostView1" secondAttribute="height" priority="750" multiplier="1" id="id3jdl1Chain-GhostView3-constraint-height"/>
+		
+
+
+	
+	<constraint firstItem="cLabel" firstAttribute="width" secondItem="QuadraticViewID" secondAttribute="width" multiplier="0.5" id="cLabel-constraint-width"/>
+	
+		<constraint firstItem="cLabel" firstAttribute="leading" secondItem="QuadraticViewID" secondAttribute="leading" priority="750" constant="0" id="cLabel-constraint-parent-start"/>
+
+	
+		
+		<constraint firstItem="cLabel" firstAttribute="top" secondItem="id3jdl1Chain-GhostView4" secondAttribute="bottom" priority="750" constant="0" id="cLabel-constraint-chain"/>
+		
+		<constraint firstItem="id3jdl1Chain-GhostView4" firstAttribute="top" secondItem="bLabel" secondAttribute="bottom" priority="750" constant="0" id="id3jdl1Chain-GhostView4-constraintY"/>
+		<constraint firstItem="id3jdl1Chain-GhostView4" firstAttribute="leading" secondItem="QuadraticViewID" secondAttribute="leading" priority="750" constant="0" id="id3jdl1Chain-GhostView4-constraintX"/>
+		
+		<constraint firstItem="id3jdl1Chain-GhostView4" firstAttribute="height" secondItem="id3jdl1Chain-GhostView1" secondAttribute="height" priority="750" multiplier="1" id="id3jdl1Chain-GhostView4-constraint-height"/>
+		
+
+
+	
+	<constraint firstItem="resultQELabel" firstAttribute="width" secondItem="QuadraticViewID" secondAttribute="width" multiplier="0.4" id="resultQELabel-constraint-width"/>
+	
+		<constraint firstItem="resultQELabel" firstAttribute="leading" secondItem="QuadraticViewID" secondAttribute="leading" priority="750" constant="0" id="resultQELabel-constraint-parent-start"/>
+
+	
+		
+		<constraint firstItem="resultQELabel" firstAttribute="top" secondItem="id3jdl1Chain-GhostView5" secondAttribute="bottom" priority="750" constant="0" id="resultQELabel-constraint-chain"/>
+		
+		<constraint firstItem="id3jdl1Chain-GhostView5" firstAttribute="top" secondItem="cLabel" secondAttribute="bottom" priority="750" constant="0" id="id3jdl1Chain-GhostView5-constraintY"/>
+		<constraint firstItem="id3jdl1Chain-GhostView5" firstAttribute="leading" secondItem="QuadraticViewID" secondAttribute="leading" priority="750" constant="0" id="id3jdl1Chain-GhostView5-constraintX"/>
+		
+		<constraint firstItem="id3jdl1Chain-GhostView5" firstAttribute="height" secondItem="id3jdl1Chain-GhostView1" secondAttribute="height" priority="750" multiplier="1" id="id3jdl1Chain-GhostView5-constraint-height"/>
+		
+
+		<constraint firstItem="x1Label" firstAttribute="top" secondItem="resultQELabel" secondAttribute="top" priority="750" constant="0" id="x1Label-top-top"/>
+		<constraint firstItem="x1Label" firstAttribute="leading" secondItem="resultQELabel" secondAttribute="trailing" priority="750" constant="0" id="x1Label-start-end"/>
+
+	
+	
+
+
+		<constraint firstItem="x2Label" firstAttribute="top" secondItem="resultQELabel" secondAttribute="top" priority="750" constant="0" id="x2Label-top-top"/>
+		<constraint firstItem="x2Label" firstAttribute="leading" secondItem="x1Label" secondAttribute="trailing" priority="750" constant="0" id="x2Label-start-end"/>
+
+	
+	
+
+
+		<constraint firstItem="aEditText" firstAttribute="top" secondItem="aLabel" secondAttribute="top" priority="750" constant="0" id="aEditText-top-top"/>
+		<constraint firstItem="aEditText" firstAttribute="leading" secondItem="aLabel" secondAttribute="trailing" priority="750" constant="10" id="aEditText-start-end"/>
+
+	
+	
+
+
+		<constraint firstItem="bEditText" firstAttribute="top" secondItem="bLabel" secondAttribute="top" priority="750" constant="0" id="bEditText-top-top"/>
+		<constraint firstItem="bEditText" firstAttribute="leading" secondItem="bLabel" secondAttribute="trailing" priority="750" constant="10" id="bEditText-start-end"/>
+
+	
+	
+
+
+		<constraint firstItem="cEditText" firstAttribute="top" secondItem="cLabel" secondAttribute="top" priority="750" constant="0" id="cEditText-top-top"/>
+		<constraint firstItem="cEditText" firstAttribute="leading" secondItem="cLabel" secondAttribute="trailing" priority="750" constant="10" id="cEditText-start-end"/>
+
+	
+	
+
+
+
+	
+	
+		<constraint firstItem="guideQEImageView" firstAttribute="centerX" secondItem="QuadraticViewID" secondAttribute="centerX" priority="750" constant="0" id="guideQEImageView-constraint-parent-centerX"/>
+
+	
+		
+		<constraint firstItem="guideQEImageView" firstAttribute="top" secondItem="id3jdl1Chain-GhostView1" secondAttribute="bottom" priority="750" constant="0" id="guideQEImageView-constraint-chain"/>
+		
+		<constraint firstItem="id3jdl1Chain-GhostView1" firstAttribute="top" secondItem="titleQELabel" secondAttribute="bottom" priority="750" constant="0" id="id3jdl1Chain-GhostView1-constraintY"/>
+		<constraint firstItem="id3jdl1Chain-GhostView1" firstAttribute="leading" secondItem="QuadraticViewID" secondAttribute="leading" priority="750" constant="0" id="id3jdl1Chain-GhostView1-constraintX"/>
+		
+		
+
+
+
+	                </constraints>
+	            </view>
+				<navigationItem key="navigationItem" id="QuadraticViewControllerNavigationItemID"/>
+	      		<connections>
+	                <outlet property="calcQEButton" destination="calcQEButton" id="calcQEButtonOutletID"/>
+	                <outlet property="aEditText" destination="aEditText" id="aEditTextOutletID"/>
+	                <outlet property="bEditText" destination="bEditText" id="bEditTextOutletID"/>
+	                <outlet property="cEditText" destination="cEditText" id="cEditTextOutletID"/>
+	                <outlet property="guideQEImageView" destination="guideQEImageView" id="guideQEImageViewOutletID"/>
+	      		</connections>
+	    	</viewController>
+	    	<placeholder placeholderIdentifier="IBFirstResponder" id="QuadraticPlaceholderID" userLabel="First Responder" sceneMemberID="firstResponder"/>
+	  	</objects>
+	</scene>
+	<!--SystemViewController-->
+	<scene sceneID="SystemViewControllerSceneID">
+		<objects>
+			<viewController storyboardIdentifier="SystemViewControllerStoryboardID" id="SystemViewControllerID" customClass="SystemViewController" customModule="MathKit" customModuleProvider="target" sceneMemberID="viewController" automaticallyAdjustsScrollViewInsets="NO">
+		        <layoutGuides>
+	                <viewControllerLayoutGuide type="top" id="System-guide-top"/>
+	            	<viewControllerLayoutGuide type="bottom" id="System-guide-bottom"/>
+	            </layoutGuides>
+	        	<view key="view" contentMode="scaleToFill" id="SystemViewID">
+	        		<rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+	                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+	                <subviews>
+	                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" translatesAutoresizingMaskIntoConstraints="NO"  id="guideSEImageView">
+	                        <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+<rect key="frame" />
+<constraints>
+	
+	<constraint firstAttribute="width" constant="240.0" id="guideSEImageView-constraint-width"/>
+	
+	<constraint firstAttribute="height" constant="128.0" id="guideSEImageView-constraint-height"/>
+	
+</constraints>
+
+	                    </imageView>
+
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="idaj63uChain-GhostView1">
+	<rect key="frame" />
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+
+	                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="calcSEButton">
+<rect key="frame" />
+<constraints>
+	
+	<constraint firstAttribute="width" constant="150.0" id="calcSEButton-width"/>
+	
+	<constraint firstAttribute="height" constant="40.0" id="calcSEButton-constraint-height"/>
+	
+</constraints>
+
+	                    	<color key="backgroundColor" red="0.0" green="0.7372549" blue="0.1882353" alpha="1" colorSpace="calibratedRGB"/>
+	                    	<state key="normal" title="Calculate">
+	                        	<color key="titleColor" red="1.0" green="1.0" blue="1.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        </state>
+	                        <state key="highlighted">
+	                        	<color key="titleColor" red="1.0" green="1.0" blue="1.0" alpha="1" colorSpace="calibratedRGB"/>
+	                    	</state>
+	                    	<connections>
+	                    		<action selector="calcSEButtonTouchUpInside:" destination="SystemViewControllerID" eventType="touchUpInside" id="calcSEButtonTouchUpInsideActionID"/>
+	                    		<action selector="calcSEButtonTouchDown:" destination="SystemViewControllerID" eventType="touchDown" id="calcSEButtonTouchDownActionID"/>
+	                        </connections>
+	                    </button>
+
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="idaj63uChain-GhostView5">
+	<rect key="frame" />
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+
+	                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" text="Two Equations System" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="titleSELabel">
+<rect key="frame" />
+<constraints>
+	
+	
+	<constraint firstAttribute="height" constant="36.0" id="titleSELabel-constraint-height"/>
+	
+</constraints>
+
+	                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <nil key="highlightedColor"/>
+	                    </label>
+
+
+	                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="right" text="First:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="firstEqLabel">
+<rect key="frame" />
+<constraints>
+	
+	
+	<constraint firstAttribute="height" constant="36.0" id="firstEqLabel-constraint-height"/>
+	
+</constraints>
+
+	                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <nil key="highlightedColor"/>
+	                    </label>
+
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="idaj63uChain-GhostView2">
+	<rect key="frame" />
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+
+	                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="right" text="Second:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="secondEqLabel">
+<rect key="frame" />
+<constraints>
+	
+	
+	<constraint firstAttribute="height" constant="36.0" id="secondEqLabel-constraint-height"/>
+	
+</constraints>
+
+	                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <nil key="highlightedColor"/>
+	                    </label>
+
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="idaj63uChain-GhostView3">
+	<rect key="frame" />
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+
+	                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" text="result" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xSELabel">
+<rect key="frame" />
+<constraints>
+	
+	<constraint firstAttribute="width" constant="88.0" id="xSELabel-constraint-width"/>
+	
+	<constraint firstAttribute="height" constant="36.0" id="xSELabel-constraint-height"/>
+	
+</constraints>
+
+	                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <nil key="highlightedColor"/>
+	                    </label>
+
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="idaj63uChain-GhostView4">
+	<rect key="frame" />
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+
+	                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="right" text="x, y =" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="resultSELabel">
+<rect key="frame" />
+<constraints>
+	
+	<constraint firstAttribute="width" constant="100.0" id="resultSELabel-width"/>
+	
+	<constraint firstAttribute="height" constant="36.0" id="resultSELabel-constraint-height"/>
+	
+</constraints>
+
+	                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <nil key="highlightedColor"/>
+	                    </label>
+	                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="left" text="result" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ySELabel">
+<rect key="frame" />
+<constraints>
+	
+	<constraint firstAttribute="width" constant="88.0" id="ySELabel-constraint-width"/>
+	
+	<constraint firstAttribute="height" constant="36.0" id="ySELabel-constraint-height"/>
+	
+</constraints>
+
+	                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <nil key="highlightedColor"/>
+	                    </label>
+	                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="a1" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" text="" id="a1EditText">
+<rect key="frame" />
+<constraints>
+	
+	
+	<constraint firstAttribute="height" constant="36.0" id="a1EditText-constraint-height"/>
+	
+</constraints>
+
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+	                        <textInputTraits key="textInputTraits"/>
+	                    </textField>
+	                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="b1" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" text="" id="b1EditText">
+<rect key="frame" />
+<constraints>
+	
+	
+	<constraint firstAttribute="height" constant="36.0" id="b1EditText-constraint-height"/>
+	
+</constraints>
+
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+	                        <textInputTraits key="textInputTraits"/>
+	                    </textField>
+	                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="c1" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" text="" id="c1EditText">
+<rect key="frame" />
+<constraints>
+	
+	
+	<constraint firstAttribute="height" constant="36.0" id="c1EditText-constraint-height"/>
+	
+</constraints>
+
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+	                        <textInputTraits key="textInputTraits"/>
+	                    </textField>
+	                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="a2" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" text="" id="a2EditText">
+<rect key="frame" />
+<constraints>
+	
+	
+	<constraint firstAttribute="height" constant="36.0" id="a2EditText-constraint-height"/>
+	
+</constraints>
+
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+	                        <textInputTraits key="textInputTraits"/>
+	                    </textField>
+	                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="b2" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" text="" id="b2EditText">
+<rect key="frame" />
+<constraints>
+	
+	
+	<constraint firstAttribute="height" constant="36.0" id="b2EditText-constraint-height"/>
+	
+</constraints>
+
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+	                        <textInputTraits key="textInputTraits"/>
+	                    </textField>
+	                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="c2" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" text="" id="c2EditText">
+<rect key="frame" />
+<constraints>
+	
+	
+	<constraint firstAttribute="height" constant="36.0" id="c2EditText-constraint-height"/>
+	
+</constraints>
+
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+	                        <textInputTraits key="textInputTraits"/>
+	                    </textField>
+	                    
+	                </subviews>
+	                <color key="backgroundColor" red="1.0" green="1.0" blue="1.0" alpha="1" colorSpace="calibratedRGB"/>
+	                <constraints>
+
+
+	
+	
+		<constraint firstItem="calcSEButton" firstAttribute="centerX" secondItem="SystemViewID" secondAttribute="centerX" priority="750" constant="0" id="calcSEButton-constraint-parent-centerX"/>
+
+	
+		
+		<constraint firstItem="calcSEButton" firstAttribute="top" secondItem="idaj63uChain-GhostView5" secondAttribute="bottom" priority="750" constant="0" id="calcSEButton-constraint-chain"/>
+		<constraint firstItem="calcSEButton" firstAttribute="bottom" secondItem="SystemViewID" secondAttribute="bottom" priority="750" constant="-20" id="calcSEButton-constraint-chain-2"/>
+		
+		<constraint firstItem="idaj63uChain-GhostView5" firstAttribute="top" secondItem="xSELabel" secondAttribute="bottom" priority="750" constant="0" id="idaj63uChain-GhostView5-constraintY"/>
+		<constraint firstItem="idaj63uChain-GhostView5" firstAttribute="leading" secondItem="SystemViewID" secondAttribute="leading" priority="750" constant="0" id="idaj63uChain-GhostView5-constraintX"/>
+		
+		<constraint firstItem="idaj63uChain-GhostView5" firstAttribute="height" secondItem="idaj63uChain-GhostView1" secondAttribute="height" priority="750" multiplier="1" id="idaj63uChain-GhostView5-constraint-height"/>
+		
+
+
+	
+	<constraint firstItem="titleSELabel" firstAttribute="width" secondItem="SystemViewID" secondAttribute="width" multiplier="1.0" id="titleSELabel-constraint-width"/>
+	
+		<constraint firstItem="titleSELabel" firstAttribute="leading" secondItem="SystemViewID" secondAttribute="leading" priority="750" constant="0" id="titleSELabel-constraint-parent-start"/>
+
+	
+		
+		<constraint firstItem="titleSELabel" firstAttribute="top" secondItem="SystemViewID" secondAttribute="top" priority="750" constant="20" id="titleSELabel-constraint-chain"/>
+		
+		
+		
+
+
+	
+	<constraint firstItem="firstEqLabel" firstAttribute="width" secondItem="SystemViewID" secondAttribute="width" multiplier="0.25" id="firstEqLabel-constraint-width"/>
+	
+		<constraint firstItem="firstEqLabel" firstAttribute="leading" secondItem="SystemViewID" secondAttribute="leading" priority="750" constant="0" id="firstEqLabel-constraint-parent-start"/>
+
+	
+		
+		<constraint firstItem="firstEqLabel" firstAttribute="top" secondItem="idaj63uChain-GhostView2" secondAttribute="bottom" priority="750" constant="0" id="firstEqLabel-constraint-chain"/>
+		
+		<constraint firstItem="idaj63uChain-GhostView2" firstAttribute="top" secondItem="guideSEImageView" secondAttribute="bottom" priority="750" constant="0" id="idaj63uChain-GhostView2-constraintY"/>
+		<constraint firstItem="idaj63uChain-GhostView2" firstAttribute="leading" secondItem="SystemViewID" secondAttribute="leading" priority="750" constant="0" id="idaj63uChain-GhostView2-constraintX"/>
+		
+		<constraint firstItem="idaj63uChain-GhostView2" firstAttribute="height" secondItem="idaj63uChain-GhostView1" secondAttribute="height" priority="750" multiplier="1" id="idaj63uChain-GhostView2-constraint-height"/>
+		
+
+
+	
+	<constraint firstItem="secondEqLabel" firstAttribute="width" secondItem="SystemViewID" secondAttribute="width" multiplier="0.25" id="secondEqLabel-constraint-width"/>
+	
+		<constraint firstItem="secondEqLabel" firstAttribute="leading" secondItem="SystemViewID" secondAttribute="leading" priority="750" constant="0" id="secondEqLabel-constraint-parent-start"/>
+
+	
+		
+		<constraint firstItem="secondEqLabel" firstAttribute="top" secondItem="idaj63uChain-GhostView3" secondAttribute="bottom" priority="750" constant="0" id="secondEqLabel-constraint-chain"/>
+		
+		<constraint firstItem="idaj63uChain-GhostView3" firstAttribute="top" secondItem="firstEqLabel" secondAttribute="bottom" priority="750" constant="0" id="idaj63uChain-GhostView3-constraintY"/>
+		<constraint firstItem="idaj63uChain-GhostView3" firstAttribute="leading" secondItem="SystemViewID" secondAttribute="leading" priority="750" constant="0" id="idaj63uChain-GhostView3-constraintX"/>
+		
+		<constraint firstItem="idaj63uChain-GhostView3" firstAttribute="height" secondItem="idaj63uChain-GhostView1" secondAttribute="height" priority="750" multiplier="1" id="idaj63uChain-GhostView3-constraint-height"/>
+		
+
+
+	
+	
+		<constraint firstItem="xSELabel" firstAttribute="centerX" secondItem="SystemViewID" secondAttribute="centerX" priority="750" constant="0" id="xSELabel-constraint-parent-centerX"/>
+
+	
+		
+		<constraint firstItem="xSELabel" firstAttribute="top" secondItem="idaj63uChain-GhostView4" secondAttribute="bottom" priority="750" constant="0" id="xSELabel-constraint-chain"/>
+		
+		<constraint firstItem="idaj63uChain-GhostView4" firstAttribute="top" secondItem="secondEqLabel" secondAttribute="bottom" priority="750" constant="0" id="idaj63uChain-GhostView4-constraintY"/>
+		<constraint firstItem="idaj63uChain-GhostView4" firstAttribute="leading" secondItem="SystemViewID" secondAttribute="leading" priority="750" constant="0" id="idaj63uChain-GhostView4-constraintX"/>
+		
+		<constraint firstItem="idaj63uChain-GhostView4" firstAttribute="height" secondItem="idaj63uChain-GhostView1" secondAttribute="height" priority="750" multiplier="1" id="idaj63uChain-GhostView4-constraint-height"/>
+		
+
+		<constraint firstItem="resultSELabel" firstAttribute="top" secondItem="xSELabel" secondAttribute="top" priority="750" constant="0" id="resultSELabel-top-top"/>
+		<constraint firstItem="resultSELabel" firstAttribute="trailing" secondItem="xSELabel" secondAttribute="leading" priority="750" constant="0" id="resultSELabel-end-start"/>
+
+	
+	
+
+
+		<constraint firstItem="ySELabel" firstAttribute="top" secondItem="xSELabel" secondAttribute="top" priority="750" constant="0" id="ySELabel-top-top"/>
+		<constraint firstItem="ySELabel" firstAttribute="leading" secondItem="xSELabel" secondAttribute="trailing" priority="750" constant="0" id="ySELabel-start-end"/>
+
+	
+	
+
+
+		<constraint firstItem="a1EditText" firstAttribute="top" secondItem="firstEqLabel" secondAttribute="top" priority="750" constant="0" id="a1EditText-top-top"/>
+		<constraint firstItem="a1EditText" firstAttribute="leading" secondItem="firstEqLabel" secondAttribute="trailing" priority="750" constant="10" id="a1EditText-start-end"/>
+
+	
+	<constraint firstItem="a1EditText" firstAttribute="width" secondItem="SystemViewID" secondAttribute="width" multiplier="0.2" id="a1EditText-constraint-width"/>
+	
+
+
+		<constraint firstItem="b1EditText" firstAttribute="top" secondItem="firstEqLabel" secondAttribute="top" priority="750" constant="0" id="b1EditText-top-top"/>
+		<constraint firstItem="b1EditText" firstAttribute="leading" secondItem="a1EditText" secondAttribute="trailing" priority="750" constant="10" id="b1EditText-start-end"/>
+
+	
+	<constraint firstItem="b1EditText" firstAttribute="width" secondItem="SystemViewID" secondAttribute="width" multiplier="0.2" id="b1EditText-constraint-width"/>
+	
+
+
+		<constraint firstItem="c1EditText" firstAttribute="top" secondItem="firstEqLabel" secondAttribute="top" priority="750" constant="0" id="c1EditText-top-top"/>
+		<constraint firstItem="c1EditText" firstAttribute="leading" secondItem="b1EditText" secondAttribute="trailing" priority="750" constant="10" id="c1EditText-start-end"/>
+
+	
+	<constraint firstItem="c1EditText" firstAttribute="width" secondItem="SystemViewID" secondAttribute="width" multiplier="0.2" id="c1EditText-constraint-width"/>
+	
+
+
+		<constraint firstItem="a2EditText" firstAttribute="top" secondItem="secondEqLabel" secondAttribute="top" priority="750" constant="0" id="a2EditText-top-top"/>
+		<constraint firstItem="a2EditText" firstAttribute="leading" secondItem="secondEqLabel" secondAttribute="trailing" priority="750" constant="10" id="a2EditText-start-end"/>
+
+	
+	<constraint firstItem="a2EditText" firstAttribute="width" secondItem="SystemViewID" secondAttribute="width" multiplier="0.2" id="a2EditText-constraint-width"/>
+	
+
+
+		<constraint firstItem="b2EditText" firstAttribute="top" secondItem="secondEqLabel" secondAttribute="top" priority="750" constant="0" id="b2EditText-top-top"/>
+		<constraint firstItem="b2EditText" firstAttribute="leading" secondItem="a2EditText" secondAttribute="trailing" priority="750" constant="10" id="b2EditText-start-end"/>
+
+	
+	<constraint firstItem="b2EditText" firstAttribute="width" secondItem="SystemViewID" secondAttribute="width" multiplier="0.2" id="b2EditText-constraint-width"/>
+	
+
+
+		<constraint firstItem="c2EditText" firstAttribute="top" secondItem="secondEqLabel" secondAttribute="top" priority="750" constant="0" id="c2EditText-top-top"/>
+		<constraint firstItem="c2EditText" firstAttribute="leading" secondItem="b2EditText" secondAttribute="trailing" priority="750" constant="10" id="c2EditText-start-end"/>
+
+	
+	<constraint firstItem="c2EditText" firstAttribute="width" secondItem="SystemViewID" secondAttribute="width" multiplier="0.2" id="c2EditText-constraint-width"/>
+	
+
+
+
+	
+	
+		<constraint firstItem="guideSEImageView" firstAttribute="centerX" secondItem="SystemViewID" secondAttribute="centerX" priority="750" constant="0" id="guideSEImageView-constraint-parent-centerX"/>
+
+	
+		
+		<constraint firstItem="guideSEImageView" firstAttribute="top" secondItem="idaj63uChain-GhostView1" secondAttribute="bottom" priority="750" constant="0" id="guideSEImageView-constraint-chain"/>
+		
+		<constraint firstItem="idaj63uChain-GhostView1" firstAttribute="top" secondItem="titleSELabel" secondAttribute="bottom" priority="750" constant="0" id="idaj63uChain-GhostView1-constraintY"/>
+		<constraint firstItem="idaj63uChain-GhostView1" firstAttribute="leading" secondItem="SystemViewID" secondAttribute="leading" priority="750" constant="0" id="idaj63uChain-GhostView1-constraintX"/>
+		
+		
+
+
+
+	                </constraints>
+	            </view>
+				<navigationItem key="navigationItem" id="SystemViewControllerNavigationItemID"/>
+	      		<connections>
+	                <outlet property="calcSEButton" destination="calcSEButton" id="calcSEButtonOutletID"/>
+	                <outlet property="a1EditText" destination="a1EditText" id="a1EditTextOutletID"/>
+	                <outlet property="b1EditText" destination="b1EditText" id="b1EditTextOutletID"/>
+	                <outlet property="c1EditText" destination="c1EditText" id="c1EditTextOutletID"/>
+	                <outlet property="a2EditText" destination="a2EditText" id="a2EditTextOutletID"/>
+	                <outlet property="b2EditText" destination="b2EditText" id="b2EditTextOutletID"/>
+	                <outlet property="c2EditText" destination="c2EditText" id="c2EditTextOutletID"/>
+	                <outlet property="guideSEImageView" destination="guideSEImageView" id="guideSEImageViewOutletID"/>
+	      		</connections>
+	    	</viewController>
+	    	<placeholder placeholderIdentifier="IBFirstResponder" id="SystemPlaceholderID" userLabel="First Responder" sceneMemberID="firstResponder"/>
+	  	</objects>
+	</scene>
+	<!--LinksViewController-->
+	<scene sceneID="LinksViewControllerSceneID">
+		<objects>
+			<viewController storyboardIdentifier="LinksViewControllerStoryboardID" id="LinksViewControllerID" customClass="LinksViewController" customModule="MathKit" customModuleProvider="target" sceneMemberID="viewController" automaticallyAdjustsScrollViewInsets="NO">
+		        <layoutGuides>
+	                <viewControllerLayoutGuide type="top" id="Links-guide-top"/>
+	            	<viewControllerLayoutGuide type="bottom" id="Links-guide-bottom"/>
+	            </layoutGuides>
+	        	<view key="view" contentMode="scaleToFill" id="LinksViewID">
+	        		<rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+	                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+	                <subviews>
+	                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="algebraButton">
+<rect key="frame" />
+<constraints>
+	
+	
+	
+</constraints>
+
+	                    	<color key="backgroundColor" red="0.80784315" green="0.65882355" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                    	<state key="normal" title="Algebra">
+	                        	<color key="titleColor" red="1.0" green="1.0" blue="1.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        </state>
+	                        <state key="highlighted">
+	                        	<color key="titleColor" red="1.0" green="1.0" blue="1.0" alpha="1" colorSpace="calibratedRGB"/>
+	                    	</state>
+	                    	<connections>
+	                    		<action selector="algebraButtonTouchUpInside:" destination="LinksViewControllerID" eventType="touchUpInside" id="algebraButtonTouchUpInsideActionID"/>
+	                    		<action selector="algebraButtonTouchDown:" destination="LinksViewControllerID" eventType="touchDown" id="algebraButtonTouchDownActionID"/>
+	                        </connections>
+	                    </button>
+
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="idltl0cChain-GhostView0">
+	<rect key="frame" />
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+
+
+	                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="probabilityButton">
+<rect key="frame" />
+<constraints>
+	
+	
+	
+</constraints>
+
+	                    	<color key="backgroundColor" red="0.80784315" green="0.65882355" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                    	<state key="normal" title="Probability">
+	                        	<color key="titleColor" red="1.0" green="1.0" blue="1.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        </state>
+	                        <state key="highlighted">
+	                        	<color key="titleColor" red="1.0" green="1.0" blue="1.0" alpha="1" colorSpace="calibratedRGB"/>
+	                    	</state>
+	                    	<connections>
+	                    		<action selector="probabilityButtonTouchUpInside:" destination="LinksViewControllerID" eventType="touchUpInside" id="probabilityButtonTouchUpInsideActionID"/>
+	                    		<action selector="probabilityButtonTouchDown:" destination="LinksViewControllerID" eventType="touchDown" id="probabilityButtonTouchDownActionID"/>
+	                        </connections>
+	                    </button>
+
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="idltl0cChain-GhostView1">
+	<rect key="frame" />
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+
+
+	                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="equationsButton">
+<rect key="frame" />
+<constraints>
+	
+	
+	
+</constraints>
+
+	                    	<color key="backgroundColor" red="0.80784315" green="0.65882355" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                    	<state key="normal" title="Equations">
+	                        	<color key="titleColor" red="1.0" green="1.0" blue="1.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        </state>
+	                        <state key="highlighted">
+	                        	<color key="titleColor" red="1.0" green="1.0" blue="1.0" alpha="1" colorSpace="calibratedRGB"/>
+	                    	</state>
+	                    	<connections>
+	                    		<action selector="equationsButtonTouchUpInside:" destination="LinksViewControllerID" eventType="touchUpInside" id="equationsButtonTouchUpInsideActionID"/>
+	                    		<action selector="equationsButtonTouchDown:" destination="LinksViewControllerID" eventType="touchDown" id="equationsButtonTouchDownActionID"/>
+	                        </connections>
+	                    </button>
+
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="idltl0cChain-GhostView2">
+	<rect key="frame" />
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+
+<view alpha="0.0" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="idltl0cChain-GhostView3">
+	<rect key="frame" />
+	<autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+	<color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+</view>
+
+	                    
+	                </subviews>
+	                <color key="backgroundColor" red="1.0" green="1.0" blue="1.0" alpha="1" colorSpace="calibratedRGB"/>
+	                <constraints>
+
+
+	
+	<constraint firstItem="algebraButton" firstAttribute="width" secondItem="LinksViewID" secondAttribute="width" multiplier="0.8" id="algebraButton-constraint-width"/>
+	<constraint firstItem="algebraButton" firstAttribute="height" secondItem="LinksViewID" secondAttribute="height" multiplier="0.1" id="algebraButton-constraint-height"/>
+	
+		<constraint firstItem="algebraButton" firstAttribute="centerX" secondItem="LinksViewID" secondAttribute="centerX" priority="750" constant="0" id="algebraButton-constraint-parent-centerX"/>
+
+	
+		
+		<constraint firstItem="algebraButton" firstAttribute="top" secondItem="idltl0cChain-GhostView0" secondAttribute="bottom" priority="750" constant="0" id="algebraButton-constraint-chain"/>
+		
+		<constraint firstItem="idltl0cChain-GhostView0" firstAttribute="top" secondItem="LinksViewID" secondAttribute="top" priority="750" constant="0" id="idltl0cChain-GhostView0-constraintY"/>
+		<constraint firstItem="idltl0cChain-GhostView0" firstAttribute="leading" secondItem="LinksViewID" secondAttribute="leading" priority="750" constant="0" id="idltl0cChain-GhostView0-constraintX"/>
+		
+		
+
+
+	
+	<constraint firstItem="probabilityButton" firstAttribute="width" secondItem="LinksViewID" secondAttribute="width" multiplier="0.8" id="probabilityButton-constraint-width"/>
+	<constraint firstItem="probabilityButton" firstAttribute="height" secondItem="LinksViewID" secondAttribute="height" multiplier="0.1" id="probabilityButton-constraint-height"/>
+	
+		<constraint firstItem="probabilityButton" firstAttribute="centerX" secondItem="LinksViewID" secondAttribute="centerX" priority="750" constant="0" id="probabilityButton-constraint-parent-centerX"/>
+
+	
+		
+		<constraint firstItem="probabilityButton" firstAttribute="top" secondItem="idltl0cChain-GhostView1" secondAttribute="bottom" priority="750" constant="0" id="probabilityButton-constraint-chain"/>
+		
+		<constraint firstItem="idltl0cChain-GhostView1" firstAttribute="top" secondItem="algebraButton" secondAttribute="bottom" priority="750" constant="0" id="idltl0cChain-GhostView1-constraintY"/>
+		
+		<constraint firstItem="idltl0cChain-GhostView1" firstAttribute="height" secondItem="idltl0cChain-GhostView0" secondAttribute="height" priority="750" multiplier="1" id="idltl0cChain-GhostView1-constraint-height"/>
+		<constraint firstItem="idltl0cChain-GhostView1" firstAttribute="leading" secondItem="LinksViewID" secondAttribute="leading" priority="750" constant="0" id="idltl0cChain-GhostView1-constraintX"/>
+		
+		
+
+
+	
+	<constraint firstItem="equationsButton" firstAttribute="width" secondItem="LinksViewID" secondAttribute="width" multiplier="0.8" id="equationsButton-constraint-width"/>
+	<constraint firstItem="equationsButton" firstAttribute="height" secondItem="LinksViewID" secondAttribute="height" multiplier="0.1" id="equationsButton-constraint-height"/>
+	
+		<constraint firstItem="equationsButton" firstAttribute="centerX" secondItem="LinksViewID" secondAttribute="centerX" priority="750" constant="0" id="equationsButton-constraint-parent-centerX"/>
+
+	
+		
+		<constraint firstItem="equationsButton" firstAttribute="top" secondItem="idltl0cChain-GhostView2" secondAttribute="bottom" priority="750" constant="0" id="equationsButton-constraint-chain"/>
+		
+		<constraint firstItem="idltl0cChain-GhostView2" firstAttribute="top" secondItem="probabilityButton" secondAttribute="bottom" priority="750" constant="0" id="idltl0cChain-GhostView2-constraintY"/>
+		
+		<constraint firstItem="idltl0cChain-GhostView2" firstAttribute="height" secondItem="idltl0cChain-GhostView0" secondAttribute="height" priority="750" multiplier="1" id="idltl0cChain-GhostView2-constraint-height"/>
+		<constraint firstItem="idltl0cChain-GhostView2" firstAttribute="leading" secondItem="LinksViewID" secondAttribute="leading" priority="750" constant="0" id="idltl0cChain-GhostView2-constraintX"/>
+		
+		<constraint firstItem="idltl0cChain-GhostView3" firstAttribute="top" secondItem="equationsButton" secondAttribute="bottom" priority="750" constant="0" id="idltl0cChain-GhostView3-constraintY"/>
+		<constraint firstItem="idltl0cChain-GhostView3" firstAttribute="bottom" secondItem="LinksViewID" secondAttribute="bottom" priority="750" constant="0" id="idltl0cChain-GhostView3-constraintY-2"/>
+		<constraint firstItem="idltl0cChain-GhostView3" firstAttribute="leading" secondItem="LinksViewID" secondAttribute="leading" priority="750" constant="0" id="idltl0cChain-GhostView3-constraintX"/>
+		<constraint firstItem="idltl0cChain-GhostView3" firstAttribute="height" secondItem="idltl0cChain-GhostView0" secondAttribute="height" priority="750" multiplier="1" id="idltl0cChain-GhostView3-constraint-height"/>
+		
+
+
+
+	                </constraints>
+	            </view>
+				<navigationItem key="navigationItem" id="LinksViewControllerNavigationItemID"/>
+	      		<connections>
+	                <outlet property="algebraButton" destination="algebraButton" id="algebraButtonOutletID"/>
+	                <outlet property="probabilityButton" destination="probabilityButton" id="probabilityButtonOutletID"/>
+	                <outlet property="equationsButton" destination="equationsButton" id="equationsButtonOutletID"/>
+	      		</connections>
+	    	</viewController>
+	    	<placeholder placeholderIdentifier="IBFirstResponder" id="LinksPlaceholderID" userLabel="First Responder" sceneMemberID="firstResponder"/>
+	  	</objects>
+	</scene>
+	<!--WebsitesViewController-->
+	<scene sceneID="WebsitesViewControllerSceneID">
+		<objects>
+			<viewController storyboardIdentifier="WebsitesViewControllerStoryboardID" id="WebsitesViewControllerID" customClass="WebsitesViewController" customModule="MathKit" customModuleProvider="target" sceneMemberID="viewController" automaticallyAdjustsScrollViewInsets="NO">
+		        <layoutGuides>
+	                <viewControllerLayoutGuide type="top" id="Websites-guide-top"/>
+	            	<viewControllerLayoutGuide type="bottom" id="Websites-guide-bottom"/>
+	            </layoutGuides>
+	        	<view key="view" contentMode="scaleToFill" id="WebsitesViewID">
+	        		<rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+	                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+	                <subviews>
+	                    <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="webView">
+<rect key="frame" />
+<constraints>
+	
+	
+	
+</constraints>
+
+	                    	<color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+	                    </webView>
+	                    
+	                </subviews>
+	                <color key="backgroundColor" red="1.0" green="1.0" blue="1.0" alpha="1" colorSpace="calibratedRGB"/>
+	                <constraints>
+
+
+	
+	
+		<constraint firstItem="webView" firstAttribute="top" secondItem="WebsitesViewID" secondAttribute="top" priority="750" constant="0" id="webView-constraint-parent-top"/>
+		<constraint firstItem="webView" firstAttribute="leading" secondItem="WebsitesViewID" secondAttribute="leading" priority="750" constant="0" id="webView-constraint-parent-start"/>
+		<constraint firstItem="WebsitesViewID" firstAttribute="bottom" secondItem="webView" secondAttribute="bottom" priority="750" constant="0" id="webView-constraint-parent-bottom"/>
+		<constraint firstItem="webView" firstAttribute="trailing" secondItem="WebsitesViewID" secondAttribute="trailing" priority="750" constant="0" id="webView-constraint-parent-end"/>
+
+
+
+
+	                </constraints>
+	            </view>
+				<navigationItem key="navigationItem" id="WebsitesViewControllerNavigationItemID"/>
+	      		<connections>
+	                <outlet property="webView" destination="webView" id="webViewOutletID"/>
+	      		</connections>
+	    	</viewController>
+	    	<placeholder placeholderIdentifier="IBFirstResponder" id="WebsitesPlaceholderID" userLabel="First Responder" sceneMemberID="firstResponder"/>
+	  	</objects>
+	</scene>
+	<!--InfoViewController-->
+	<scene sceneID="InfoViewControllerSceneID">
+		<objects>
+			<viewController storyboardIdentifier="InfoViewControllerStoryboardID" id="InfoViewControllerID" customClass="InfoViewController" customModule="MathKit" customModuleProvider="target" sceneMemberID="viewController" automaticallyAdjustsScrollViewInsets="NO">
+		        <layoutGuides>
+	                <viewControllerLayoutGuide type="top" id="Info-guide-top"/>
+	            	<viewControllerLayoutGuide type="bottom" id="Info-guide-bottom"/>
+	            </layoutGuides>
+	        	<view key="view" contentMode="scaleToFill" id="InfoViewID">
+	        		<rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+	                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+	                <subviews>
+	                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" textAlignment="center" text="About MathKit" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="titleInfoLabel">
+<rect key="frame" />
+<constraints>
+	
+	
+	<constraint firstAttribute="height" constant="36.0" id="titleInfoLabel-constraint-height"/>
+	
+</constraints>
+
+	                        <fontDescription key="fontDescription" type="boldSystem" pointSize="24"/>
+	                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+	                        <nil key="highlightedColor"/>
+	                    </label>
+	                    
+	                </subviews>
+	                <color key="backgroundColor" red="1.0" green="1.0" blue="1.0" alpha="1" colorSpace="calibratedRGB"/>
+	                <constraints>
+
+
+	
+	<constraint firstItem="titleInfoLabel" firstAttribute="width" secondItem="InfoViewID" secondAttribute="width" multiplier="1.0" id="titleInfoLabel-constraint-width"/>
+	
+		<constraint firstItem="titleInfoLabel" firstAttribute="top" secondItem="InfoViewID" secondAttribute="top" priority="750" constant="20" id="titleInfoLabel-constraint-parent-top"/>
+		<constraint firstItem="titleInfoLabel" firstAttribute="leading" secondItem="InfoViewID" secondAttribute="leading" priority="750" constant="0" id="titleInfoLabel-constraint-parent-start"/>
+
+
+
+
+	                </constraints>
+	            </view>
+				<navigationItem key="navigationItem" id="InfoViewControllerNavigationItemID"/>
+	      		<connections>
+	      		</connections>
+	    	</viewController>
+	    	<placeholder placeholderIdentifier="IBFirstResponder" id="InfoPlaceholderID" userLabel="First Responder" sceneMemberID="firstResponder"/>
+	  	</objects>
+	</scene>
+	
+	<scene sceneID="MenuViewControllerSceneID">
+        <objects>
+            <tableViewController storyboardIdentifier="MenuViewControllerStoryboardID" id="MenuViewControllerID" customClass="MenuViewController" customModule="MathKit" customModuleProvider="target" sceneMemberID="viewController">
+                <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="45" sectionHeaderHeight="28" sectionFooterHeight="28" id="MenuTableViewID">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <view key="tableHeaderView" clipsSubviews="YES" contentMode="scaleToFill" id="MenuHeaderID" userLabel="Header">
+                    	<rect key="frame" x="0.0" y="0.0" width="600" height="25"/>
+                    	<autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                    </view>
+                    <prototypes>
+                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MenuCell" rowHeight="45" id="MenuViewCellID" customClass="MenuViewCell" customModule="MathKit" customModuleProvider="target">
+                            <frame key="frameInset" minY="153" width="600" height="45"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="MenuViewCellID" id="MenuViewCellContentViewID">
+                                <frame key="frameInset" width="600" height="44"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Menu Item label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="MenuItemLabelID">
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="MenuItemLabelID" firstAttribute="centerY" secondItem="MenuViewCellContentViewID" secondAttribute="centerY" id="MenuItemLabelConstraintY"/>
+                                    <constraint firstItem="MenuItemLabelID" firstAttribute="leading" secondItem="MenuViewCellContentViewID" secondAttribute="leading" constant="40" id="MenuItemLabelConstraintX"/>
+                                </constraints>
+                            </tableViewCellContentView>
+                            <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            <connections>
+                                <outlet property="destinationLabel" destination="MenuItemLabelID" id="OutletMenuItemLabeltID"/>
+                            </connections>
+                        </tableViewCell>
+                    </prototypes>
+                    <connections>
+                        <outlet property="dataSource" destination="MenuViewControllerID" id="OutletMenuViewControllerDataSource"/>
+                        <outlet property="delegate" destination="MenuViewControllerID" id="OutletMenuViewControllerDelegate"/>
+                    </connections>
+                </tableView>
+            </tableViewController>
+            <placeholder placeholderIdentifier="IBFirstResponder" id="MenuPlaceholderID" userLabel="First Responder" sceneMemberID="firstResponder"/>
+        </objects>
+    </scene>
+	</scenes>
+	<resources>
+        <image name="grid_image" width="202" height="202"/>
+        <image name="card_image" width="426" height="240"/>
+        <image name="list_img" width="100" height="100"/>
+        <image name="list_icon" width="40" height="40"/>
+        <image name="pause_icon" width="56" height="56"/>
+        <image name="play_icon" width="56" height="56"/>
+        <image name="stop_icon" width="56" height="56"/>
+        <image name="photocamera_icon" width="36" height="36"/>
+        <image name="videocamera_icon" width="36" height="36"/>
+	</resources>
+</document>

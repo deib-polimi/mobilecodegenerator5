@@ -84,7 +84,7 @@ context VideoView if(sourceType.toString().matches("localFile") && !fileUri.matc
 
 context AudioPlayer if(sourceType.toString().matches("localFile") && !fileUri.matches("")) ERROR "FileUri of AudioPlayer must end with mp3 extension" : fileUri.contains(".") && (fileUri.split("\\.").get(1).matches("mp3"));
 
-context WebView if(!HTMLFileName.matches("")) ERROR "HTMLFileName of WebView must end with html extension" : HTMLFileName.contains(".") && (HTMLFileName.split("\\.").get(1).matches("html"));
+context WebView if(!HTMLFileName.matches("")) ERROR "HTMLFileName of WebView must end with html extension" : HTMLFileName.contains(".") && (HTMLFileName.split(".").last().matches("html"));
 
 
 context Scene ERROR "Number of ViewControllers in scene must be at least 1 [Scene: '"+id+"']" : childViewControllers.size >= 1;
@@ -100,7 +100,7 @@ context ViewController ERROR "Names of AsyncTasks must be unique in the same Vie
 
 context ViewController if(scene != null) ERROR "Parent ViewControllers can contain only containers (no other UI controls and no tasks and dialogs)" : ((controlChains.size == 0) && (buttons.size == 0) && (cards.size == 0) && (switches.size == 0) && (datepickers.size == 0) && (timepickers.size == 0) && (sliders.size == 0) && (spinners.size == 0) && (textViews.size == 0) && (webViews.size == 0) && (imageViews.size == 0) && (videoViews.size == 0) && (audioPlayers.size == 0) && (listViews.size == 0) && (gridViews.size == 0) && (editTexts.size == 0) && (asyncTasks.size == 0) && (progressDialogs.size == 0) && (alertDialogs.size == 0) && (map == null) && (photocameraController == null) && (videocameraController == null) && (audioRecorder == null));
 
-context ViewController if(scene == null) ERROR "Non-parent ViewControllers can't contai containers" : containers.size == 0;
+context ViewController if(scene == null) ERROR "Non-parent ViewControllers can't contain containers" : containers.size == 0;
 
 
 context Menu if (this != null && menuItems.size > 0) ERROR "Menu items must be all different ": duplicatedIds(menuItems.navigation.destinationScene.id).size == 0;

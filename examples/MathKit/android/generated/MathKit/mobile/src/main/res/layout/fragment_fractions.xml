@@ -1,0 +1,432 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fractions_constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    tools:context="it.polimi.mathkit.fragments.FractionsFragment">
+    
+	<Button
+		android:id="@+id/calcFractionsButton"
+		
+		android:layout_width="150.0dp"
+		
+		android:layout_height="40.0dp"
+		
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+    	
+    	
+		
+		app:layout_constraintTop_toBottomOf="@+id/decSimpLabel"
+		app:layout_constraintBottom_toBottomOf="parent"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginBottom="0dp"
+		
+		
+		android:layout_marginStart="0dp"
+		android:layout_marginEnd="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+        
+        android:textColor="#ffffff"
+        
+        android:background="@drawable/calcfractionsbutton_background"
+		style="?android:attr/borderlessButtonStyle"
+        android:textAllCaps="false"
+        android:text="Calculate"/>        
+	<TextView
+		android:id="@+id/dtfLabel"
+		
+		android:layout_width="match_parent"
+		
+		android:layout_height="36.0dp"
+		app:layout_constraintWidth_percent="1.0"
+		
+		app:layout_constraintStart_toStartOf="parent"
+    	
+    	
+		
+		
+		app:layout_constraintVertical_chainStyle="spread"
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintBottom_toTopOf="@+id/decimalLabel"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginBottom="0dp"
+		
+		
+		android:layout_marginStart="0dp"
+		android:layout_marginEnd="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+        
+        android:textStyle="bold"
+        android:text="Decimal To Fraction"
+        android:gravity="center|center_vertical"
+        android:textColor="#000000"
+        android:textSize="24dp"/>
+	<TextView
+		android:id="@+id/decimalLabel"
+		
+		
+		android:layout_width="0dp"
+		
+		android:layout_height="36.0dp"
+		app:layout_constraintWidth_percent="0.5"
+		
+		app:layout_constraintStart_toStartOf="parent"
+    	
+    	
+		
+		app:layout_constraintTop_toBottomOf="@+id/dtfLabel"
+		app:layout_constraintBottom_toTopOf="@+id/fractionLabel"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginBottom="0dp"
+		
+		
+		android:layout_marginStart="0dp"
+		android:layout_marginEnd="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+        
+        android:textStyle="bold"
+        android:text="Decimal:"
+        android:gravity="right|center_vertical"
+        android:textColor="#000000"
+        android:textSize="20dp"/>
+	<TextView
+		android:id="@+id/fractionLabel"
+		
+		
+		android:layout_width="0dp"
+		
+		android:layout_height="36.0dp"
+		app:layout_constraintWidth_percent="0.5"
+		
+		app:layout_constraintStart_toStartOf="parent"
+    	
+    	
+		
+		app:layout_constraintTop_toBottomOf="@+id/decimalLabel"
+		app:layout_constraintBottom_toTopOf="@+id/fsLabel"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginBottom="0dp"
+		
+		
+		android:layout_marginStart="0dp"
+		android:layout_marginEnd="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+        
+        android:textStyle="bold"
+        android:text="Fraction:"
+        android:gravity="right|center_vertical"
+        android:textColor="#000000"
+        android:textSize="20dp"/>
+	<TextView
+		android:id="@+id/fsLabel"
+		
+		android:layout_width="match_parent"
+		
+		android:layout_height="36.0dp"
+		app:layout_constraintWidth_percent="1.0"
+		
+		app:layout_constraintStart_toStartOf="parent"
+    	
+    	
+		
+		app:layout_constraintTop_toBottomOf="@+id/fractionLabel"
+		app:layout_constraintBottom_toTopOf="@+id/slashLabel"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginBottom="0dp"
+		
+		
+		android:layout_marginStart="0dp"
+		android:layout_marginEnd="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+        
+        android:textStyle="bold"
+        android:text="Fraction Simplifier"
+        android:gravity="center|center_vertical"
+        android:textColor="#000000"
+        android:textSize="24dp"/>
+	<TextView
+		android:id="@+id/slashLabel"
+		
+		
+		android:layout_width="88.0dp"
+		
+		android:layout_height="36.0dp"
+		
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+    	
+    	
+		
+		app:layout_constraintTop_toBottomOf="@+id/fsLabel"
+		app:layout_constraintBottom_toTopOf="@+id/simpleLabel"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginBottom="0dp"
+		
+		
+		android:layout_marginStart="0dp"
+		android:layout_marginEnd="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+        android:text="/"
+        android:gravity="center|center_vertical"
+        android:textColor="#000000"
+        android:textSize="18dp"/>
+	<TextView
+		android:id="@+id/simpleLabel"
+		
+		
+		android:layout_width="0dp"
+		
+		android:layout_height="36.0dp"
+		app:layout_constraintWidth_percent="0.5"
+		
+		app:layout_constraintStart_toStartOf="parent"
+    	
+    	
+		
+		app:layout_constraintTop_toBottomOf="@+id/slashLabel"
+		app:layout_constraintBottom_toTopOf="@+id/decSimpLabel"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginBottom="0dp"
+		
+		
+		android:layout_marginStart="0dp"
+		android:layout_marginEnd="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+        
+        android:textStyle="bold"
+        android:text="Simple:"
+        android:gravity="right|center_vertical"
+        android:textColor="#000000"
+        android:textSize="20dp"/>
+	<TextView
+		android:id="@+id/decSimpLabel"
+		
+		
+		android:layout_width="0dp"
+		
+		android:layout_height="36.0dp"
+		app:layout_constraintWidth_percent="0.5"
+		
+		app:layout_constraintStart_toStartOf="parent"
+    	
+    	
+		
+		app:layout_constraintTop_toBottomOf="@+id/simpleLabel"
+		app:layout_constraintBottom_toTopOf="@+id/calcFractionsButton"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginBottom="0dp"
+		
+		
+		android:layout_marginStart="0dp"
+		android:layout_marginEnd="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+        
+        android:textStyle="bold"
+        android:text="Decimal:"
+        android:gravity="right|center_vertical"
+        android:textColor="#000000"
+        android:textSize="20dp"/>
+	<TextView
+		android:id="@+id/fractionResultLabel"
+		
+		android:layout_width="88.0dp"
+		android:layout_height="36.0dp"
+		
+		app:layout_constraintTop_toTopOf="@+id/fractionLabel"
+		app:layout_constraintStart_toEndOf="@+id/fractionLabel"
+    	
+		
+		android:layout_marginStart="15dp"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginEnd="0dp"
+		android:layout_marginBottom="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+        android:text="result"
+        android:gravity="left|center_vertical"
+        android:textColor="#000000"
+        android:textSize="20dp"/>
+	<TextView
+		android:id="@+id/simpleResultLabel"
+		
+		android:layout_width="88.0dp"
+		android:layout_height="36.0dp"
+		
+		app:layout_constraintTop_toTopOf="@+id/simpleLabel"
+		app:layout_constraintStart_toEndOf="@+id/simpleLabel"
+    	
+		
+		android:layout_marginStart="15dp"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginEnd="0dp"
+		android:layout_marginBottom="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+        android:text="result"
+        android:gravity="left|center_vertical"
+        android:textColor="#000000"
+        android:textSize="20dp"/>
+	<TextView
+		android:id="@+id/decimalResultLabel"
+		
+		android:layout_width="88.0dp"
+		android:layout_height="36.0dp"
+		
+		app:layout_constraintTop_toTopOf="@+id/decSimpLabel"
+		app:layout_constraintStart_toEndOf="@+id/decSimpLabel"
+    	
+		
+		android:layout_marginStart="15dp"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginEnd="0dp"
+		android:layout_marginBottom="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+        android:text="result"
+        android:gravity="left|center_vertical"
+        android:textColor="#000000"
+        android:textSize="20dp"/>
+	<android.support.v7.widget.AppCompatEditText
+		android:id="@+id/decimalEditText"
+		
+		android:layout_width="88.0dp"
+		android:layout_height="36.0dp"
+		
+		app:layout_constraintTop_toTopOf="@+id/decimalLabel"
+		app:layout_constraintStart_toEndOf="@+id/decimalLabel"
+    	
+		
+		android:layout_marginStart="10dp"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginEnd="0dp"
+		android:layout_marginBottom="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+       
+        android:text=""
+        android:hint="value" 
+        android:textColor="#000000"
+        android:textSize="20dp"/>
+	<android.support.v7.widget.AppCompatEditText
+		android:id="@+id/numEditText"
+		
+		android:layout_width="88.0dp"
+		android:layout_height="36.0dp"
+		
+		app:layout_constraintTop_toTopOf="@+id/slashLabel"
+		app:layout_constraintEnd_toStartOf="@+id/slashLabel"
+    	
+		
+		android:layout_marginStart="0dp"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginEnd="0dp"
+		android:layout_marginBottom="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+       
+        android:text=""
+        android:hint="num" 
+        android:textColor="#000000"
+        android:textSize="20dp"/>
+	<android.support.v7.widget.AppCompatEditText
+		android:id="@+id/denEditText"
+		
+		android:layout_width="88.0dp"
+		android:layout_height="36.0dp"
+		
+		app:layout_constraintTop_toTopOf="@+id/slashLabel"
+		app:layout_constraintStart_toEndOf="@+id/slashLabel"
+    	
+		
+		android:layout_marginStart="0dp"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginEnd="0dp"
+		android:layout_marginBottom="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+       
+        android:text=""
+        android:hint="den" 
+        android:textColor="#000000"
+        android:textSize="20dp"/>
+
+	
+</android.support.constraint.ConstraintLayout>

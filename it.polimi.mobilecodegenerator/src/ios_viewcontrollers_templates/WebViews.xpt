@@ -22,20 +22,56 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 «ENDDEFINE-»
 
 «DEFINE viewDidLoad FOR ViewController-»
+	/*
+		To load unsecure pages with http add this to Info.plist
+		<key>NSAppTransportSecurity</key>
+		<dict>
+			<key>NSAllowsArbitraryLoads</key>
+			<true/>
+			<key>NSExceptionDomains</key>
+			<dict>
+				<key>YOURDOMAIN.com</key>
+				<dict>
+					<key>NSExceptionAllowsInsecureHTTPLoads</key>
+					<true/>
+					<key>NSIncludesSubdomains</key>
+					<true/>
+				</dict>
+			</dict>
+		</dict>
+	*/
 	«FOREACH webViews AS wv-»
 	«IF !wv.HTMLFileName.matches("")-»
-		let «wv.id»FileName = "«wv.HTMLFileName.split("\\.").get(0)»"
-		if let «wv.id»Url = Bundle.main.url(forResource: «wv.id»FileName, withExtension:"html") {
-	        let request = URLRequest(url: «wv.id»Url)
-	        self.«wv.id».loadRequest(request)
-	    }
+		let url = URL(string: "«wv.HTMLFileName»")
+		if let unwrappedURL = url {
+			let request = URLRequest(url: unwrappedURL)
+			let session = URLSession.shared
+			
+			let task = session.dataTask(with: request) { (data, response, error) in
+				if error == nil {
+					self.«wv.id».loadRequest(request)
+				} else {
+					print("ERROR: \(error)")
+				}
+			}
+			task.resume()
+		}
 	«ELSE-»
 		/*
-		let «wv.id»FileName = "HTMLFileName"
-		if let «wv.id»Url = Bundle.main.url(forResource: «wv.id»FileName, withExtension:"html") {
-	        let request = URLRequest(url: «wv.id»Url)
-	        self.«wv.id».loadRequest(request)
-	    }
+		let url = URL(string: "HTMLFileName")
+		if let unwrappedURL = url {
+			let request = URLRequest(url: unwrappedURL)
+			let session = URLSession.shared
+			
+			let task = session.dataTask(with: request) { (data, response, error) in
+				if error == nil {
+					self.«wv.id».loadRequest(request)
+				} else {
+					print("ERROR: \(error)")
+				}
+			}
+			task.resume()
+		}
 		*/
 	«ENDIF-»
 	«ENDFOREACH-»

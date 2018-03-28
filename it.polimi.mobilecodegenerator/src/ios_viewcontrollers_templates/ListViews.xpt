@@ -27,7 +27,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 		«ENDIF-»
 	]
 
-«IF lv.listType.matches("detailed") ||lv.listType.matches("image") -»
+«IF lv.listType.matches("detailed") || lv.listType.matches("image") -»
 	var «lv.id»Images: [UIImage] = [
 		«IF lv.listViewCells.size!=0-»
 		// Change the images for each row here

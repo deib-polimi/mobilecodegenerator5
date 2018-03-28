@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MathKit</string>
+
+	<!-- shared preferences keys and default values -->
+	
+	<string name="tab_text_equations_1">Linear</string>
+	<string name="tab_text_equations_2">Quadratic</string>
+	<string name="tab_text_equations_3">System</string>
+	
+	<string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+	<string name="app_about">MathKit is an application developed as \nevaluation of the thesis work at \nPolitecnico di Milano on Protocode 4 \nand MobileCodeGenerator 4. \n\nDeveloped by Massimo Beccari\n\nCopyright \u00a9 2018. All rights reserved.</string>
+
+</resources>

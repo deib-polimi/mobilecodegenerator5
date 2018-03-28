@@ -1,0 +1,40 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/info_constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    tools:context="it.polimi.mathkit.fragments.InfoFragment">
+    
+	<TextView
+		android:id="@+id/titleInfoLabel"
+		
+		android:layout_width="match_parent"
+		android:layout_height="36.0dp"
+		app:layout_constraintWidth_percent="1.0"
+		
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+    	
+		
+		android:layout_marginStart="0dp"
+		
+		android:layout_marginTop="20dp"
+		android:layout_marginEnd="0dp"
+		android:layout_marginBottom="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+        
+        android:textStyle="bold"
+        android:text="About MathKit"
+        android:gravity="center|center_vertical"
+        android:textColor="#000000"
+        android:textSize="24dp"/>
+
+	
+</android.support.constraint.ConstraintLayout>

@@ -61,7 +61,7 @@ import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 «ENDIF-»
 «IF listViews.size > 0-»
-import «this.application.companyIdentifier-».«this.application.name.toLowerCase()-».MyListAdapter;
+import «this.application.companyIdentifier-».«this.application.name.toLowerCase()-».adapters.MyListAdapter;
 «ENDIF-»
 «IF videoViews.size > 0-»
 import android.net.Uri;
@@ -103,7 +103,6 @@ import android.view.ViewGroup;
 «ENDIF-»
 «IF webViews.size > 0-»
 import android.webkit.WebView;
-import android.webkit.WebSettings;
 «ENDIF-»
 «IF listViews.size > 0 || gridViews.size > 0-»
 import android.widget.AdapterView;
@@ -179,6 +178,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 «ENDDEFINE-»
 
 «DEFINE importsFrag FOR ViewController-»
+import android.support.annotation.Nullable;
 «IF photocameraController != null || videocameraController != null || audioRecorder != null-»
 import java.io.IOException;
 import java.io.File;
@@ -268,7 +268,6 @@ import android.view.ViewGroup;
 «ENDIF-»
 «IF webViews.size > 0-»
 import android.webkit.WebView;
-import android.webkit.WebSettings;
 «ENDIF-»
 «IF listViews.size > 0 || gridViews.size > 0-»
 import android.widget.AdapterView;
@@ -301,7 +300,7 @@ import android.widget.ImageView;
 «ENDIF-»
 «IF listViews.size > 0-»
 import android.widget.ListView;
-import «this.application.companyIdentifier-».«this.application.name.toLowerCase()-».MyListAdapter;
+import «this.application.companyIdentifier-».«this.application.name.toLowerCase()-».adapters.MyListAdapter;
 «ENDIF-»
 «IF videoViews.size > 0-»
 import android.widget.MediaController;

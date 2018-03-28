@@ -136,7 +136,7 @@ class «name.toFirstUpper()»ParentViewController: UIViewController {
     «IF typeSmartphone.toString().matches(typeTablet.toString()) && !typeSmartphone.toString().matches("multiVC")-»
     // MARK: UI Setup
     private func setupUI() {
-		view.backgroundColor = UIColor(colorLiteralRed: 1, green: 1, blue: 1, alpha: 1)
+		view.backgroundColor = UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 1)
     	«EXPAND setupUIAddChildViewControllers FOR this-»
         «IF typeSmartphone.toString().matches("singleVCTab")-»
 		«EXPAND setupUIsingleVCTabConstraints FOR this-»
@@ -146,7 +146,7 @@ class «name.toFirstUpper()»ParentViewController: UIViewController {
     «ELSE-»
     // MARK: Phone UI Setup
     private func setupPhoneUI() {
-		view.backgroundColor = UIColor(colorLiteralRed: 1, green: 1, blue: 1, alpha: 1)
+		view.backgroundColor = UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 1)
         «IF typeSmartphone.toString().matches("singleVC") || typeSmartphone.toString().matches("singleVCTab")-»
     	«EXPAND setupUIAddChildViewControllers FOR this-»
         «IF typeSmartphone.toString().matches("singleVCTab")-»
@@ -160,7 +160,7 @@ class «name.toFirstUpper()»ParentViewController: UIViewController {
     
     // MARK: Tablet UI Setup
     private func setupTabletUI() {
-		view.backgroundColor = UIColor(colorLiteralRed: 1, green: 1, blue: 1, alpha: 1)
+		view.backgroundColor = UIColor(displayP3Red: 1, green: 1, blue: 1, alpha: 1)
         «IF typeTablet.toString().matches("singleVC") || typeTablet.toString().matches("singleVCTab")-»
     	«EXPAND setupUIAddChildViewControllers FOR this-»
         «IF typeTablet.toString().matches("singleVCTab")-»
@@ -279,7 +279,7 @@ extension «name.toFirstUpper()»ParentViewController: ChildViewControllerInteract
 			let «n.destinationScene.name.toFirstLower()»VC = «n.destinationScene.name.toFirstUpper()»ParentViewController()
 			let nav = UINavigationController()
 	        nav.navigationBar.isTranslucent = false
-	        nav.navigationBar.barTintColor = UIColor(colorLiteralRed: 0.968, green: 0.968, blue: 0.968, alpha: 1)
+	        nav.navigationBar.barTintColor = UIColor(displayP3Red: 0.968, green: 0.968, blue: 0.968, alpha: 1)
 			nav.viewControllers = [«n.destinationScene.name.toFirstLower()»VC]
 			present(nav, animated: true, completion: nil)
 			«ELSEIF n.destinationViewController != null-»
@@ -310,7 +310,7 @@ extension «name.toFirstUpper()»ParentViewController: ChildViewControllerInteract
 			let «n.destinationScene.name.toFirstLower()»VC = «n.destinationScene.name.toFirstUpper()»ParentViewController()
 			let nav = UINavigationController()
 	        nav.navigationBar.isTranslucent = false
-	        nav.navigationBar.barTintColor = UIColor(colorLiteralRed: 0.968, green: 0.968, blue: 0.968, alpha: 1)
+	        nav.navigationBar.barTintColor = UIColor(displayP3Red: 0.968, green: 0.968, blue: 0.968, alpha: 1)
 			nav.viewControllers = [«n.destinationScene.name.toFirstLower()»VC]
 			present(nav, animated: true, completion: nil)
 			«ELSEIF n.destinationViewController != null-»
@@ -341,7 +341,7 @@ extension «name.toFirstUpper()»ParentViewController: ChildViewControllerInteract
 			let «n.destinationScene.name.toFirstLower()»VC = «n.destinationScene.name.toFirstUpper()»ParentViewController()
 			let nav = UINavigationController()
 	        nav.navigationBar.isTranslucent = false
-	        nav.navigationBar.barTintColor = UIColor(colorLiteralRed: 0.968, green: 0.968, blue: 0.968, alpha: 1)
+	        nav.navigationBar.barTintColor = UIColor(displayP3Red: 0.968, green: 0.968, blue: 0.968, alpha: 1)
 			nav.viewControllers = [«n.destinationScene.name.toFirstLower()»VC]
 			present(nav, animated: true, completion: nil)
 			«ELSEIF n.destinationViewController != null-»

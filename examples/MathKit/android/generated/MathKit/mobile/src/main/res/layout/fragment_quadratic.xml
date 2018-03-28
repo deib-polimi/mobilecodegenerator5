@@ -1,0 +1,371 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/quadratic_constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    tools:context="it.polimi.mathkit.fragments.QuadraticFragment">
+    
+	<ImageView
+		android:id="@+id/guideQEImageView"
+		
+		
+		android:layout_width="240.0dp"
+		
+		android:layout_height="128.0dp"
+		
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+    	
+    	
+		
+		app:layout_constraintTop_toBottomOf="@+id/titleQELabel"
+		app:layout_constraintBottom_toTopOf="@+id/aLabel"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginBottom="0dp"
+		
+		
+		android:layout_marginStart="0dp"
+		android:layout_marginEnd="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+	    android:background="#000000"/>
+	<Button
+		android:id="@+id/calcQEButton"
+		
+		android:layout_width="150.0dp"
+		
+		android:layout_height="40.0dp"
+		
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+    	
+    	
+		
+		app:layout_constraintTop_toBottomOf="@+id/resultQELabel"
+		app:layout_constraintBottom_toBottomOf="parent"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginBottom="20dp"
+		
+		
+		android:layout_marginStart="0dp"
+		android:layout_marginEnd="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+        
+        android:textColor="#ffffff"
+        
+        android:background="@drawable/calcqebutton_background"
+		style="?android:attr/borderlessButtonStyle"
+        android:textAllCaps="false"
+        android:text="Calculate"/>        
+	<TextView
+		android:id="@+id/titleQELabel"
+		
+		android:layout_width="match_parent"
+		
+		android:layout_height="36.0dp"
+		app:layout_constraintWidth_percent="1.0"
+		
+		app:layout_constraintStart_toStartOf="parent"
+    	
+    	
+		
+		
+		app:layout_constraintVertical_chainStyle="spread_inside"
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintBottom_toTopOf="@+id/guideQEImageView"
+		
+		android:layout_marginTop="20dp"
+		android:layout_marginBottom="0dp"
+		
+		
+		android:layout_marginStart="0dp"
+		android:layout_marginEnd="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+        
+        android:textStyle="bold"
+        android:text="Quadratic Equation"
+        android:gravity="center|center_vertical"
+        android:textColor="#000000"
+        android:textSize="24dp"/>
+	<TextView
+		android:id="@+id/aLabel"
+		
+		
+		android:layout_width="0dp"
+		
+		android:layout_height="36.0dp"
+		app:layout_constraintWidth_percent="0.5"
+		
+		app:layout_constraintStart_toStartOf="parent"
+    	
+    	
+		
+		app:layout_constraintTop_toBottomOf="@+id/guideQEImageView"
+		app:layout_constraintBottom_toTopOf="@+id/bLabel"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginBottom="0dp"
+		
+		
+		android:layout_marginStart="0dp"
+		android:layout_marginEnd="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+        
+        android:textStyle="bold"
+        android:text="a ="
+        android:gravity="right|center_vertical"
+        android:textColor="#000000"
+        android:textSize="20dp"/>
+	<TextView
+		android:id="@+id/bLabel"
+		
+		
+		android:layout_width="0dp"
+		
+		android:layout_height="36.0dp"
+		app:layout_constraintWidth_percent="0.5"
+		
+		app:layout_constraintStart_toStartOf="parent"
+    	
+    	
+		
+		app:layout_constraintTop_toBottomOf="@+id/aLabel"
+		app:layout_constraintBottom_toTopOf="@+id/cLabel"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginBottom="0dp"
+		
+		
+		android:layout_marginStart="0dp"
+		android:layout_marginEnd="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+        
+        android:textStyle="bold"
+        android:text="b ="
+        android:gravity="right|center_vertical"
+        android:textColor="#000000"
+        android:textSize="20dp"/>
+	<TextView
+		android:id="@+id/cLabel"
+		
+		
+		android:layout_width="0dp"
+		
+		android:layout_height="36.0dp"
+		app:layout_constraintWidth_percent="0.5"
+		
+		app:layout_constraintStart_toStartOf="parent"
+    	
+    	
+		
+		app:layout_constraintTop_toBottomOf="@+id/bLabel"
+		app:layout_constraintBottom_toTopOf="@+id/resultQELabel"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginBottom="0dp"
+		
+		
+		android:layout_marginStart="0dp"
+		android:layout_marginEnd="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+        
+        android:textStyle="bold"
+        android:text="c ="
+        android:gravity="right|center_vertical"
+        android:textColor="#000000"
+        android:textSize="20dp"/>
+	<TextView
+		android:id="@+id/resultQELabel"
+		
+		
+		android:layout_width="0dp"
+		
+		android:layout_height="36.0dp"
+		app:layout_constraintWidth_percent="0.4"
+		
+		app:layout_constraintStart_toStartOf="parent"
+    	
+    	
+		
+		app:layout_constraintTop_toBottomOf="@+id/cLabel"
+		app:layout_constraintBottom_toTopOf="@+id/calcQEButton"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginBottom="0dp"
+		
+		
+		android:layout_marginStart="0dp"
+		android:layout_marginEnd="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+        
+        android:textStyle="bold"
+        android:text="x1, x2 ="
+        android:gravity="right|center_vertical"
+        android:textColor="#000000"
+        android:textSize="20dp"/>
+	<TextView
+		android:id="@+id/x1Label"
+		
+		android:layout_width="88.0dp"
+		android:layout_height="36.0dp"
+		
+		app:layout_constraintTop_toTopOf="@+id/resultQELabel"
+		app:layout_constraintStart_toEndOf="@+id/resultQELabel"
+    	
+		
+		android:layout_marginStart="0dp"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginEnd="0dp"
+		android:layout_marginBottom="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+        android:text="result"
+        android:gravity="center|center_vertical"
+        android:textColor="#000000"
+        android:textSize="20dp"/>
+	<TextView
+		android:id="@+id/x2Label"
+		
+		android:layout_width="88.0dp"
+		android:layout_height="36.0dp"
+		
+		app:layout_constraintTop_toTopOf="@+id/resultQELabel"
+		app:layout_constraintStart_toEndOf="@+id/x1Label"
+    	
+		
+		android:layout_marginStart="0dp"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginEnd="0dp"
+		android:layout_marginBottom="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+        android:text="result"
+        android:gravity="left|center_vertical"
+        android:textColor="#000000"
+        android:textSize="20dp"/>
+	<android.support.v7.widget.AppCompatEditText
+		android:id="@+id/aEditText"
+		
+		android:layout_width="88.0dp"
+		android:layout_height="36.0dp"
+		
+		app:layout_constraintTop_toTopOf="@+id/aLabel"
+		app:layout_constraintStart_toEndOf="@+id/aLabel"
+    	
+		
+		android:layout_marginStart="10dp"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginEnd="0dp"
+		android:layout_marginBottom="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+       
+        android:text=""
+        android:hint="a" 
+        android:textColor="#000000"
+        android:textSize="20dp"/>
+	<android.support.v7.widget.AppCompatEditText
+		android:id="@+id/bEditText"
+		
+		android:layout_width="88.0dp"
+		android:layout_height="36.0dp"
+		
+		app:layout_constraintTop_toTopOf="@+id/bLabel"
+		app:layout_constraintStart_toEndOf="@+id/bLabel"
+    	
+		
+		android:layout_marginStart="10dp"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginEnd="0dp"
+		android:layout_marginBottom="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+       
+        android:text=""
+        android:hint="b" 
+        android:textColor="#000000"
+        android:textSize="20dp"/>
+	<android.support.v7.widget.AppCompatEditText
+		android:id="@+id/cEditText"
+		
+		android:layout_width="88.0dp"
+		android:layout_height="36.0dp"
+		
+		app:layout_constraintTop_toTopOf="@+id/cLabel"
+		app:layout_constraintStart_toEndOf="@+id/cLabel"
+    	
+		
+		android:layout_marginStart="10dp"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginEnd="0dp"
+		android:layout_marginBottom="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+       
+        android:text=""
+        android:hint="c" 
+        android:textColor="#000000"
+        android:textSize="20dp"/>
+
+	
+</android.support.constraint.ConstraintLayout>

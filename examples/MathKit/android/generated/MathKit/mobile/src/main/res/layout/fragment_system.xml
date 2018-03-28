@@ -1,0 +1,424 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/system_constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    tools:context="it.polimi.mathkit.fragments.SystemFragment">
+    
+	<ImageView
+		android:id="@+id/guideSEImageView"
+		
+		
+		android:layout_width="240.0dp"
+		
+		android:layout_height="128.0dp"
+		
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+    	
+    	
+		
+		app:layout_constraintTop_toBottomOf="@+id/titleSELabel"
+		app:layout_constraintBottom_toTopOf="@+id/firstEqLabel"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginBottom="0dp"
+		
+		
+		android:layout_marginStart="0dp"
+		android:layout_marginEnd="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+	    android:background="#000000"/>
+	<Button
+		android:id="@+id/calcSEButton"
+		
+		android:layout_width="150.0dp"
+		
+		android:layout_height="40.0dp"
+		
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+    	
+    	
+		
+		app:layout_constraintTop_toBottomOf="@+id/xSELabel"
+		app:layout_constraintBottom_toBottomOf="parent"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginBottom="20dp"
+		
+		
+		android:layout_marginStart="0dp"
+		android:layout_marginEnd="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+        
+        android:textColor="#ffffff"
+        
+        android:background="@drawable/calcsebutton_background"
+		style="?android:attr/borderlessButtonStyle"
+        android:textAllCaps="false"
+        android:text="Calculate"/>        
+	<TextView
+		android:id="@+id/titleSELabel"
+		
+		android:layout_width="match_parent"
+		
+		android:layout_height="36.0dp"
+		app:layout_constraintWidth_percent="1.0"
+		
+		app:layout_constraintStart_toStartOf="parent"
+    	
+    	
+		
+		
+		app:layout_constraintVertical_chainStyle="spread_inside"
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintBottom_toTopOf="@+id/guideSEImageView"
+		
+		android:layout_marginTop="20dp"
+		android:layout_marginBottom="0dp"
+		
+		
+		android:layout_marginStart="0dp"
+		android:layout_marginEnd="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+        
+        android:textStyle="bold"
+        android:text="Two Equations System"
+        android:gravity="center|center_vertical"
+        android:textColor="#000000"
+        android:textSize="24dp"/>
+	<TextView
+		android:id="@+id/firstEqLabel"
+		
+		
+		android:layout_width="0dp"
+		
+		android:layout_height="36.0dp"
+		app:layout_constraintWidth_percent="0.25"
+		
+		app:layout_constraintStart_toStartOf="parent"
+    	
+    	
+		
+		app:layout_constraintTop_toBottomOf="@+id/guideSEImageView"
+		app:layout_constraintBottom_toTopOf="@+id/secondEqLabel"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginBottom="0dp"
+		
+		
+		android:layout_marginStart="0dp"
+		android:layout_marginEnd="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+        
+        android:textStyle="bold"
+        android:text="First:"
+        android:gravity="right|center_vertical"
+        android:textColor="#000000"
+        android:textSize="20dp"/>
+	<TextView
+		android:id="@+id/secondEqLabel"
+		
+		
+		android:layout_width="0dp"
+		
+		android:layout_height="36.0dp"
+		app:layout_constraintWidth_percent="0.25"
+		
+		app:layout_constraintStart_toStartOf="parent"
+    	
+    	
+		
+		app:layout_constraintTop_toBottomOf="@+id/firstEqLabel"
+		app:layout_constraintBottom_toTopOf="@+id/xSELabel"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginBottom="0dp"
+		
+		
+		android:layout_marginStart="0dp"
+		android:layout_marginEnd="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+        
+        android:textStyle="bold"
+        android:text="Second:"
+        android:gravity="right|center_vertical"
+        android:textColor="#000000"
+        android:textSize="20dp"/>
+	<TextView
+		android:id="@+id/xSELabel"
+		
+		
+		android:layout_width="88.0dp"
+		
+		android:layout_height="36.0dp"
+		
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+    	
+    	
+		
+		app:layout_constraintTop_toBottomOf="@+id/secondEqLabel"
+		app:layout_constraintBottom_toTopOf="@+id/calcSEButton"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginBottom="0dp"
+		
+		
+		android:layout_marginStart="0dp"
+		android:layout_marginEnd="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+        android:text="result"
+        android:gravity="center|center_vertical"
+        android:textColor="#000000"
+        android:textSize="20dp"/>
+	<TextView
+		android:id="@+id/resultSELabel"
+		
+		android:layout_width="100.0dp"
+		android:layout_height="36.0dp"
+		
+		app:layout_constraintTop_toTopOf="@+id/xSELabel"
+		app:layout_constraintEnd_toStartOf="@+id/xSELabel"
+    	
+		
+		android:layout_marginStart="0dp"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginEnd="0dp"
+		android:layout_marginBottom="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+        
+        android:textStyle="bold"
+        android:text="x, y ="
+        android:gravity="right|center_vertical"
+        android:textColor="#000000"
+        android:textSize="20dp"/>
+	<TextView
+		android:id="@+id/ySELabel"
+		
+		android:layout_width="88.0dp"
+		android:layout_height="36.0dp"
+		
+		app:layout_constraintTop_toTopOf="@+id/xSELabel"
+		app:layout_constraintStart_toEndOf="@+id/xSELabel"
+    	
+		
+		android:layout_marginStart="0dp"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginEnd="0dp"
+		android:layout_marginBottom="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+        android:text="result"
+        android:gravity="left|center_vertical"
+        android:textColor="#000000"
+        android:textSize="20dp"/>
+	<android.support.v7.widget.AppCompatEditText
+		android:id="@+id/a1EditText"
+		
+		
+		android:layout_width="0dp"
+		android:layout_height="36.0dp"
+		app:layout_constraintWidth_percent="0.2"
+		
+		app:layout_constraintTop_toTopOf="@+id/firstEqLabel"
+		app:layout_constraintStart_toEndOf="@+id/firstEqLabel"
+    	
+		
+		android:layout_marginStart="10dp"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginEnd="0dp"
+		android:layout_marginBottom="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+       
+        android:text=""
+        android:hint="a1" 
+        android:textColor="#000000"
+        android:textSize="20dp"/>
+	<android.support.v7.widget.AppCompatEditText
+		android:id="@+id/b1EditText"
+		
+		
+		android:layout_width="0dp"
+		android:layout_height="36.0dp"
+		app:layout_constraintWidth_percent="0.2"
+		
+		app:layout_constraintTop_toTopOf="@+id/firstEqLabel"
+		app:layout_constraintStart_toEndOf="@+id/a1EditText"
+    	
+		
+		android:layout_marginStart="10dp"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginEnd="0dp"
+		android:layout_marginBottom="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+       
+        android:text=""
+        android:hint="b1" 
+        android:textColor="#000000"
+        android:textSize="20dp"/>
+	<android.support.v7.widget.AppCompatEditText
+		android:id="@+id/c1EditText"
+		
+		
+		android:layout_width="0dp"
+		android:layout_height="36.0dp"
+		app:layout_constraintWidth_percent="0.2"
+		
+		app:layout_constraintTop_toTopOf="@+id/firstEqLabel"
+		app:layout_constraintStart_toEndOf="@+id/b1EditText"
+    	
+		
+		android:layout_marginStart="10dp"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginEnd="0dp"
+		android:layout_marginBottom="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+       
+        android:text=""
+        android:hint="c1" 
+        android:textColor="#000000"
+        android:textSize="20dp"/>
+	<android.support.v7.widget.AppCompatEditText
+		android:id="@+id/a2EditText"
+		
+		
+		android:layout_width="0dp"
+		android:layout_height="36.0dp"
+		app:layout_constraintWidth_percent="0.2"
+		
+		app:layout_constraintTop_toTopOf="@+id/secondEqLabel"
+		app:layout_constraintStart_toEndOf="@+id/secondEqLabel"
+    	
+		
+		android:layout_marginStart="10dp"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginEnd="0dp"
+		android:layout_marginBottom="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+       
+        android:text=""
+        android:hint="a2" 
+        android:textColor="#000000"
+        android:textSize="20dp"/>
+	<android.support.v7.widget.AppCompatEditText
+		android:id="@+id/b2EditText"
+		
+		
+		android:layout_width="0dp"
+		android:layout_height="36.0dp"
+		app:layout_constraintWidth_percent="0.2"
+		
+		app:layout_constraintTop_toTopOf="@+id/secondEqLabel"
+		app:layout_constraintStart_toEndOf="@+id/a2EditText"
+    	
+		
+		android:layout_marginStart="10dp"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginEnd="0dp"
+		android:layout_marginBottom="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+       
+        android:text=""
+        android:hint="b2" 
+        android:textColor="#000000"
+        android:textSize="20dp"/>
+	<android.support.v7.widget.AppCompatEditText
+		android:id="@+id/c2EditText"
+		
+		
+		android:layout_width="0dp"
+		android:layout_height="36.0dp"
+		app:layout_constraintWidth_percent="0.2"
+		
+		app:layout_constraintTop_toTopOf="@+id/secondEqLabel"
+		app:layout_constraintStart_toEndOf="@+id/b2EditText"
+    	
+		
+		android:layout_marginStart="10dp"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginEnd="0dp"
+		android:layout_marginBottom="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+       
+        android:text=""
+        android:hint="c2" 
+        android:textColor="#000000"
+        android:textSize="20dp"/>
+
+	
+</android.support.constraint.ConstraintLayout>

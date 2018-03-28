@@ -23,36 +23,14 @@ private WebView «wv.id»;
 
 «DEFINE onCreate FOR ViewController-»
 «FOREACH webViews AS wv-»
-this.«wv.id» = (WebView) this.findViewById(R.id.«wv.id»);
-WebSettings «wv.id»Settings = «wv.id».getSettings();
-«wv.id»Settings.setDefaultTextEncodingName("utf-8");
-«IF !wv.HTMLFileName.matches("") -»
-String «wv.id»HTMLContent = Utils.fromInputStreamToString(this.getResources().openRawResource(R.raw.«wv.HTMLFileName.split("\\.").get(0)»));
-this.«wv.id».loadDataWithBaseURL("file:///android_asset/", «wv.id»HTMLContent, "text/html", "utf-8", null);
-«ELSE-»
-/*
-//TODO insert local html file name
-String «wv.id»HTMLContent = Utils.fromInputStreamToString(this.getResources().openRawResource(R.raw.filename...));
-this.«wv.id».loadDataWithBaseURL("file:///android_asset/", «wv.id»HTMLContent, "text/html", "utf-8", null);
-*/
-«ENDIF-»
+«wv.id» = (WebView) this.findViewById(R.id.«wv.id»);
+webView.loadUrl("«wv.HTMLFileName»");
 «ENDFOREACH-»
 «ENDDEFINE-»
 
-«DEFINE onCreateView FOR ViewController-»
+«DEFINE onViewCreated FOR ViewController-»
 «FOREACH webViews AS wv-»
-this.«wv.id» = (WebView) rootView.findViewById(R.id.«wv.id»);
-WebSettings «wv.id»Settings = «wv.id».getSettings();
-«wv.id»Settings.setDefaultTextEncodingName("utf-8");
-«IF !wv.HTMLFileName.matches("") -»
-String «wv.id»HTMLContent = Utils.fromInputStreamToString(getResources().openRawResource(R.raw.«wv.HTMLFileName.split("\\.").get(0)»));
-this.«wv.id».loadDataWithBaseURL("file:///android_asset/", «wv.id»HTMLContent, "text/html", "utf-8", null);
-«ELSE-»
-/*
-//TODO insert local html file name
-String «wv.id»HTMLContent = Utils.fromInputStreamToString(getResources().openRawResource(R.raw.filename...));
-this.«wv.id».loadDataWithBaseURL("file:///android_asset/", «wv.id»HTMLContent, "text/html", "utf-8", null);
-*/
-«ENDIF-»
+«wv.id» = (WebView) getView().findViewById(R.id.«wv.id»);
+webView.loadUrl("«wv.HTMLFileName»");
 «ENDFOREACH-»
 «ENDDEFINE-»

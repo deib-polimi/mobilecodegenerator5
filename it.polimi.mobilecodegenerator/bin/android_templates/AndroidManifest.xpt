@@ -38,11 +38,14 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
     «IF viewControllers.audioPlayers.sourceType.toString().contains("hardwareFile")-»
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     «ENDIF-»
+    «IF viewControllers.webViews.flatten().size > 0-»
+    <uses-permission android:name="android.permission.INTERNET" />
+    «ENDIF-»
     
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="«name»"
+        android:label="@string/app_name"
         android:supportsRtl="true"
         android:windowSoftInputMode="stateVisible"
         android:theme="@style/AppTheme">
@@ -68,7 +71,6 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
         «IF s.launcher-»
         <activity
             android:name="«companyIdentifier».«name.toLowerCase()».activities.«s.name.toFirstUpper()»Activity"
-            android:label="«s.name.toFirstUpper()»" 
             android:theme="@style/AppTheme.NoActionBar">
 			<intent-filter>
                 <action android:name="android.intent.action.MAIN" />

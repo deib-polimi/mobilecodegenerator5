@@ -1,0 +1,125 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/links_constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    tools:context="it.polimi.mathkit.fragments.LinksFragment">
+    
+	<Button
+		android:id="@+id/algebraButton"
+		
+		
+		android:layout_width="0dp"
+		
+		android:layout_height="0dp"
+		app:layout_constraintWidth_percent="0.8"
+		app:layout_constraintHeight_percent="0.1"
+		
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+    	
+    	
+		
+		
+		app:layout_constraintVertical_chainStyle="spread"
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintBottom_toTopOf="@+id/probabilityButton"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginBottom="0dp"
+		
+		
+		android:layout_marginStart="0dp"
+		android:layout_marginRight="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+        
+        android:textColor="#ffffff"
+        
+        android:background="@drawable/algebrabutton_background"
+		style="?android:attr/borderlessButtonStyle"
+        android:textAllCaps="false"
+        android:text="Algebra"/>        
+	<Button
+		android:id="@+id/probabilityButton"
+		
+		
+		android:layout_width="0dp"
+		
+		android:layout_height="0dp"
+		app:layout_constraintWidth_percent="0.8"
+		app:layout_constraintHeight_percent="0.1"
+		
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+    	
+    	
+		
+		app:layout_constraintTop_toBottomOf="@+id/algebraButton"
+		app:layout_constraintBottom_toTopOf="@+id/equationsButton"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginBottom="0dp"
+		
+		
+		android:layout_marginStart="0dp"
+		android:layout_marginRight="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+        
+        android:textColor="#ffffff"
+        
+        android:background="@drawable/probabilitybutton_background"
+		style="?android:attr/borderlessButtonStyle"
+        android:textAllCaps="false"
+        android:text="Probability"/>        
+	<Button
+		android:id="@+id/equationsButton"
+		
+		
+		android:layout_width="0dp"
+		
+		android:layout_height="0dp"
+		app:layout_constraintWidth_percent="0.8"
+		app:layout_constraintHeight_percent="0.1"
+		
+		app:layout_constraintStart_toStartOf="parent"
+		app:layout_constraintEnd_toEndOf="parent"
+    	
+    	
+		
+		app:layout_constraintTop_toBottomOf="@+id/probabilityButton"
+		app:layout_constraintBottom_toBottomOf="parent"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginBottom="0dp"
+		
+		
+		android:layout_marginStart="0dp"
+		android:layout_marginRight="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+        
+        android:textColor="#ffffff"
+        
+        android:background="@drawable/equationsbutton_background"
+		style="?android:attr/borderlessButtonStyle"
+        android:textAllCaps="false"
+        android:text="Equations"/>        
+
+	
+</android.support.constraint.ConstraintLayout>

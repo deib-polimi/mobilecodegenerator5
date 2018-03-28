@@ -107,7 +107,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
         android:id="@+id/listview_img"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp"
         android:src="@drawable/ic_stars_white"/>
 
     <TextView
@@ -144,7 +144,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
         android:id="@+id/listview_img"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_marginRight="16dp"
+        android:layout_marginEnd="16dp"
         android:src="@drawable/ic_stars_white"/>
 
     <LinearLayout
@@ -177,8 +177,8 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
         android:layout_height="22dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginLeft="-16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginStart="-16dp"
         android:src="@drawable/ic_chevron_right_black_36dp"/>
 
 </LinearLayout>
@@ -777,9 +777,9 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:layout_marginRight="16dp"
+                android:layout_marginEnd="16dp"
                 android:layout_marginBottom="16dp"
-                android:layout_marginLeft="16dp"
+                android:layout_marginStart="16dp"
                 android:text="«c.title»"
                 android:textSize="24dp"
                 android:textColor="#333"/>
@@ -788,8 +788,8 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
                 android:id="@+id/«c.id»Subtitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
                 android:text="«c.subtitle»"
                 android:textSize="14dp"/>
 
@@ -800,16 +800,16 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
                 android:orientation="horizontal"
                 android:layout_marginTop="32dp"
                 android:layout_marginBottom="8dp"
-                android:layout_marginLeft="4dp"
-                android:layout_marginRight="4dp">
+                android:layout_marginStart="4dp"
+                android:layout_marginEnd="4dp">
 				
 				«FOREACH 1.upTo(c.numActions) AS n-»
                 <Button
                     android:id="@+id/«c.id»Button«n»"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginEnd="4dp"
                     android:text="Action «n»"
                     android:textAllCaps="true"
                     android:textSize="14dp"
@@ -1190,7 +1190,7 @@ along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licens
 		«ELSE»
 		android:layout_marginStart="«marginStart»dp"
 		«ENDIF-»
-		android:layout_marginRight="«marginEnd»dp"
+		android:layout_marginEnd="«marginEnd»dp"
     	«ENDIF-»
 		«REM» Padding «ENDREM»
 		android:paddingBottom="«paddingBottom»dp"

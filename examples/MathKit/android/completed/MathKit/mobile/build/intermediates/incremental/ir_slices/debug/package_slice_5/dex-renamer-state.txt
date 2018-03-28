@@ -1,0 +1,4 @@
+#Tue Mar 27 10:48:02 CEST 2018
+base.0=C\:\\Users\\Max\\git\\mobilecodegenerator4\\it.polimi.mobilecodegenerator\\src-gen\\android\\MathKit\\mobile\\build\\intermediates\\transforms\\dexMerger\\debug\\5
+path.0=classes.dex
+renamed.0=classes.dex

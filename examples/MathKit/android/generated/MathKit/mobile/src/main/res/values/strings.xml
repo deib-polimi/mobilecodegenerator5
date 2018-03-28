@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">MathKit</string>
+
+	<!-- shared preferences keys and default values -->
+	
+	<string name="tab_text_equations_1">Linear</string>
+	<string name="tab_text_equations_2">Quadratic</string>
+	<string name="tab_text_equations_3">System</string>
+	
+	<string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+</resources>

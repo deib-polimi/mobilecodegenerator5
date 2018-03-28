@@ -117,7 +117,7 @@ public class «name.toFirstUpper()»Activity extends AppCompatActivity {
 	        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
 	        mViewPager.setAdapter(mSectionsPagerAdapter);
 			
-			«IF typeSmartphone.toString().matches("singleVCTab") && typeTablet.toString().matches("singleVCTab")-»
+			«IF typeSmartphone.toString().matches("singleVCTab") || typeTablet.toString().matches("singleVCTab")-»
 			// Setup TabLayout
 	        TabLayout tabLayout = (TabLayout) this.findViewById(R.id.«name.toLowerCase()»_tabs);
         	mViewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
@@ -166,12 +166,13 @@ public class «name.toFirstUpper()»Activity extends AppCompatActivity {
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
+        Intent intent;
 
         switch(id) {
         	«FOREACH application.menu.menuItems AS item-»
             «IF item.navigation.destinationScene != this-»
             case R.id.nav_«item.navigation.destinationScene.name.toLowerCase()»:
-                Intent intent = new Intent(«name.toFirstUpper()»Activity.this, «item.navigation.destinationScene.name.toFirstUpper()»Activity.class);
+                intent = new Intent(«name.toFirstUpper()»Activity.this, «item.navigation.destinationScene.name.toFirstUpper()»Activity.class);
 				//use putExtra method of Intent here for passing additional information to «item.navigation.destinationScene.name.toFirstUpper()»Activity
 				startActivity(intent);
                 break;
@@ -240,6 +241,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.MenuItem;
 import android.content.Intent;
 «IF isAMenuDestination(name, application.menu.menuItems.navigation.destinationScene.name)-»
@@ -260,9 +262,6 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 «ENDIF-»
 import android.support.design.widget.TabLayout;
-«ENDIF-»
-«IF typeSmartphone.toString().matches("multiVC") || typeTablet.toString().matches("multiVC")-»
-import android.support.v4.app.FragmentManager;
 «ENDIF-»
 «ENDDEFINE-»
 
@@ -347,12 +346,13 @@ public class «name.toFirstUpper()»Activity extends AppCompatActivity {
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
+        Intent intent;
 
         switch(id) {
         	«FOREACH application.menu.menuItems AS item-»
             «IF item.navigation.destinationScene != this-»
             case R.id.nav_«item.navigation.destinationScene.name.toLowerCase()»:
-                Intent intent = new Intent(«name.toFirstUpper()»Activity.this, «item.navigation.destinationScene.name.toFirstUpper()»Activity.class);
+                intent = new Intent(«name.toFirstUpper()»Activity.this, «item.navigation.destinationScene.name.toFirstUpper()»Activity.class);
 				//use putExtra method of Intent here for passing additional information to «item.navigation.destinationScene.name.toFirstUpper()»Activity
 				startActivity(intent);
                 break;
@@ -547,6 +547,12 @@ public class «name.toFirstUpper()»Fragment extends Fragment «EXPAND android_acti
     	
     	return rootView;
     }
+    
+	@Override
+	public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
+		«EXPAND android_activities_templates::WebViews::onViewCreated-»
+	}
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser){

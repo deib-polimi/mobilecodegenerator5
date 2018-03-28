@@ -1,0 +1,90 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/equations_constraintLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    tools:context="it.polimi.mathkit.activities.EquationsActivity"
+    tools:showIn="@layout/app_bar_equations">
+    
+	<fragment
+        android:name="it.polimi.mathkit.fragments.LinearFragment"
+		android:id="@+id/idv5mjtContainer"
+		
+		
+		android:layout_width="0dp"
+		android:layout_height="match_parent"
+		app:layout_constraintWidth_percent="0.3"
+		app:layout_constraintHeight_percent="1.0"
+		
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintStart_toStartOf="parent"
+    	
+		
+		android:layout_marginStart="0dp"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginEnd="0dp"
+		android:layout_marginBottom="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+        />
+	<fragment
+        android:name="it.polimi.mathkit.fragments.QuadraticFragment"
+		android:id="@+id/idhstvpContainer"
+		
+		
+		android:layout_width="0dp"
+		android:layout_height="match_parent"
+		app:layout_constraintWidth_percent="0.3"
+		app:layout_constraintHeight_percent="1.0"
+		
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintStart_toEndOf="@+id/idv5mjtContainer"
+    	
+		
+		android:layout_marginStart="0dp"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginEnd="0dp"
+		android:layout_marginBottom="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+        />
+	<fragment
+        android:name="it.polimi.mathkit.fragments.SystemFragment"
+		android:id="@+id/idqmaidContainer"
+		
+		
+		android:layout_width="0dp"
+		android:layout_height="match_parent"
+		app:layout_constraintWidth_percent="0.4"
+		app:layout_constraintHeight_percent="1.0"
+		
+		app:layout_constraintTop_toTopOf="parent"
+		app:layout_constraintStart_toEndOf="@+id/idhstvpContainer"
+    	
+		
+		android:layout_marginStart="0dp"
+		
+		android:layout_marginTop="0dp"
+		android:layout_marginEnd="0dp"
+		android:layout_marginBottom="0dp"
+		
+		android:paddingBottom="0dp"
+		android:paddingRight="0dp"
+		android:paddingLeft="0dp"
+		android:paddingTop="0dp"
+
+        />
+	
+</android.support.constraint.ConstraintLayout>

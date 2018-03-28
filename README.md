@@ -1,6 +1,8 @@
 # What's new in version 4.0 #
 
-* added support for protocode 4.0 and model generation 
+* added support for Protocode 4.0 and model generation
+* updated for supporting the last features of Android Studio 3.0.1 (Gradle plug-in and support libraries)
+* updated for supporting XCode 9.2
 
 # Mobilecodegenerator #
 

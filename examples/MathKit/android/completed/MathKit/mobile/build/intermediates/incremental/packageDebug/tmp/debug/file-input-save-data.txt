@@ -1,0 +1,11 @@
+#Internal package file, do not edit.
+#Tue Mar 27 10:48:04 CEST 2018
+1.base=C\:\\Users\\Max\\git\\mobilecodegenerator4\\it.polimi.mobilecodegenerator\\src-gen\\android\\MathKit\\mobile\\build\\intermediates\\transforms\\dexMerger\\debug\\11
+0.baseType=DIRECTORY
+1.baseType=DIRECTORY
+count=2
+1.set=DEX
+0.path=classes.dex
+0.set=DEX
+0.base=C\:\\Users\\Max\\git\\mobilecodegenerator4\\it.polimi.mobilecodegenerator\\src-gen\\android\\MathKit\\mobile\\build\\intermediates\\transforms\\dexMerger\\debug\\12
+1.path=classes.dex
