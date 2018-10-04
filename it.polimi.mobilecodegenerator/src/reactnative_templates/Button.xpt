@@ -1,0 +1,72 @@
+«IMPORT metamodel»
+
+«DEFINE styleVars FOR ViewController»
+	«FOREACH buttons AS b»
+		«EXPAND reactnative_templates::UIPhoneControl::styleVars FOR b»
+	«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE style FOR ViewController»
+	«FOREACH buttons AS b»
+		e«b.id»: {
+			«EXPAND reactnative_templates::UIPhoneControl::style FOR b»
+			«IF b.borderRadius != null»
+			borderRadius: «b.borderRadius»,
+			«ENDIF»
+			«IF b.backgroundColor != null && b.backgroundColor.matches("") == false»
+			backgroundColor: '«b.backgroundColor»',
+			«ELSE»
+			backgroundColor: '#cecece',
+			«ENDIF»
+		},
+		e«b.id»_wrapper: {
+			flex: 1,
+			justifyContent: 'center',
+			alignItems: 'center'
+		},
+		e«b.id»_inner: {
+			textAlign: 'center',
+			«IF b.textColor != null && b.textColor.matches("") == false»
+			color: '«b.textColor»',
+			«ELSE»
+			color: '#000000',
+			«ENDIF»
+		},
+	«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE eventBinding FOR ViewController»
+«FOREACH buttons AS b»
+	this.on«b.id»Press = this.on«b.id»Press.bind(this);
+«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE events FOR ViewController»
+«FOREACH buttons AS b»
+	on«b.id»Press() {
+		// TODO fill here...
+	}
+«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE render FOR ViewController»
+	«FOREACH buttons AS b»
+		<TouchableHighlight
+			«EXPAND reactnative_templates::UIPhoneControl::props FOR b»
+			onPress={this.on«b.id»Press}
+			style={styles.e«b.id»}
+			activeOpacity={1}
+			«IF b.clickColor != null && b.clickColor.matches("") == false»
+			underlayColor={'«b.clickColor»'}
+			«ELSEIF b.backgroundColor != null && b.backgroundColor.matches("") == false»
+			underlayColor={'«b.backgroundColor»'}
+			«ELSE»
+			underlayColor={'#cecece'}
+			«ENDIF»
+		>
+		<View style={styles.e«b.id»_wrapper}>
+			<Text style={styles.e«b.id»_inner}>«b.title»</Text>
+		</View>
+		</TouchableHighlight>
+	«ENDFOREACH»
+«ENDDEFINE»

@@ -1,0 +1,25 @@
+«IMPORT metamodel»
+
+«DEFINE styleVars FOR ViewController»
+«FOREACH imageViews AS iv»
+	«EXPAND reactnative_templates::UIPhoneControl::styleVars FOR iv»
+«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE style FOR ViewController»
+«FOREACH imageViews AS iv»
+	e«iv.id»: {
+		«EXPAND reactnative_templates::UIPhoneControl::style FOR iv»
+	},
+«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE render FOR ViewController»
+	«FOREACH imageViews AS iv»
+		<Image
+			«EXPAND reactnative_templates::UIPhoneControl::props FOR iv»
+			source={{uri: '«iv.fileUri»'}}
+			style={styles.e«iv.id»}
+		/>
+	«ENDFOREACH»
+«ENDDEFINE»

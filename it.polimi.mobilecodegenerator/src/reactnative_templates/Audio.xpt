@@ -1,0 +1,56 @@
+«IMPORT metamodel»
+
+«DEFINE styleVars FOR ViewController»
+	«FOREACH audioPlayers AS ap»
+		«EXPAND reactnative_templates::UIPhoneControl::styleVars FOR ap»
+	«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE style FOR ViewController»
+	«FOREACH audioPlayers AS ap»
+		e«ap.id»: {
+			«EXPAND reactnative_templates::UIPhoneControl::style FOR ap»
+		},
+	«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE eventBinding FOR ViewController»
+«FOREACH audioPlayers AS ap»
+	this.on«ap.id»Play = this.on«ap.id»Play.bind(this);
+	this.on«ap.id»Pause = this.on«ap.id»Pause.bind(this);
+	this.on«ap.id»Stop = this.on«ap.id»Stop.bind(this);
+«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE events FOR ViewController»
+«FOREACH audioPlayers AS ap»
+	on«ap.id»Play() {
+		// TODO fill here
+	}
+	on«ap.id»Pause() {
+		// TODO fill here
+	}
+	on«ap.id»Stop() {
+		// TODO fill here
+	}
+«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE render FOR ViewController»
+	«FOREACH audioPlayers AS ap»
+		<AudioPlayer
+			«EXPAND reactnative_templates::UIPhoneControl::props FOR ap»
+			«IF audioRecorder == null || ap.id != audioRecorder.audioPlayerId»
+				resource={"«ap.fileUri»"}
+				playRecord={false}
+			«ENDIF»
+			«IF audioRecorder != null && ap.id == audioRecorder.audioPlayerId»
+				playRecord={true}
+			«ENDIF»
+			style={styles.e«ap.id»}
+			onPlay={this.on«ap.id»Play}
+			onPause={this.on«ap.id»Pause}
+			onStop={this.on«ap.id»Stop}
+		></AudioPlayer>
+	«ENDFOREACH»
+«ENDDEFINE»

@@ -1,0 +1,155 @@
+«IMPORT metamodel»
+
+«DEFINE main FOR Application»
+«EXPAND component FOREACH viewControllers»
+«ENDDEFINE»
+
+«DEFINE style FOR ViewController»
+	e«id»: {
+		width: '100%',
+		height: '100%',
+		«IF !backgroundColor.matches("")»
+		backgroundColor: '«backgroundColor»'
+		«ENDIF»
+	},
+«ENDDEFINE»
+
+«DEFINE component FOR ViewController»
+	«FILE application.name + "/src/components/" + name.toFirstUpper() + "Component.js"»
+		«EXPAND imports»
+		
+		const styles = StyleSheet.create({
+			«EXPAND style»
+			«EXPAND reactnative_templates::Text::style»
+			«EXPAND reactnative_templates::TextInput::style»
+			«EXPAND reactnative_templates::Button::style»
+			«EXPAND reactnative_templates::Slider::style»
+			«EXPAND reactnative_templates::Switch::style»
+			«EXPAND reactnative_templates::Dropdown::style»
+			«EXPAND reactnative_templates::Audio::style»
+			«EXPAND reactnative_templates::Recording::style»
+			«EXPAND reactnative_templates::WebView::style»
+			«EXPAND reactnative_templates::Lists::style»
+			«EXPAND reactnative_templates::Grids::style»
+			«EXPAND reactnative_templates::Image::style»
+			«EXPAND reactnative_templates::Video::style»
+		});
+		
+		export default class «name.toFirstUpper()»Component extends React.Component {
+			constructor(props){
+				super(props);
+				this.state = {
+					«EXPAND reactnative_templates::Slider::state»
+					«EXPAND reactnative_templates::Switch::state»
+					«EXPAND reactnative_templates::Dropdown::state»
+				};
+				«EXPAND reactnative_templates::TextInput::eventBinding»
+				«EXPAND reactnative_templates::Button::eventBinding»
+				«EXPAND reactnative_templates::Slider::eventBinding»
+				«EXPAND reactnative_templates::Switch::eventBinding»
+				«EXPAND reactnative_templates::Dropdown::eventBinding»
+				«EXPAND reactnative_templates::Audio::eventBinding»
+				«EXPAND reactnative_templates::Recording::eventBinding»
+				«EXPAND reactnative_templates::WebView::eventBinding»
+				«EXPAND reactnative_templates::Lists::eventBinding»
+				«EXPAND reactnative_templates::Grids::eventBinding»
+			}
+			
+			«EXPAND reactnative_templates::TextInput::events»
+			«EXPAND reactnative_templates::Button::events»
+			«EXPAND reactnative_templates::Slider::events»
+			«EXPAND reactnative_templates::Switch::events»
+			«EXPAND reactnative_templates::Dropdown::events»
+			«EXPAND reactnative_templates::Audio::events»
+			«EXPAND reactnative_templates::Recording::events»
+			«EXPAND reactnative_templates::WebView::events»
+			«EXPAND reactnative_templates::Lists::events»
+			«EXPAND reactnative_templates::Grids::events»
+			
+			render() {
+				return (
+					«IF !backgroundImage.matches("")»
+					<ImageBackground source={{uri: "«backgroundImage»"}} style={{width: '100%', height: '100%'}} resizeMode="contain">
+					«ENDIF»
+					<ConstraintLayout style={styles.e«id»}>
+						«EXPAND reactnative_templates::Text::render»
+						«EXPAND reactnative_templates::TextInput::render»
+						«EXPAND reactnative_templates::Button::render»
+						«EXPAND reactnative_templates::Slider::render»
+						«EXPAND reactnative_templates::Switch::render»
+						«EXPAND reactnative_templates::Dropdown::render»
+						«EXPAND reactnative_templates::Audio::render»
+						«EXPAND reactnative_templates::Recording::render»
+						«EXPAND reactnative_templates::WebView::render»
+						«EXPAND reactnative_templates::Lists::render»
+						«EXPAND reactnative_templates::Grids::render»
+						«EXPAND reactnative_templates::Image::render»
+						«EXPAND reactnative_templates::Video::render»
+					</ConstraintLayout>
+					«IF !backgroundImage.matches("")»
+					</ImageBackground>
+					«ENDIF»
+				);
+			}
+		}
+	
+	«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE imports FOR ViewController»
+import { ConstraintLayout } from '../ConstraintLayout'; // Temporary, will be moved to a package installed with npm or yarn
+import React from 'react';
+import {
+	StyleSheet,
+	View, 
+«IF textViews.size > 0»
+	Text,
+«ENDIF»
+«IF editTexts.size > 0»
+	TextInput,
+«ENDIF»
+«IF buttons.size > 0 »
+	TouchableHighlight,
+«ENDIF»
+«IF sliders.size > 0 »
+	Slider,
+«ENDIF»
+«IF switches.size > 0 »
+	Switch,
+«ENDIF»
+«IF webViews.size > 0 »
+	WebView,
+«ENDIF»
+«IF listViews.size > 0»
+	FlatList,
+«ENDIF»
+«IF imageViews.size > 0»
+	Image,
+«ENDIF»
+} from 'react-native';
+«IF videoViews.size > 0»
+import VideoPlayer from '../VideoPlayer';
+«ENDIF»
+«IF spinners.size > 0»
+import { Dropdown } from 'react-native-material-dropdown';
+«ENDIF»
+«IF audioPlayers.size > 0 || audioRecorder != null »
+import {
+«IF audioPlayers.size > 0»
+	AudioPlayer,
+«ENDIF»
+«IF audioRecorder != null»
+	AudioRecorder,
+«ENDIF»
+} from '../Audio';
+«ENDIF»
+«IF gridViews.size > 0»
+import GridView from 'react-native-super-grid';
+«ENDIF»
+«FOREACH listViews AS lv»
+import ListElement«lv.id.toFirstUpper()» from './ListElement«lv.id.toFirstUpper()»Component';
+«ENDFOREACH»
+«FOREACH gridViews AS gv»
+import GridElement«gv.id.toFirstUpper()» from './GridElement«gv.id.toFirstUpper()»Component';
+«ENDFOREACH»
+«ENDDEFINE»

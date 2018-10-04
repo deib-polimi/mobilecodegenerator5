@@ -1,0 +1,52 @@
+«IMPORT metamodel»
+
+«DEFINE styleVars FOR ViewController»
+	«FOREACH cards AS c»
+		«EXPAND reactnative_templates::UIPhoneControl::styleVars FOR c»
+	«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE style FOR ViewController»
+	«IF cards.size > 0»
+		card_container: {
+		},
+		card_title: {
+		},
+		card_subtitle: {
+		},
+		card_image: {
+		},
+		card_actions: {
+		},
+	«ENDIF»
+	«FOREACH cards AS c»
+		e«c.id»: {
+			«EXPAND reactnative_templates::UIPhoneControl::style FOR c»
+		},
+	«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE eventBinding FOR ViewController»
+«FOREACH cards AS c»
+	«FOREACH 1.upTo(c.numActions) AS n»
+		this.on«c.id»Action«n» = this.on«c.id»Action«n».bind(this);
+	«ENDFOREACH»
+«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE events FOR ViewController»
+«FOREACH cards AS c»
+	«FOREACH 1.upTo(c.numActions) AS n»
+		on«c.id»Action«n»() {
+			// TODO implement action
+		}
+	«ENDFOREACH»
+«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE render FOR ViewController»
+	«FOREACH cards AS c»
+		<View style={[styles.e«c.id», styles.card_container]}>
+		</View>
+	«ENDFOREACH»
+«ENDDEFINE»

@@ -1,0 +1,52 @@
+«IMPORT metamodel»
+
+«DEFINE styleVars FOR ViewController»
+	«FOREACH spinners AS s»
+		«EXPAND reactnative_templates::UIPhoneControl::styleVars FOR s»
+	«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE style FOR ViewController»
+	«FOREACH spinners AS s»
+		e«s.id»: {
+			«EXPAND reactnative_templates::UIPhoneControl::style FOR s»
+		},
+	«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE eventBinding FOR ViewController»
+«FOREACH spinners AS s»
+	this.on«s.id»Change = this.on«s.id»Change.bind(this);
+«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE state FOR ViewController»
+«FOREACH spinners AS s»
+	e«s.id»Value: 'First',
+	// Example data
+	e«s.id»Data: [{value:'First'}, {value:'Second'}, {value:'Third'}], 
+«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE events FOR ViewController»
+«FOREACH spinners AS s»
+	on«s.id»Change(value, index) {
+		// TODO fill here...
+		console.log('Changed to: ' + value + ' (' + index + ')');
+	}
+«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE render FOR ViewController»
+«FOREACH spinners AS s»
+	<Dropdown
+		«EXPAND reactnative_templates::UIPhoneControl::props FOR s»
+		styleProp="containerStyle"
+		label={'Select an option'}
+		containerStyle={styles.e«s.id»} 
+		onChangeText={this.on«s.id»Change}
+		data={this.state.e«s.id»Data}
+		value={this.state.e«s.id»Value}>
+	</Dropdown>
+«ENDFOREACH»
+«ENDDEFINE»

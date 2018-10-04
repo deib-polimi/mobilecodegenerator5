@@ -18,8 +18,8 @@
 <workflow>
 
 	<!--xmi model-->
-	<property name="model" value="it.polimi.mobilecodegenerator/src/model/Crazy1.xmi" />
-	<property name="src-gen" value="src-gen/android" />
+	<property name="model" value="it.polimi.mobilecodegenerator/src/model/SimpleSample5.xmi" />
+	<property name="src-gen" value="src-gen/reactnative" />
 	
 	<bean class="org.eclipse.emf.mwe.utils.StandaloneSetup" >
 		<platformUri value=".."/>
@@ -44,7 +44,7 @@
     
 	<!--  GENERATE CODE -->
 	<!-- clear application code folder and generate DefaultFiles -->
-	<component class="org.eclipse.xpand2.Generator">
+	<!--<component class="org.eclipse.xpand2.Generator">
 		<metaModel idRef="mm_emf"/>
 		<expand
 			value="android_templates::DefaultFiles::main FOR model" />
@@ -54,10 +54,10 @@
 		<resourceManager class ="org.eclipse.xtend.expression.ResourceManagerDefaultImpl">
 			<fileEncoding value="ISO-8859-1"/>
 		</resourceManager>
-	</component>
+	</component>-->
 	
 	<!-- generate DefaultFilesWatch -->
-	<component class="org.eclipse.xpand2.Generator">
+	<!--<component class="org.eclipse.xpand2.Generator">
 		<metaModel idRef="mm_emf"/>
 		<expand
 			value="android_templates::DefaultFilesWatch::main FOR model" />
@@ -67,10 +67,10 @@
 		<resourceManager class ="org.eclipse.xtend.expression.ResourceManagerDefaultImpl">
 			<fileEncoding value="ISO-8859-1"/>
 		</resourceManager>
-	</component>
+	</component>-->
 	
 	<!-- generate AndroidManifest -->
-	<component class="org.eclipse.xpand2.Generator">
+	<!--<component class="org.eclipse.xpand2.Generator">
 		<metaModel idRef="mm_emf"/>
 		<expand
 			value="android_templates::AndroidManifest::main FOR model" />
@@ -80,10 +80,10 @@
 		<resourceManager class ="org.eclipse.xtend.expression.ResourceManagerDefaultImpl">
 			<fileEncoding value="ISO-8859-1"/>
 		</resourceManager>
-	</component>
+	</component>-->
 	
 	<!-- generate AndroidManifestWatch -->
-	<component class="org.eclipse.xpand2.Generator">
+	<!--<component class="org.eclipse.xpand2.Generator">
 		<metaModel idRef="mm_emf"/>
 		<expand
 			value="android_templates::AndroidManifestWatch::main FOR model" />
@@ -93,15 +93,15 @@
 		<resourceManager class ="org.eclipse.xtend.expression.ResourceManagerDefaultImpl">
 			<fileEncoding value="ISO-8859-1"/>
 		</resourceManager>
-	</component>
+	</component>-->
 	
 	<!-- generate Activities -->
 	<component class="org.eclipse.xpand2.Generator">
 		<metaModel idRef="mm_emf"/>
 		<expand
-			value="android_templates::Activities::main FOR model" />
+			value="reactnative_templates::ViewControllers::main FOR model" />
 		<outlet path="${src-gen}" >
-			<postprocessor class="org.eclipse.xpand2.output.JavaBeautifier" />
+			<!--<postprocessor class="org.eclipse.xpand2.output.JavaBeautifier" />-->
 		</outlet>
 		<resourceManager class ="org.eclipse.xtend.expression.ResourceManagerDefaultImpl">
 			<fileEncoding value="ISO-8859-1"/>
@@ -109,7 +109,7 @@
 	</component>
 	
 	<!-- generate ActivitiesWatch -->
-	<component class="org.eclipse.xpand2.Generator">
+	<!--<component class="org.eclipse.xpand2.Generator">
 		<metaModel idRef="mm_emf"/>
 		<expand
 			value="android_templates::ActivitiesWatch::main FOR model" />
@@ -119,10 +119,22 @@
 		<resourceManager class ="org.eclipse.xtend.expression.ResourceManagerDefaultImpl">
 			<fileEncoding value="ISO-8859-1"/>
 		</resourceManager>
+	</component>-->
+	
+	<!-- generate accessor components (namely lists' and grids' cells templates) -->
+	<component class="org.eclipse.xpand2.Generator">
+		<metaModel idRef="mm_emf"/>
+		<expand
+			value="reactnative_templates::ListGridContents::main FOR model" />
+		<outlet path="${src-gen}" >
+		</outlet>
+		<resourceManager class ="org.eclipse.xtend.expression.ResourceManagerDefaultImpl">
+			<fileEncoding value="ISO-8859-1"/>
+		</resourceManager>
 	</component>
 	
 	<!-- generate XMLFiles -->
-	<component class="org.eclipse.xpand2.Generator">
+	<!--<component class="org.eclipse.xpand2.Generator">
 		<metaModel idRef="mm_emf"/>
 		<expand
 			value="android_templates::XMLFiles::main FOR model" />
@@ -132,10 +144,10 @@
 		<resourceManager class ="org.eclipse.xtend.expression.ResourceManagerDefaultImpl">
 			<fileEncoding value="ISO-8859-1"/>
 		</resourceManager>
-	</component>
+	</component>-->
 	
 	<!-- generate XMLFilesWatch -->
-	<component class="org.eclipse.xpand2.Generator">
+	<!--<component class="org.eclipse.xpand2.Generator">
 		<metaModel idRef="mm_emf"/>
 		<expand
 			value="android_templates::XMLFilesWatch::main FOR model" />
@@ -145,11 +157,11 @@
 		<resourceManager class ="org.eclipse.xtend.expression.ResourceManagerDefaultImpl">
 			<fileEncoding value="ISO-8859-1"/>
 		</resourceManager>
-	</component>
+	</component>-->
 	
 	<!-- MODEL PART -->
 	<!-- generate DataHandler -->
-	<component class="org.eclipse.xpand2.Generator">
+	<!--<component class="org.eclipse.xpand2.Generator">
 		<metaModel idRef="mm_emf"/>
 		<expand
 			value="android_templates::DataHandler::main FOR model" />
@@ -159,10 +171,10 @@
 		<resourceManager class ="org.eclipse.xtend.expression.ResourceManagerDefaultImpl">
 			<fileEncoding value="ISO-8859-1"/>
 		</resourceManager>
-	</component>
+	</component>-->
 	
 	<!-- generate PreferenceHandler -->
-	<component class="org.eclipse.xpand2.Generator">
+	<!--<component class="org.eclipse.xpand2.Generator">
 		<metaModel idRef="mm_emf"/>
 		<expand
 			value="android_templates::PreferenceHandler::main FOR model" />
@@ -172,10 +184,10 @@
 		<resourceManager class ="org.eclipse.xtend.expression.ResourceManagerDefaultImpl">
 			<fileEncoding value="ISO-8859-1"/>
 		</resourceManager>
-	</component>
+	</component>-->
 	
 	<!-- generate DatabaseHandler -->
-	<component class="org.eclipse.xpand2.Generator">
+	<!--<component class="org.eclipse.xpand2.Generator">
 		<metaModel idRef="mm_emf"/>
 		<expand
 			value="android_templates::DatabaseHandler::main FOR model" />
@@ -185,10 +197,10 @@
 		<resourceManager class ="org.eclipse.xtend.expression.ResourceManagerDefaultImpl">
 			<fileEncoding value="ISO-8859-1"/>
 		</resourceManager>
-	</component>
+	</component>-->
 	
 	<!-- generate DatabaseHelper and DatabaseStrings -->
-	<component class="org.eclipse.xpand2.Generator">
+	<!--<component class="org.eclipse.xpand2.Generator">
 		<metaModel idRef="mm_emf"/>
 		<expand
 			value="android_templates::DatabaseHelper::main FOR model" />
@@ -198,10 +210,10 @@
 		<resourceManager class ="org.eclipse.xtend.expression.ResourceManagerDefaultImpl">
 			<fileEncoding value="ISO-8859-1"/>
 		</resourceManager>
-	</component>
+	</component>-->
 	
 	<!-- generate model classes -->
-	<component class="org.eclipse.xpand2.Generator">
+	<!--<component class="org.eclipse.xpand2.Generator">
 		<metaModel idRef="mm_emf"/>
 		<expand
 			value="android_templates::ModelClasses::main FOR model" />
@@ -211,10 +223,10 @@
 		<resourceManager class ="org.eclipse.xtend.expression.ResourceManagerDefaultImpl">
 			<fileEncoding value="ISO-8859-1"/>
 		</resourceManager>
-	</component>
+	</component>-->
 	
 	<!-- generate StorageHandler -->
-	<component class="org.eclipse.xpand2.Generator">
+	<!--<component class="org.eclipse.xpand2.Generator">
 		<metaModel idRef="mm_emf"/>
 		<expand
 			value="android_templates::StorageHandler::main FOR model" />
@@ -224,10 +236,10 @@
 		<resourceManager class ="org.eclipse.xtend.expression.ResourceManagerDefaultImpl">
 			<fileEncoding value="ISO-8859-1"/>
 		</resourceManager>
-	</component>
+	</component>-->
 	
 	<!-- generate CloudHandler -->
-	<component class="org.eclipse.xpand2.Generator">
+	<!--<component class="org.eclipse.xpand2.Generator">
 		<metaModel idRef="mm_emf"/>
 		<expand
 			value="android_templates::CloudHandler::main FOR model" />
@@ -237,6 +249,6 @@
 		<resourceManager class ="org.eclipse.xtend.expression.ResourceManagerDefaultImpl">
 			<fileEncoding value="ISO-8859-1"/>
 		</resourceManager>
-	</component>
+	</component>-->
 	
 </workflow>

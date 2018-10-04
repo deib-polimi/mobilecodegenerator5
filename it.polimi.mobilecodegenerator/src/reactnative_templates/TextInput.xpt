@@ -1,0 +1,70 @@
+«IMPORT metamodel»
+
+«DEFINE styleVars FOR ViewController»
+	«FOREACH editTexts AS t»
+		«EXPAND reactnative_templates::UIPhoneControl::styleVars FOR t»
+	«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE style FOR ViewController»
+	«FOREACH editTexts AS t»
+		e«t.id»: {
+			«EXPAND reactnative_templates::UIPhoneControl::style FOR t»
+			«IF t.textColor != null»
+				color: '«t.textColor»',
+			«ENDIF»
+			«IF t.textSize != null»
+				fontSize: «t.textSize»,
+			«ENDIF»
+		},
+	«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE state FOR ViewController»
+«FOREACH editTexts AS et»
+	e«et.id»Value: '',
+«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE eventBinding FOR ViewController»
+«FOREACH editTexts AS et»
+	this.on«et.id»Change = this.on«et.id»Change.bind(this);
+	this.on«et.id»Focus = this.on«et.id»Focus.bind(this);
+	this.on«et.id»EditingSubmit = this.on«et.id»EditingSubmit.bind(this);
+	this.on«et.id»ChangeInternal = this.on«et.id»ChangeInternal.bind(this);
+«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE events FOR ViewController»
+«FOREACH editTexts AS et»
+	on«et.id»Change(text) {
+		// TODO fill here...
+	}
+	on«et.id»Focus() {
+		// TODO fill here...
+	}
+	on«et.id»EditingSubmit() {
+		// TODO fill here
+	}
+	on«et.id»ChangeInternal(text) {
+		this.setState({
+			e«et.id»Value: text
+		});
+		this.on«et.id»Change(text);
+	}
+«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE render FOR ViewController»
+«FOREACH editTexts AS et»
+	<TextInput
+		«EXPAND reactnative_templates::UIPhoneControl::props FOR et»
+		style={styles.e«et.id»} 
+		onChangeText={this.on«et.id»ChangeInternal}
+		onFocus={this.on«et.id»Focus}
+		onEditingSubmit={this.on«et.id»EditingSubmit}
+		value={this.state.e«et.id»Value}
+		placeholder="«et.placeholder»">
+	</TextInput>
+«ENDFOREACH»
+«ENDDEFINE»

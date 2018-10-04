@@ -1,0 +1,93 @@
+«IMPORT metamodel»
+
+«DEFINE styleVars FOR UiPhoneControl-»
+	e«id»: {
+		margin_top: «marginTop != null ? marginTop : 0»,
+		margin_bottom: «marginBottom != null ? marginBottom : 0»,
+		margin_start: «marginStart != null ? marginStart : 0»,
+		margin_end: «marginEnd != null ? marginEnd : 0»,
+		padding_top: «paddingTop != null ? paddingTop : 0»,
+		padding_bottom: «paddingBottom != null ? paddingBottom : 0»,
+		padding_start: «paddingStart != null ? paddingStart : 0»,
+		padding_end: «paddingEnd != null ? paddingEnd : 0»,
+		default_width: «defaultWidth»,
+		default_height: «defaultHeight»,
+		pos_x: «posX»,
+		pos_y: «posY»,
+		constraints: {
+			«IF dimensionConstraint != null»
+				«IF dimensionConstraint.fixedWidth != null»
+					width: «dimensionConstraint.fixedWidth»,
+				«ELSEIF dimensionConstraint.widthPercent != null»
+					widthPercent: «dimensionConstraint.widthPercent»,
+				«ENDIF»
+				«IF dimensionConstraint.fixedHeight != null»
+					height: «dimensionConstraint.fixedHeight»,
+				«ELSEIF dimensionConstraint.heightPercent != null»
+					heightPercent:«dimensionConstraint.heightPercent»,
+				«ELSE»
+				«ENDIF»
+				«IF dimensionConstraint.fixedRatio != null»
+					ratio: «dimensionConstraint.fixedRatio»,
+				«ENDIF»
+			«ENDIF»
+			«FOREACH positionConstraints AS pc»
+				«IF pc.withParent == true»
+					«pc.layoutEdge»: [null, '«pc.referenceLayoutEdge»'],
+				«ELSE»
+					«pc.layoutEdge»: ['e«pc.referenceElement.id»', '«pc.referenceLayoutEdge»'],
+				«ENDIF»
+			«ENDFOREACH»
+		}
+	},
+«ENDDEFINE»
+
+«DEFINE style FOR UiPhoneControl»
+	paddingTop: «paddingTop != null ? paddingTop : 0»,
+	paddingBottom: «paddingBottom != null ? paddingBottom : 0»,
+	paddingStart: «paddingStart != null ? paddingStart : 0»,
+	paddingEnd: «paddingEnd != null ? paddingEnd : 0»,
+«ENDDEFINE»
+
+«DEFINE props FOR UiPhoneControl»
+	id="e«id»"
+	«IF marginTop != null && marginTop != 0»
+	marginTop={«marginTop»}
+	«ENDIF»
+	«IF marginBottom != null && marginBottom != 0»
+	marginBottom={«marginBottom»}
+	«ENDIF»
+	«IF marginStart != null && marginStart != 0»
+	marginStart={«marginStart»}
+	«ENDIF»
+	«IF marginEnd != null && marginEnd != 0»
+	marginEnd={«marginEnd»}
+	«ENDIF»
+	defaultHeight={«defaultHeight»}
+	defaultWidth={«defaultWidth»}
+	posX={«posX»}
+	posY={«posY»}
+	«IF dimensionConstraint != null»
+		«IF dimensionConstraint.fixedWidth != null»
+			constraintWidth={«dimensionConstraint.fixedWidth»}
+		«ELSEIF dimensionConstraint.widthPercent != null»
+			constraintWidthPercent={«dimensionConstraint.widthPercent»}
+		«ENDIF»
+		«IF dimensionConstraint.fixedHeight != null»
+			constraintHeight={«dimensionConstraint.fixedHeight»}
+		«ELSEIF dimensionConstraint.heightPercent != null»
+			constraintHeightPercent={«dimensionConstraint.heightPercent»}
+		«ELSE»
+		«ENDIF»
+		«IF dimensionConstraint.fixedRatio != null»
+			constraintRatio={«dimensionConstraint.fixedRatio»}
+		«ENDIF»
+	«ENDIF»
+	«FOREACH positionConstraints AS pc»
+		«IF pc.withParent == true»
+			constraint«pc.layoutEdge.toString().toFirstUpper()»={{ref: null, side: '«pc.referenceLayoutEdge»'}}
+		«ELSE»
+			constraint«pc.layoutEdge.toString().toFirstUpper()»={{ref: 'e«pc.referenceElement.id»', side: '«pc.referenceLayoutEdge»'}}
+		«ENDIF»
+	«ENDFOREACH»
+«ENDDEFINE»

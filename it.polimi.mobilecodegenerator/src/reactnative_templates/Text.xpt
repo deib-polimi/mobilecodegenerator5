@@ -1,0 +1,46 @@
+«IMPORT metamodel»
+
+«DEFINE styleVars FOR ViewController»
+	«FOREACH textViews AS t»
+		«EXPAND reactnative_templates::UIPhoneControl::styleVars FOR t»
+	«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE style FOR ViewController»
+	«FOREACH textViews AS t»
+		e«t.id»: {
+			«REM»Positioning and padding - all stuff inherited by UiPhoneControl«ENDREM»
+			«EXPAND reactnative_templates::UIPhoneControl::style FOR t»
+			«REM»Text alignment«ENDREM»
+			textAlign: '«t.textAlign»',
+			«REM»Text decoration (bold | italic | none)«ENDREM»
+			«IF t.textDecoration != null»
+				«IF t.textDecoration.matches("bold")»
+					fontWeight: 'bold',
+				«ELSEIF t.textDecoration.matches("italic")»
+					fontStyle: 'italic',
+				«ENDIF»
+			«ENDIF»
+			«REM»Font size«ENDREM»
+			«IF t.textSize != null»
+				fontSize: «t.textSize»,
+			«ENDIF»
+			«REM»Font color«ENDREM»
+			«IF t.textColor != null»
+				color: '«t.textColor»',
+			«ENDIF»
+		},
+	«ENDFOREACH»
+«ENDDEFINE»
+
+
+«DEFINE render FOR ViewController»
+	«FOREACH textViews AS t»
+		<Text 
+			«EXPAND reactnative_templates::UIPhoneControl::props FOR t»
+			style={styles.e«t.id»}
+		>
+			«t.content»
+		</Text>
+	«ENDFOREACH»
+«ENDDEFINE»

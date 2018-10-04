@@ -1,0 +1,55 @@
+«IMPORT metamodel»
+
+«DEFINE styleVars FOR ViewController»
+	«FOREACH switches AS s»
+		«EXPAND reactnative_templates::UIPhoneControl::styleVars FOR s»
+	«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE style FOR ViewController»
+	«FOREACH switches AS s»
+		e«s.id»: {
+			«EXPAND reactnative_templates::UIPhoneControl::style FOR s»
+		},
+	«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE eventBinding FOR ViewController»
+«FOREACH switches AS s»
+	this.on«s.id»Change = this.on«s.id»Change.bind(this);
+	this.on«s.id»ChangeInternal = this.on«s.id»ChangeInternal.bind(this);
+«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE state FOR ViewController»
+«FOREACH switches AS s»
+	e«s.id»Value: false,
+«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE events FOR ViewController»
+«FOREACH switches AS s»
+	on«s.id»Change(value) {
+		// TODO fill here...
+		console.log('Changed to: ' + value);
+	}
+	on«s.id»ChangeInternal(value) {
+		// Don't modify this method
+		this.setState({
+			e«s.id»Value: value
+		});
+		this.on«s.id»Change(value);
+	}
+«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE render FOR ViewController»
+«FOREACH switches AS s»
+	<Switch
+		«EXPAND reactnative_templates::UIPhoneControl::props FOR s»
+		style={styles.e«s.id»} 
+		onValueChange={this.on«s.id»ChangeInternal}
+		value={this.state.e«s.id»Value}>
+	</Switch>
+«ENDFOREACH»
+«ENDDEFINE»

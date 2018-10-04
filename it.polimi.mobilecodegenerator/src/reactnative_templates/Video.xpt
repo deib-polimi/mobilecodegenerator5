@@ -1,0 +1,25 @@
+«IMPORT metamodel»
+
+«DEFINE styleVars FOR ViewController»
+«FOREACH videoViews AS vv»
+	«EXPAND reactnative_templates::UIPhoneControl::styleVars FOR vv»
+«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE style FOR ViewController»
+«FOREACH videoViews AS vv»
+	e«vv.id»: {
+		«EXPAND reactnative_templates::UIPhoneControl::style FOR vv»
+	},
+«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE render FOR ViewController»
+	«FOREACH videoViews AS vv»
+		<VideoPlayer
+			«EXPAND reactnative_templates::UIPhoneControl::props FOR vv»
+			source={{uri: '«vv.fileUri»'}}
+			style={styles.e«vv.id»}
+		/>
+	«ENDFOREACH»
+«ENDDEFINE»

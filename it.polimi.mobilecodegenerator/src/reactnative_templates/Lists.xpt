@@ -1,0 +1,218 @@
+«IMPORT metamodel»
+
+«DEFINE styleVars FOR ViewController»
+	«FOREACH listViews AS lv»
+		«EXPAND reactnative_templates::UIPhoneControl::styleVars FOR lv»
+	«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE style FOR ViewController»
+	«FOREACH listViews AS lv»
+		e«lv.id»: {
+			«EXPAND reactnative_templates::UIPhoneControl::style FOR lv»
+		},
+		e«lv.id»_item: {
+			«IF lv.backgroundColor.matches("")»
+			backgroundColor: 'white',
+			«ELSE»
+			backgroundColor: '«lv.backgroundColor»',
+			«ENDIF»
+		},
+	«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE eventBinding FOR ViewController»
+«FOREACH listViews AS lv»
+	this.on«lv.id»ItemSelect = this.on«lv.id»ItemSelect.bind(this);
+«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE events FOR ViewController»
+«FOREACH listViews AS lv»
+	on«lv.id»ItemSelect(item) {
+		console.log('Selected', JSON.stringify(item));
+		// TODO fill here...
+	}
+«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE render FOR ViewController»
+	«FOREACH listViews AS lv»
+		<FlatList
+			«EXPAND reactnative_templates::UIPhoneControl::props FOR lv»
+			style={styles.e«lv.id»}
+			data={[
+				«FOREACH lv.listViewCells AS cell ITERATOR iter»
+					{ key: '«iter.counter1»', title: '«cell.title»', subtitle: '«cell.subtitle»' },
+				«ENDFOREACH»
+				]}
+			renderItem={({item}) => <ListElement«lv.id.toFirstUpper()» style={styles.e«lv.id»_item} title={item.title} subtitle={item.subtitle} onPress={() => this.on«lv.id»ItemSelect(item)} /> }
+		></FlatList>
+	«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE simpleLayout FOR ListView»
+import React from 'react';
+import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
+
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		paddingTop: 8,
+		paddingBottom: 8,
+		paddingLeft: 16,
+		paddingRight: 16
+	},
+	title: {
+		color: '#333333'
+	},
+});
+
+export default class ListElement«id.toFirstUpper()» extends React.Component {
+
+	constructor(props) {
+		super(props);
+		this.onPress = this.onPress.bind(this);
+	}
+	
+	onPress() {
+		if (this.props.onPress) {
+			this.props.onPress();
+		}
+	}
+	
+	render() {
+		return (
+			<TouchableHighlight style={this.props.style} onPress={this.onPress}>
+				<View style={styles.container}>
+					<Text style={styles.title}>{this.props.title}</Text>
+				</View>
+			</TouchableHighlight>
+		);
+	}
+}
+«ENDDEFINE»
+
+«DEFINE imageLayout FOR ListView»
+import React from 'react';
+import { View, Text, Image, StyleSheet, TouchableHighlight } from 'react-native';
+
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		flexDirection: 'row',
+		justifyContent: 'flex-start',
+		alignItems: 'center',
+		paddingTop: 8,
+		paddingBottom: 8,
+		paddingLeft: 16,
+		paddingRight: 16
+	},
+	title: {
+		color: '#333333'
+	},
+	image: {
+		height: 40,
+		width: 40,
+		marginEnd: 16,
+		
+	}
+});
+
+export default class ListElement«id.toFirstUpper()» extends React.Component {
+
+	constructor(props) {
+		super(props);
+		this.onPress = this.onPress.bind(this);
+	}
+	
+	onPress() {
+		if (this.props.onPress) {
+			this.props.onPress();
+		}
+	}
+	
+	render() {
+		return (
+			<TouchableHighlight style={this.props.style} onPress={this.onPress}>
+				<View style={styles.container}>
+					<Image source={{uri: 'ic_stars_white'}} style={styles.image} />
+					<Text style={styles.title}>{this.props.title}</Text>
+				</View>
+			</TouchableHighlight>
+		);
+	}
+}
+«ENDDEFINE»
+
+«DEFINE detailedLayout FOR ListView»
+import React from 'react';
+import { View, Text, Image, StyleSheet, TouchableHighlight } from 'react-native';
+
+const styles = StyleSheet.create({
+	container: {
+		flex: 1,
+		flexDirection: 'row',
+		justifyContent: 'flex-start',
+		alignItems: 'center',
+		paddingTop: 8,
+		paddingBottom: 8,
+		paddingLeft: 16,
+		paddingRight: 16
+	},
+	image: {
+		height: 40,
+		width: 40,
+		marginEnd: 16,
+	},
+	title: {
+		color: '#333333'
+	},
+	detail: {
+		fontSize: 14,
+		color: '#999999'
+	},
+	innerContainer: {
+		flex: 1,
+		justifyContent: 'space-around',
+		alignItems: 'flex-start'
+	},
+	chevron: {
+		width: 22,
+		height: 22,
+		marginEnd: 0,
+		marginStart: 0,
+		marginTop: 8,
+		marginBottom: 8
+	}
+});
+
+export default class ListElement«id.toFirstUpper()» extends React.Component {
+
+	constructor(props) {
+		super(props);
+		this.onPress = this.onPress.bind(this);
+	}
+	
+	onPress() {
+		if (this.props.onPress) {
+			this.props.onPress();
+		}
+	}
+	
+	render() {
+		return (
+			<TouchableHighlight style={this.props.style} onPress={this.onPress}>
+				<View style={styles.container}>
+					<Image source={{uri: 'ic_stars_white'}} style={styles.image} />
+					<View style={styles.innerContainer}>
+						<Text style={styles.title}>{this.props.title}</Text>
+						<Text style={styles.detail}>{this.props.subtitle}</Text>
+					</View>
+					<Image source={{uri: 'ic_chevron_right_black_36dp'}} style={styles.chevron} />
+				</View>
+			</TouchableHighlight>
+		);
+	}
+}
+«ENDDEFINE»

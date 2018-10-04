@@ -1,4 +1,3 @@
-/android/
 /android_activities_templates/
 /android_extensions/
 /android_templates/
@@ -11,5 +10,6 @@
 /metamodel/
 /model/
 /model_checks/
+/reactnative/
+/reactnative_templates/
 /workflow/
-/ios/

@@ -1,0 +1,44 @@
+«IMPORT metamodel»
+
+«DEFINE styleVars FOR ViewController»
+	«IF audioRecorder != null»
+		«EXPAND reactnative_templates::UIPhoneControl::styleVars FOR audioRecorder»
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE style FOR ViewController»
+	«IF audioRecorder != null»
+		e«audioRecorder.id»: {
+			«EXPAND reactnative_templates::UIPhoneControl::style FOR audioRecorder»
+		},
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE eventBinding FOR ViewController»
+	«IF audioRecorder != null»
+		this.on«audioRecorder.id»RecordingStart = this.on«audioRecorder.id»RecordingStart.bind(this);
+		this.on«audioRecorder.id»RecordingStop = this.on«audioRecorder.id»RecordingStop.bind(this);
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE events FOR ViewController»
+	«IF audioRecorder != null»
+		on«audioRecorder.id»RecordingStart() {
+			// TODO fill here
+		}
+		on«audioRecorder.id»RecordingStop() {
+			// TODO fill here
+		}
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE render FOR ViewController»
+	«IF audioRecorder != null »
+		<AudioRecorder
+			«EXPAND reactnative_templates::UIPhoneControl::props FOR audioRecorder»
+			style={styles.e«audioRecorder.id»}
+			onStartRecording={this.on«audioRecorder.id»Play}
+			onStopRecording={this.on«audioRecorder.id»Pause}
+		></AudioRecorder>
+	«ENDIF»
+«ENDDEFINE»
