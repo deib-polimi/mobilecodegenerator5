@@ -18,7 +18,7 @@
 <workflow>
 
 	<!--xmi model-->
-	<property name="model" value="it.polimi.mobilecodegenerator/src/model/SimpleSample5.xmi" />
+	<property name="model" value="it.polimi.mobilecodegenerator/src/model/SimpleSample5N.xmi" />
 	<property name="src-gen" value="src-gen/reactnative" />
 	
 	<bean class="org.eclipse.emf.mwe.utils.StandaloneSetup" >
@@ -99,7 +99,7 @@
 	<component class="org.eclipse.xpand2.Generator">
 		<metaModel idRef="mm_emf"/>
 		<expand
-			value="reactnative_templates::ViewControllers::main FOR model" />
+			value="reactnative_templates::MainView::main FOR model" />
 		<outlet path="${src-gen}" >
 			<!--<postprocessor class="org.eclipse.xpand2.output.JavaBeautifier" />-->
 		</outlet>

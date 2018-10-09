@@ -1,0 +1,87 @@
+«IMPORT metamodel»
+
+«EXTENSION app_extensions::Java»
+
+«DEFINE main FOR Application»
+«FILE name + "/App.js"»
+import React, { Component } from 'react';
+import { createStackNavigator, createDrawerNavigator } from 'react-navigation';
+import { TouchableHighlight } from 'react-native';
+import Icon from 'react-native-vector-icons/MaterialIcons';
+import Device from 'react-native-device-detection';
+«IF viewControllers.photocameraController.size > 0 || viewControllers.videocameraController.size > 0»
+import CameraView from './CameraView';
+«ENDIF»
+«FOREACH scenes AS scene»
+«LET scene.name.replaceAll(" ", "_").toFirstUpper() AS sceneName»
+import Tablet_Scene_«sceneName» from './scenes/Tablet_«sceneName»';
+import Phone_Scene_«sceneName» from './scenes/Phone_«sceneName»';
+const Scene_«sceneName» = Device.isTablet ? Tablet_Scene_«sceneName» : Phone_Scene_«sceneName»;
+«ENDLET»
+«ENDFOREACH»
+
+const Menu = createDrawerNavigator({
+	«FOREACH scenes AS scene»
+	«IF isAMenuDestination(scene.name, menu.menuItems.navigation.destinationScene.name)»
+		Scene_«scene.name.replaceAll(" ", "_").toFirstUpper()»: {
+			screen: Scene_«scene.name.replaceAll(" ", "_").toFirstUpper()»,
+			drawerLabel: '«scene.name.toFirstUpper()»'
+		},
+	«ENDIF»
+	«ENDFOREACH»
+});
+
+const AppStack = createStackNavigator({
+	Menu: {
+		screen: Menu,
+    	navigationOptions: ({ navigation }) => {
+      		return {
+        		headerLeft: (
+          			<TouchableHighlight underlayColor="#0000" onPress={navigation.toggleDrawer} style={{padding: 10}} >
+            			<Icon name="menu" size={20} color="#000" />
+          			</TouchableHighlight>
+    			),
+      		};
+    	}
+  	},
+  	«FOREACH scenes AS scene»
+	«IF !isAMenuDestination(scene.name, menu.menuItems.navigation.destinationScene.name)»
+	Scene_«scene.name.replaceAll(" ", "_").toFirstUpper()»,
+	«ENDIF»
+	«ENDFOREACH»
+}, {
+	«FOREACH scenes AS scene»
+	«IF scene.launcher»
+	initialRouteName: 'Scene_«scene.name.replaceAll(" ", "_").toFirstUpper()»',
+	«ENDIF»
+	«ENDFOREACH»
+	navigationOptions: ({navigation}) => {
+		return {
+			title: '«name.toFirstUpper()»',
+		};
+	}
+});
+
+«IF viewControllers.photocameraController.size > 0 || viewControllers.videocameraController.size > 0»
+const RootStack = createStackNavigator({
+	Home: AppStack,
+	Camera: CameraView
+}, {
+	mode: 'modal',
+	headerMode: 'none'
+});
+«ELSE»
+const RootStack = AppStack;
+«ENDIF»
+
+
+export default class App extends Component {
+  render() {
+    return (
+      <RootStack />
+    );
+  }
+}
+
+«ENDFILE»
+«ENDDEFINE»

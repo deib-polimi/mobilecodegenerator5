@@ -30,8 +30,7 @@
 «DEFINE events FOR ViewController»
 «FOREACH switches AS s»
 	on«s.id»Change(value) {
-		// TODO fill here...
-		console.log('Changed to: ' + value);
+		if (this.props.onSwitchChange) this.props.onSwitchChange('«s.id»', value);
 	}
 	on«s.id»ChangeInternal(value) {
 		// Don't modify this method

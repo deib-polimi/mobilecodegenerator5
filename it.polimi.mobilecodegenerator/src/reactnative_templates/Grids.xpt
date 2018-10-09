@@ -24,7 +24,7 @@
 «FOREACH gridViews AS gv»
 	on«gv.id»ItemSelect(item) {
 		console.log('Selected', JSON.stringify(item));
-		// TODO fill here...
+		if (this.props.onGridItemSelect) this.props.onGridItemSelect('«gv.id»', item);
 	}
 «ENDFOREACH»
 «ENDDEFINE»

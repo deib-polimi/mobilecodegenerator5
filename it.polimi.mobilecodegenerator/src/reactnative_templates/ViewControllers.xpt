@@ -1,7 +1,7 @@
 «IMPORT metamodel»
 
 «DEFINE main FOR Application»
-«EXPAND component FOREACH viewControllers»
+«EXPAND component(this, 'Component') FOREACH viewControllers»S
 «ENDDEFINE»
 
 «DEFINE style FOR ViewController»
@@ -14,8 +14,8 @@
 	},
 «ENDDEFINE»
 
-«DEFINE component FOR ViewController»
-	«FILE application.name + "/src/components/" + name.toFirstUpper() + "Component.js"»
+«DEFINE component(Application app, String prefix) FOR ViewController»
+	«FILE app.name + "/components/" + prefix + "_" + name.replaceAll(" ", "_").toFirstUpper() + ".js"»
 		«EXPAND imports»
 		
 		const styles = StyleSheet.create({
@@ -33,9 +33,11 @@
 			«EXPAND reactnative_templates::Grids::style»
 			«EXPAND reactnative_templates::Image::style»
 			«EXPAND reactnative_templates::Video::style»
+			«EXPAND reactnative_templates::PhotoCamera::style»
+			«EXPAND reactnative_templates::VideoCamera::style»
 		});
 		
-		export default class «name.toFirstUpper()»Component extends React.Component {
+		export default class Component_«name.replaceAll(" ", "_").toFirstUpper()» extends React.Component {
 			constructor(props){
 				super(props);
 				this.state = {
@@ -53,6 +55,8 @@
 				«EXPAND reactnative_templates::WebView::eventBinding»
 				«EXPAND reactnative_templates::Lists::eventBinding»
 				«EXPAND reactnative_templates::Grids::eventBinding»
+				«EXPAND reactnative_templates::PhotoCamera::eventBinding»
+				«EXPAND reactnative_templates::VideoCamera::eventBinding»
 			}
 			
 			«EXPAND reactnative_templates::TextInput::events»
@@ -65,6 +69,8 @@
 			«EXPAND reactnative_templates::WebView::events»
 			«EXPAND reactnative_templates::Lists::events»
 			«EXPAND reactnative_templates::Grids::events»
+			«EXPAND reactnative_templates::PhotoCamera::events»
+			«EXPAND reactnative_templates::VideoCamera::events»
 			
 			render() {
 				return (
@@ -85,6 +91,8 @@
 						«EXPAND reactnative_templates::Grids::render»
 						«EXPAND reactnative_templates::Image::render»
 						«EXPAND reactnative_templates::Video::render»
+						«EXPAND reactnative_templates::PhotoCamera::render»
+						«EXPAND reactnative_templates::VideoCamera::render»
 					</ConstraintLayout>
 					«IF !backgroundImage.matches("")»
 					</ImageBackground>
@@ -145,6 +153,9 @@ import {
 «ENDIF»
 «IF gridViews.size > 0»
 import GridView from 'react-native-super-grid';
+«ENDIF»
+«IF photocameraController != null || videocameraController != null»
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 «ENDIF»
 «FOREACH listViews AS lv»
 import ListElement«lv.id.toFirstUpper()» from './ListElement«lv.id.toFirstUpper()»Component';

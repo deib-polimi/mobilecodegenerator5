@@ -1,0 +1,37 @@
+«IMPORT metamodel»
+
+«DEFINE styleVars FOR ViewController»
+	«EXPAND reactnative_templates::UIPhoneControl::styleVars FOR videocameraController»
+«ENDDEFINE»
+
+«DEFINE style FOR ViewController»
+	e«videocameraController.id»: {
+		«EXPAND reactnative_templates::UIPhoneControl::style FOR videocameraController»
+	},
+«ENDDEFINE»
+
+«DEFINE eventBinding FOR ViewController»
+	this.on«videocameraController.id»RecordingRequest = this.on«videocameraController.id»RecordingRequest.bind(this);
+«ENDDEFINE»
+
+«DEFINE events FOR ViewController»
+	on«videocameraController.id»RecordingRequest() {
+		if (this.props.onRecordingRequest) this.props.onRecordingRequest('«videocameraController.id»');
+	}
+«ENDDEFINE»
+
+«DEFINE render FOR ViewController»
+	<TouchableHighlight
+		«EXPAND reactnative_templates::UIPhoneControl::props FOR videocameraController»
+		onPress={this.on«videocameraController.id»RecordingRequest}
+		style={styles.e«videocameraController.id»}
+		activeOpacity={1}
+		underlayColor="#0000"
+	>
+	«IF photocameraController.backgroundType.matches("icon")»
+		<Icon name="video" size={20} color="#000" />
+	«ELSE»
+		<Text>Video</Text>
+	«ENDIF»
+	</TouchableHighlight>
+«ENDDEFINE»

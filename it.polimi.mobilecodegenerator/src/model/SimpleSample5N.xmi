@@ -14,10 +14,10 @@
 			<positionConstraints id="jh55h" uiPhoneControl="//@viewControllers[id='qm7gt']/@editTexts[id='id1kk9hEditText']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='qm7gt']/@textViews[id='idanq71Label']" referenceLayoutEdge="bottom"/>
 			<positionConstraints id="odtnm" uiPhoneControl="//@viewControllers[id='qm7gt']/@editTexts[id='id1kk9hEditText']" layoutEdge="centerX" withParent="true" referenceLayoutEdge="centerX"/>
 		</editTexts>
-		<buttons id="idshogdButton" viewController="//@viewControllers[id='qm7gt']" defaultWidth="88" defaultHeight="40" posX="162.99997965494796" posY="101.99999491373701" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="30" marginBottom="0" marginStart="0" marginEnd="0" title="Login" textColor="#ff0000" backgroundColor="#ebff00" borderRadius="2" clickColor="#ff0000">
+		<buttons id="idshogdButton" viewController="//@viewControllers[id='qm7gt']" defaultWidth="88" defaultHeight="40" posX="143.49995930989584" posY="101.999994913737" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="30" marginBottom="0" marginStart="0" marginEnd="0" title="Login" textColor="#ff0000" backgroundColor="#ebff00" borderRadius="2" clickColor="#ff0000">
 			<positionConstraints id="ei3ce" uiPhoneControl="//@viewControllers[id='qm7gt']/@buttons[id='idshogdButton']" layoutEdge="centerX" withParent="false" referenceElement="//@viewControllers[id='qm7gt']/@textViews[id='idanq71Label']" referenceLayoutEdge="centerX"/>
 			<positionConstraints id="666ou" uiPhoneControl="//@viewControllers[id='qm7gt']/@buttons[id='idshogdButton']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='qm7gt']/@editTexts[id='id1kk9hEditText']" referenceLayoutEdge="bottom"/>
-			<navigations id="jjs6n" contextScene="//@scenes[id='f76rn']"/>
+			<navigations id="jjs6n" contextScene="//@scenes[id='f76rn']" destinationScene="//@scenes[id='lpu4d']"/>
 		</buttons>
 		<sliders id="ide1l64Slider" viewController="//@viewControllers[id='qm7gt']" defaultWidth="150" defaultHeight="50" posX="128.33333333333334" posY="211.66666666666669" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="30" marginBottom="0" marginStart="0" marginEnd="0">
 			<positionConstraints id="ske97" uiPhoneControl="//@viewControllers[id='qm7gt']/@sliders[id='ide1l64Slider']" layoutEdge="centerX" withParent="true" referenceLayoutEdge="centerX"/>
@@ -47,12 +47,14 @@
 	</viewControllers>
 	<viewControllers id="o27da" name="ThirdView" backgroundColor="#ffffff" backgroundImage="">
 		<listViews id="idedi8tListView" viewController="//@viewControllers[id='o27da']" defaultWidth="270" defaultHeight="270" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" backgroundColor="#edcb1a" listType="detailed">
+			<navigations id="8s9f9" contextScene="//@scenes[id='lpu4d']" destinationScene="//@scenes[id='8p675']"/>
 			<listViewCells title="item1" subtitle="Content"/>
 			<listViewCells title="item2" subtitle="Content"/>
 		</listViews>
 		<listViews id="idoplgoListView" viewController="//@viewControllers[id='o27da']" defaultWidth="270" defaultHeight="270" posX="0" posY="183.32293192545575" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" backgroundColor="" listType="simple">
 			<dimensionConstraint uiPhoneControl="//@viewControllers[id='o27da']/@listViews[id='idoplgoListView']" widthPercent="0.5"/>
 			<positionConstraints id="gnnvg" uiPhoneControl="//@viewControllers[id='o27da']/@listViews[id='idoplgoListView']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='o27da']/@listViews[id='idedi8tListView']" referenceLayoutEdge="bottom"/>
+			<navigations id="p2m8h" contextScene="//@scenes[id='lpu4d']"/>
 			<listViewCells title="item11" subtitle="Content"/>
 			<listViewCells title="item12" subtitle="Content"/>
 		</listViews>
@@ -60,12 +62,13 @@
 			<dimensionConstraint uiPhoneControl="//@viewControllers[id='o27da']/@listViews[id='idgta5aListView']" widthPercent="0.5"/>
 			<positionConstraints id="hlle2" uiPhoneControl="//@viewControllers[id='o27da']/@listViews[id='idgta5aListView']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='o27da']/@listViews[id='idoplgoListView']" referenceLayoutEdge="end"/>
 			<positionConstraints id="8rn4r" uiPhoneControl="//@viewControllers[id='o27da']/@listViews[id='idgta5aListView']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='o27da']/@listViews[id='idedi8tListView']" referenceLayoutEdge="bottom"/>
+			<navigations id="pebc0" contextScene="//@scenes[id='lpu4d']"/>
 			<listViewCells title="item21" subtitle="Content"/>
 			<listViewCells title="item22" subtitle="Content"/>
 		</listViews>
 	</viewControllers>
-	<viewControllers id="5q37v" name="FourthScene" backgroundColor="#ffffff" backgroundImage="">
-		<gridViews id="id6s65lGridView" viewController="//@viewControllers[id='5q37v']" defaultWidth="null" defaultHeight="408" posX="0" posY="1.25" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" gridType="detailed">
+	<viewControllers id="5q37v" name="FourthView" backgroundColor="#ffffff" backgroundImage="">
+		<gridViews id="id6s65lGridView" viewController="//@viewControllers[id='5q37v']" defaultWidth="0" defaultHeight="408" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" gridType="detailed">
 			<dimensionConstraint uiPhoneControl="//@viewControllers[id='5q37v']/@gridViews[id='id6s65lGridView']" heightPercent="1"/>
 			<gridViewCells title="11"/>
 			<gridViewCells title="12"/>
@@ -73,11 +76,29 @@
 			<gridViewCells title="14"/>
 		</gridViews>
 	</viewControllers>
+	<viewControllers id="h4bsm" name="FifthView" backgroundColor="#ffffff" backgroundImage="">
+		<imageViews id="id0oorfImageView" viewController="//@viewControllers[id='h4bsm']" defaultWidth="240" defaultHeight="128" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" sourceType="localFile" fileUri="grid_image.png"/>
+		<videoViews id="idvura9VideoView" viewController="//@viewControllers[id='h4bsm']" defaultWidth="240" defaultHeight="128" posX="0" posY="216.65625254313153" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" sourceType="remoteFile" fileUri="https://clips.vorwaerts-gmbh.de/VfE_html5.mp4"/>
+		<photocameraController id="iddk1pdPhotocameraController" viewController="//@viewControllers[id='h4bsm']" defaultWidth="120" defaultHeight="40" posX="0" posY="380" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" backgroundType="icon"/>
+		<videocameraController id="id0qv15VideocameraController" viewController="//@viewControllers[id='h4bsm']" defaultWidth="120" defaultHeight="40" posX="255" posY="378.33333333333337" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" backgroundType="icon"/>
+	</viewControllers>
 	<scenes id="f76rn" name="homeScene" launcher="true" typeSmartphone="singleVC" typeTablet="singleVC">
 		<childViewControllers viewController="//@viewControllers[id='qm7gt']"/>
 	</scenes>
 	<scenes id="8p675" name="newScene1" launcher="false" typeSmartphone="singleVC" typeTablet="singleVC">
+		<childViewControllers viewController="//@viewControllers[id='ik3ia']"/>
+	</scenes>
+	<scenes id="lpu4d" name="newScene2" launcher="false" typeSmartphone="singleVC" typeTablet="multiVC">
+		<parentViewControllers id="q2aq3" name="parentVCTablet" backgroundColor="#ffffff" backgroundImage="">
+			<containers childViewController="//@viewControllers[id='o27da']" id="id1r9d5Container" viewController="//@scenes[id='lpu4d']/@parentViewControllers[id='q2aq3']" defaultWidth="300" defaultHeight="400" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0"/>
+			<containers childViewController="//@viewControllers[id='5q37v']" id="idtsn3uContainer" viewController="//@scenes[id='lpu4d']/@parentViewControllers[id='q2aq3']" defaultWidth="300" defaultHeight="400" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0"/>
+		</parentViewControllers>
+		<childViewControllers viewController="//@viewControllers[id='o27da']"/>
 		<childViewControllers viewController="//@viewControllers[id='5q37v']"/>
 	</scenes>
-	<menu/>
+	<menu>
+		<menuItems title="newMenuItem" id="idnewMenuItem">
+			<navigation id="70db1" destinationScene="//@scenes[id='8p675']"/>
+		</menuItems>
+	</menu>
 </metamodel:Application>

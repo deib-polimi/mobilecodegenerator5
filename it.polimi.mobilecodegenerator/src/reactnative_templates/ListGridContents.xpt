@@ -3,7 +3,7 @@
 «DEFINE main FOR Application»
 «FOREACH viewControllers AS vc»
 «FOREACH vc.listViews AS lv»
-«FILE name + "/src/components/ListElement" + lv.id.toFirstUpper() + "Component.js"»
+«FILE name + "/components/ListElement" + lv.id.toFirstUpper() + "Component.js"»
 «IF lv.listType.matches("simple")»
 «EXPAND reactnative_templates::Lists::simpleLayout FOR lv»
 «ELSEIF lv.listType.matches("image")»
@@ -14,7 +14,7 @@
 «ENDFILE»
 «ENDFOREACH»
 «FOREACH vc.gridViews AS gv»
-«FILE name + "/src/components/GridElement" + gv.id.toFirstUpper() + "Component.js"»
+«FILE name + "/components/GridElement" + gv.id.toFirstUpper() + "Component.js"»
 «IF gv.gridType.matches("simple")»
 «EXPAND reactnative_templates::Grids::simpleLayout FOR gv»
 «ELSEIF gv.gridType.matches("image")»

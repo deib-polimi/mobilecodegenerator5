@@ -18,7 +18,11 @@
 	«FOREACH imageViews AS iv»
 		<Image
 			«EXPAND reactnative_templates::UIPhoneControl::props FOR iv»
-			source={{uri: '«iv.fileUri»'}}
+			«IF photocameraController != null && iv.id.matches(photocameraController.imageViewId)»
+				source={{uri: this.props.pictureTaken}}
+			«ELSE»
+				source={{uri: '«iv.fileUri»'}}
+			«ENDIF»
 			style={styles.e«iv.id»}
 		/>
 	«ENDFOREACH»

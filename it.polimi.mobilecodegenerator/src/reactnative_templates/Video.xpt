@@ -18,7 +18,11 @@
 	«FOREACH videoViews AS vv»
 		<VideoPlayer
 			«EXPAND reactnative_templates::UIPhoneControl::props FOR vv»
+			«IF videocameraController != null && vv.id.matches(videocameraController.videoViewId)»
+			source={{uri: this.props.videoTaken}}
+			«ELSE»
 			source={{uri: '«vv.fileUri»'}}
+			«ENDIF»
 			style={styles.e«vv.id»}
 		/>
 	«ENDFOREACH»

@@ -31,7 +31,7 @@
 «FOREACH listViews AS lv»
 	on«lv.id»ItemSelect(item) {
 		console.log('Selected', JSON.stringify(item));
-		// TODO fill here...
+		if (this.props.onListItemSelect) this.props.onListItemSelect('«lv.id»', item);
 	}
 «ENDFOREACH»
 «ENDDEFINE»

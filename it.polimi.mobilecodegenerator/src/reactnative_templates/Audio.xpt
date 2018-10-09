@@ -25,13 +25,13 @@
 «DEFINE events FOR ViewController»
 «FOREACH audioPlayers AS ap»
 	on«ap.id»Play() {
-		// TODO fill here
+		if (this.props.onAudioPlay) this.props.onAudioPlay('«ap.id»')
 	}
 	on«ap.id»Pause() {
-		// TODO fill here
+		if (this.props.onAudioPause) this.props.onAudioPause('«ap.id»');
 	}
 	on«ap.id»Stop() {
-		// TODO fill here
+		if (this.props.onAudioStop) this.props.onAudioStop('«ap.id»');
 	}
 «ENDFOREACH»
 «ENDDEFINE»

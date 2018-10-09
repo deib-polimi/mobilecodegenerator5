@@ -1,0 +1,86 @@
+«IMPORT metamodel»
+
+«EXTENSION reactnative_templates::DebugUtils»
+
+«DEFINE main FOR Application»
+«FOREACH scenes AS scene»
+«IF scene.typeSmartphone.toString().matches("singleVC")»
+	«EXPAND singleScreen('Phone') FOR scene»
+«ELSEIF scene.typeSmartphone.toString().matches("singleVCTab")»
+	«EXPAND tabs('Phone') FOR scene»
+«ELSEIF scene.typeSmartphone.toString().matches("multiVC")»
+	«IF scene.typeTablet.toString().matches("multiVC")»
+		«EXPAND combinedScreen('Phone', scene.parentViewControllers.get(1)) FOR scene»
+	«ELSE»
+		«EXPAND combinedScreen('Phone', scene.parentViewControllers.get(0)) FOR scene»
+	«ENDIF»
+«ENDIF»
+«IF scene.typeTablet.toString().matches("singleVC")»
+	«EXPAND singleScreen('Tablet') FOR scene»
+«ELSEIF scene.typeTablet.toString().matches("singleVCTab")»
+	«EXPAND tabs('Tablet') FOR scene»
+«ELSEIF scene.typeTablet.toString().matches("multiVC")»
+	«EXPAND combinedScreen('Tablet', scene.parentViewControllers.get(0)) FOR scene»
+«ENDIF»
+«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE singleScreen(String device) FOR Scene»
+«REM»Create one file for each screen to be shown, these will be needed later«ENDREM»
+«FOREACH childViewControllers AS cvc»
+«EXPAND reactnative_templates::Screen::singleScreen(device, this) FOR cvc.viewController»
+«ENDFOREACH»
+«REM»Create navigation file, linking up all the previous files«ENDREM»
+«FILE application.name + "/scenes/" + device + "_" + name.replaceAll(" ", "_").toFirstUpper() + "/index.js"»
+import React from 'react';
+import { createSwitchNavigator } from 'react-navigation';
+«FOREACH childViewControllers AS cvc»
+import Screen_«cvc.viewController.name.replaceAll(" ", "_").toFirstUpper()» from './Screen_«cvc.viewController.name.replaceAll(" ", "_").toFirstUpper()»';
+«ENDFOREACH»
+export default createSwitchNavigator({
+	«FOREACH childViewControllers AS cvc»
+	Screen_«cvc.viewController.name.replaceAll(" ", "_").toFirstUpper()»,
+	«ENDFOREACH»
+}, {
+	initialRouteName: 'Screen_«childViewControllers.get(0).viewController.name.replaceAll(" ", "_").toFirstUpper()»'
+});
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE tabs(String device) FOR Scene»
+«REM»Create one file for each screen to be shown as a tab, these will be needed later«ENDREM»
+«FOREACH childViewControllers AS cvc»
+«EXPAND reactnative_templates::Screen::singleScreen(device, this) FOR cvc.viewController»
+«ENDFOREACH»
+«REM»Create navigation file, linking up all the previous files«ENDREM»
+«FILE application.name + "/scenes/" + device + "_" + name.replaceAll(" ", "_").toFirstUpper() + "/index.js"»
+import React from 'react';
+import { createBottomTabNavigator } from 'react-navigation';
+«FOREACH childViewControllers AS cvc»
+«EXPAND reactnative_templates::Screen::singleScreen(device, this) FOR cvc.viewController»
+import Screen_«cvc.viewController.name.replaceAll(" ", "_").toFirstUpper()» from './Screen_«cvc.viewController.name.replaceAll(" ", "_").toFirstUpper()»';
+«ENDFOREACH»
+export default createBottomTabNavigator({
+	«FOREACH childViewControllers AS cvc»
+	Screen_«cvc.viewController.name.replaceAll(" ", "_").toFirstUpper()»: {
+		screen: Screen_«cvc.viewController.name.replaceAll(" ", "_").toFirstUpper()»,
+		tabBarLabel: '«cvc.viewController.name.toFirstUpper()»'
+	}
+	«ENDFOREACH»
+}, {
+	initialRouteName: 'Screen_«childViewControllers.get(0).viewController.name.replaceAll(" ", "_").toFirstUpper()»'
+});
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE combinedScreen(String device, ViewController parent) FOR Scene»
+«REM»Create one file for each screen to be shown, in this case only one, that one corresponding to the parent layout, these will be needed later«ENDREM»
+«EXPAND reactnative_templates::ViewControllers::component(application, "Layout_" + name.replaceAll(" ", "_").toFirstUpper()) FOR parent»
+«EXPAND reactnative_templates::Screen::singleScreenOptLayout(device, this, true) FOR parent»
+«REM»Create scene file (quite dummy, but needed to keep routing easy«ENDREM»
+«FILE application.name + "/scenes/" + device + "_" + name.replaceAll(" ", "_").toFirstUpper() + "/index.js"»
+import React from 'react';
+import Screen_«parent.name.replaceAll(" ", "_").toFirstUpper()» from './Screen_«parent.name.replaceAll(" ", "_").toFirstUpper()»';
+export default Screen_«parent.name.replaceAll(" ", "_").toFirstUpper()»;
+«ENDFILE»
+«ENDDEFINE»

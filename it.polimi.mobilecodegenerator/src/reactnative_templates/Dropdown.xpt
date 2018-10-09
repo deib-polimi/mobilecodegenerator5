@@ -31,8 +31,7 @@
 «DEFINE events FOR ViewController»
 «FOREACH spinners AS s»
 	on«s.id»Change(value, index) {
-		// TODO fill here...
-		console.log('Changed to: ' + value + ' (' + index + ')');
+		if (this.props.onDropdownChange) this.props.onDropdownChange('«s.id»', value, index);
 	}
 «ENDFOREACH»
 «ENDDEFINE»

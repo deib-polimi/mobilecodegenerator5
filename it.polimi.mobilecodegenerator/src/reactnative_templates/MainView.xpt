@@ -1,0 +1,8 @@
+«IMPORT metamodel»
+
+«DEFINE main FOR Application»
+«EXPAND reactnative_templates::ViewControllers::main»
+«EXPAND reactnative_templates::ListGridContents::main»
+«EXPAND reactnative_templates::Scenes::main»
+«EXPAND reactnative_templates::App::main»
+«ENDDEFINE»

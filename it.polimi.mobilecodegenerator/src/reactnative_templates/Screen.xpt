@@ -1,0 +1,162 @@
+«IMPORT metamodel»
+
+«EXTENSION reactnative_templates::DebugUtils»
+«EXTENSION app_extensions::Java»
+
+«DEFINE singleScreen(String device, Scene context) FOR ViewController»
+«EXPAND singleScreenOptLayout(device, context, false)»
+«ENDDEFINE»
+
+«DEFINE singleScreenOptLayout(String device, Scene context, Boolean isLayoutComponent) FOR ViewController»
+«REM»Don't use this.application.name, since ParentViewControllers have a broken reference«ENDREM»
+«FILE context.application.name + "/scenes/" + device + "_" + context.name.replaceAll(" ", "_").toFirstUpper() + "/Screen_" + name.replaceAll(" ", "_").toFirstUpper() + ".js"»
+import React from 'react';
+«IF isLayoutComponent»
+import Component_«name.replaceAll(" ", "_").toFirstUpper()» from '../../components/Layout_«context.name.replaceAll(" ", "_").toFirstUpper()»_«name.replaceAll(" ", "_").toFirstUpper()»';
+«ELSE»
+import Component_«name.replaceAll(" ", "_").toFirstUpper()» from '../../components/Component_«name.replaceAll(" ", "_").toFirstUpper()»';
+«ENDIF»
+
+import Icon	 from 'react-native-vector-icons/MaterialIcons';
+import { TouchableWithoutFeedback } from 'react-native';
+
+export default class Screen_«name.replaceAll(" ", "_").toFirstUpper()» extends React.Component {
+
+	constructor(props) {
+		super(props);
+		this.state = { };
+		
+		this.onAudioPlay = this.onAudioPlay.bind(this);
+		this.onAudioPause = this.onAudioPause.bind(this);
+		this.onAudioStop = this.onAudioStop.bind(this);
+		this.onButtonPress = this.onButtonPress.bind(this);
+		this.onDropdownChange = this.onDropdownChange.bind(this);
+		this.onGridItemSelect = this.onGridItemSelect.bind(this);
+		this.onListItemSelect = this.onListItemSelect.bind(this);
+		this.onSliderDrag = this.onSliderDrag.bind(this);
+		this.onSliderChange = this.onSliderChange.bind(this);
+		this.onSwitchChange = this.onSwitchChange.bind(this);
+		this.onTextChange = this.onTextChange.bind(this);
+		this.onPictureRequest = this.onPictureRequest.bind(this);
+		this.onPictureTaken = this.onPictureTaken.bind(this);
+		this.onRecordingRequest = this.onRecordingRequest.bind(this);
+		this.onRecordingComplete = this.onRecordingComplete.bind(this);
+	}
+	
+	onAudioPlay(audioId) { }
+	onAudioPause(audioId) { }
+	onAudioStop(audioId) { }
+	
+	onButtonPress(buttonId) {
+		«FOREACH buttons AS b»
+		«FOREACH b.navigations AS n»
+		«IF n.contextScene.id == context.id»
+		if (buttonId === '«b.id»') {
+			«IF n.destinationScene != null»
+			this.props.navigation.navigate('Scene_«n.destinationScene.name.replaceAll(" ", "_").toFirstUpper()»');
+			«ELSEIF n.destinationViewController != null»
+			this.props.navigation.navigate('Screen_«n.destinationViewController.name.replaceAll(" ", "_").toFirstUpper()»');
+			«ENDIF»
+		}
+		«ENDIF»
+		«ENDFOREACH»
+		«ENDFOREACH»
+	}
+	
+	onDropdownChange(dropdownId) { }
+	
+	onGridItemSelect(gridId, item) {
+		«FOREACH gridViews AS gv»
+		«FOREACH gv.navigations AS n»
+		«IF n.contextScene.id == context.id»
+		if (gridId === '«gv.id»') {
+			«IF n.destinationScene != null»
+			this.props.navigation.navigate('Scene_«n.destinationScene.name.replaceAll(" ", "_").toFirstUpper()»');
+			«ELSEIF n.destinationViewController != null»
+			this.props.navigation.navigate('Screen_«n.destinationViewController.name.replaceAll(" ", "_").toFirstUpper()»');
+			«ENDIF»
+		}
+		«ENDIF»
+		«ENDFOREACH»
+		«ENDFOREACH»
+	}
+	
+	onListItemSelect(listId, item) {
+		«FOREACH listViews AS lv»
+		«FOREACH lv.navigations AS n»
+		«IF n.contextScene.id == context.id»
+		if (listId === '«lv.id»') {
+			«IF n.destinationScene != null»
+			this.props.navigation.navigate('Scene_«n.destinationScene.name.replaceAll(" ", "_").toFirstUpper()»');
+			«ELSEIF n.destinationViewController != null»
+			this.props.navigation.navigate('Screen_«n.destinationViewController.name.replaceAll(" ", "_").toFirstUpper()»');
+			«ENDIF»
+		}
+		«ENDIF»
+		«ENDFOREACH»
+		«ENDFOREACH»
+	}
+	
+	onSliderDrag(sliderId, value) { }
+	onSliderChange(sliderId, value) { }
+	
+	onSwitchChange(switchId, value) { }
+	
+	onTextChange(textId, text) { }
+	
+	onPictureRequest(cameraControllerId) {
+		this.navigation.navigate('Camera', {
+			mode: 'camera',
+			onPictureTaken: this.onPictureTaken.bind(this, cameraControllerId)
+		});
+	}
+	onPictureTaken(cameraControllerId, path) {
+		«REM»Can be easily generalized to more than one camera controller per viewController, current implementation relies on unicity«ENDREM»
+		«IF photocameraController != null && !photocameraController.imageViewId.matches("")»
+			this.setState({
+				'imageTaken': path
+			});
+		«ENDIF»
+	}
+	
+	onRecordingRequest(cameraControllerId) {
+		this.navigation.navigate('Camera', {
+			mode: 'video',
+			onRecordEnd: this.onRecordingComplete.bind(this, cameraControllerId)
+		});
+	}
+	onRecordingComplete(cameraControllerId, path) {
+		«REM»Can be easily generalized to more than one camera controller per viewController, current implementation relies on unicity«ENDREM»
+		«IF videocameraController != null && !videocameraController.videoViewId.matches("")»
+			this.setState({
+				'videoTaken': path
+			});
+		«ENDIF»
+	}
+	
+	render() {
+		return (
+			<Component_«name.replaceAll(" ", "_").toFirstUpper()» 
+				style={{width: '100%', height: '100%'}}
+				onAudioPlay={this.onAudioPlay}
+				onAudioPause={this.onAudioPause}
+				onAudioStop={this.onAudioStop}
+				onButtonPress={this.onButtonPress}
+				onDropdownChange={this.onDropdownChange}
+				onGridItemSelect={this.onGridItemSelect}
+				onListItemSelect={this.onListItemSelect}
+				onSliderDrag={this.onSliderDrag}
+				onSliderChange={this.onSliderChange}
+				onSwitchChange={this.onSwitchChange}
+				onTextChange={this.onTextChange}
+				onPictureRequest={this.onPictureRequest}
+				onRecordingRequest={this.onRecordingRequest}
+				pictureTaken={this.state.pictureTaken}
+				videoTaken={this.state.videoTaken}
+			/>
+		);
+	}
+}
+
+«ENDFILE»
+«ENDDEFINE»

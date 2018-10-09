@@ -29,8 +29,6 @@
 «DEFINE eventBinding FOR ViewController»
 «FOREACH editTexts AS et»
 	this.on«et.id»Change = this.on«et.id»Change.bind(this);
-	this.on«et.id»Focus = this.on«et.id»Focus.bind(this);
-	this.on«et.id»EditingSubmit = this.on«et.id»EditingSubmit.bind(this);
 	this.on«et.id»ChangeInternal = this.on«et.id»ChangeInternal.bind(this);
 «ENDFOREACH»
 «ENDDEFINE»
@@ -38,13 +36,7 @@
 «DEFINE events FOR ViewController»
 «FOREACH editTexts AS et»
 	on«et.id»Change(text) {
-		// TODO fill here...
-	}
-	on«et.id»Focus() {
-		// TODO fill here...
-	}
-	on«et.id»EditingSubmit() {
-		// TODO fill here
+		if (this.props.onTextChange) this.props.onTextChange('«et.id»', text);
 	}
 	on«et.id»ChangeInternal(text) {
 		this.setState({

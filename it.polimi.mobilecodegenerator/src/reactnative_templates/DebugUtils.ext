@@ -1,0 +1,3 @@
+import metamodel;
+
+Void log(Object what):JAVA reactnative_templates.DebugUtilsHelper.log(java.lang.Object);

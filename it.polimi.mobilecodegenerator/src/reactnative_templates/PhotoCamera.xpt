@@ -1,0 +1,37 @@
+«IMPORT metamodel»
+
+«DEFINE styleVars FOR ViewController»
+	«EXPAND reactnative_templates::UIPhoneControl::styleVars FOR photocameraController»
+«ENDDEFINE»
+
+«DEFINE style FOR ViewController»
+	e«photocameraController.id»: {
+		«EXPAND reactnative_templates::UIPhoneControl::style FOR photocameraController»
+	},
+«ENDDEFINE»
+
+«DEFINE eventBinding FOR ViewController»
+	this.on«photocameraController.id»PictureRequest = this.on«photocameraController.id»PictureTaken.bind(this);
+«ENDDEFINE»
+
+«DEFINE events FOR ViewController»
+	on«photocameraController.id»PictureRequest() {
+		if (this.props.onPictureRequest) this.props.onPictureRequest('«photocameraController.id»');
+	}
+«ENDDEFINE»
+
+«DEFINE render FOR ViewController»
+	<TouchableHighlight
+		«EXPAND reactnative_templates::UIPhoneControl::props FOR photocameraController»
+		onPress={this.on«photocameraController.id»PictureRequest}
+		style={styles.e«photocameraController.id»}
+		activeOpacity={1}
+		underlayColor="#0000"
+	>
+	«IF photocameraController.backgroundType.matches("icon")»
+		<Icon name="camera" size={20} color="#000" />
+	«ELSE»
+		<Text>Camera</Text>
+	«ENDIF»
+	</TouchableHighlight>
+«ENDDEFINE»

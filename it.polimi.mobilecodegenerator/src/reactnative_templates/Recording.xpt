@@ -24,10 +24,10 @@
 «DEFINE events FOR ViewController»
 	«IF audioRecorder != null»
 		on«audioRecorder.id»RecordingStart() {
-			// TODO fill here
+			if (this.props.onRecordingStart) this.props.onRecordingStart('«audioRecorder.id»')
 		}
 		on«audioRecorder.id»RecordingStop() {
-			// TODO fill here
+			if (this.props.onRecordingStop) this.props.onRecordingStop('«audioRecorder.id»');
 		}
 	«ENDIF»
 «ENDDEFINE»

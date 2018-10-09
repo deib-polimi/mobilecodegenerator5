@@ -30,12 +30,10 @@
 «DEFINE events FOR ViewController»
 «FOREACH sliders AS s»
 	on«s.id»Change(value) {
-		// TODO fill here...
-		console.log('Changed to: ' + value);
+		if (this.props.onSliderDrag) this.props.onSliderDrag('«s.id»', value);
 	}
 	on«s.id»Released(value) {
-		// TODO fill here...
-		console.log('Finalized to: ' + value);
+		if (this.props.onSliderChange) this.props.onSliderChange('«s.id»', value);
 	}
 «ENDFOREACH»
 «ENDDEFINE»
