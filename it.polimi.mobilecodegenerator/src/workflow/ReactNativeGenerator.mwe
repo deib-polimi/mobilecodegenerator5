@@ -44,56 +44,16 @@
     
 	<!--  GENERATE CODE -->
 	<!-- clear application code folder and generate DefaultFiles -->
-	<!--<component class="org.eclipse.xpand2.Generator">
+	<component class="org.eclipse.xpand2.Generator">
 		<metaModel idRef="mm_emf"/>
 		<expand
-			value="android_templates::DefaultFiles::main FOR model" />
+			value="reactnative_project_structure::main::main FOR model" />
 		<outlet path="${src-gen}" >
-			<postprocessor class="org.eclipse.xpand2.output.JavaBeautifier" />
 		</outlet>
 		<resourceManager class ="org.eclipse.xtend.expression.ResourceManagerDefaultImpl">
 			<fileEncoding value="ISO-8859-1"/>
 		</resourceManager>
-	</component>-->
-	
-	<!-- generate DefaultFilesWatch -->
-	<!--<component class="org.eclipse.xpand2.Generator">
-		<metaModel idRef="mm_emf"/>
-		<expand
-			value="android_templates::DefaultFilesWatch::main FOR model" />
-		<outlet path="${src-gen}" >
-			<postprocessor class="org.eclipse.xpand2.output.JavaBeautifier" />
-		</outlet>
-		<resourceManager class ="org.eclipse.xtend.expression.ResourceManagerDefaultImpl">
-			<fileEncoding value="ISO-8859-1"/>
-		</resourceManager>
-	</component>-->
-	
-	<!-- generate AndroidManifest -->
-	<!--<component class="org.eclipse.xpand2.Generator">
-		<metaModel idRef="mm_emf"/>
-		<expand
-			value="android_templates::AndroidManifest::main FOR model" />
-		<outlet path="${src-gen}" >
-			<postprocessor class="org.eclipse.xpand2.output.JavaBeautifier" />
-		</outlet>
-		<resourceManager class ="org.eclipse.xtend.expression.ResourceManagerDefaultImpl">
-			<fileEncoding value="ISO-8859-1"/>
-		</resourceManager>
-	</component>-->
-	
-	<!-- generate AndroidManifestWatch -->
-	<!--<component class="org.eclipse.xpand2.Generator">
-		<metaModel idRef="mm_emf"/>
-		<expand
-			value="android_templates::AndroidManifestWatch::main FOR model" />
-		<outlet path="${src-gen}" >
-			<postprocessor class="org.eclipse.xpand2.output.JavaBeautifier" />
-		</outlet>
-		<resourceManager class ="org.eclipse.xtend.expression.ResourceManagerDefaultImpl">
-			<fileEncoding value="ISO-8859-1"/>
-		</resourceManager>
-	</component>-->
+	</component>
 	
 	<!-- generate Activities -->
 	<component class="org.eclipse.xpand2.Generator">
@@ -107,57 +67,6 @@
 			<fileEncoding value="ISO-8859-1"/>
 		</resourceManager>
 	</component>
-	
-	<!-- generate ActivitiesWatch -->
-	<!--<component class="org.eclipse.xpand2.Generator">
-		<metaModel idRef="mm_emf"/>
-		<expand
-			value="android_templates::ActivitiesWatch::main FOR model" />
-		<outlet path="${src-gen}" >
-			<postprocessor class="org.eclipse.xpand2.output.JavaBeautifier" />
-		</outlet>
-		<resourceManager class ="org.eclipse.xtend.expression.ResourceManagerDefaultImpl">
-			<fileEncoding value="ISO-8859-1"/>
-		</resourceManager>
-	</component>-->
-	
-	<!-- generate accessor components (namely lists' and grids' cells templates) -->
-	<component class="org.eclipse.xpand2.Generator">
-		<metaModel idRef="mm_emf"/>
-		<expand
-			value="reactnative_templates::ListGridContents::main FOR model" />
-		<outlet path="${src-gen}" >
-		</outlet>
-		<resourceManager class ="org.eclipse.xtend.expression.ResourceManagerDefaultImpl">
-			<fileEncoding value="ISO-8859-1"/>
-		</resourceManager>
-	</component>
-	
-	<!-- generate XMLFiles -->
-	<!--<component class="org.eclipse.xpand2.Generator">
-		<metaModel idRef="mm_emf"/>
-		<expand
-			value="android_templates::XMLFiles::main FOR model" />
-		<outlet path="${src-gen}" >
-			<postprocessor class="org.eclipse.xpand2.output.JavaBeautifier" />
-		</outlet>
-		<resourceManager class ="org.eclipse.xtend.expression.ResourceManagerDefaultImpl">
-			<fileEncoding value="ISO-8859-1"/>
-		</resourceManager>
-	</component>-->
-	
-	<!-- generate XMLFilesWatch -->
-	<!--<component class="org.eclipse.xpand2.Generator">
-		<metaModel idRef="mm_emf"/>
-		<expand
-			value="android_templates::XMLFilesWatch::main FOR model" />
-		<outlet path="${src-gen}" >
-			<postprocessor class="org.eclipse.xpand2.output.JavaBeautifier" />
-		</outlet>
-		<resourceManager class ="org.eclipse.xtend.expression.ResourceManagerDefaultImpl">
-			<fileEncoding value="ISO-8859-1"/>
-		</resourceManager>
-	</component>-->
 	
 	<!-- MODEL PART -->
 	<!-- generate DataHandler -->

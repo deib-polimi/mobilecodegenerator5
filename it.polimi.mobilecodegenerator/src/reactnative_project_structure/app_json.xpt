@@ -1,0 +1,10 @@
+«IMPORT metamodel»
+
+«DEFINE main FOR Application»
+«FILE name + "/app.json"»
+{
+  "name": "«name.toFirstUpper()»",
+  "displayName": "«name.toFirstUpper()»"
+}
+«ENDFILE»
+«ENDDEFINE»

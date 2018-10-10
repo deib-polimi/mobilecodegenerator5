@@ -38,7 +38,7 @@
 
 «DEFINE render FOR ViewController»
 «FOREACH spinners AS s»
-	<Dropdown
+	<CDropdown
 		«EXPAND reactnative_templates::UIPhoneControl::props FOR s»
 		styleProp="containerStyle"
 		label={'Select an option'}
@@ -46,6 +46,6 @@
 		onChangeText={this.on«s.id»Change}
 		data={this.state.e«s.id»Data}
 		value={this.state.e«s.id»Value}>
-	</Dropdown>
+	</CDropdown>
 «ENDFOREACH»
 «ENDDEFINE»

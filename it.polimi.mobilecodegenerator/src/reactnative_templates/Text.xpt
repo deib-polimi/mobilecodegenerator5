@@ -36,11 +36,11 @@
 
 «DEFINE render FOR ViewController»
 	«FOREACH textViews AS t»
-		<Text 
+		<CText 
 			«EXPAND reactnative_templates::UIPhoneControl::props FOR t»
 			style={styles.e«t.id»}
 		>
 			«t.content»
-		</Text>
+		</CText>
 	«ENDFOREACH»
 «ENDDEFINE»

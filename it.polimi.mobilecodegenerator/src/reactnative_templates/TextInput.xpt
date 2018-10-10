@@ -49,7 +49,7 @@
 
 «DEFINE render FOR ViewController»
 «FOREACH editTexts AS et»
-	<TextInput
+	<CTextInput
 		«EXPAND reactnative_templates::UIPhoneControl::props FOR et»
 		style={styles.e«et.id»} 
 		onChangeText={this.on«et.id»ChangeInternal}
@@ -57,6 +57,6 @@
 		onEditingSubmit={this.on«et.id»EditingSubmit}
 		value={this.state.e«et.id»Value}
 		placeholder="«et.placeholder»">
-	</TextInput>
+	</CTextInput>
 «ENDFOREACH»
 «ENDDEFINE»

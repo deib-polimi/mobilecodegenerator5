@@ -105,55 +105,52 @@
 «ENDDEFINE»
 
 «DEFINE imports FOR ViewController»
-import { ConstraintLayout } from '../ConstraintLayout'; // Temporary, will be moved to a package installed with npm or yarn
 import React from 'react';
+import { View, Text, StyleSheet } from 'react-native';
+import { ConstraintLayout } from '../ConstraintLayout';
 import {
-	StyleSheet,
-	View, 
+	CView, 
 «IF textViews.size > 0»
-	Text,
+	CText,
 «ENDIF»
 «IF editTexts.size > 0»
-	TextInput,
+	CTextInput,
 «ENDIF»
 «IF buttons.size > 0 »
-	TouchableHighlight,
+	CTouchableHighlight,
 «ENDIF»
 «IF sliders.size > 0 »
-	Slider,
+	CSlider,
 «ENDIF»
 «IF switches.size > 0 »
-	Switch,
+	CSwitch,
 «ENDIF»
 «IF webViews.size > 0 »
-	WebView,
+	CWebView,
 «ENDIF»
 «IF listViews.size > 0»
-	FlatList,
+	CFlatList,
 «ENDIF»
 «IF imageViews.size > 0»
-	Image,
+	CImage,
 «ENDIF»
-} from 'react-native';
 «IF videoViews.size > 0»
-import VideoPlayer from '../VideoPlayer';
+	CVideoPlayer,
 «ENDIF»
 «IF spinners.size > 0»
-import { Dropdown } from 'react-native-material-dropdown';
+	CDropdown,
 «ENDIF»
-«IF audioPlayers.size > 0 || audioRecorder != null »
-import {
 «IF audioPlayers.size > 0»
-	AudioPlayer,
+	CAudioPlayer,
 «ENDIF»
 «IF audioRecorder != null»
-	AudioRecorder,
-«ENDIF»
-} from '../Audio';
+	CAudioRecorder,
 «ENDIF»
 «IF gridViews.size > 0»
-import GridView from 'react-native-super-grid';
+	CGridView,
 «ENDIF»
+} from '../ConstrainableControls';
+
 «IF photocameraController != null || videocameraController != null»
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 «ENDIF»

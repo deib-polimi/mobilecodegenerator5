@@ -1,0 +1,110 @@
+«IMPORT metamodel»
+
+«DEFINE main FOR Application»
+«IF viewControllers.videoViews.size > 0»
+«FILE name + "/VideoPlayer.js"»
+import React from 'react';
+import { View, StyleSheet, TouchableHighlight } from 'react-native';
+import Video from 'react-native-video';
+import Icon from 'react-native-vector-icons/FontAwesome';
+
+const styles = StyleSheet.create({
+    controlBar: {
+        position: 'absolute',
+        bottom: 0,
+        left: 0,
+        right: 0,
+        backgroundColor: '#00000033',
+        height: 24,
+        padding: 4,
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    control: {
+        paddingHorizontal: 5,
+    },
+    video: {
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: '#000'
+    }
+})
+
+export default class VideoPlayer extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            paused: true
+        };
+        this.resume = this.resume.bind(this);
+        this.pause = this.pause.bind(this);
+        this.stop = this.stop.bind(this);
+        this.onAudioBecomingNoisy = this.onAudioBecomingNoisy.bind(this);
+        this.onEnd = this.onEnd.bind(this);
+    }
+
+    resume() {
+        this.setState({
+            paused: false
+        });
+    }
+
+    pause() {
+        this.setState({
+            paused: true
+        });
+    }
+
+    stop() {
+        this.setState({
+            paused: true
+        });
+        this.player.seek(0);
+    }
+
+    onAudioBecomingNoisy() {
+        this.pause();
+    }
+
+    onEnd() {
+        this.stop();
+    }
+
+    render() {
+        return (
+            <View style={this.props.style} >
+                <Video
+                    source={this.props.source}
+                    style={styles.video}
+                    resizeMode={'contain'}
+                    paused={this.state.paused}
+                    onAudioBecomingNoisy={this.onAudioBecomingNoisy}
+                    onEnd={this.onEnd}
+                    ref={r => this.player = r} />
+                <View style={styles.controlBar}>
+                    {this.state.paused &&
+                        <TouchableHighlight style={styles.control} onPress={this.resume}>
+                            <Icon name="play" size={16} color="#FFF" />
+                        </TouchableHighlight>
+                    }
+                    {!this.state.paused &&
+                        <TouchableHighlight style={styles.control} onPress={this.pause}>
+                            <Icon name="pause" size={16} color="#FFF" />
+                        </TouchableHighlight>
+                    }
+                    <TouchableHighlight style={styles.control} onPress={this.stop}>
+                        <Icon name="stop" size={16} color="#FFF" />
+                    </TouchableHighlight>
+                </View>
+            </View>
+        )
+    }
+}
+«ENDFILE»
+«ENDIF»
+«ENDDEFINE»

@@ -26,10 +26,10 @@
 
 «DEFINE render FOR ViewController»
 	«FOREACH webViews AS w»
-		<WebView
+		<CWebView
 			«EXPAND reactnative_templates::UIPhoneControl::props FOR w»
 			style={styles.e«w.id»}
 			source={{uri: '«w.HTMLFileName»'}}
-		></WebView>
+		></CWebView>
 	«ENDFOREACH»
 «ENDDEFINE»

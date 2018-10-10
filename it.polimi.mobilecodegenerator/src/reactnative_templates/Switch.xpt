@@ -38,17 +38,18 @@
 			e«s.id»Value: value
 		});
 		this.on«s.id»Change(value);
+		console.log(this.state.e«s.id»Value);
 	}
 «ENDFOREACH»
 «ENDDEFINE»
 
 «DEFINE render FOR ViewController»
 «FOREACH switches AS s»
-	<Switch
+	<CSwitch
 		«EXPAND reactnative_templates::UIPhoneControl::props FOR s»
 		style={styles.e«s.id»} 
 		onValueChange={this.on«s.id»ChangeInternal}
 		value={this.state.e«s.id»Value}>
-	</Switch>
+	</CSwitch>
 «ENDFOREACH»
 «ENDDEFINE»

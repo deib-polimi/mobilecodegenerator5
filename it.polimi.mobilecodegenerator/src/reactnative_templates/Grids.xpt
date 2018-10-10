@@ -78,7 +78,7 @@
 
 «DEFINE render FOR ViewController»
 	«FOREACH gridViews AS gv»
-		<GridView
+		<CGridView
 			«EXPAND reactnative_templates::UIPhoneControl::props FOR gv»
 			style={[styles.e«gv.id», { width: '100%' }]}
 			itemDimension={190}
@@ -88,7 +88,7 @@
 				«ENDFOREACH»
 				]}
 			renderItem={(item) => <GridElement«gv.id.toFirstUpper()» title={item.title} image={item.image} onPress={() => this.on«gv.id»ItemSelect(item)} /> }
-		></GridView>
+		></CGridView>
 	«ENDFOREACH»
 «ENDDEFINE»
 

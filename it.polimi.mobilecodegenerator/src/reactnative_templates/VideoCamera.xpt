@@ -1,27 +1,36 @@
 «IMPORT metamodel»
 
 «DEFINE styleVars FOR ViewController»
+	«IF videocameraController != null»
 	«EXPAND reactnative_templates::UIPhoneControl::styleVars FOR videocameraController»
+	«ENDIF»
 «ENDDEFINE»
 
 «DEFINE style FOR ViewController»
+	«IF videocameraController != null»
 	e«videocameraController.id»: {
 		«EXPAND reactnative_templates::UIPhoneControl::style FOR videocameraController»
 	},
+	«ENDIF»
 «ENDDEFINE»
 
 «DEFINE eventBinding FOR ViewController»
+	«IF videocameraController != null»
 	this.on«videocameraController.id»RecordingRequest = this.on«videocameraController.id»RecordingRequest.bind(this);
+	«ENDIF»
 «ENDDEFINE»
 
 «DEFINE events FOR ViewController»
+	«IF videocameraController != null»
 	on«videocameraController.id»RecordingRequest() {
 		if (this.props.onRecordingRequest) this.props.onRecordingRequest('«videocameraController.id»');
 	}
+	«ENDIF»
 «ENDDEFINE»
 
 «DEFINE render FOR ViewController»
-	<TouchableHighlight
+	«IF videocameraController != null»
+	<CTouchableHighlight
 		«EXPAND reactnative_templates::UIPhoneControl::props FOR videocameraController»
 		onPress={this.on«videocameraController.id»RecordingRequest}
 		style={styles.e«videocameraController.id»}
@@ -33,5 +42,6 @@
 	«ELSE»
 		<Text>Video</Text>
 	«ENDIF»
-	</TouchableHighlight>
+	</CTouchableHighlight>
+	«ENDIF»
 «ENDDEFINE»

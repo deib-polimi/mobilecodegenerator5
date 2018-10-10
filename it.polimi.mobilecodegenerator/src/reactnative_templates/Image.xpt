@@ -16,7 +16,7 @@
 
 «DEFINE render FOR ViewController»
 	«FOREACH imageViews AS iv»
-		<Image
+		<CImage
 			«EXPAND reactnative_templates::UIPhoneControl::props FOR iv»
 			«IF photocameraController != null && iv.id.matches(photocameraController.imageViewId)»
 				source={{uri: this.props.pictureTaken}}

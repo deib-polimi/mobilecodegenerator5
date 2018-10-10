@@ -1,0 +1,490 @@
+«IMPORT metamodel»
+
+«DEFINE main FOR Application»
+«FILE name + "/ConstraintLayout.js"»
+import React from 'react';
+import ConstraintCalculator from './ConstraintCalculator';
+import { View, Keyboard } from 'react-native';
+
+
+export class ConstraintLayout extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            skipDueToKeyboard: false
+        }
+        this.keyboardShowListener = Keyboard.addListener('keyboardDidShow', () => {
+            this.setState({
+                skipDueToKeyboard: true
+            });
+        });
+        this.keyboardHideListener = Keyboard.addListener('keyboardDidHide', () => {
+            this.setState({
+                skipDueToKeyboard: true
+            });
+        });
+        this.onLayout = this.onLayout.bind(this);
+    }
+
+    componentDidMount() {
+        this.key = ConstraintCalculator.createGroup();
+        React.Children.forEach(this.props.children, child => {
+            ConstraintCalculator.register(this.key, child);
+        });
+        ConstraintCalculator.finalizeGroup(this.key);
+    }
+
+    componentWillUnmount() {
+        ConstraintCalculator.deleteGroup(this.key);
+        this.keyboardShowListener.remove();
+        this.keyboardHideListener.remove();
+    }
+
+    onLayout(event) {
+        const width = event.nativeEvent.layout.width;
+        const height = event.nativeEvent.layout.height;
+        // Not to be triggered on keyboard opening, but only on device rotation
+        // This works because keyboard show | hide event is called before onLayout, 
+        // and the listener is used to prevent the recomputation at next layout cycle
+        if (!this.state.skipDueToKeyboard) {
+            ConstraintCalculator.recomputeGroup(this.key, width, height);
+        } else {
+            this.setState({ skipDueToKeyboard: false });
+        }
+    }
+
+    render() {
+        return (
+            <View style={this.props.style} onLayout={this.onLayout}>
+                {this.props.children}
+            </View>
+        )
+    }
+
+}
+
+export function withConstraints(WrappedComponent) {
+    return class extends React.Component {
+        constructor(props) {
+            super(props);
+            this.state = {
+                style: ConstraintCalculator.computed[this.props.id] || {}
+            }
+        }
+        componentDidMount() {
+            ConstraintCalculator.addListener(this.props.id, style => {
+                this.setState({
+                    style
+                });
+            });
+        }
+        componentWillUnmount() {
+            ConstraintCalculator.removeListener(this.props.id);
+        }
+        render() {
+            let {style, ...others} = this.props;
+            style = {
+                ...style,
+                marginTop: 0,
+                marginBottom: 0,
+                marginLeft: 0,
+                marginRight: 0,
+                marginVertical: 0,
+                marginHorizontal: 0,
+                margin: 0,
+                position: 'absolute',
+                ...this.state.style,
+            };
+            others = {
+                ...others,
+                marginTop: 0,
+                marginBottom: 0,
+                marginLeft: 0,
+                marginRight: 0,
+                marginVertical: 0,
+                marginHorizontal: 0,
+                margin: 0,
+            };
+            return <WrappedComponent style={style} {...others} />
+        }
+    }
+}
+
+export function normalizeStyleProp(WrappedComponent, stylePropName) {
+    return class extends React.Component {
+        constructor(props) {
+            super(props);
+        }
+        render() {
+            let {style, ...others} = this.props;
+            others[stylePropName] = style;
+            return <WrappedComponent {...others} />
+        }
+    }
+}
+
+«ENDFILE»
+«FILE name + "/ConstraintCalculator.js"»
+import React from 'react';
+
+function marginTop(element) {
+    return element.props.marginTop || element.props.marginVertical || element.props.margin || 0;
+}
+
+function marginBottom(element) {
+    return element.props.marginBottom || element.props.marginVertical || element.props.margin || 0;
+}
+
+function marginStart(element) {
+    return element.props.marginStart || element.props.marginHorizontal || element.props.margin || 0;
+}
+
+function marginEnd(element) {
+    return element.props.marginEnd || element.props.marginHorizontal || element.props.margin || 0;
+}
+
+function isWidthConstrained(element) {
+    return element.props.constraintWidth !== undefined
+        || element.props.constraintWidthPercent !== undefined
+        || (element.props.constraintStart !== undefined && element.props.constraintEnd !== undefined);
+}
+
+function isHeightConstrained(element) {
+    return element.props.constraintHeight !== undefined
+        || element.props.constraintHeightPercent !== undefined
+        || (element.props.constraintTop !== undefined && element.props.constraintBottom !== undefined);
+}
+
+function width(element, parentWidth, otherStyles) {
+    if (element === null) {
+        return parentWidth;
+    }
+    if (otherStyles[element.props.id] && otherStyles[element.props.id].width !== undefined) {
+        return otherStyles[element.props.id].width;
+    }
+    if (element.props.constraintWidth !== undefined) {
+        return element.props.constraintWidth;
+    }
+    else if (element.props.constraintWidthPercent !== undefined) {
+        return element.props.constraintWidthPercent * parentWidth;
+    }
+    else if (element.props.constraintStart && element.props.constraintEnd) {
+        let start = element.props.constraintStart;
+        let end = element.props.constraintEnd;
+        let startRef = start.ref !== null ? otherStyles[start.ref][start.side] : 0;
+        let endRef = end.ref !== null ? otherStyles[end.ref][end.side] : parentWidth;
+        return endRef - startRef - marginTop(element) - marginBottom(element);
+    }
+    else {
+        return element.props.defaultWidth;
+    }
+}
+
+function height(element, parentHeight, otherStyles) {
+    if (element === null) {
+        return parentHeight;
+    }
+    if (otherStyles[element.props.id] && otherStyles[element.props.id].height !== undefined) {
+        return otherStyles[element.props.id].height;
+    }
+    if (element.props.constraintHeight !== undefined) {
+        return element.props.constraintHeight;
+    }
+    else if (element.props.constraintHeightPercent !== undefined) {
+        return element.props.constraintHeightPercent * parentHeight;
+    }
+    else if (element.props.constraintTop && element.props.constraintBottom) {
+        let top = element.props.constraintTop;
+        let bottom = element.props.constraintBottom;
+        let topRef = top.ref !== null ? otherStyles[top.ref][top.side] : 0;
+        let bottomRef = bottom.ref !== null ? otherStyles[bottom.ref][bottom.side] : parentHeight;
+        return bottomRef - topRef - marginTop(element) - marginBottom(element);
+    }
+    else {
+        return element.props.defaultHeight;
+    }
+}
+
+function top(element, height, parentHeight, otherStyles) {
+    if (element === null) {
+        return 0;
+    }
+    if (element.props.constraintTop) {
+        let top = element.props.constraintTop;
+        let ref = top.ref !== null ? otherStyles[top.ref][top.side] : 0;
+        return ref + marginTop(element);
+    }
+    else if (element.props.constraintBottom) {
+        let bottom = element.props.constraintBottom;
+        let ref = bottom.ref !== null ? otherStyles[bottom.ref][bottom.side] : parentHeight;
+        return ref - height - marginBottom(element);
+    }
+    else if (element.props.constraintCenterY) {
+        let c = element.props.constraintCenterY;
+        let heightRef = c.ref !== null ? otherStyles[c.ref].height : parentHeight;
+        let heightMe = height;
+        let _marginTop = marginTop(element);
+        let _marginBottom = marginBottom(element);
+        let skew = (heightRef - heightMe - _marginTop - _marginBottom) / 2;
+        return (c.ref !== null ? otherStyles[c.ref].top : 0) + skew + _marginTop;
+    }
+    else {
+        return element.props.posY + marginTop(element);
+    }
+}
+
+function left(element, width, parentWidth, otherStyles) {
+    if (element === null) {
+        return 0;
+    }
+    if (element.props.constraintStart) {
+        let c = element.props.constraintStart;
+        let ref = c.ref !== null ? otherStyles[c.ref][c.side] : 0;
+        return ref + marginStart(element);
+    }
+    else if (element.props.constraintEnd) {
+        let c = element.props.constraintEnd;
+        let ref = c.ref !== null ? otherStyles[c.ref][c.side] : parentWidth;
+        return ref - marginEnd(element) - width;
+    }
+    else if (element.props.constraintCenterX) {
+        let c = element.props.constraintCenterX;
+        let widthRef = c.ref !== null ? otherStyles[c.ref].width : parentWidth;
+        let widthMe = width;
+        let _marginStart = marginStart(element);
+        let _marginEnd = marginEnd(element);
+        let skew = (widthRef - widthMe - _marginStart - _marginEnd) / 2;
+        return (c.ref !== null ? otherStyles[c.ref].left : 0) + skew + _marginStart;
+    }
+    else {
+        return element.props.posX + marginStart(element);
+    }
+}
+
+function computeStyle(reactChild, parentWidth, parentHeight, otherStyles) {
+    let _width, _height;
+    if (reactChild.props.constraintRatio !== undefined) {
+        if (isWidthConstrained(reactChild)) {
+            _width = width(reactChild, parentWidth, otherStyles);
+            _height = _width / reactChild.props.constraintRatio;
+        } else {
+            _height = height(reactChild, parentHeight, otherStyles);
+            _width = _height * reactChild.props.constraintRatio;
+        }
+    } else {
+        _width = width(reactChild, parentWidth, otherStyles);
+        _height = height(reactChild, parentHeight, otherStyles);
+    }
+    let _top = top(reactChild, _height, parentHeight, otherStyles);
+    let _left = left(reactChild, _width, parentWidth, otherStyles);
+    return {
+        width: _width,
+        height: _height,
+        top: _top,
+        left: _left,
+        start: _left,
+        bottom: _height + _top,
+        right: _width + _left,
+        end: _width + _left
+    };
+}
+
+function sortBasingOnDependencies(reactChildrenArray) {
+    let deps = {};
+    let map = {};
+    reactChildrenArray.forEach(reactChild => {
+        const myDeps = {};
+        let count = 0;
+        map[reactChild.props.id] = reactChild;
+        if (reactChild.props.constraintTop && reactChild.props.constraintTop.ref != null && !myDeps[reactChild.props.constraintTop.ref]) {
+            count++;
+            myDeps[reactChild.props.constraintTop.ref] = true;
+        }
+        if (reactChild.props.constraintBottom && reactChild.props.constraintBottom.ref != null && !myDeps[reactChild.props.constraintBottom.ref]) {
+            count++;
+            myDeps[reactChild.props.constraintBottom.ref] = true;
+        }
+        if (reactChild.props.constraintStart && reactChild.props.constraintStart.ref != null && !myDeps[reactChild.props.constraintStart.ref]) {
+            count++;
+            myDeps[reactChild.props.constraintStart.ref] = true;
+        }
+        if (reactChild.props.constraintEnd && reactChild.props.constraintEnd.ref != null && !myDeps[reactChild.props.constraintEnd.ref]) {
+            count++;
+            myDeps[reactChild.props.constraintEnd.ref] = true;
+        }
+        if (reactChild.props.constraintCenterX && reactChild.props.constraintCenterX.ref != null && !myDeps[reactChild.props.constraintCenterX.ref]) {
+            count++;
+            myDeps[reactChild.props.constraintCenterX.ref] = true;
+        }
+        if (reactChild.props.constraintCenterY && reactChild.props.constraintCenterY.ref != null && !myDeps[reactChild.props.constraintCenterY.ref]) {
+            count++;
+            myDeps[reactChild.props.constraintCenterY.ref] = true;
+        }
+        myDeps.count = count;
+        deps[reactChild.props.id] = myDeps;
+    });
+    const ready = {};
+    const sorted = [];
+    let left = reactChildrenArray.length;
+    while (left > 0) {
+        for (let id in deps) {
+            for (let ref in deps[id]) {
+                if (ready[ref]) {
+                    delete deps[id][ref];
+                    deps[id].count--;
+                }
+            }
+            if (deps[id].count === 0 && !ready[id]) {
+                ready[id] = true;
+                left--;
+                sorted.push(map[id]);
+            }
+        }
+    }
+    return sorted;
+}
+
+function computeStyles(reactChildren, parentWidth, parentHeight) {
+    let styles = {};
+    let async = [];
+    reactChildren.forEach(child => {
+        if (child.props.fluidHeight === true) {
+            async.push(child.measureHeight()).then(m => {
+                styles[child.props.id].height = m;
+            });
+        }
+        if (child.props.fluidWidth === true) {
+            async.push(child.measureWidth()).then(m => {
+                styles[child.props.id].width = m;
+            });
+        }
+    });
+    return Promise.all(async).then(() => {
+        reactChildren.forEach(child => {
+            styles[child.props.id] = computeStyle(child, parentWidth, parentHeight, styles);
+        });
+        return styles;
+    });
+
+}
+class ConstraintCalculatorImpl {
+
+    constructor() {
+        this.pending = {};
+        this.computed = {};
+        this.events = {};
+        this.size = 0;
+    }
+
+    createGroup() {
+        const key = 'Group' + (++this.size);
+        this.pending[key] = [];
+        return key;
+    }
+
+    register(groupKey, element) {
+        this.pending[groupKey].push(element);
+    }
+
+    finalizeGroup(groupKey) {
+        this.pending[groupKey] = sortBasingOnDependencies(this.pending[groupKey]);
+    }
+
+    recomputeGroup(groupKey, width, height) {
+        computeStyles(this.pending[groupKey], width, height).then(styles => {
+            this.computed = {
+                ...this.computed,
+                ...styles
+            };
+            for(let id in styles) {
+                if (this.events[id]) this.events[id](styles[id]);
+            }
+        });
+    }
+
+    deleteGroup(groupKey) {
+        this.pending[groupKey].forEach(child => {
+            delete this.computed[child.props.id];
+            delete this.events[child.props.id];
+        });
+        delete this.pending[groupKey];
+    }
+
+    addListener(elementId, fn) {
+        this.events[elementId] = style => fn(style);
+    }
+
+    removeListener(elementId) {
+        delete this.events[elementId];
+    }
+
+}
+
+const ConstraintCalculator = new ConstraintCalculatorImpl();
+export default ConstraintCalculator;
+«ENDFILE»
+«FILE name + "/ConstrainableControls.js"»
+import {
+	Text,
+	TextInput,
+	Button,
+	TouchableHighlight,
+	Image,
+	View,
+	Slider,
+	Switch,
+	WebView,
+	FlatList
+} from 'react-native';
+
+«IF viewControllers.videoViews.size > 0»
+import VideoPlayer from './VideoPlayer';
+«ENDIF»
+«IF viewControllers.spinners.size > 0»
+import { Dropdown } from 'react-native-material-dropdown';
+«ENDIF»
+«IF viewControllers.audioPlayers.size > 0 || viewControllers.audioRecorder.size > 0 »
+import {
+«IF viewControllers.audioPlayers.size > 0»
+	AudioPlayer,
+«ENDIF»
+«IF viewControllers.audioRecorder.size > 0»
+	AudioRecorder,
+«ENDIF»
+} from './Audio';
+«ENDIF»
+«IF viewControllers.gridViews.size > 0»
+import GridView from 'react-native-super-grid';
+«ENDIF»
+import { withConstraints, normalizeStyleProp } from './ConstraintLayout';
+
+
+export const CText = withConstraints(Text);
+export const CTextInput = withConstraints(TextInput);
+export const CButton = withConstraints(Button);
+export const CTouchableHighlight = withConstraints(TouchableHighlight);
+export const CImage = withConstraints(Image);
+export const CView = withConstraints(View);
+export const CSlider = withConstraints(Slider);
+export const CSwitch = withConstraints(Switch);
+export const CWebView = withConstraints(WebView);
+export const CFlatList = withConstraints(FlatList);
+
+«IF viewControllers.videoViews.size > 0»
+export const CVideoPlayer = withConstraints(VideoPlayer);
+«ENDIF»
+«IF viewControllers.spinners.size > 0»
+export const CDropdown = withConstraints(normalizeStyleProp(Dropdown, 'containerStyle'));
+«ENDIF»
+«IF viewControllers.audioPlayers.size > 0»
+export const CAudioPlayer = withConstraints(AudioPlayer);
+«ENDIF»
+«IF viewControllers.audioRecorder.size > 0»
+export const CAudioRecorder = withConstraints(AudioRecorder);
+«ENDIF»
+«IF viewControllers.gridViews.size > 0»
+export const CGridView = withConstraints(GridView);
+«ENDIF»
+«ENDFILE»
+«ENDDEFINE»

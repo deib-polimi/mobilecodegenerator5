@@ -1,0 +1,11 @@
+«IMPORT metamodel»
+
+«DEFINE main FOR Application»
+«EXPAND reactnative_project_structure::app_json::main»
+«EXPAND reactnative_project_structure::Audio::main»
+«EXPAND reactnative_project_structure::CameraView::main»
+«EXPAND reactnative_project_structure::ConstraintLayout::main»
+«EXPAND reactnative_project_structure::index::main»
+«EXPAND reactnative_project_structure::package_json::main»
+«EXPAND reactnative_project_structure::VideoPlayer::main»
+«ENDDEFINE»

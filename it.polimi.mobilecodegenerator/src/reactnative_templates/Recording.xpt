@@ -34,11 +34,11 @@
 
 «DEFINE render FOR ViewController»
 	«IF audioRecorder != null »
-		<AudioRecorder
+		<CAudioRecorder
 			«EXPAND reactnative_templates::UIPhoneControl::props FOR audioRecorder»
 			style={styles.e«audioRecorder.id»}
 			onStartRecording={this.on«audioRecorder.id»Play}
 			onStopRecording={this.on«audioRecorder.id»Pause}
-		></AudioRecorder>
+		></CAudioRecorder>
 	«ENDIF»
 «ENDDEFINE»

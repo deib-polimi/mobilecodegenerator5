@@ -16,7 +16,7 @@
 
 «DEFINE render FOR ViewController»
 	«FOREACH videoViews AS vv»
-		<VideoPlayer
+		<CVideoPlayer
 			«EXPAND reactnative_templates::UIPhoneControl::props FOR vv»
 			«IF videocameraController != null && vv.id.matches(videocameraController.videoViewId)»
 			source={{uri: this.props.videoTaken}}

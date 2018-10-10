@@ -38,7 +38,7 @@
 
 «DEFINE render FOR ViewController»
 	«FOREACH audioPlayers AS ap»
-		<AudioPlayer
+		<CAudioPlayer
 			«EXPAND reactnative_templates::UIPhoneControl::props FOR ap»
 			«IF audioRecorder == null || ap.id != audioRecorder.audioPlayerId»
 				resource={"«ap.fileUri»"}
@@ -51,6 +51,6 @@
 			onPlay={this.on«ap.id»Play}
 			onPause={this.on«ap.id»Pause}
 			onStop={this.on«ap.id»Stop}
-		></AudioPlayer>
+		></CAudioPlayer>
 	«ENDFOREACH»
 «ENDDEFINE»

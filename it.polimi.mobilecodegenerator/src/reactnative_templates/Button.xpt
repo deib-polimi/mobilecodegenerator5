@@ -51,7 +51,7 @@
 
 «DEFINE render FOR ViewController»
 	«FOREACH buttons AS b»
-		<TouchableHighlight
+		<CTouchableHighlight
 			«EXPAND reactnative_templates::UIPhoneControl::props FOR b»
 			onPress={this.on«b.id»Press}
 			style={styles.e«b.id»}
@@ -67,6 +67,6 @@
 		<View style={styles.e«b.id»_wrapper}>
 			<Text style={styles.e«b.id»_inner}>«b.title»</Text>
 		</View>
-		</TouchableHighlight>
+		</CTouchableHighlight>
 	«ENDFOREACH»
 «ENDDEFINE»

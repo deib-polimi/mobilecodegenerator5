@@ -40,7 +40,7 @@
 
 «DEFINE render FOR ViewController»
 «FOREACH sliders AS s»
-	<Slider
+	<CSlider
 		«EXPAND reactnative_templates::UIPhoneControl::props FOR s»
 		style={styles.e«s.id»} 
 		onValueChange={this.on«s.id»Change}
@@ -49,6 +49,6 @@
 		maximumValue={100}
 		step={1}
 		value={this.state.e«s.id»Value}>
-	</Slider>
+	</CSlider>
 «ENDFOREACH»
 «ENDDEFINE»
