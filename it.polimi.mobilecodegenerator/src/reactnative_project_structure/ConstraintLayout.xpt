@@ -262,6 +262,157 @@ function left(element, width, parentWidth, otherStyles) {
     }
 }
 
+function solveSpreadChain(componentsMeasures, overallSpace, insideChain) {
+    const consumed = componentsMeasures.reduce((a, b) => a + b, 0);
+    const spaceCount = insideChain ? componentsMeasures.length - 1 : componentsMeasures.length + 1;
+    const leftover = overallSpace - consumed;
+    const spacing = leftover / spaceCount;
+    let curr = insideChain ? 0 : spacing;
+    let out = [];
+    componentsMeasures.forEach(measure => {
+        out.push(curr);
+        curr += measure;
+        curr += spacing;
+    });
+    return out;
+}
+
+function solvePackedChain(componentsMeasures, overallSpace, bias) {
+    const consumed = componentsMeasures.reduce((a, b) => a + b, 0);
+    const leftover = overallSpace - consumed;
+    const spacing = leftover * bias;
+    let curr = spacing;
+    let out = [];
+    componentsMeasures.forEach(measure => {
+        out.push(curr);
+        curr += measure;
+    });
+    return out;
+}
+
+function solveWeightedChain(componentWeights, overallSpace) {
+    const totalWeight = componentWeights.reduce((a, b) => a + b, 0);
+    const spaceUnit = overallSpace / totalWeight;
+    return componentWeights.map(w => w * spaceUnit);
+}
+
+function solveHorizontalChain(reactChildren, parentWidth, parentHeight, otherStyles) {
+    const head = reactChildren[0];
+    const chainType = head.props.constraintChain;
+    if (chainType === 'spread' || chainType === 'spread_inside') {
+        const widths = reactChildren.map(child => {
+            return width(child, parentWidth, parentHeight, otherStyles) + marginStart(child) + marginEnd(child);
+        });
+        const lefts = solveSpreadChain(widths, parentWidth, chainType === 'spread_inside');
+        const out = {};
+        reactChildren.forEach((child, i) => {
+            out[child.props.id] = {
+                width: widths[i],
+                left: lefts[i] + marginStart(child)
+            };
+        });
+        return out;
+    }
+    else if (chainType === 'packed') {
+        const widths = reactChildren.map(child => {
+            return width(child, parentWidth, parentHeight, otherStyles) + marginStart(child) + marginEnd(child);
+        });
+        let bias = head.props.constraintChainBias;
+        if (bias === undefined || bias < 0.0 || bias > 1.0) bias = 0.5;
+        const lefts = solvePackedChain(widths, parentWidth, bias);
+        const out = {};
+        reactChildren.forEach((child, i) => {
+            out[child.props.id] = {
+                width: widths[i],
+                left: lefts[i] + marginStart(child)
+            };
+        });
+        return out;
+    }
+    else if (chainType === 'weighted') {
+        const weights = reactChildren.map(child => {
+            let w = child.props.constraintWeight;
+            if (w === undefined || w < 1)
+                w = 1;
+            return w;
+        });
+        const widths = solveWeightedChain(weights, parentWidth);
+        let acc = 0;
+        const out = {};
+        reactChildren.forEach((child, i) => {
+            out[child.props.id] = {
+                width: widths[i] - marginStart(child) - marginEnd(width),
+                left: acc + marginStart(child)
+            };
+            acc += widths[i];
+        });
+        return out;
+    }
+}
+
+function solveVerticalChain(reactChildren, parentWidth, parentHeight, otherStyles) {
+    const head = reactChildren[0];
+    const chainType = head.props.constraintChain;
+    if (chainType === 'spread' || chainType === 'spread_inside') {
+        const heights = reactChildren.map(child => {
+            return height(child, parentWidth, parentHeight, otherStyles) + marginTop(child) + marginBottom(child);
+        });
+        const tops = solveSpreadChain(heights, parentHeight, chainType === 'spread_inside');
+        const out = {};
+        reactChildren.forEach((child, i) => {
+            out[child.props.id] = {
+                height: heights[i],
+                top: tops[i] + marginTop(child)
+            };
+        });
+        return out;
+    }
+    else if (chainType === 'packed') {
+        const heights = reactChildren.map(child => {
+            return height(child, parentWidth, parentHeight, otherStyles) + marginTop(child) + marginBottom(child);
+        });
+        let bias = head.props.constraintChainBias;
+        if (bias === undefined || bias < 0.0 || bias > 1.0) bias = 0.5;
+        const tops = solvePackedChain(heights, parentHeight, bias);
+        const out = {};
+        reactChildren.forEach((child, i) => {
+            out[child.props.id] = {
+                height: heights[i],
+                top: tops[i] + marginTop(child)
+            };
+        });
+        return out;
+    }
+    else if (chainType === 'weighted') {
+        const weights = reactChildren.map(child => {
+            let w = child.props.constraintWeight;
+            if (w === undefined || w < 1)
+                w = 1;
+            return w;
+        });
+        const heights = solveWeightedChain(weights, parentHeight);
+        let acc = 0;
+        const out = {};
+        reactChildren.forEach((child, i) => {
+            out[child.props.id] = {
+                height: heights[i] - marginTop(child) - marginBottom(width),
+                top: acc + marginTop(child)
+            };
+            acc += heights[i];
+        });
+        return out;
+    }
+}
+
+function solveChain(reactChildren, parentWidth, parentHeight, otherStyles) {
+    const head = reactChildren[0];
+    if (head.constraintChainAxis === 'vertical') {
+        return solveVerticalChain(reactChildren, parentWidth, parentHeight, otherStyles);
+    } else {
+        return solveHorizontalChain(reactChildren, parentWidth, parentHeight, otherStyles);
+    }
+}
+
 function computeStyle(reactChild, parentWidth, parentHeight, otherStyles) {
     let _width, _height;
     if (reactChild.props.constraintRatio !== undefined) {
@@ -345,22 +496,56 @@ function sortBasingOnDependencies(reactChildrenArray) {
     return sorted;
 }
 
+function findChains(reactChild) {
+    const heads = [];
+    const next = {};
+    const mapper = {};
+    reactChildren.forEach(child => {
+        mapper[child.props.id] = child;
+        if (child.props.constraintChain !== undefined) {
+            heads.push(child.props.id);
+        }
+        else if (child.props.constraintChainPrev !== undefined) {
+            next[child.props.constraintChainPrev] = child.props.id;
+        }
+    });
+    const chains = heads.map(head => {
+        let chain = [mapper[head]];
+        let curr = head;
+        while(next[curr]) {
+            chain.push(mapper[next[curr]]);
+            curr = next[curr];
+        }
+        return chain;
+    });
+    return chains.filter(chain => chain.length > 1);
+}
+
 function computeStyles(reactChildren, parentWidth, parentHeight) {
     let styles = {};
     let async = [];
     reactChildren.forEach(child => {
-        if (child.props.fluidHeight === true) {
-            async.push(child.measureHeight()).then(m => {
+        styles[child.props.id] = {};
+        if (child.props.fluidHeight) {
+            async.push(child.props.fluidHeight(child, parentWidth, parentHeight).then(m => {
                 styles[child.props.id].height = m;
-            });
+            }));
         }
-        if (child.props.fluidWidth === true) {
-            async.push(child.measureWidth()).then(m => {
+        if (child.props.fluidWidth) {
+            async.push(child.props.fluidWidth(child, parentWidth, parentHeight).then(m => {
                 styles[child.props.id].width = m;
-            });
+            }));
         }
     });
     return Promise.all(async).then(() => {
+        let chains = findChains(reactChildren);
+        chains.forEach(chain => {
+            let solved = solveChain(chain, parentWidth, parentHeight, styles);
+            styles = {
+                ...styles,
+                ...solved
+            };
+        });
         reactChildren.forEach(child => {
             styles[child.props.id] = computeStyle(child, parentWidth, parentHeight, styles);
         });
@@ -397,7 +582,7 @@ class ConstraintCalculatorImpl {
                 ...this.computed,
                 ...styles
             };
-            for(let id in styles) {
+            for (let id in styles) {
                 if (this.events[id]) this.events[id](styles[id]);
             }
         });
@@ -457,6 +642,9 @@ import {
 «IF viewControllers.gridViews.size > 0»
 import GridView from 'react-native-super-grid';
 «ENDIF»
+«IF viewControllers.cards.size > 0»
+import Card from './Card';
+«ENDIF»
 import { withConstraints, normalizeStyleProp } from './ConstraintLayout';
 
 
@@ -485,6 +673,9 @@ export const CAudioRecorder = withConstraints(AudioRecorder);
 «ENDIF»
 «IF viewControllers.gridViews.size > 0»
 export const CGridView = withConstraints(GridView);
+«ENDIF»
+«IF viewControllers.cards.size > 0»
+export const CCard = withConstraints(Card);
 «ENDIF»
 «ENDFILE»
 «ENDDEFINE»

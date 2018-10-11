@@ -7,18 +7,6 @@
 «ENDDEFINE»
 
 «DEFINE style FOR ViewController»
-	«IF cards.size > 0»
-		card_container: {
-		},
-		card_title: {
-		},
-		card_subtitle: {
-		},
-		card_image: {
-		},
-		card_actions: {
-		},
-	«ENDIF»
 	«FOREACH cards AS c»
 		e«c.id»: {
 			«EXPAND reactnative_templates::UIPhoneControl::style FOR c»
@@ -29,7 +17,7 @@
 «DEFINE eventBinding FOR ViewController»
 «FOREACH cards AS c»
 	«FOREACH 1.upTo(c.numActions) AS n»
-		this.on«c.id»Action«n» = this.on«c.id»Action«n».bind(this);
+		this.on«c.id»Action = this.on«c.id»Action«n».bind(this);
 	«ENDFOREACH»
 «ENDFOREACH»
 «ENDDEFINE»
@@ -37,8 +25,8 @@
 «DEFINE events FOR ViewController»
 «FOREACH cards AS c»
 	«FOREACH 1.upTo(c.numActions) AS n»
-		on«c.id»Action«n»() {
-			// TODO implement action
+		on«c.id»Action(index) {
+			if (this.props.onCardAction) this.props.onCardAction('«c.id»', index);
 		}
 	«ENDFOREACH»
 «ENDFOREACH»
@@ -46,7 +34,19 @@
 
 «DEFINE render FOR ViewController»
 	«FOREACH cards AS c»
-		<View style={[styles.e«c.id», styles.card_container]}>
-		</View>
+		<CCard
+			«EXPAND reactnative_templates::UIPhoneControl::props FOR c»
+			style={styles.e«c.id»}
+			id="«c.id»"
+			title="«c.title»"
+			subtitle="«c.subtitle»"
+			image="grid_image"
+			actions={[
+				«FOREACH 1.upTo(c.numActions) AS n»
+					'Action «n»'
+				«ENDFOREACH»
+			]}
+			fluidHeight={CardHeightMetrics}
+		/>
 	«ENDFOREACH»
 «ENDDEFINE»
