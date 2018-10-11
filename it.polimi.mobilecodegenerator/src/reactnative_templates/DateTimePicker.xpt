@@ -1,7 +1,5 @@
 «IMPORT metamodel»
 
-«IMPORT metamodel»
-
 «DEFINE styleVars FOR ViewController»
 	«FOREACH datepickers AS dp»
 		«EXPAND reactnative_templates::UIPhoneControl::styleVars FOR dp»
@@ -26,7 +24,7 @@
 
 «DEFINE eventBinding FOR ViewController»
 «FOREACH datepickers AS dp»
-	this.on«dp.id»DateSelected = this.on«b.id»DateSelected.bind(this);
+	this.on«dp.id»DateSelected = this.on«dp.id»DateSelected.bind(this);
 «ENDFOREACH»
 «FOREACH timepickers AS tp»
 	this.on«tp.id»TimeSelected = this.on«tp.id»TimeSelected.bind(this);
