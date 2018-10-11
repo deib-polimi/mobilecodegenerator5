@@ -18,7 +18,7 @@
 	«IF map != null»
 		<CMapView
 			«EXPAND reactnative_templates::UIPhoneControl::props FOR map»
-			style={styles.e«b.id»}
+			style={styles.e«map.id»}
 			initialRegion={{
 		      latitude: «map.lat»,
 		      longitude: «map.lon»,
