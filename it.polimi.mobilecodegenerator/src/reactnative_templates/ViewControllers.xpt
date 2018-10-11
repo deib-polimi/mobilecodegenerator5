@@ -35,6 +35,7 @@
 			«EXPAND reactnative_templates::Video::style»
 			«EXPAND reactnative_templates::PhotoCamera::style»
 			«EXPAND reactnative_templates::VideoCamera::style»
+			«EXPAND reactnative_templates::Container::style»
 		});
 		
 		export default class Component_«name.replaceAll(" ", "_").toFirstUpper()» extends React.Component {
@@ -73,6 +74,7 @@
 			«EXPAND reactnative_templates::VideoCamera::events»
 			
 			render() {
+				const {style, ...passProps} = this.props;
 				return (
 					«IF !backgroundImage.matches("")»
 					<ImageBackground source={{uri: "«backgroundImage»"}} style={{width: '100%', height: '100%'}} resizeMode="contain">
@@ -93,6 +95,7 @@
 						«EXPAND reactnative_templates::Video::render»
 						«EXPAND reactnative_templates::PhotoCamera::render»
 						«EXPAND reactnative_templates::VideoCamera::render»
+						«EXPAND reactnative_templates::Container::render»
 					</ConstraintLayout>
 					«IF !backgroundImage.matches("")»
 					</ImageBackground>
@@ -165,4 +168,5 @@ import ListElement«lv.id.toFirstUpper()» from './ListElement«lv.id.toFirstUpper(
 «FOREACH gridViews AS gv»
 import GridElement«gv.id.toFirstUpper()» from './GridElement«gv.id.toFirstUpper()»Component';
 «ENDFOREACH»
+«EXPAND reactnative_templates::Container::import»
 «ENDDEFINE»

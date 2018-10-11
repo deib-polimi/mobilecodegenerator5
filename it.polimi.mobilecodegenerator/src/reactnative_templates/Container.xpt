@@ -1,0 +1,32 @@
+«IMPORT metamodel»
+
+«DEFINE import FOR ViewController»
+«FOREACH containers AS c»
+import Component_«c.childViewController.name.replaceAll(" ", "_").toFirstUpper()» from './Component_«c.childViewController.name.replaceAll(" ", "_").toFirstUpper()».js';
+«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE styleVars FOR ViewController»
+	«FOREACH containers AS c»
+		«EXPAND reactnative_templates::UIPhoneControl::styleVars FOR c»
+	«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE style FOR ViewController»
+	«FOREACH containers AS c»
+		e«c.id»: {
+			«EXPAND reactnative_templates::UIPhoneControl::style FOR c»
+		},
+	«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE render FOR ViewController»
+	«FOREACH containers AS c»
+		<CView 
+			style={styles.e«c.id»}
+			«EXPAND reactnative_templates::UIPhoneControl::props FOR c»
+		>
+			<Component_«c.childViewController.name.replaceAll(" ", "_").toFirstUpper()» {...passProps} />
+		</CView>
+	«ENDFOREACH»
+«ENDDEFINE»
