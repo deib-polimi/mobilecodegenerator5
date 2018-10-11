@@ -1,4 +1,47 @@
+«REM»
+Copyright 2018 Osio Alberto
+This file is part of it.polimi.mobilecodegenerator.
+
+it.polimi.mobilecodegenerator is free software: 
+you can redistribute it and/or modify it under the terms of the 
+GNU General Public License as published by the Free Software Foundation, 
+either version 3 of the License, or (at your option) any later version.
+
+it.polimi.mobilecodegenerator is distributed in the hope that it will be useful, 
+but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  
+See the GNU General Public License for more details.You should have received a copy of the GNU General Public License
+along with it.polimi.mobilecodegenerator. If not, see <http://www.gnu.org/licenses/>
+«ENDREM»
+
 «IMPORT metamodel»
+
+«REM»
+----------------------------------------------------------------------------------------------------------------------------------
+                                                                   DISCLAIMER
+
+PLEASE think very carefully before modifying this file
+
+Some very important things to know
+1) Each element that is direct children of a ConstraintLayout component MUST have id and style properties
+	- The ID must be unique throughout the whole application
+	- If you have no style to use, just pass an empty object, like style={{}}
+	- If the style property of a component is not called style, just use normalizeStyleProp(Component, propertyName) to fix the issue
+2) Constraints are not cyclic
+3) Constraints are not overbounded
+4) There is only one constraint per axis (one for the X-axis and one for the Y-axis), except for
+	- constraintTop and constraintBottom can be applied at the same time
+	- constraintStart and constraintEnd can be applied at the same time
+5) The dimension of the ConstraintLayout component is fixed (i.e. no scrolling)
+	The onLayout event must return the correct dimension
+6) Do not apply margins in the style property, use properties instead (UIPhoneControl.xpt should take care of this)
+7) If you need to have some components' width or height computed at runtime (for example because you need to measure some text, 
+   or you need to do complex calculations basing on device's capabilities), attach to your component a property like fluidWidth
+   or fluidHeight that points to a function capable of computing respectively width and height. The function is invoked with
+   the element whose measures must be computed, the parent width and the parent height. Any measurement is considered in device
+   independent pixel.
+8) If you edit this file, please edit this disclaimer accordingly
+----------------------------------------------------------------------------------------------------------------------------------
+«ENDREM»
 
 «DEFINE main FOR Application»
 «FILE name + "/ConstraintLayout.js"»
@@ -645,6 +688,9 @@ import GridView from 'react-native-super-grid';
 «IF viewControllers.cards.size > 0»
 import Card from './Card';
 «ENDIF»
+«IF viewControllers.map.size > 0»
+import MapView from 'react-native-maps';
+«ENDIF»
 import { withConstraints, normalizeStyleProp } from './ConstraintLayout';
 
 
@@ -676,6 +722,9 @@ export const CGridView = withConstraints(GridView);
 «ENDIF»
 «IF viewControllers.cards.size > 0»
 export const CCard = withConstraints(Card);
+«ENDIF»
+«IF viewControllers.map.size > 0»
+export const CMapView = withConstraints(MapView);
 «ENDIF»
 «ENDFILE»
 «ENDDEFINE»

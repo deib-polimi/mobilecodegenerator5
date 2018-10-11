@@ -1,0 +1,110 @@
+«IMPORT metamodel»
+
+«DEFINE main FOR Application»
+«IF viewControllers.cards.size > 0»
+import React from 'react';
+import { View, Text, Image, TouchableHighlight, StyleSheet } from 'react-native';
+import MeasureText from 'react-native-measure-text';
+
+const styles = StyleSheet.create({
+    card_container: {
+        width: '100%',
+        flex: 1,
+        flexDirection: 'column',
+        alignItems: 'flex-start',
+        justifyContent: 'flex-start',
+        padding: 10,
+        borderWidth: 1,
+        borderRadius: 2,
+        borderColor: '#333',
+    },
+    card_title: {
+        fontSize: 24,
+        marginVertical: 16
+    },
+    card_subtitle: {
+        fontSize: 16
+    },
+    card_image: {
+        alignSelf: 'stretch',
+        aspectRatio: 16 / 9
+    },
+    card_actions: {
+        marginTop: 16,
+        flex: 1,
+        flexDirection: 'row',
+        justifyContent: 'space-evenly',
+        alignItems: 'center',
+        paddingVertical: 4,
+        alignSelf: 'stretch'
+    },
+    card_action: {
+        margin: 0,
+        padding: 0
+    }
+});
+
+export function CardHeightMetrics(card, parentWidth, parentHeight) {
+    /**
+    * ImageHeight = (ParentWidth - padding) / aspectRatio
+    * ActionsHeight = 24 (fixed by styles)
+    * 
+    * Except for text, fixed contribution is ImageHeight + ActionsHeight + Padding + Border + Margins of texts...
+    */
+    const fixed = (parentWidth - 20) * 9 / 16 + 24 + 20 + 2 + 16 * 2 + 16;
+    return Promise.all([
+        MeasureText.measure({
+            texts: [card.props.title],
+            width: parentWidth - 20, /* padding!! */
+            fontSize: 24
+        }).then(res => res[0]),
+        MeasureText.measure({
+            texts: [card.props.subtitle],
+            width: parentWidth - 20, /* padding!! */
+            fontSize: 16
+        }).then(res => res[0]),
+    ]).then(([titleHeight, subtitleHeight]) => {
+        return fixed + titleHeight + subtitleHeight;
+    })
+}
+
+export default class Card extends React.Component {
+
+    constructor(props) {
+        super(props);
+        this.onAction = this.onAction.bind(this);
+    }
+
+    onAction(n) {
+        if (this.props.onAction) this.props.onAction(n);
+    }
+
+    render() {
+        return (
+            <View style={[this.props.style, styles.card_container]}>
+                <Image style={styles.card_image} source={{ uri: this.props.image }} />
+                <Text style={styles.card_title}>{this.props.title}</Text>
+                <Text style={styles.card_subtitle}>{this.props.subtitle}</Text>
+                <View style={styles.card_actions}>
+                    {
+                        this.props.actions.map((action, index) => {
+                            return (
+                                <TouchableHighlight
+                                    key={this.props.id + index}
+                                    style={styles.card_action}
+                                    onPress={this.onAction.bind(this, index)}
+                                    underlayColor="#0000"
+                                >
+                                    <Text>{action}</Text>
+                                </TouchableHighlight>
+                            );
+                        })
+                    }
+                </View>
+            </View>
+        );
+    }
+
+}
+«ENDIF»
+«ENDDEFINE»

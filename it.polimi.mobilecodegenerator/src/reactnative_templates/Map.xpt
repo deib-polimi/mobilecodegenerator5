@@ -1,0 +1,30 @@
+«IMPORT metamodel»
+
+«DEFINE styleVars FOR ViewController»
+	«IF map != null»
+		«EXPAND reactnative_templates::UIPhoneControl::styleVars FOR map»
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE style FOR ViewController»
+	«IF map != null»
+		e«map.id»: {
+			«EXPAND reactnative_templates::UIPhoneControl::style FOR map»
+		},
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE render FOR ViewController»
+	«IF map != null»
+		<CMapView
+			«EXPAND reactnative_templates::UIPhoneControl::props FOR map»
+			style={styles.e«b.id»}
+			initialRegion={{
+		      latitude: «map.lat»,
+		      longitude: «map.lon»,
+		      latitudeDelta: 0.0922,
+		      longitudeDelta: 0.0421,
+		    }}
+		/>
+	«ENDIF»
+«ENDDEFINE»

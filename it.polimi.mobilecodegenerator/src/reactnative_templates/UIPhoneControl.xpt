@@ -90,4 +90,15 @@
 			constraint«pc.layoutEdge.toString().toFirstUpper()»={{ref: 'e«pc.referenceElement.id»', side: '«pc.referenceLayoutEdge»'}}
 		«ENDIF»
 	«ENDFOREACH»
+	«IF controlChain != null»
+		«IF precedentInChain == null»
+		constraintChain="«controlChain.type.toString()»"
+		constraintChainBias={«controlChain.bias»}
+		constraintChainAxis="«controlChain.axis.toString()»"
+		constraintWeight={«weight»}
+		«ELSE»
+		constraintWeight={«weight»}
+		constraintChainPrev="e«precedentInChain.id»"
+		«ENDIF»
+	«ENDIF»
 «ENDDEFINE»

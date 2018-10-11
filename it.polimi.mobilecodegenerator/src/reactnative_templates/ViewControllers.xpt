@@ -36,6 +36,7 @@
 			«EXPAND reactnative_templates::PhotoCamera::style»
 			«EXPAND reactnative_templates::VideoCamera::style»
 			«EXPAND reactnative_templates::Container::style»
+			«EXPAND reactnative_templates::Map::style»
 		});
 		
 		export default class Component_«name.replaceAll(" ", "_").toFirstUpper()» extends React.Component {
@@ -96,6 +97,7 @@
 						«EXPAND reactnative_templates::PhotoCamera::render»
 						«EXPAND reactnative_templates::VideoCamera::render»
 						«EXPAND reactnative_templates::Container::render»
+						«EXPAND reactnative_templates::Map::render»
 					</ConstraintLayout>
 					«IF !backgroundImage.matches("")»
 					</ImageBackground>
@@ -154,6 +156,9 @@ import {
 «ENDIF»
 «IF cards.size > 0»
 	CCard
+«ENDIF»
+«IF map != null»
+	CMapView
 «ENDIF»
 } from '../ConstrainableControls';
 «IF cards.size > 0»
