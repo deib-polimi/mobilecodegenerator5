@@ -691,6 +691,9 @@ import Card from './Card';
 «IF viewControllers.map.size > 0»
 import MapView from 'react-native-maps';
 «ENDIF»
+«IF viewControllers.datepickers.size > 0 || viewControllers.timepickers.size > 0»
+import DatePicker from 'react-native-datepicker';
+«ENDIF»
 import { withConstraints, normalizeStyleProp } from './ConstraintLayout';
 
 
@@ -725,6 +728,9 @@ export const CCard = withConstraints(Card);
 «ENDIF»
 «IF viewControllers.map.size > 0»
 export const CMapView = withConstraints(MapView);
+«ENDIF»
+«IF viewControllers.datepickers.size > 0 || viewControllers.timepickers.size > 0»
+export const CDatePicker = withConstraints(DatePicker);
 «ENDIF»
 «ENDFILE»
 «ENDDEFINE»

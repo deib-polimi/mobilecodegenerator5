@@ -37,6 +37,7 @@
 			«EXPAND reactnative_templates::VideoCamera::style»
 			«EXPAND reactnative_templates::Container::style»
 			«EXPAND reactnative_templates::Map::style»
+			«EXPAND reactnative_templates::DateTimePicker::style»
 		});
 		
 		export default class Component_«name.replaceAll(" ", "_").toFirstUpper()» extends React.Component {
@@ -59,6 +60,7 @@
 				«EXPAND reactnative_templates::Grids::eventBinding»
 				«EXPAND reactnative_templates::PhotoCamera::eventBinding»
 				«EXPAND reactnative_templates::VideoCamera::eventBinding»
+				«EXPAND reactnative_templates::DateTimePicker::eventBinding»
 			}
 			
 			«EXPAND reactnative_templates::TextInput::events»
@@ -73,6 +75,7 @@
 			«EXPAND reactnative_templates::Grids::events»
 			«EXPAND reactnative_templates::PhotoCamera::events»
 			«EXPAND reactnative_templates::VideoCamera::events»
+			«EXPAND reactnative_templates::DateTimePicker::events»
 			
 			render() {
 				const {style, ...passProps} = this.props;
@@ -98,6 +101,7 @@
 						«EXPAND reactnative_templates::VideoCamera::render»
 						«EXPAND reactnative_templates::Container::render»
 						«EXPAND reactnative_templates::Map::render»
+						«EXPAND reactnative_templates::DateTimePicker::render»
 					</ConstraintLayout>
 					«IF !backgroundImage.matches("")»
 					</ImageBackground>
@@ -155,10 +159,13 @@ import {
 	CGridView,
 «ENDIF»
 «IF cards.size > 0»
-	CCard
+	CCard,
 «ENDIF»
 «IF map != null»
-	CMapView
+	CMapView,
+«ENDIF»
+«IF datepickers.size > 0 || timepickers.size > 0»
+	CDatePicker,
 «ENDIF»
 } from '../ConstrainableControls';
 «IF cards.size > 0»

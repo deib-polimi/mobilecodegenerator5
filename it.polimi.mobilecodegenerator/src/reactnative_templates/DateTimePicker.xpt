@@ -1,0 +1,74 @@
+«IMPORT metamodel»
+
+«IMPORT metamodel»
+
+«DEFINE styleVars FOR ViewController»
+	«FOREACH datepickers AS dp»
+		«EXPAND reactnative_templates::UIPhoneControl::styleVars FOR dp»
+	«ENDFOREACH»
+	«FOREACH timepickers AS tp»
+		«EXPAND reactnative_templates::UIPhoneControl::styleVars FOR tp»
+	«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE style FOR ViewController»
+	«FOREACH datepickers AS dp»
+		e«dp.id»: {
+			«EXPAND reactnative_templates::UIPhoneControl::style FOR dp»
+		},
+	«ENDFOREACH»
+	«FOREACH timepickers AS tp»
+		e«tp.id»: {
+			«EXPAND reactnative_templates::UIPhoneControl::style FOR tp»
+		},
+	«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE eventBinding FOR ViewController»
+«FOREACH datepickers AS dp»
+	this.on«dp.id»DateSelected = this.on«b.id»DateSelected.bind(this);
+«ENDFOREACH»
+«FOREACH timepickers AS tp»
+	this.on«tp.id»TimeSelected = this.on«tp.id»TimeSelected.bind(this);
+«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE events FOR ViewController»
+«FOREACH datepickers AS dp»
+	on«dp.id»DateSelected(date) {
+		if (this.props.onDateSelected) this.props.onDateSelected('«dp.id»', date);
+	} 
+«ENDFOREACH»
+«FOREACH timepickers AS tp»
+	on«tp.id»TimeSelected(time) {
+		if (this.props.onTimeSelected) this.props.onTimeSelected('«tp.id»', time);
+	}
+«ENDFOREACH»
+«ENDDEFINE»
+
+«DEFINE render FOR ViewController»
+«FOREACH datepickers AS dp»
+	<CDatePicker
+		«EXPAND reactnative_templates::UIPhoneControl::props FOR dp»
+		style={styles.e«dp.id»}
+		mode="date"
+        placeholder="select date"
+        format="YYYY-MM-DD"
+        confirmBtnText="Confirm"
+        cancelBtnText="Cancel"
+        onDateChange={this.on«dp.id»DateSelected}
+    />
+«ENDFOREACH»
+«FOREACH timepickers AS tp»
+	<CDatePicker
+		«EXPAND reactnative_templates::UIPhoneControl::props FOR tp»
+		style={styles.e«tp.id»}
+		mode="time"
+        placeholder="select time"
+        format="HH:mm"
+        confirmBtnText="Confirm"
+        cancelBtnText="Cancel"
+        onDateChange={this.on«tp.id»TimeSelected}
+    />
+«ENDFOREACH»
+«ENDDEFINE»

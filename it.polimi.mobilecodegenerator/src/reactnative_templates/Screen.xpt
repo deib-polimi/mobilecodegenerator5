@@ -41,6 +41,8 @@ export default class Screen_«name.replaceAll(" ", "_").toFirstUpper()» extends R
 		this.onPictureTaken = this.onPictureTaken.bind(this);
 		this.onRecordingRequest = this.onRecordingRequest.bind(this);
 		this.onRecordingComplete = this.onRecordingComplete.bind(this);
+		this.onDateSelected = this.onDateSelected.bind(this);
+		this.onTimeSelected = this.onTimeSelected.bind(this);
 	}
 	
 	onAudioPlay(audioId) { }
@@ -134,6 +136,9 @@ export default class Screen_«name.replaceAll(" ", "_").toFirstUpper()» extends R
 		«ENDIF»
 	}
 	
+	onDateSelected(datePickerId, date) { }
+	onTimeSelected(timePickerId, time) { }
+	
 	render() {
 		return (
 			<Component_«name.replaceAll(" ", "_").toFirstUpper()» 
@@ -142,6 +147,7 @@ export default class Screen_«name.replaceAll(" ", "_").toFirstUpper()» extends R
 				onAudioPause={this.onAudioPause}
 				onAudioStop={this.onAudioStop}
 				onButtonPress={this.onButtonPress}
+				onDateSelected={this.onDateSelected}
 				onDropdownChange={this.onDropdownChange}
 				onGridItemSelect={this.onGridItemSelect}
 				onListItemSelect={this.onListItemSelect}
@@ -149,6 +155,7 @@ export default class Screen_«name.replaceAll(" ", "_").toFirstUpper()» extends R
 				onSliderChange={this.onSliderChange}
 				onSwitchChange={this.onSwitchChange}
 				onTextChange={this.onTextChange}
+				onTimeSelected={this.onTimeSelected}
 				onPictureRequest={this.onPictureRequest}
 				onRecordingRequest={this.onRecordingRequest}
 				pictureTaken={this.state.pictureTaken}
