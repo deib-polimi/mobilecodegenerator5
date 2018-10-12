@@ -16,19 +16,15 @@
 
 «DEFINE eventBinding FOR ViewController»
 «FOREACH cards AS c»
-	«FOREACH 1.upTo(c.numActions) AS n»
-		this.on«c.id»Action = this.on«c.id»Action«n».bind(this);
-	«ENDFOREACH»
+	this.on«c.id»Action = this.on«c.id»Action.bind(this);
 «ENDFOREACH»
 «ENDDEFINE»
 
 «DEFINE events FOR ViewController»
 «FOREACH cards AS c»
-	«FOREACH 1.upTo(c.numActions) AS n»
-		on«c.id»Action(index) {
-			if (this.props.onCardAction) this.props.onCardAction('«c.id»', index);
-		}
-	«ENDFOREACH»
+	on«c.id»Action(index) {
+		if (this.props.onCardAction) this.props.onCardAction('«c.id»', index);
+	}
 «ENDFOREACH»
 «ENDDEFINE»
 
@@ -36,17 +32,20 @@
 	«FOREACH cards AS c»
 		<CCard
 			«EXPAND reactnative_templates::UIPhoneControl::props FOR c»
-			style={styles.e«c.id»}
+			style={{}}
+			cardStyle={styles.e«c.id»}
+			onAction={this.onAction}
 			id="«c.id»"
 			title="«c.title»"
 			subtitle="«c.subtitle»"
 			image="grid_image"
 			actions={[
 				«FOREACH 1.upTo(c.numActions) AS n»
-					'Action «n»'
+					'Action «n»',
 				«ENDFOREACH»
 			]}
 			fluidHeight={CardHeightMetrics}
+			fluidWidth={CardWidthMetrics}
 		/>
 	«ENDFOREACH»
 «ENDDEFINE»

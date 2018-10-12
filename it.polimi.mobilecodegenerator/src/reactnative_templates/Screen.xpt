@@ -107,7 +107,7 @@ export default class Screen_«name.replaceAll(" ", "_").toFirstUpper()» extends R
 	onTextChange(textId, text) { }
 	
 	onPictureRequest(cameraControllerId) {
-		this.navigation.navigate('Camera', {
+		this.props.navigation.navigate('Camera', {
 			mode: 'camera',
 			onPictureTaken: this.onPictureTaken.bind(this, cameraControllerId)
 		});
@@ -122,7 +122,7 @@ export default class Screen_«name.replaceAll(" ", "_").toFirstUpper()» extends R
 	}
 	
 	onRecordingRequest(cameraControllerId) {
-		this.navigation.navigate('Camera', {
+		this.props.navigation.navigate('Camera', {
 			mode: 'video',
 			onRecordEnd: this.onRecordingComplete.bind(this, cameraControllerId)
 		});

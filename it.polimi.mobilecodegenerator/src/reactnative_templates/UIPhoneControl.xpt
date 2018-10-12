@@ -93,11 +93,17 @@
 	«IF controlChain != null»
 		«IF precedentInChain == null»
 		constraintChain="«controlChain.type.toString()»"
+		«IF controlChain.type.toString().matches("packed")»
 		constraintChainBias={«controlChain.bias»}
+		«ENDIF»
 		constraintChainAxis="«controlChain.axis.toString()»"
+		«IF controlChain.type.toString().matches("weighted")»
 		constraintWeight={«weight»}
+		«ENDIF»
 		«ELSE»
+		«IF controlChain.type.toString().matches("weighted")»
 		constraintWeight={«weight»}
+		«ENDIF»
 		constraintChainPrev="e«precedentInChain.id»"
 		«ENDIF»
 	«ENDIF»

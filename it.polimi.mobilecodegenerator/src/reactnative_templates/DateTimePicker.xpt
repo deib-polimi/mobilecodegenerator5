@@ -9,6 +9,15 @@
 	«ENDFOREACH»
 «ENDDEFINE»
 
+«DEFINE state FOR ViewController»
+«FOREACH datepickers AS dp»
+	e«dp.id»Date: undefined,
+«ENDFOREACH»
+«FOREACH timepickers AS tp»
+	e«tp.id»Time: undefined,
+«ENDFOREACH»
+«ENDDEFINE»
+
 «DEFINE style FOR ViewController»
 	«FOREACH datepickers AS dp»
 		e«dp.id»: {
@@ -34,11 +43,13 @@
 «DEFINE events FOR ViewController»
 «FOREACH datepickers AS dp»
 	on«dp.id»DateSelected(date) {
+		this.setState({ e«dp.id»Date: date });
 		if (this.props.onDateSelected) this.props.onDateSelected('«dp.id»', date);
 	} 
 «ENDFOREACH»
 «FOREACH timepickers AS tp»
 	on«tp.id»TimeSelected(time) {
+		this.setState({ e«tp.id»Time: time });
 		if (this.props.onTimeSelected) this.props.onTimeSelected('«tp.id»', time);
 	}
 «ENDFOREACH»
@@ -49,6 +60,7 @@
 	<CDatePicker
 		«EXPAND reactnative_templates::UIPhoneControl::props FOR dp»
 		style={styles.e«dp.id»}
+		date={this.state.e«dp.id»Date}
 		mode="date"
         placeholder="select date"
         format="YYYY-MM-DD"
@@ -61,6 +73,7 @@
 	<CDatePicker
 		«EXPAND reactnative_templates::UIPhoneControl::props FOR tp»
 		style={styles.e«tp.id»}
+		date={this.state.e«tp.id»Time}
 		mode="time"
         placeholder="select time"
         format="HH:mm"

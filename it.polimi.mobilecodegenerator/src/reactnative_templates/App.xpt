@@ -21,13 +21,17 @@ const Scene_«sceneName» = Device.isTablet ? Tablet_Scene_«sceneName» : Phone_Sce
 «ENDFOREACH»
 
 const Menu = createDrawerNavigator({
-	«FOREACH scenes AS scene»
-	«IF isAMenuDestination(scene.name, menu.menuItems.navigation.destinationScene.name)»
-		Scene_«scene.name.replaceAll(" ", "_").toFirstUpper()»: {
-			screen: Scene_«scene.name.replaceAll(" ", "_").toFirstUpper()»,
-			drawerLabel: '«scene.name.toFirstUpper()»'
+	«FOREACH menu.menuItems AS item»
+		Scene_«item.navigation.destinationScene.name.replaceAll(" ", "_").toFirstUpper()»: {
+			screen: Scene_«item.navigation.destinationScene.name.replaceAll(" ", "_").toFirstUpper()»,
+			drawerLabel: '«item.title»'
 		},
-	«ENDIF»
+	«ENDFOREACH»
+}, {
+	«FOREACH menu.menuItems AS item»
+		«IF item.navigation.destinationScene.launcher»
+			initialRouteName: 'Scene_«item.navigation.destinationScene.name.replaceAll(" ", "_").toFirstUpper()»'
+		«ENDIF»
 	«ENDFOREACH»
 });
 
@@ -51,7 +55,9 @@ const AppStack = createStackNavigator({
 	«ENDFOREACH»
 }, {
 	«FOREACH scenes AS scene»
-	«IF scene.launcher»
+	«IF scene.launcher && isAMenuDestination(scene.name, menu.menuItems.navigation.destinationScene.name)»
+	initialRouteName: 'Menu',
+	«ELSEIF scene.launcher»
 	initialRouteName: 'Scene_«scene.name.replaceAll(" ", "_").toFirstUpper()»',
 	«ENDIF»
 	«ENDFOREACH»

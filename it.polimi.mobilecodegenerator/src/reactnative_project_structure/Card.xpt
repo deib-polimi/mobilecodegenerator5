@@ -2,32 +2,40 @@
 
 «DEFINE main FOR Application»
 «IF viewControllers.cards.size > 0»
+«FILE name + "/Card.js"»
 import React from 'react';
 import { View, Text, Image, TouchableHighlight, StyleSheet } from 'react-native';
 import MeasureText from 'react-native-measure-text';
 
 const styles = StyleSheet.create({
+	card_wrapper: {
+		padding: 10,
+		flex: 1,
+		justifyContent: 'center',
+		alignItems: 'center'
+	},
     card_container: {
-        width: '100%',
         flex: 1,
         flexDirection: 'column',
         alignItems: 'flex-start',
         justifyContent: 'flex-start',
-        padding: 10,
         borderWidth: 1,
         borderRadius: 2,
-        borderColor: '#333',
+        borderColor: '#333'
     },
     card_title: {
         fontSize: 24,
-        marginVertical: 16
+        marginVertical: 16,
+		marginHorizontal: 10
     },
     card_subtitle: {
-        fontSize: 16
+        fontSize: 16,
+		marginHorizontal: 10
     },
     card_image: {
-        alignSelf: 'stretch',
-        aspectRatio: 16 / 9
+        aspectRatio: 16 / 9,
+		marginHorizontal: 10,
+		marginTop: 10,
     },
     card_actions: {
         marginTop: 16,
@@ -36,11 +44,16 @@ const styles = StyleSheet.create({
         justifyContent: 'space-evenly',
         alignItems: 'center',
         paddingVertical: 4,
-        alignSelf: 'stretch'
+        alignSelf: 'stretch',
+		marginHorizontal: 10
     },
     card_action: {
         margin: 0,
-        padding: 0
+        padding: 0,
+        flexGrow: 1
+    },
+    card_text: {
+    	textAlign: 'center'
     }
 });
 
@@ -51,21 +64,30 @@ export function CardHeightMetrics(card, parentWidth, parentHeight) {
     * 
     * Except for text, fixed contribution is ImageHeight + ActionsHeight + Padding + Border + Margins of texts...
     */
-    const fixed = (parentWidth - 20) * 9 / 16 + 24 + 20 + 2 + 16 * 2 + 16;
+	const width = parentWidth < 420 ? parentWidth - 20 : 400;
+    const fixed = (width - 40) * 9 / 16 + 24 + 20 + 2 + 16 * 2 + 16 + 20;
     return Promise.all([
         MeasureText.measure({
             texts: [card.props.title],
-            width: parentWidth - 20, /* padding!! */
+            width: width - 40, /* padding!! */
             fontSize: 24
         }).then(res => res[0]),
         MeasureText.measure({
             texts: [card.props.subtitle],
-            width: parentWidth - 20, /* padding!! */
+            width: width - 40, /* padding!! */
             fontSize: 16
         }).then(res => res[0]),
     ]).then(([titleHeight, subtitleHeight]) => {
         return fixed + titleHeight + subtitleHeight;
     })
+}
+
+export function CardWidthMetrics(card, parentWidth, parentHeight) {
+	if (parentWidth < 420) {
+		return Promise.resolve(parentWidth - 20);
+	} else {
+		return Promise.resolve(400);
+	}
 }
 
 export default class Card extends React.Component {
@@ -80,31 +102,35 @@ export default class Card extends React.Component {
     }
 
     render() {
+		const {width, height} = this.props.style;
         return (
-            <View style={[this.props.style, styles.card_container]}>
-                <Image style={styles.card_image} source={{ uri: this.props.image }} />
-                <Text style={styles.card_title}>{this.props.title}</Text>
-                <Text style={styles.card_subtitle}>{this.props.subtitle}</Text>
-                <View style={styles.card_actions}>
-                    {
-                        this.props.actions.map((action, index) => {
-                            return (
-                                <TouchableHighlight
-                                    key={this.props.id + index}
-                                    style={styles.card_action}
-                                    onPress={this.onAction.bind(this, index)}
-                                    underlayColor="#0000"
-                                >
-                                    <Text>{action}</Text>
-                                </TouchableHighlight>
-                            );
-                        })
-                    }
-                </View>
-            </View>
+        	<View style={[this.props.style, styles.card_wrapper]}>
+	            <View style={[this.props.cardStyle, { width: width - 20, height: height - 20 }, styles.card_container]}>
+	                <Image style={[styles.card_image, {width: width - 40 }]} source={{ uri: this.props.image }} />
+	                <Text style={styles.card_title}>{this.props.title}</Text>
+	                <Text style={styles.card_subtitle}>{this.props.subtitle}</Text>
+	                <View style={styles.card_actions}>
+	                    {
+	                        this.props.actions.map((action, index) => {
+	                            return (
+	                                <TouchableHighlight
+	                                    key={this.props.id + index}
+	                                    style={styles.card_action}
+	                                    onPress={this.onAction.bind(this, index)}
+	                                    underlayColor="#0000"
+	                                >
+	                                    <Text style={styles.card_text}>{action}</Text>
+	                                </TouchableHighlight>
+	                            );
+	                        })
+	                    }
+	                </View>
+	            </View>
+	        </View>
         );
     }
 
 }
+«ENDFILE»
 «ENDIF»
 «ENDDEFINE»

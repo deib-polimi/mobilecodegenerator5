@@ -65,7 +65,7 @@ export default createBottomTabNavigator({
 	Screen_«cvc.viewController.name.replaceAll(" ", "_").toFirstUpper()»: {
 		screen: Screen_«cvc.viewController.name.replaceAll(" ", "_").toFirstUpper()»,
 		tabBarLabel: '«cvc.viewController.name.toFirstUpper()»'
-	}
+	},
 	«ENDFOREACH»
 }, {
 	initialRouteName: 'Screen_«childViewControllers.get(0).viewController.name.replaceAll(" ", "_").toFirstUpper()»'

@@ -55,18 +55,9 @@ export class ConstraintLayout extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            skipDueToKeyboard: false
+            width: undefined,
+			height: undefined
         }
-        this.keyboardShowListener = Keyboard.addListener('keyboardDidShow', () => {
-            this.setState({
-                skipDueToKeyboard: true
-            });
-        });
-        this.keyboardHideListener = Keyboard.addListener('keyboardDidHide', () => {
-            this.setState({
-                skipDueToKeyboard: true
-            });
-        });
         this.onLayout = this.onLayout.bind(this);
     }
 
@@ -80,8 +71,6 @@ export class ConstraintLayout extends React.Component {
 
     componentWillUnmount() {
         ConstraintCalculator.deleteGroup(this.key);
-        this.keyboardShowListener.remove();
-        this.keyboardHideListener.remove();
     }
 
     onLayout(event) {
@@ -90,10 +79,10 @@ export class ConstraintLayout extends React.Component {
         // Not to be triggered on keyboard opening, but only on device rotation
         // This works because keyboard show | hide event is called before onLayout, 
         // and the listener is used to prevent the recomputation at next layout cycle
-        if (!this.state.skipDueToKeyboard) {
+		console.log(this.state);
+        if (this.state.width !== width && this.state.height !== height) {
             ConstraintCalculator.recomputeGroup(this.key, width, height);
-        } else {
-            this.setState({ skipDueToKeyboard: false });
+			this.setState({ width, height });
         }
     }
 
@@ -127,18 +116,18 @@ export function withConstraints(WrappedComponent) {
         }
         render() {
             let {style, ...others} = this.props;
-            style = {
-                ...style,
-                marginTop: 0,
-                marginBottom: 0,
-                marginLeft: 0,
-                marginRight: 0,
-                marginVertical: 0,
-                marginHorizontal: 0,
-                margin: 0,
-                position: 'absolute',
-                ...this.state.style,
-            };
+			style = {
+				...style,
+				marginTop: 0,
+				marginBottom: 0,
+				marginLeft: 0,
+				marginRight: 0,
+				marginVertical: 0,
+				marginHorizontal: 0,
+				margin: 0,
+				position: 'absolute',
+				...this.state.style,
+			};
             others = {
                 ...others,
                 marginTop: 0,
@@ -166,9 +155,9 @@ export function normalizeStyleProp(WrappedComponent, stylePropName) {
         }
     }
 }
-
 «ENDFILE»
 «FILE name + "/ConstraintCalculator.js"»
+
 import React from 'react';
 
 function marginTop(element) {
@@ -253,6 +242,9 @@ function top(element, height, parentHeight, otherStyles) {
     if (element === null) {
         return 0;
     }
+    if (otherStyles[element.props.id] && otherStyles[element.props.id].top !== undefined) {
+        return otherStyles[element.props.id].top;
+    }
     if (element.props.constraintTop) {
         let top = element.props.constraintTop;
         let ref = top.ref !== null ? otherStyles[top.ref][top.side] : 0;
@@ -280,6 +272,9 @@ function top(element, height, parentHeight, otherStyles) {
 function left(element, width, parentWidth, otherStyles) {
     if (element === null) {
         return 0;
+    }
+    if (otherStyles[element.props.id] && otherStyles[element.props.id].left !== undefined) {
+        return otherStyles[element.props.id].left;
     }
     if (element.props.constraintStart) {
         let c = element.props.constraintStart;
@@ -384,7 +379,7 @@ function solveHorizontalChain(reactChildren, parentWidth, parentHeight, otherSty
         const out = {};
         reactChildren.forEach((child, i) => {
             out[child.props.id] = {
-                width: widths[i] - marginStart(child) - marginEnd(width),
+                width: widths[i] - marginStart(child) - marginEnd(child),
                 left: acc + marginStart(child)
             };
             acc += widths[i];
@@ -438,7 +433,7 @@ function solveVerticalChain(reactChildren, parentWidth, parentHeight, otherStyle
         const out = {};
         reactChildren.forEach((child, i) => {
             out[child.props.id] = {
-                height: heights[i] - marginTop(child) - marginBottom(width),
+                height: heights[i] - marginTop(child) - marginBottom(child),
                 top: acc + marginTop(child)
             };
             acc += heights[i];
@@ -539,7 +534,7 @@ function sortBasingOnDependencies(reactChildrenArray) {
     return sorted;
 }
 
-function findChains(reactChild) {
+function findChains(reactChildren) {
     const heads = [];
     const next = {};
     const mapper = {};

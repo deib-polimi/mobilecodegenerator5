@@ -1,0 +1,23 @@
+«IMPORT metamodel»
+
+«REM»
+We do not generate the full settings.gradle file, since during the RN workspace setup `react-native link` will care of it
+The only line to generate is the one for package react-native-audio-toolkit (if required by the application) because it is 
+not standard, and `react-native link` cannot deal with it.
+If the interface becomes standard in the future, please make the generation of this file fully automatic, delete this template
+and remove it from ./main.xpt
+«ENDREM»
+
+«DEFINE main FOR Application»
+«FILE name + "/android/settings.gradle"»
+rootProject.name = '«name.toFirstUpper()»'
+
+«IF viewControllers.audioPlayers.size > 0 || viewControllers.audioRecorder.size > 0»
+include ':react-native-audio-toolkit'
+project(':react-native-audio-toolkit').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-audio-toolkit/android/lib')
+«ENDIF»
+
+include ':app'
+
+«ENDFILE»
+«ENDDEFINE»

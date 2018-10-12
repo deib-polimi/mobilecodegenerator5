@@ -37,6 +37,9 @@
     «IF viewControllers.videoViews.size > 0»
     "react-native-video": "^3.2.1",
     «ENDIF»
+    «IF viewControllers.datepickers.size > 0 || viewControllers.timepickers.size > 0»
+    "react-native-datepicker": "^1.7.2",
+    «ENDIF»
     "@babel/runtime": "^7.0.0"
   },
   "devDependencies": {

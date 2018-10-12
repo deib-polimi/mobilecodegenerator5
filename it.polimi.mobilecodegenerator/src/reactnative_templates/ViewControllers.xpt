@@ -38,6 +38,7 @@
 			«EXPAND reactnative_templates::Container::style»
 			«EXPAND reactnative_templates::Map::style»
 			«EXPAND reactnative_templates::DateTimePicker::style»
+			«EXPAND reactnative_templates::Card::style»
 		});
 		
 		export default class Component_«name.replaceAll(" ", "_").toFirstUpper()» extends React.Component {
@@ -47,6 +48,7 @@
 					«EXPAND reactnative_templates::Slider::state»
 					«EXPAND reactnative_templates::Switch::state»
 					«EXPAND reactnative_templates::Dropdown::state»
+					«EXPAND reactnative_templates::DateTimePicker::state»
 				};
 				«EXPAND reactnative_templates::TextInput::eventBinding»
 				«EXPAND reactnative_templates::Button::eventBinding»
@@ -61,6 +63,7 @@
 				«EXPAND reactnative_templates::PhotoCamera::eventBinding»
 				«EXPAND reactnative_templates::VideoCamera::eventBinding»
 				«EXPAND reactnative_templates::DateTimePicker::eventBinding»
+				«EXPAND reactnative_templates::Card::eventBinding»
 			}
 			
 			«EXPAND reactnative_templates::TextInput::events»
@@ -76,6 +79,7 @@
 			«EXPAND reactnative_templates::PhotoCamera::events»
 			«EXPAND reactnative_templates::VideoCamera::events»
 			«EXPAND reactnative_templates::DateTimePicker::events»
+			«EXPAND reactnative_templates::Card::events»
 			
 			render() {
 				const {style, ...passProps} = this.props;
@@ -102,6 +106,7 @@
 						«EXPAND reactnative_templates::Container::render»
 						«EXPAND reactnative_templates::Map::render»
 						«EXPAND reactnative_templates::DateTimePicker::render»
+						«EXPAND reactnative_templates::Card::render»
 					</ConstraintLayout>
 					«IF !backgroundImage.matches("")»
 					</ImageBackground>
@@ -125,7 +130,7 @@ import {
 «IF editTexts.size > 0»
 	CTextInput,
 «ENDIF»
-«IF buttons.size > 0 »
+«IF buttons.size > 0 || photocameraController != null || videocameraController != null »
 	CTouchableHighlight,
 «ENDIF»
 «IF sliders.size > 0 »
@@ -169,7 +174,7 @@ import {
 «ENDIF»
 } from '../ConstrainableControls';
 «IF cards.size > 0»
-import { CardHeightMetrics } from '../Card';
+import { CardHeightMetrics, CardWidthMetrics } from '../Card';
 «ENDIF»
 «IF photocameraController != null || videocameraController != null»
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';

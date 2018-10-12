@@ -29,64 +29,18 @@
 «ENDFOREACH»
 «ENDDEFINE»
 
-«DEFINE props FOR GridView»
-	id="e«id»"
-	«IF marginTop != null && marginTop != 0»
-	marginTop={«marginTop»}
-	«ENDIF»
-	«IF marginBottom != null && marginBottom != 0»
-	marginBottom={«marginBottom»}
-	«ENDIF»
-	«IF marginStart != null && marginStart != 0»
-	marginStart={«marginStart»}
-	«ENDIF»
-	«IF marginEnd != null && marginEnd != 0»
-	marginEnd={«marginEnd»}
-	«ENDIF»
-	defaultHeight={«defaultHeight»}
-	defaultWidth={«defaultWidth»}
-	posX={«posX»}
-	posY={«posY»}
-	«IF dimensionConstraint != null»
-		«IF dimensionConstraint.fixedWidth != null»
-			constraintWidth={«dimensionConstraint.fixedWidth»}
-		«ELSEIF dimensionConstraint.widthPercent != null»
-			constraintWidthPercent={«dimensionConstraint.widthPercent»}
-		«ELSE»
-			constraintWidthPercent={1.0}
-		«ENDIF»
-		«IF dimensionConstraint.fixedHeight != null»
-			constraintHeight={«dimensionConstraint.fixedHeight»}
-		«ELSEIF dimensionConstraint.heightPercent != null»
-			constraintHeightPercent={«dimensionConstraint.heightPercent»}
-		«ELSE»
-		«ENDIF»
-		«IF dimensionConstraint.fixedRatio != null»
-			constraintRatio={«dimensionConstraint.fixedRatio»}
-		«ENDIF»
-	«ELSE»
-		constraintWidthPercent={1.0}
-	«ENDIF»
-	«FOREACH positionConstraints AS pc»
-		«IF pc.withParent == true»
-			constraint«pc.layoutEdge.toString().toFirstUpper()»={{ref: null, side: '«pc.referenceLayoutEdge»'}}
-		«ELSE»
-			constraint«pc.layoutEdge.toString().toFirstUpper()»={{ref: 'e«pc.referenceElement.id»', side: '«pc.referenceLayoutEdge»'}}
-		«ENDIF»
-	«ENDFOREACH»
-«ENDDEFINE»
-
 «DEFINE render FOR ViewController»
 	«FOREACH gridViews AS gv»
 		<CGridView
 			«EXPAND reactnative_templates::UIPhoneControl::props FOR gv»
-			style={[styles.e«gv.id», { width: '100%' }]}
+			style={styles.e«gv.id»}
 			itemDimension={190}
 			items={[
 				«FOREACH gv.gridViewCells AS cell ITERATOR iter»
 					{ key: '«iter.counter1»', title: '«cell.title»', image: 'grid_image' },
 				«ENDFOREACH»
 				]}
+			fluidWidth={(grid, parentWidth, parentHeight) => Promise.resolve(parentWidth)}
 			renderItem={(item) => <GridElement«gv.id.toFirstUpper()» title={item.title} image={item.image} onPress={() => this.on«gv.id»ItemSelect(item)} /> }
 		></CGridView>
 	«ENDFOREACH»

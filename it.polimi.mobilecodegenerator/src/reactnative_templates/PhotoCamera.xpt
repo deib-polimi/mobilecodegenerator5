@@ -16,7 +16,7 @@
 
 «DEFINE eventBinding FOR ViewController»
 	«IF photocameraController != null»
-	this.on«photocameraController.id»PictureRequest = this.on«photocameraController.id»PictureTaken.bind(this);
+	this.on«photocameraController.id»PictureRequest = this.on«photocameraController.id»PictureRequest.bind(this);
 	«ENDIF»
 «ENDDEFINE»
 
