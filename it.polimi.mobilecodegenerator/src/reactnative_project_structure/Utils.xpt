@@ -1,0 +1,29 @@
+«IMPORT metamodel»
+
+«DEFINE main FOR Application»
+«FILE name + "/patches.js"»
+const fs = require('fs');
+let path = './node_modules/react-native-filesystem-v1/android/src/main/java/com/benwixen/rnfilesystem/RNFileSystemPackage.java';
+if (fs.existsSync(path)) {
+	let content = fs.readFileSync(path, { encoding: 'utf8' });
+	content = content.split("\n");
+	for(let i = 0; i < content.length - 1; i++) {
+		if (content[i].includes("@Override") && content[i+1].includes("createJSModules")) {
+			content[i] = "//" + content[i];
+		}
+	}
+	content = content.join("\n");
+	fs.writeFileSync(path, content);
+}
+path = './node_modules/react-native-sqlite-storage/package.json';
+if (fs.existsSync(path)) {
+	let content = fs.readFileSync(path, { encoding: 'utf8' });
+	content = JSON.parse(content);
+	content.rnpm.android = {
+		sourceDir: './src/android'
+	};
+	content = JSON.stringify(content);
+	fs.writeFileSync(path, content);
+}
+«ENDFILE»
+«ENDDEFINE»

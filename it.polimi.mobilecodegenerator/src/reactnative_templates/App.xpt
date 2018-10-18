@@ -6,7 +6,7 @@
 «FILE name + "/App.js"»
 import React, { Component } from 'react';
 import { createStackNavigator, createDrawerNavigator } from 'react-navigation';
-import { TouchableHighlight } from 'react-native';
+import { TouchableHighlight, YellowBox } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import Device from 'react-native-device-detection';
 «IF viewControllers.photocameraController.size > 0 || viewControllers.videocameraController.size > 0»
@@ -79,6 +79,9 @@ const RootStack = createStackNavigator({
 «ELSE»
 const RootStack = AppStack;
 «ENDIF»
+
+// Suppress useless warnings
+YellowBox.ignoreWarnings(['Setting a timer']);
 
 
 export default class App extends Component {

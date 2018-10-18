@@ -12,4 +12,6 @@
 «EXPAND reactnative_project_structure::package_json::main»
 «EXPAND reactnative_project_structure::settings_gradle::main»
 «EXPAND reactnative_project_structure::VideoPlayer::main»
+
+«EXPAND reactnative_project_structure::Utils::main»
 «ENDDEFINE»
