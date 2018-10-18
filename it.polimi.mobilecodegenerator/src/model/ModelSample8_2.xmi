@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metamodel:Application xmi:version="2.0"
+	xmlns:xmi="http://www.omg.org/XMI"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:metamodel="http://metamodel/1.0" xsi:schemaLocation="http://metamodel/1.0 ../metamodel/metamodel.ecore" name="modelApp" companyIdentifier="it.polimi">
+	<dataHandler>
+		<preferenceHandler>
+			<preferenceRecords key="StringValue1" value="blablabla" type="string"/>
+			<preferenceRecords key="ILikeIt" value="true" type="boolean"/>
+			<preferenceRecords key="SomeLongishName" value="348792" type="int"/>
+			<preferenceRecords key="Price" value="200.00" type="float"/>
+		</preferenceHandler>
+		<databaseHandler>
+			<entities name="Person" primaryKey="code">
+				<entityAttributes name="surname" type="String"/>
+				<entityAttributes name="name" type="String"/>
+				<entityAttributes name="birthDate" type="Date"/>
+				<entityRelationships name="subscribedTo" destination="Event" type="1 : N"/>
+			</entities>
+			<entities name="Event" primaryKey="id">
+				<entityAttributes name="title" type="String"/>
+				<entityRelationships name="subscribers" destination="Person" type="1 : N"/>
+			</entities>
+		</databaseHandler>
+		<cloudHandler>
+			<cloudObjects name="TestObj">
+				<objectAttributes name="FirstAttr" type="Integer"/>
+				<objectAttributes name="SecondAttr" type="Float"/>
+			</cloudObjects>
+			<cloudObjects name="OtherObj">
+				<objectAttributes name="Content" type="Object list" object="TestObj"/>
+			</cloudObjects>
+		</cloudHandler>
+		<storageHandler>
+			<storageRecords name="provaprova" extension="other" tempFile="true"/>
+		</storageHandler>
+	</dataHandler>
+	<viewControllers id="qm7gt" name="HomeView" backgroundColor="#cccccc" backgroundImage="">
+		<textViews id="idanq71Label" viewController="//@viewControllers[id='qm7gt']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="10" marginBottom="10" marginStart="0" marginEnd="0" content="Username" textAlign="left" textColor="#0000ff" textSize="16" textDecoration="italic">
+			<positionConstraints id="nslkn" uiPhoneControl="//@viewControllers[id='qm7gt']/@textViews[id='idanq71Label']" layoutEdge="centerX" withParent="true" referenceLayoutEdge="centerX"/>
+			<positionConstraints id="hd62e" uiPhoneControl="//@viewControllers[id='qm7gt']/@textViews[id='idanq71Label']" layoutEdge="top" withParent="true" referenceLayoutEdge="top"/>
+		</textViews>
+		<editTexts id="id1kk9hEditText" viewController="//@viewControllers[id='qm7gt']" defaultWidth="88" defaultHeight="36" posX="110.83333333333333" posY="55.9999974568685" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="10" marginBottom="0" marginStart="0" marginEnd="0" initialContent="" placeholder="Username here" textColor="#000000" textSize="16">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='qm7gt']/@editTexts[id='id1kk9hEditText']" fixedWidth="150"/>
+			<positionConstraints id="jh55h" uiPhoneControl="//@viewControllers[id='qm7gt']/@editTexts[id='id1kk9hEditText']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='qm7gt']/@textViews[id='idanq71Label']" referenceLayoutEdge="bottom"/>
+			<positionConstraints id="odtnm" uiPhoneControl="//@viewControllers[id='qm7gt']/@editTexts[id='id1kk9hEditText']" layoutEdge="centerX" withParent="true" referenceLayoutEdge="centerX"/>
+		</editTexts>
+		<buttons id="idshogdButton" viewController="//@viewControllers[id='qm7gt']" defaultWidth="88" defaultHeight="40" posX="143.49995930989584" posY="101.999994913737" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="30" marginBottom="0" marginStart="0" marginEnd="0" title="Login" textColor="#ff0000" backgroundColor="#ebff00" borderRadius="2" clickColor="#ff0000">
+			<positionConstraints id="ei3ce" uiPhoneControl="//@viewControllers[id='qm7gt']/@buttons[id='idshogdButton']" layoutEdge="centerX" withParent="false" referenceElement="//@viewControllers[id='qm7gt']/@textViews[id='idanq71Label']" referenceLayoutEdge="centerX"/>
+			<positionConstraints id="666ou" uiPhoneControl="//@viewControllers[id='qm7gt']/@buttons[id='idshogdButton']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='qm7gt']/@editTexts[id='id1kk9hEditText']" referenceLayoutEdge="bottom"/>
+			<navigations id="jjs6n" contextScene="//@scenes[id='f76rn']" destinationScene="//@scenes[id='lpu4d']"/>
+		</buttons>
+		<sliders id="ide1l64Slider" viewController="//@viewControllers[id='qm7gt']" defaultWidth="150" defaultHeight="50" posX="128.33333333333334" posY="211.66666666666669" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="30" marginBottom="0" marginStart="0" marginEnd="0">
+			<positionConstraints id="ske97" uiPhoneControl="//@viewControllers[id='qm7gt']/@sliders[id='ide1l64Slider']" layoutEdge="centerX" withParent="true" referenceLayoutEdge="centerX"/>
+			<positionConstraints id="j92r6" uiPhoneControl="//@viewControllers[id='qm7gt']/@sliders[id='ide1l64Slider']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='qm7gt']/@buttons[id='idshogdButton']" referenceLayoutEdge="bottom"/>
+		</sliders>
+		<switches id="idvdittSwitch" viewController="//@viewControllers[id='qm7gt']" defaultWidth="51" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="20" marginEnd="0">
+			<positionConstraints id="n1crr" uiPhoneControl="//@viewControllers[id='qm7gt']/@switches[id='idvdittSwitch']" layoutEdge="centerY" withParent="false" referenceElement="//@viewControllers[id='qm7gt']/@sliders[id='ide1l64Slider']" referenceLayoutEdge="centerY"/>
+			<positionConstraints id="gtt4e" uiPhoneControl="//@viewControllers[id='qm7gt']/@switches[id='idvdittSwitch']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='qm7gt']/@sliders[id='ide1l64Slider']" referenceLayoutEdge="end"/>
+		</switches>
+		<spinners id="idpbtjlSpinner" viewController="//@viewControllers[id='qm7gt']" defaultWidth="180" defaultHeight="48" posX="0" posY="246.6666920979818" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="10" marginBottom="0" marginStart="10" marginEnd="0">
+			<positionConstraints id="198os" uiPhoneControl="//@viewControllers[id='qm7gt']/@spinners[id='idpbtjlSpinner']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+			<positionConstraints id="g2q70" uiPhoneControl="//@viewControllers[id='qm7gt']/@spinners[id='idpbtjlSpinner']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='qm7gt']/@switches[id='idvdittSwitch']" referenceLayoutEdge="bottom"/>
+		</spinners>
+		<audioPlayers id="id9fusnAudioPlayer" viewController="//@viewControllers[id='qm7gt']" defaultWidth="250" defaultHeight="75" posX="83.32295735677084" posY="506.9999694824219" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="15" marginStart="0" marginEnd="0" sourceType="hardwareFile" fileUri="">
+			<positionConstraints id="b59nt" uiPhoneControl="//@viewControllers[id='qm7gt']/@audioPlayers[id='id9fusnAudioPlayer']" layoutEdge="bottom" withParent="true" referenceLayoutEdge="bottom"/>
+			<positionConstraints id="3st2r" uiPhoneControl="//@viewControllers[id='qm7gt']/@audioPlayers[id='id9fusnAudioPlayer']" layoutEdge="centerX" withParent="true" referenceLayoutEdge="centerX"/>
+		</audioPlayers>
+		<audioRecorder id="id10na2AudioRecorder" viewController="//@viewControllers[id='qm7gt']" defaultWidth="88" defaultHeight="40" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" audioPlayerId="id9fusnAudioPlayer">
+			<positionConstraints id="0rchb" uiPhoneControl="//@viewControllers[id='qm7gt']/@audioRecorder" layoutEdge="centerX" withParent="true" referenceLayoutEdge="centerX"/>
+			<positionConstraints id="89u0h" uiPhoneControl="//@viewControllers[id='qm7gt']/@audioRecorder" layoutEdge="bottom" withParent="false" referenceElement="//@viewControllers[id='qm7gt']/@audioPlayers[id='id9fusnAudioPlayer']" referenceLayoutEdge="top"/>
+		</audioRecorder>
+	</viewControllers>
+	<viewControllers id="ik3ia" name="SecondView" backgroundColor="#ffffff" backgroundImage="">
+		<webViews id="id57ohoWebView" viewController="//@viewControllers[id='ik3ia']" defaultWidth="240" defaultHeight="128" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" HTMLFileName="http://www.google.it">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='ik3ia']/@webViews[id='id57ohoWebView']" widthPercent="1" heightPercent="1"/>
+		</webViews>
+	</viewControllers>
+	<viewControllers id="o27da" name="ThirdView" backgroundColor="#ffffff" backgroundImage="">
+		<listViews id="idedi8tListView" viewController="//@viewControllers[id='o27da']" defaultWidth="270" defaultHeight="270" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" backgroundColor="#edcb1a" listType="detailed">
+			<navigations id="8s9f9" contextScene="//@scenes[id='lpu4d']" destinationScene="//@scenes[id='8p675']"/>
+			<listViewCells title="item1" subtitle="Content"/>
+			<listViewCells title="item2" subtitle="Content"/>
+		</listViews>
+		<listViews id="idoplgoListView" viewController="//@viewControllers[id='o27da']" defaultWidth="270" defaultHeight="270" posX="0" posY="183.32293192545575" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" backgroundColor="" listType="simple">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='o27da']/@listViews[id='idoplgoListView']" widthPercent="0.5"/>
+			<positionConstraints id="gnnvg" uiPhoneControl="//@viewControllers[id='o27da']/@listViews[id='idoplgoListView']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='o27da']/@listViews[id='idedi8tListView']" referenceLayoutEdge="bottom"/>
+			<navigations id="p2m8h" contextScene="//@scenes[id='lpu4d']"/>
+			<listViewCells title="item11" subtitle="Content"/>
+			<listViewCells title="item12" subtitle="Content"/>
+		</listViews>
+		<listViews id="idgta5aListView" viewController="//@viewControllers[id='o27da']" defaultWidth="270" defaultHeight="270" posX="66.66666666666667" posY="203.33333333333337" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" backgroundColor="" listType="image">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='o27da']/@listViews[id='idgta5aListView']" widthPercent="0.5"/>
+			<positionConstraints id="hlle2" uiPhoneControl="//@viewControllers[id='o27da']/@listViews[id='idgta5aListView']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='o27da']/@listViews[id='idoplgoListView']" referenceLayoutEdge="end"/>
+			<positionConstraints id="8rn4r" uiPhoneControl="//@viewControllers[id='o27da']/@listViews[id='idgta5aListView']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='o27da']/@listViews[id='idedi8tListView']" referenceLayoutEdge="bottom"/>
+			<navigations id="pebc0" contextScene="//@scenes[id='lpu4d']"/>
+			<listViewCells title="item21" subtitle="Content"/>
+			<listViewCells title="item22" subtitle="Content"/>
+		</listViews>
+	</viewControllers>
+	<viewControllers id="5q37v" name="FourthView" backgroundColor="#ffffff" backgroundImage="">
+		<gridViews id="id6s65lGridView" viewController="//@viewControllers[id='5q37v']" defaultWidth="0" defaultHeight="408" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" gridType="detailed">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='5q37v']/@gridViews[id='id6s65lGridView']" heightPercent="1"/>
+			<gridViewCells title="11"/>
+			<gridViewCells title="12"/>
+			<gridViewCells title="13"/>
+			<gridViewCells title="14"/>
+		</gridViews>
+	</viewControllers>
+	<viewControllers id="h4bsm" name="FifthView" backgroundColor="#ffffff" backgroundImage="">
+		<imageViews id="id0oorfImageView" viewController="//@viewControllers[id='h4bsm']" defaultWidth="240" defaultHeight="128" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" sourceType="localFile" fileUri="grid_image.png"/>
+		<videoViews id="idvura9VideoView" viewController="//@viewControllers[id='h4bsm']" defaultWidth="240" defaultHeight="128" posX="0" posY="216.65625254313153" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" sourceType="remoteFile" fileUri="https://clips.vorwaerts-gmbh.de/VfE_html5.mp4"/>
+		<photocameraController id="iddk1pdPhotocameraController" viewController="//@viewControllers[id='h4bsm']" defaultWidth="120" defaultHeight="40" posX="0" posY="380" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" backgroundType="icon"/>
+		<videocameraController id="id0qv15VideocameraController" viewController="//@viewControllers[id='h4bsm']" defaultWidth="120" defaultHeight="40" posX="255" posY="378.33333333333337" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" backgroundType="icon"/>
+	</viewControllers>
+	<viewControllers id="a7n06" name="SixthView" backgroundColor="#ffffff" backgroundImage="">
+		<controlChains id="id4lkmcChain" viewController="//@viewControllers[id='a7n06']" axis="horizontal" type="weighted" nControls="2" spacing="0"/>
+		<cards id="idrse0uCard" viewController="//@viewControllers[id='a7n06']" defaultWidth="320" defaultHeight="320" posX="439.99997965494794" posY="5.000005086263021" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="8" marginBottom="8" marginStart="8" marginEnd="8" title="My first card" subtitle="Let's see if this works" numActions="3">
+			<positionConstraints id="g2lu1" uiPhoneControl="//@viewControllers[id='a7n06']/@cards[id='idrse0uCard']" layoutEdge="top" withParent="true" referenceLayoutEdge="top"/>
+			<positionConstraints id="p7cjo" uiPhoneControl="//@viewControllers[id='a7n06']/@cards[id='idrse0uCard']" layoutEdge="centerX" withParent="true" referenceLayoutEdge="centerX"/>
+		</cards>
+		<buttons id="idd93hmButton" viewController="//@viewControllers[id='a7n06']" defaultWidth="88" defaultHeight="40" posX="0" posY="0" controlChain="//@viewControllers[id='a7n06']/@controlChains[id='id4lkmcChain']" indexInChain="0" followingInChain="//@viewControllers[id='a7n06']/@buttons[id='idgfabaButton']" weight="1" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" title="Button" textColor="" backgroundColor="" borderRadius="2" clickColor="">
+			<positionConstraints id="507r7" uiPhoneControl="//@viewControllers[id='a7n06']/@buttons[id='idd93hmButton']" layoutEdge="bottom" withParent="true" referenceLayoutEdge="bottom"/>
+			<navigations id="pupjt" contextScene="//@scenes[id='psc3p']"/>
+		</buttons>
+		<buttons id="idgfabaButton" viewController="//@viewControllers[id='a7n06']" defaultWidth="88" defaultHeight="40" posX="0" posY="0" controlChain="//@viewControllers[id='a7n06']/@controlChains[id='id4lkmcChain']" indexInChain="1" precedentInChain="//@viewControllers[id='a7n06']/@buttons[id='idd93hmButton']" weight="1" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" title="Button" textColor="" backgroundColor="" borderRadius="2" clickColor="">
+			<positionConstraints id="43glm" uiPhoneControl="//@viewControllers[id='a7n06']/@buttons[id='idgfabaButton']" layoutEdge="bottom" withParent="false" referenceElement="//@viewControllers[id='a7n06']/@buttons[id='idd93hmButton']" referenceLayoutEdge="bottom"/>
+			<navigations id="vomif" contextScene="//@scenes[id='psc3p']"/>
+		</buttons>
+	</viewControllers>
+	<viewControllers id="ku0fa" name="SeventhView" backgroundColor="#ffffff" backgroundImage="">
+		<map id="idnumc3Map" viewController="//@viewControllers[id='ku0fa']" defaultWidth="200" defaultHeight="330" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" lat="45.478" lon="9.227">
+			<dimensionConstraint uiPhoneControl="//@viewControllers[id='ku0fa']/@map" widthPercent="1" heightPercent="1"/>
+		</map>
+	</viewControllers>
+	<viewControllers id="ijdgs" name="EighthView" backgroundColor="#ffffff" backgroundImage="">
+		<timepickers id="idvjajfTimepicker" viewController="//@viewControllers[id='ijdgs']" defaultWidth="346" defaultHeight="346" posX="30" posY="1.666666666666667" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0">
+			<positionConstraints id="0enub" uiPhoneControl="//@viewControllers[id='ijdgs']/@timepickers[id='idvjajfTimepicker']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+			<positionConstraints id="jhtil" uiPhoneControl="//@viewControllers[id='ijdgs']/@timepickers[id='idvjajfTimepicker']" layoutEdge="end" withParent="true" referenceLayoutEdge="end"/>
+			<positionConstraints id="0eeld" uiPhoneControl="//@viewControllers[id='ijdgs']/@timepickers[id='idvjajfTimepicker']" layoutEdge="top" withParent="true" referenceLayoutEdge="top"/>
+		</timepickers>
+		<datepickers id="idhbi8bDatepicker" viewController="//@viewControllers[id='ijdgs']" defaultWidth="348" defaultHeight="365" posX="36.66666666666667" posY="217" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0">
+			<positionConstraints id="bfl9c" uiPhoneControl="//@viewControllers[id='ijdgs']/@datepickers[id='idhbi8bDatepicker']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='ijdgs']/@timepickers[id='idvjajfTimepicker']" referenceLayoutEdge="start"/>
+			<positionConstraints id="vt2vo" uiPhoneControl="//@viewControllers[id='ijdgs']/@datepickers[id='idhbi8bDatepicker']" layoutEdge="end" withParent="false" referenceElement="//@viewControllers[id='ijdgs']/@timepickers[id='idvjajfTimepicker']" referenceLayoutEdge="end"/>
+			<positionConstraints id="nqvsv" uiPhoneControl="//@viewControllers[id='ijdgs']/@datepickers[id='idhbi8bDatepicker']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='ijdgs']/@timepickers[id='idvjajfTimepicker']" referenceLayoutEdge="bottom"/>
+		</datepickers>
+	</viewControllers>
+	<scenes id="f76rn" name="homeScene" launcher="true" typeSmartphone="singleVC" typeTablet="singleVC">
+		<childViewControllers viewController="//@viewControllers[id='qm7gt']"/>
+	</scenes>
+	<scenes id="8p675" name="newScene1" launcher="false" typeSmartphone="singleVC" typeTablet="singleVC">
+		<childViewControllers viewController="//@viewControllers[id='ik3ia']"/>
+	</scenes>
+	<scenes id="lpu4d" name="newScene2" launcher="false" typeSmartphone="singleVC" typeTablet="multiVC">
+		<parentViewControllers id="q2aq3" name="parentVCTablet" backgroundColor="#ffffff" backgroundImage="">
+			<containers childViewController="//@viewControllers[id='o27da']" id="id1r9d5Container" viewController="//@scenes[id='lpu4d']/@parentViewControllers[id='q2aq3']" defaultWidth="300" defaultHeight="400" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0">
+				<dimensionConstraint uiPhoneControl="//@scenes[id='lpu4d']/@parentViewControllers[id='q2aq3']/@containers[id='id1r9d5Container']" widthPercent="0.5"/>
+				<positionConstraints id="72uem" uiPhoneControl="//@scenes[id='lpu4d']/@parentViewControllers[id='q2aq3']/@containers[id='id1r9d5Container']" layoutEdge="top" withParent="true" referenceLayoutEdge="top"/>
+				<positionConstraints id="6qjad" uiPhoneControl="//@scenes[id='lpu4d']/@parentViewControllers[id='q2aq3']/@containers[id='id1r9d5Container']" layoutEdge="start" withParent="false" referenceElement="//@scenes[id='lpu4d']/@parentViewControllers[id='q2aq3']/@containers[id='idtsn3uContainer']" referenceLayoutEdge="end"/>
+			</containers>
+			<containers childViewController="//@viewControllers[id='5q37v']" id="idtsn3uContainer" viewController="//@scenes[id='lpu4d']/@parentViewControllers[id='q2aq3']" defaultWidth="300" defaultHeight="400" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0">
+				<dimensionConstraint uiPhoneControl="//@scenes[id='lpu4d']/@parentViewControllers[id='q2aq3']/@containers[id='idtsn3uContainer']" widthPercent="0.45"/>
+				<positionConstraints id="hjghr" uiPhoneControl="//@scenes[id='lpu4d']/@parentViewControllers[id='q2aq3']/@containers[id='idtsn3uContainer']" layoutEdge="top" withParent="true" referenceLayoutEdge="top"/>
+				<positionConstraints id="eu999" uiPhoneControl="//@scenes[id='lpu4d']/@parentViewControllers[id='q2aq3']/@containers[id='idtsn3uContainer']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+			</containers>
+		</parentViewControllers>
+		<childViewControllers viewController="//@viewControllers[id='o27da']"/>
+		<childViewControllers viewController="//@viewControllers[id='5q37v']"/>
+	</scenes>
+	<scenes id="psc3p" name="newScene3" launcher="false" typeSmartphone="singleVC" typeTablet="singleVC">
+		<childViewControllers viewController="//@viewControllers[id='a7n06']"/>
+		<childViewControllers viewController="//@viewControllers[id='ku0fa']"/>
+		<childViewControllers viewController="//@viewControllers[id='ijdgs']"/>
+		<childViewControllers viewController="//@viewControllers[id='h4bsm']"/>
+	</scenes>
+	<menu>
+		<menuItems title="Web" id="idWeb">
+			<navigation id="70db1" destinationScene="//@scenes[id='8p675']"/>
+		</menuItems>
+		<menuItems title="Tabs" id="idTabs">
+			<navigation id="kkssv" destinationScene="//@scenes[id='psc3p']"/>
+		</menuItems>
+	</menu>
+</metamodel:Application>

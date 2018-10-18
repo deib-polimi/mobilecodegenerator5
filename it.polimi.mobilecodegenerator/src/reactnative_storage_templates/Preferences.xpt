@@ -1,0 +1,116 @@
+«IMPORT metamodel»
+
+«DEFINE main FOR Application»
+«IF dataHandler.preferenceHandler != null »
+«EXPAND preferenceHandler FOR dataHandler.preferenceHandler»
+«ENDIF»
+«ENDDEFINE»
+
+«DEFINE preferenceHandler FOR PreferenceHandler»
+«FILE dataHandler.application.name + "/storage/PreferencesDefault.js"»
+export default {
+	«EXPAND value FOREACH preferenceRecords»
+};
+«ENDFILE»
+«FILE dataHandler.application.name + "/storage/Preferences.js"»
+import DefaultPreferences from 'react-native-default-preference';
+import Values from './PreferencesDefault.js';
+
+class PreferenceHandler {
+	«EXPAND record FOREACH preferenceRecords»
+}
+
+export default new PreferenceHandler();
+«ENDFILE»
+«ENDDEFINE»
+
+«DEFINE value FOR PreferenceRecord»
+	«IF type.matches("string")»
+	"«key»": "«value»",
+	«ELSE»
+	"«key»": «value»,
+	«ENDIF»
+«ENDDEFINE»
+
+«DEFINE record FOR PreferenceRecord»
+«IF type.matches('int') || type.matches("long")-»
+get«key.toFirstUpper()»(){
+	
+	let defaultValue = Values.«key»;
+	return DefaultPreferences.get('«key»').then(
+		value => value !== undefined && value !== null ? parseInt(value) : defaultValue,
+		() => defaultValue
+	);
+}
+
+set«key.toFirstUpper()»(value){
+	
+	return DefaultPreferences.set('«key»', value.toString(10));
+}
+
+reset«key.toFirstUpper()»(){
+	
+	return DefaultPreferences.set('«key»', Values.«key».toString(10));
+}
+«ENDIF-»
+«IF type.matches('string')-»
+get«key.toFirstUpper()»(){
+	
+	let defaultValue = Values.«key»;
+	return DefaultPreferences.get('«key»').then(
+		value => value !== undefined && value !== null ? value : defaultValue,
+		() => defaultValue
+	);
+}
+
+set«key.toFirstUpper()»(value){
+	
+	return DefaultPreferences.set('«key»', value);
+}
+
+reset«key.toFirstUpper()»(){
+	
+	return DefaultPreferences.set('«key»', Values.«key»);
+}
+«ENDIF-»
+«IF type.matches('boolean')-»
+get«key.toFirstUpper()»(){
+	
+	let defaultValue = Values.«key»;
+	return DefaultPreferences.get('«key»').then(
+		value => value !== undefined && value !== null ? (value === 'true') : defaultValue,
+		() => defaultValue
+	);
+}
+
+set«key.toFirstUpper()»(value){
+	
+	return DefaultPreferences.set('«key»', value ? 'true' : 'false');
+}
+
+reset«key.toFirstUpper()»(){
+	
+	return DefaultPreferences.set('«key»', Values.«key» ? 'true' : 'false');
+}
+«ENDIF-»
+«IF type.matches('float') || type.matches('double')-»
+get«key.toFirstUpper()»(){
+	
+	let defaultValue = Values.«key»;
+	return DefaultPreferences.get('«key»').then(
+		value => value !== undefined && value !== null ? parseFloat(value) : defaultValue,
+		() => defaultValue
+	);
+}
+
+set«key.toFirstUpper()»(value){
+	
+	return DefaultPreferences.set('«key»', value.toString());
+}
+
+reset«key.toFirstUpper()»(){
+	
+	return DefaultPreferences.set('«key»', Values.«key».toString());
+}
+«ENDIF»
+«ENDDEFINE»

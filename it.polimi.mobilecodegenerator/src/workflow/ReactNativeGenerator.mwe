@@ -18,7 +18,7 @@
 <workflow>
 
 	<!--xmi model-->
-	<property name="model" value="it.polimi.mobilecodegenerator/src/model/SimpleSample8.xmi" />
+	<property name="model" value="it.polimi.mobilecodegenerator/src/model/ModelSample8_2.xmi" />
 	<property name="src-gen" value="src-gen/reactnative" />
 	
 	<bean class="org.eclipse.emf.mwe.utils.StandaloneSetup" >
@@ -69,95 +69,14 @@
 	</component>
 	
 	<!-- MODEL PART -->
-	<!-- generate DataHandler -->
-	<!--<component class="org.eclipse.xpand2.Generator">
+	<component class="org.eclipse.xpand2.Generator">
 		<metaModel idRef="mm_emf"/>
 		<expand
-			value="android_templates::DataHandler::main FOR model" />
-		<outlet path="${src-gen}" >
-			<postprocessor class="org.eclipse.xpand2.output.JavaBeautifier" />
-		</outlet>
+			value="reactnative_storage_templates::DataHandler::main FOR model" />
+		<outlet path="${src-gen}" ></outlet>
 		<resourceManager class ="org.eclipse.xtend.expression.ResourceManagerDefaultImpl">
 			<fileEncoding value="ISO-8859-1"/>
 		</resourceManager>
-	</component>-->
-	
-	<!-- generate PreferenceHandler -->
-	<!--<component class="org.eclipse.xpand2.Generator">
-		<metaModel idRef="mm_emf"/>
-		<expand
-			value="android_templates::PreferenceHandler::main FOR model" />
-		<outlet path="${src-gen}" >
-			<postprocessor class="org.eclipse.xpand2.output.JavaBeautifier" />
-		</outlet>
-		<resourceManager class ="org.eclipse.xtend.expression.ResourceManagerDefaultImpl">
-			<fileEncoding value="ISO-8859-1"/>
-		</resourceManager>
-	</component>-->
-	
-	<!-- generate DatabaseHandler -->
-	<!--<component class="org.eclipse.xpand2.Generator">
-		<metaModel idRef="mm_emf"/>
-		<expand
-			value="android_templates::DatabaseHandler::main FOR model" />
-		<outlet path="${src-gen}" >
-			<postprocessor class="org.eclipse.xpand2.output.JavaBeautifier" />
-		</outlet>
-		<resourceManager class ="org.eclipse.xtend.expression.ResourceManagerDefaultImpl">
-			<fileEncoding value="ISO-8859-1"/>
-		</resourceManager>
-	</component>-->
-	
-	<!-- generate DatabaseHelper and DatabaseStrings -->
-	<!--<component class="org.eclipse.xpand2.Generator">
-		<metaModel idRef="mm_emf"/>
-		<expand
-			value="android_templates::DatabaseHelper::main FOR model" />
-		<outlet path="${src-gen}" >
-			<postprocessor class="org.eclipse.xpand2.output.JavaBeautifier" />
-		</outlet>
-		<resourceManager class ="org.eclipse.xtend.expression.ResourceManagerDefaultImpl">
-			<fileEncoding value="ISO-8859-1"/>
-		</resourceManager>
-	</component>-->
-	
-	<!-- generate model classes -->
-	<!--<component class="org.eclipse.xpand2.Generator">
-		<metaModel idRef="mm_emf"/>
-		<expand
-			value="android_templates::ModelClasses::main FOR model" />
-		<outlet path="${src-gen}" >
-			<postprocessor class="org.eclipse.xpand2.output.JavaBeautifier" />
-		</outlet>
-		<resourceManager class ="org.eclipse.xtend.expression.ResourceManagerDefaultImpl">
-			<fileEncoding value="ISO-8859-1"/>
-		</resourceManager>
-	</component>-->
-	
-	<!-- generate StorageHandler -->
-	<!--<component class="org.eclipse.xpand2.Generator">
-		<metaModel idRef="mm_emf"/>
-		<expand
-			value="android_templates::StorageHandler::main FOR model" />
-		<outlet path="${src-gen}" >
-			<postprocessor class="org.eclipse.xpand2.output.JavaBeautifier" />
-		</outlet>
-		<resourceManager class ="org.eclipse.xtend.expression.ResourceManagerDefaultImpl">
-			<fileEncoding value="ISO-8859-1"/>
-		</resourceManager>
-	</component>-->
-	
-	<!-- generate CloudHandler -->
-	<!--<component class="org.eclipse.xpand2.Generator">
-		<metaModel idRef="mm_emf"/>
-		<expand
-			value="android_templates::CloudHandler::main FOR model" />
-		<outlet path="${src-gen}" >
-			<postprocessor class="org.eclipse.xpand2.output.JavaBeautifier" />
-		</outlet>
-		<resourceManager class ="org.eclipse.xtend.expression.ResourceManagerDefaultImpl">
-			<fileEncoding value="ISO-8859-1"/>
-		</resourceManager>
-	</component>-->
+	</component>
 	
 </workflow>
