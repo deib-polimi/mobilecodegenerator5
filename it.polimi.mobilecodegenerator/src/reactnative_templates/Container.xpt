@@ -26,7 +26,10 @@ import Component_«c.childViewController.name.replaceAll(" ", "_").toFirstUpper()
 			style={styles.e«c.id»}
 			«EXPAND reactnative_templates::UIPhoneControl::props FOR c»
 		>
-			<Component_«c.childViewController.name.replaceAll(" ", "_").toFirstUpper()» {...passProps} />
+			<Component_«c.childViewController.name.replaceAll(" ", "_").toFirstUpper()»
+				onInterface={ this.registerInterface }
+				{...passProps}
+			/>
 		</CView>
 	«ENDFOREACH»
 «ENDDEFINE»

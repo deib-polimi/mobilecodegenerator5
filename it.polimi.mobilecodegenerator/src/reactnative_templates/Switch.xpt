@@ -38,7 +38,6 @@
 			e«s.id»Value: value
 		});
 		this.on«s.id»Change(value);
-		console.log(this.state.e«s.id»Value);
 	}
 «ENDFOREACH»
 «ENDDEFINE»

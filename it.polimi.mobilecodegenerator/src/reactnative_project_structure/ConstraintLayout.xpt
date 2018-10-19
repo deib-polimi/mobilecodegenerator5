@@ -79,7 +79,6 @@ export class ConstraintLayout extends React.Component {
         // Not to be triggered on keyboard opening, but only on device rotation
         // This works because keyboard show | hide event is called before onLayout, 
         // and the listener is used to prevent the recomputation at next layout cycle
-		console.log(this.state);
         if (this.state.width !== width && this.state.height !== height) {
             ConstraintCalculator.recomputeGroup(this.key, width, height);
 			this.setState({ width, height });

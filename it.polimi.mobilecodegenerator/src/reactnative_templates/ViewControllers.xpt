@@ -44,12 +44,20 @@
 		export default class Component_«name.replaceAll(" ", "_").toFirstUpper()» extends React.Component {
 			constructor(props){
 				super(props);
+				// Await my interface (see componentDidMount) and all my subcomponents interfaces to be blent together
+				this.componentInterface = {};
+				this.interfaceAwaitCount = 1 + «containers.size»;
+				
+				// State 
 				this.state = {
 					«EXPAND reactnative_templates::Slider::state»
 					«EXPAND reactnative_templates::Switch::state»
 					«EXPAND reactnative_templates::Dropdown::state»
 					«EXPAND reactnative_templates::DateTimePicker::state»
+					«EXPAND reactnative_templates::ProgressDialog::state»
 				};
+				
+				// Bind this on all the class methods (React reccomendation)
 				«EXPAND reactnative_templates::TextInput::eventBinding»
 				«EXPAND reactnative_templates::Button::eventBinding»
 				«EXPAND reactnative_templates::Slider::eventBinding»
@@ -64,7 +72,36 @@
 				«EXPAND reactnative_templates::VideoCamera::eventBinding»
 				«EXPAND reactnative_templates::DateTimePicker::eventBinding»
 				«EXPAND reactnative_templates::Card::eventBinding»
+				«EXPAND reactnative_templates::Alert::binding»
+				this.registerInterface = this.registerInterface.bind(this);
 			}
+			
+			registerInterface(componentInterface) {
+				this.componentInterface = {
+					alert: {
+						...this.componentInterface.alert,
+						...componentInterface.alert
+					},
+					progress: {
+						...this.componentInterface.progress,
+						...componentInterface.progress
+					}
+				}
+				if (this.interfaceAwaitCount > 0) this.interfaceAwaitCount--;
+				if (this.interfaceAwaitCount === 0) {
+					if (this.props.onInterface) this.props.onInterface(this.componentInterface);
+					this.interfaceAwaitCount = -1;
+				}
+			}
+			
+			componentDidMount() {
+				this.registerInterface({
+					«EXPAND reactnative_templates::Alert::interface»
+					«EXPAND reactnative_templates::ProgressDialog::interface»
+				});
+			}			
+			
+			«EXPAND reactnative_templates::Alert::implementation»
 			
 			«EXPAND reactnative_templates::TextInput::events»
 			«EXPAND reactnative_templates::Button::events»
@@ -82,10 +119,12 @@
 			«EXPAND reactnative_templates::Card::events»
 			
 			render() {
-				const {style, ...passProps} = this.props;
+				const {style, onInterface, ...passProps} = this.props;
 				return (
 					«IF !backgroundImage.matches("")»
 					<ImageBackground source={{uri: "«backgroundImage»"}} style={{width: '100%', height: '100%'}} resizeMode="contain">
+					«ELSE»
+					<>
 					«ENDIF»
 					<ConstraintLayout style={styles.e«id»}>
 						«EXPAND reactnative_templates::Text::render»
@@ -108,8 +147,11 @@
 						«EXPAND reactnative_templates::DateTimePicker::render»
 						«EXPAND reactnative_templates::Card::render»
 					</ConstraintLayout>
+					«EXPAND reactnative_templates::ProgressDialog::render»
 					«IF !backgroundImage.matches("")»
 					</ImageBackground>
+					«ELSE»
+					</>
 					«ENDIF»
 				);
 			}
@@ -120,7 +162,16 @@
 
 «DEFINE imports FOR ViewController»
 import React from 'react';
-import { View, Text, StyleSheet, TouchableHighlight, Image } from 'react-native';
+import { 
+	View,
+	Text,
+	StyleSheet, 
+	TouchableHighlight, 
+	Image,
+	«IF alertDialogs.size > 0»
+	Alert
+	«ENDIF»
+} from 'react-native';
 import { ConstraintLayout } from '../ConstraintLayout';
 import {
 	CView, 
@@ -173,6 +224,10 @@ import {
 	CDatePicker,
 «ENDIF»
 } from '../ConstrainableControls';
+«IF progressDialogs.size > 0»
+import { Dialog, ProgressDialog } from 'react-native-simple-dialogs';
+import ProgressBarAnimated from 'react-native-progress-bar-animated';
+«ENDIF»
 «IF cards.size > 0»
 import { CardHeightMetrics, CardWidthMetrics } from '../Card';
 «ENDIF»

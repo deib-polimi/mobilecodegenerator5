@@ -2,7 +2,7 @@
 <metamodel:Application xmi:version="2.0"
 	xmlns:xmi="http://www.omg.org/XMI"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:metamodel="http://metamodel/1.0" xsi:schemaLocation="http://metamodel/1.0 ../metamodel/metamodel.ecore" name="modelAppGeneration" companyIdentifier="it.polimi">
+	xmlns:metamodel="http://metamodel/1.0" xsi:schemaLocation="http://metamodel/1.0 ../metamodel/metamodel.ecore" name="CompleteApp" companyIdentifier="it.polimi">
 	<dataHandler>
 		<preferenceHandler>
 			<preferenceRecords key="StringValue1" value="blablabla" type="string"/>
@@ -36,6 +36,8 @@
 		</storageHandler>
 	</dataHandler>
 	<viewControllers id="qm7gt" name="HomeView" backgroundColor="#cccccc" backgroundImage="">
+		<alertDialogs id="cdgsAlertDialog" title="title" message="message"/>
+		<progressDialogs id="ktkggProgressDialog" title="title" message="message" spinner="false"/>
 		<textViews id="idanq71Label" viewController="//@viewControllers[id='qm7gt']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="10" marginBottom="10" marginStart="0" marginEnd="0" content="Username" textAlign="left" textColor="#0000ff" textSize="16" textDecoration="italic">
 			<positionConstraints id="nslkn" uiPhoneControl="//@viewControllers[id='qm7gt']/@textViews[id='idanq71Label']" layoutEdge="centerX" withParent="true" referenceLayoutEdge="centerX"/>
 			<positionConstraints id="hd62e" uiPhoneControl="//@viewControllers[id='qm7gt']/@textViews[id='idanq71Label']" layoutEdge="top" withParent="true" referenceLayoutEdge="top"/>
@@ -77,6 +79,8 @@
 		</webViews>
 	</viewControllers>
 	<viewControllers id="o27da" name="ThirdView" backgroundColor="#ffffff" backgroundImage="">
+		<alertDialogs id="cdgsuAlertDialog" title="title" message="message"/>
+		<progressDialogs id="ktkguProgressDialog" title="title" message="message" spinner="true"/>
 		<listViews id="idedi8tListView" viewController="//@viewControllers[id='o27da']" defaultWidth="270" defaultHeight="270" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" backgroundColor="#edcb1a" listType="detailed">
 			<navigations id="8s9f9" contextScene="//@scenes[id='lpu4d']" destinationScene="//@scenes[id='8p675']"/>
 			<listViewCells title="item1" subtitle="Content"/>

@@ -18,7 +18,9 @@ import Component_«name.replaceAll(" ", "_").toFirstUpper()» from '../../componen
 «ENDIF»
 
 import Icon	 from 'react-native-vector-icons/MaterialIcons';
-import { TouchableWithoutFeedback } from 'react-native';
+import { 
+	TouchableWithoutFeedback,
+} from 'react-native';
 
 export default class Screen_«name.replaceAll(" ", "_").toFirstUpper()» extends React.Component {
 
@@ -43,7 +45,7 @@ export default class Screen_«name.replaceAll(" ", "_").toFirstUpper()» extends R
 		this.onRecordingComplete = this.onRecordingComplete.bind(this);
 		this.onDateSelected = this.onDateSelected.bind(this);
 		this.onTimeSelected = this.onTimeSelected.bind(this);
-	}
+	}	
 	
 	onAudioPlay(audioId) { }
 	onAudioPause(audioId) { }
@@ -143,6 +145,7 @@ export default class Screen_«name.replaceAll(" ", "_").toFirstUpper()» extends R
 		return (
 			<Component_«name.replaceAll(" ", "_").toFirstUpper()» 
 				style={{width: '100%', height: '100%'}}
+				onInterface={ componentInterface => this.componentInterface = componentInterface }
 				onAudioPlay={this.onAudioPlay}
 				onAudioPause={this.onAudioPause}
 				onAudioStop={this.onAudioStop}
