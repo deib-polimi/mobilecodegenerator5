@@ -1,8 +1,8 @@
 «IMPORT metamodel»
 
-«DEFINE main FOR Application»
-«IF viewControllers.audioPlayers.size > 0 || viewControllers.audioRecorder.size > 0»
-«FILE name + "/Audio.js"»
+«DEFINE main FOR Application-»
+«IF viewControllers.audioPlayers.size > 0 || viewControllers.audioRecorder.size > 0-»
+«FILE name + "/Audio.js"-»
 import React from 'react';
 import { View, TouchableHighlight, StyleSheet, Text, Platform, PermissionsAndroid } from 'react-native';
 import { Player, Recorder } from 'react-native-audio-toolkit';
@@ -377,6 +377,6 @@ export class AudioRecorder extends React.Component {
         )
     }
 }
-«ENDFILE»
-«ENDIF»
-«ENDDEFINE»
+«ENDFILE-»
+«ENDIF-»
+«ENDDEFINE-»

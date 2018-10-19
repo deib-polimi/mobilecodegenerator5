@@ -1,8 +1,8 @@
 «IMPORT metamodel»
 
-«DEFINE main FOR Application»
-«IF viewControllers.videoViews.size > 0»
-«FILE name + "/VideoPlayer.js"»
+«DEFINE main FOR Application-»
+«IF viewControllers.videoViews.size > 0-»
+«FILE name + "/VideoPlayer.js"-»
 import React from 'react';
 import { View, StyleSheet, TouchableHighlight } from 'react-native';
 import Video from 'react-native-video';
@@ -105,6 +105,6 @@ export default class VideoPlayer extends React.Component {
         )
     }
 }
-«ENDFILE»
-«ENDIF»
-«ENDDEFINE»
+«ENDFILE-»
+«ENDIF-»
+«ENDDEFINE-»

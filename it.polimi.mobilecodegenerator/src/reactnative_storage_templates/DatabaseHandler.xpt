@@ -2,19 +2,19 @@
 
 «EXTENSION app_extensions::Java»
 
-«DEFINE main FOR Application»
-«IF dataHandler.databaseHandler != null»
-«EXPAND database FOR dataHandler.databaseHandler»
-«ENDIF»
-«ENDDEFINE»
+«DEFINE main FOR Application-»
+«IF dataHandler.databaseHandler != null-»
+«EXPAND database FOR dataHandler.databaseHandler-»
+«ENDIF-»
+«ENDDEFINE-»
 
-«DEFINE database FOR DatabaseHandler»
-«FILE dataHandler.application.name + "/storage/DatabaseHandler.js"»
+«DEFINE database FOR DatabaseHandler-»
+«FILE dataHandler.application.name + "/storage/DatabaseHandler.js"-»
 import SQLite from 'react-native-sqlite-storage';
 import DatabaseSetupHelper from './DatabaseSetupHelper';
-«FOREACH entities AS ent»
-import «ent.name.toFirstUpper()» from '../entities/«ent.name.toFirstUpper()»';
-«ENDFOREACH»
+«FOREACH entities AS ent-»
+import «ent.name.toFirstUpper()-» from '../entities/«ent.name.toFirstUpper()-»';
+«ENDFOREACH-»
 SQLite.enablePromise(true);
 
 let DB = null;
@@ -128,93 +128,93 @@ export default function getDB() {
 		return Promise.resolve(DB);
 	}
 }
-«ENDFILE»
-«ENDDEFINE»
+«ENDFILE-»
+«ENDDEFINE-»
 
-«DEFINE save FOR Entity»
-insert«name.toFirstUpper()»(«name.toFirstLower()»)
+«DEFINE save FOR Entity-»
+insert«name.toFirstUpper()-»(«name.toFirstLower()-»)
 { 	
     // Attributes and 1:1 and N:1 relations are saved in the entity table
     let cv = new ContentValues();
-    cv.add('String', '«primaryKey»', «name.toFirstLower()».get«primaryKey.toFirstUpper()-»());
-    «FOREACH entityAttributes AS attr»
-	cv.add('«attr.type»', '«attr.name»', «name.toFirstLower()».get«attr.name.toFirstUpper()-»());
-	«ENDFOREACH»
+    cv.add('String', '«primaryKey-»', «name.toFirstLower()-».get«primaryKey.toFirstUpper()-»());
+    «FOREACH entityAttributes AS attr-»
+	cv.add('«attr.type-»', '«attr.name-»', «name.toFirstLower()-».get«attr.name.toFirstUpper()-»());
+	«ENDFOREACH-»
 	«FOREACH entityRelationships AS rel-»
 	«IF rel.type.matches("N : 1") || rel.type.matches("1 : 1")-»
-	cv.add('String', '«rel.name»«rel.destination.toFirstUpper()»', «name.toFirstLower()».get«rel.name.toFirstUpper()»«rel.destination.toFirstUpper()»ID());        	
+	cv.add('String', '«rel.name-»«rel.destination.toFirstUpper()-»', «name.toFirstLower()-».get«rel.name.toFirstUpper()-»«rel.destination.toFirstUpper()-»ID());        	
     «ENDIF-»	
 	«ENDFOREACH-»
-    let entityQuery = makeInsert('TBL_«name»', cv);
+    let entityQuery = makeInsert('TBL_«name-»', cv);
     
-    «FOREACH entityRelationships AS rel»
-    «IF rel.type.matches("1 : N")»
-    let «rel.name»Values = «name.toFirstLower()».get«rel.name.toFirstUpper()»«rel.destination.toFirstUpper()»IDs();
-    let «rel.name»Query;
-    if («rel.name»Values !== undefined) {
-    	«rel.name»Query = makeInsertRel('REL_«rel.name»', «name.toFirstLower()».get«primaryKey.toFirstUpper()-»(), «rel.name»Values);
+    «FOREACH entityRelationships AS rel-»
+    «IF rel.type.matches("1 : N")-»
+    let «rel.name-»Values = «name.toFirstLower()-».get«rel.name.toFirstUpper()-»«rel.destination.toFirstUpper()-»IDs();
+    let «rel.name-»Query;
+    if («rel.name-»Values !== undefined) {
+    	«rel.name-»Query = makeInsertRel('REL_«rel.name-»', «name.toFirstLower()-».get«primaryKey.toFirstUpper()-»(), «rel.name-»Values);
     } else {
-    	«rel.name»Query = "";
+    	«rel.name-»Query = "";
     }
-    «ENDIF»
-    «ENDFOREACH»
+    «ENDIF-»
+    «ENDFOREACH-»
     
     return this.run([
     		entityQuery,
-	    	«FOREACH entityRelationships.select(e|e.type.matches("1 : N")) AS rel»
-		    «rel.name»Query,
-		    «ENDFOREACH»
+	    	«FOREACH entityRelationships.select(e|e.type.matches("1 : N")) AS rel-»
+		    «rel.name-»Query,
+		    «ENDFOREACH-»
 			]);
 }
-«ENDDEFINE»
+«ENDDEFINE-»
 
-«DEFINE delete FOR Entity»
-delete«name.toFirstUpper()»(«primaryKey»)
+«DEFINE delete FOR Entity-»
+delete«name.toFirstUpper()-»(«primaryKey-»)
 {
-    let query = 'DELETE FROM TBL_«name» WHERE «primaryKey»="' + «primaryKey» + '"';
+    let query = 'DELETE FROM TBL_«name-» WHERE «primaryKey-»="' + «primaryKey-» + '"';
     return this.db.executeSql(query);
 }
-«ENDDEFINE»
+«ENDDEFINE-»
 
-«DEFINE query FOR Entity»
-query«name.toFirstUpper()»(«primaryKey») {
+«DEFINE query FOR Entity-»
+query«name.toFirstUpper()-»(«primaryKey-») {
 	
-	let entityQuery = 'SELECT * FROM TBL_«name» WHERE «primaryKey»="' + «primaryKey» + '"';
-	«FOREACH entityRelationships.select(e|e.type.matches("1 : N")) AS rel»
-    let «rel.name»Query = 'SELECT «rel.destination.toFirstLower()» FROM REL_«rel.name» WHERE «name»="' + «primaryKey» + '"';
-    «ENDFOREACH»
+	let entityQuery = 'SELECT * FROM TBL_«name-» WHERE «primaryKey-»="' + «primaryKey-» + '"';
+	«FOREACH entityRelationships.select(e|e.type.matches("1 : N")) AS rel-»
+    let «rel.name-»Query = 'SELECT «rel.destination.toFirstLower()-» FROM REL_«rel.name-» WHERE «name-»="' + «primaryKey-» + '"';
+    «ENDFOREACH-»
     
     return this.run([
     		entityQuery,
-    		«FOREACH entityRelationships AS rel»
-		    «IF rel.type.matches("1 : N")»
-		    «rel.name»Query,
-		    «ENDIF»
-		    «ENDFOREACH»
+    		«FOREACH entityRelationships AS rel-»
+		    «IF rel.type.matches("1 : N")-»
+		    «rel.name-»Query,
+		    «ENDIF-»
+		    «ENDFOREACH-»
 		]).then(results => {
 			if (results[0].rows.length === 0) {
 				// No entity found
 				return null;
 			}
 			let obj = results[0].rows.item(0);
-			«FOREACH entityRelationships.select(e|e.type.matches("1 : N")) AS rel ITERATOR i»
-		    obj.«rel.name»«rel.destination.toFirstUpper()-»IDs = range(0, results[«i.counter1»].length).map(i => results[«i.counter1»].item(i).«rel.destination.toFirstLower()»);
-		    «ENDFOREACH»
-		    return «name.toFirstUpper()».createFromObject(obj);
+			«FOREACH entityRelationships.select(e|e.type.matches("1 : N")) AS rel ITERATOR i-»
+		    obj.«rel.name-»«rel.destination.toFirstUpper()-»IDs = range(0, results[«i.counter1-»].length).map(i => results[«i.counter1-»].item(i).«rel.destination.toFirstLower()-»);
+		    «ENDFOREACH-»
+		    return «name.toFirstUpper()-».createFromObject(obj);
 		});
     
 }
-«ENDDEFINE»
+«ENDDEFINE-»
 
-«DEFINE getAll FOR Entity»
-getAll«name.toFirstUpper()»() {
+«DEFINE getAll FOR Entity-»
+getAll«name.toFirstUpper()-»() {
 	// This method should never be used, it is extremely bad with large datasets
 	// However, if you need this, you can use it
 	// To keep it (quite) efficient, N:N and 1:N relationships will not be available
 	// Trying to access them (either in get or set mode) would result in a fatal error
 	// IT IS MUCH BETTER TO AVOID USING THIS METHOD
 	
-	let entityQuery = 'SELECT * FROM TBL_«name»';
+	let entityQuery = 'SELECT * FROM TBL_«name-»';
     
     return this.run([
     		entityQuery
@@ -222,13 +222,13 @@ getAll«name.toFirstUpper()»() {
 			let out = [];
 			for(let i = 0; i < results.rows.length; i++) {
 				let obj = results[0].rows.item(i);
-				«FOREACH entityRelationships.select(e|e.type.matches("1 : N")) AS rel ITERATOR i»
-			    obj.«rel.name»«rel.destination.toFirstUpper()-»IDs = undefined;
-			    «ENDFOREACH»
-			    return «name.toFirstUpper()».createFromObject(obj);
+				«FOREACH entityRelationships.select(e|e.type.matches("1 : N")) AS rel ITERATOR i-»
+			    obj.«rel.name-»«rel.destination.toFirstUpper()-»IDs = undefined;
+			    «ENDFOREACH-»
+			    return «name.toFirstUpper()-».createFromObject(obj);
 			}
 			return out;
 		});
     
 }
-«ENDDEFINE»
+«ENDDEFINE-»

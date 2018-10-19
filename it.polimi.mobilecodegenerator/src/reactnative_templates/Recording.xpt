@@ -1,44 +1,44 @@
-«IMPORT metamodel»
+«IMPORT metamodel-»
 
-«DEFINE styleVars FOR ViewController»
-	«IF audioRecorder != null»
-		«EXPAND reactnative_templates::UIPhoneControl::styleVars FOR audioRecorder»
-	«ENDIF»
-«ENDDEFINE»
+«DEFINE styleVars FOR ViewController-»
+	«IF audioRecorder != null-»
+		«EXPAND reactnative_templates::UIPhoneControl::styleVars FOR audioRecorder-»
+	«ENDIF-»
+«ENDDEFINE-»
 
-«DEFINE style FOR ViewController»
-	«IF audioRecorder != null»
-		e«audioRecorder.id»: {
-			«EXPAND reactnative_templates::UIPhoneControl::style FOR audioRecorder»
+«DEFINE style FOR ViewController-»
+	«IF audioRecorder != null-»
+		e«audioRecorder.id-»: {
+			«EXPAND reactnative_templates::UIPhoneControl::style FOR audioRecorder-»
 		},
-	«ENDIF»
-«ENDDEFINE»
+	«ENDIF-»
+«ENDDEFINE-»
 
-«DEFINE eventBinding FOR ViewController»
-	«IF audioRecorder != null»
-		this.on«audioRecorder.id»RecordingStart = this.on«audioRecorder.id»RecordingStart.bind(this);
-		this.on«audioRecorder.id»RecordingStop = this.on«audioRecorder.id»RecordingStop.bind(this);
-	«ENDIF»
-«ENDDEFINE»
+«DEFINE eventBinding FOR ViewController-»
+	«IF audioRecorder != null-»
+		this.on«audioRecorder.id-»RecordingStart = this.on«audioRecorder.id-»RecordingStart.bind(this);
+		this.on«audioRecorder.id-»RecordingStop = this.on«audioRecorder.id-»RecordingStop.bind(this);
+	«ENDIF-»
+«ENDDEFINE-»
 
-«DEFINE events FOR ViewController»
-	«IF audioRecorder != null»
-		on«audioRecorder.id»RecordingStart() {
-			if (this.props.onRecordingStart) this.props.onRecordingStart('«audioRecorder.id»')
+«DEFINE events FOR ViewController-»
+	«IF audioRecorder != null-»
+		on«audioRecorder.id-»RecordingStart() {
+			if (this.props.onRecordingStart) this.props.onRecordingStart('«audioRecorder.id-»')
 		}
-		on«audioRecorder.id»RecordingStop() {
-			if (this.props.onRecordingStop) this.props.onRecordingStop('«audioRecorder.id»');
+		on«audioRecorder.id-»RecordingStop() {
+			if (this.props.onRecordingStop) this.props.onRecordingStop('«audioRecorder.id-»');
 		}
-	«ENDIF»
-«ENDDEFINE»
+	«ENDIF-»
+«ENDDEFINE-»
 
-«DEFINE render FOR ViewController»
-	«IF audioRecorder != null »
+«DEFINE render FOR ViewController-»
+	«IF audioRecorder != null -»
 		<CAudioRecorder
-			«EXPAND reactnative_templates::UIPhoneControl::props FOR audioRecorder»
-			style={styles.e«audioRecorder.id»}
-			onStartRecording={this.on«audioRecorder.id»Play}
-			onStopRecording={this.on«audioRecorder.id»Pause}
+			«EXPAND reactnative_templates::UIPhoneControl::props FOR audioRecorder-»
+			style={styles.e«audioRecorder.id-»}
+			onStartRecording={this.on«audioRecorder.id-»Play}
+			onStopRecording={this.on«audioRecorder.id-»Pause}
 		></CAudioRecorder>
-	«ENDIF»
-«ENDDEFINE»
+	«ENDIF-»
+«ENDDEFINE-»

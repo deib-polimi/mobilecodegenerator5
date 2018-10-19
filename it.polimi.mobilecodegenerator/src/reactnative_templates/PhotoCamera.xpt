@@ -1,47 +1,47 @@
-«IMPORT metamodel»
+«IMPORT metamodel-»
 
-«DEFINE styleVars FOR ViewController»
-	«IF photocameraController != null»
-	«EXPAND reactnative_templates::UIPhoneControl::styleVars FOR photocameraController»
-	«ENDIF»
-«ENDDEFINE»
+«DEFINE styleVars FOR ViewController-»
+	«IF photocameraController != null-»
+	«EXPAND reactnative_templates::UIPhoneControl::styleVars FOR photocameraController-»
+	«ENDIF-»
+«ENDDEFINE-»
 
-«DEFINE style FOR ViewController»
-	«IF photocameraController != null»
-	e«photocameraController.id»: {
-		«EXPAND reactnative_templates::UIPhoneControl::style FOR photocameraController»
+«DEFINE style FOR ViewController-»
+	«IF photocameraController != null-»
+	e«photocameraController.id-»: {
+		«EXPAND reactnative_templates::UIPhoneControl::style FOR photocameraController-»
 	},
-	«ENDIF»
-«ENDDEFINE»
+	«ENDIF-»
+«ENDDEFINE-»
 
-«DEFINE eventBinding FOR ViewController»
-	«IF photocameraController != null»
-	this.on«photocameraController.id»PictureRequest = this.on«photocameraController.id»PictureRequest.bind(this);
-	«ENDIF»
-«ENDDEFINE»
+«DEFINE eventBinding FOR ViewController-»
+	«IF photocameraController != null-»
+	this.on«photocameraController.id-»PictureRequest = this.on«photocameraController.id-»PictureRequest.bind(this);
+	«ENDIF-»
+«ENDDEFINE-»
 
-«DEFINE events FOR ViewController»
-	«IF photocameraController != null»
-	on«photocameraController.id»PictureRequest() {
-		if (this.props.onPictureRequest) this.props.onPictureRequest('«photocameraController.id»');
+«DEFINE events FOR ViewController-»
+	«IF photocameraController != null-»
+	on«photocameraController.id-»PictureRequest() {
+		if (this.props.onPictureRequest) this.props.onPictureRequest('«photocameraController.id-»');
 	}
-	«ENDIF»
-«ENDDEFINE»
+	«ENDIF-»
+«ENDDEFINE-»
 
-«DEFINE render FOR ViewController»
-	«IF photocameraController != null»
+«DEFINE render FOR ViewController-»
+	«IF photocameraController != null-»
 	<CTouchableHighlight
-		«EXPAND reactnative_templates::UIPhoneControl::props FOR photocameraController»
-		onPress={this.on«photocameraController.id»PictureRequest}
-		style={styles.e«photocameraController.id»}
+		«EXPAND reactnative_templates::UIPhoneControl::props FOR photocameraController-»
+		onPress={this.on«photocameraController.id-»PictureRequest}
+		style={styles.e«photocameraController.id-»}
 		activeOpacity={1}
 		underlayColor="#0000"
 	>
-	«IF photocameraController.backgroundType.matches("icon")»
+	«IF photocameraController.backgroundType.matches("icon")-»
 		<Icon name="camera" size={20} color="#000" />
-	«ELSE»
+	«ELSE-»
 		<Text>Camera</Text>
-	«ENDIF»
+	«ENDIF-»
 	</CTouchableHighlight>
-	«ENDIF»
-«ENDDEFINE»
+	«ENDIF-»
+«ENDDEFINE-»

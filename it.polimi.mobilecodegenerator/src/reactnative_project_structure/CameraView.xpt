@@ -1,8 +1,8 @@
 «IMPORT metamodel»
 
-«DEFINE main FOR Application»
-«IF viewControllers.photocameraController.size > 0 || viewControllers.videocameraController.size > 0»
-«FILE name + "/CameraView.js"»
+«DEFINE main FOR Application-»
+«IF viewControllers.photocameraController.size > 0 || viewControllers.videocameraController.size > 0-»
+«FILE name + "/CameraView.js"-»
 import React from 'react';
 import { View, TouchableOpacity, PermissionsAndroid, Platform } from 'react-native';
 import { RNCamera } from 'react-native-camera';
@@ -239,6 +239,6 @@ export default class CameraView extends React.Component {
     }
 
 }
-«ENDFILE»
-«ENDIF»
-«ENDDEFINE»
+«ENDFILE-»
+«ENDIF-»
+«ENDDEFINE-»

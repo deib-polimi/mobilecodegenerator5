@@ -1,12 +1,12 @@
 «IMPORT metamodel»
 
-«DEFINE main FOR Application»
-«IF dataHandler != null»
-«EXPAND reactnative_storage_templates::Preferences::main»
-«EXPAND reactnative_storage_templates::Storage::main»
-«EXPAND reactnative_storage_templates::Entities::main»
-«EXPAND reactnative_storage_templates::DatabaseHandler::main»
-«EXPAND reactnative_storage_templates::DatabaseSetupHelper::main»
-«EXPAND reactnative_storage_templates::CloudHandler::main»
-«ENDIF»
-«ENDDEFINE»
+«DEFINE main FOR Application-»
+«IF dataHandler != null-»
+«EXPAND reactnative_storage_templates::Preferences::main-»
+«EXPAND reactnative_storage_templates::Storage::main-»
+«EXPAND reactnative_storage_templates::Entities::main-»
+«EXPAND reactnative_storage_templates::DatabaseHandler::main-»
+«EXPAND reactnative_storage_templates::DatabaseSetupHelper::main-»
+«EXPAND reactnative_storage_templates::CloudHandler::main-»
+«ENDIF-»
+«ENDDEFINE-»

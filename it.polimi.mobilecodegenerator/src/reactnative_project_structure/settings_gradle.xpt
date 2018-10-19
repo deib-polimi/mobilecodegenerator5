@@ -8,16 +8,16 @@ If the interface becomes standard in the future, please make the generation of t
 and remove it from ./main.xpt
 «ENDREM»
 
-«DEFINE main FOR Application»
-«FILE name + "/android/settings.gradle"»
-rootProject.name = '«name.toFirstUpper()»'
+«DEFINE main FOR Application-»
+«FILE name + "/android/settings.gradle"-»
+rootProject.name = '«name.toFirstUpper()-»'
 
-«IF viewControllers.audioPlayers.size > 0 || viewControllers.audioRecorder.size > 0»
+«IF viewControllers.audioPlayers.size > 0 || viewControllers.audioRecorder.size > 0-»
 include ':react-native-audio-toolkit'
 project(':react-native-audio-toolkit').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-audio-toolkit/android/lib')
-«ENDIF»
+«ENDIF-»
 
 include ':app'
 
-«ENDFILE»
-«ENDDEFINE»
+«ENDFILE-»
+«ENDDEFINE-»

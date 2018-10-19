@@ -1,8 +1,8 @@
 «IMPORT metamodel»
 
-«DEFINE main FOR Application»
-«IF viewControllers.cards.size > 0»
-«FILE name + "/Card.js"»
+«DEFINE main FOR Application-»
+«IF viewControllers.cards.size > 0-»
+«FILE name + "/Card.js"-»
 import React from 'react';
 import { View, Text, Image, TouchableHighlight, StyleSheet } from 'react-native';
 import MeasureText from 'react-native-measure-text';
@@ -131,6 +131,6 @@ export default class Card extends React.Component {
     }
 
 }
-«ENDFILE»
-«ENDIF»
-«ENDDEFINE»
+«ENDFILE-»
+«ENDIF-»
+«ENDDEFINE-»

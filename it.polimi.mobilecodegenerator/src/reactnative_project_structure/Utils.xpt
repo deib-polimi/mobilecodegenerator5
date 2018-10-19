@@ -1,7 +1,7 @@
 «IMPORT metamodel»
 
-«DEFINE main FOR Application»
-«FILE name + "/patches.js"»
+«DEFINE main FOR Application-»
+«FILE name + "/patches.js"-»
 const fs = require('fs');
 let path = './node_modules/react-native-filesystem-v1/android/src/main/java/com/benwixen/rnfilesystem/RNFileSystemPackage.java';
 if (fs.existsSync(path)) {
@@ -25,5 +25,5 @@ if (fs.existsSync(path)) {
 	content = JSON.stringify(content);
 	fs.writeFileSync(path, content);
 }
-«ENDFILE»
-«ENDDEFINE»
+«ENDFILE-»
+«ENDDEFINE-»

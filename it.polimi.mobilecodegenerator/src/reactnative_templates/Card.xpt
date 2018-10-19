@@ -1,51 +1,51 @@
-«IMPORT metamodel»
+«IMPORT metamodel-»
 
-«DEFINE styleVars FOR ViewController»
-	«FOREACH cards AS c»
-		«EXPAND reactnative_templates::UIPhoneControl::styleVars FOR c»
-	«ENDFOREACH»
-«ENDDEFINE»
+«DEFINE styleVars FOR ViewController-»
+	«FOREACH cards AS c-»
+		«EXPAND reactnative_templates::UIPhoneControl::styleVars FOR c-»
+	«ENDFOREACH-»
+«ENDDEFINE-»
 
-«DEFINE style FOR ViewController»
-	«FOREACH cards AS c»
-		e«c.id»: {
-			«EXPAND reactnative_templates::UIPhoneControl::style FOR c»
+«DEFINE style FOR ViewController-»
+	«FOREACH cards AS c-»
+		e«c.id-»: {
+			«EXPAND reactnative_templates::UIPhoneControl::style FOR c-»
 		},
-	«ENDFOREACH»
-«ENDDEFINE»
+	«ENDFOREACH-»
+«ENDDEFINE-»
 
-«DEFINE eventBinding FOR ViewController»
-«FOREACH cards AS c»
-	this.on«c.id»Action = this.on«c.id»Action.bind(this);
-«ENDFOREACH»
-«ENDDEFINE»
+«DEFINE eventBinding FOR ViewController-»
+«FOREACH cards AS c-»
+	this.on«c.id-»Action = this.on«c.id-»Action.bind(this);
+«ENDFOREACH-»
+«ENDDEFINE-»
 
-«DEFINE events FOR ViewController»
-«FOREACH cards AS c»
-	on«c.id»Action(index) {
-		if (this.props.onCardAction) this.props.onCardAction('«c.id»', index);
+«DEFINE events FOR ViewController-»
+«FOREACH cards AS c-»
+	on«c.id-»Action(index) {
+		if (this.props.onCardAction) this.props.onCardAction('«c.id-»', index);
 	}
-«ENDFOREACH»
-«ENDDEFINE»
+«ENDFOREACH-»
+«ENDDEFINE-»
 
-«DEFINE render FOR ViewController»
-	«FOREACH cards AS c»
+«DEFINE render FOR ViewController-»
+	«FOREACH cards AS c-»
 		<CCard
-			«EXPAND reactnative_templates::UIPhoneControl::props FOR c»
+			«EXPAND reactnative_templates::UIPhoneControl::props FOR c-»
 			style={{}}
-			cardStyle={styles.e«c.id»}
+			cardStyle={styles.e«c.id-»}
 			onAction={this.onAction}
-			id="«c.id»"
-			title="«c.title»"
-			subtitle="«c.subtitle»"
+			id="«c.id-»"
+			title="«c.title-»"
+			subtitle="«c.subtitle-»"
 			image="grid_image"
 			actions={[
-				«FOREACH 1.upTo(c.numActions) AS n»
-					'Action «n»',
-				«ENDFOREACH»
+				«FOREACH 1.upTo(c.numActions) AS n-»
+					'Action «n-»',
+				«ENDFOREACH-»
 			]}
 			fluidHeight={CardHeightMetrics}
 			fluidWidth={CardWidthMetrics}
 		/>
-	«ENDFOREACH»
-«ENDDEFINE»
+	«ENDFOREACH-»
+«ENDDEFINE-»

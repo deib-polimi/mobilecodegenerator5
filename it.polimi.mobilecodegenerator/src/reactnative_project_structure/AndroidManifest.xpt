@@ -1,7 +1,7 @@
 «IMPORT metamodel»
 
-«DEFINE main FOR Application»
-«FILE name+"/android/app/src/main/AndroidManifest.xml"»
+«DEFINE main FOR Application-»
+«FILE name+"/android/app/src/main/AndroidManifest.xml"-»
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.«name.toLowerCase()»">
 
@@ -32,5 +32,5 @@
 
 </manifest>
 
-«ENDFILE»
-«ENDDEFINE»
+«ENDFILE-»
+«ENDDEFINE-»

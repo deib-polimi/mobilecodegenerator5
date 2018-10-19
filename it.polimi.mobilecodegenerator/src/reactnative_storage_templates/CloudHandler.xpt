@@ -1,18 +1,18 @@
 «IMPORT metamodel»
 
-«DEFINE main FOR Application»
-«IF dataHandler != null && dataHandler.cloudHandler != null»
-«EXPAND cloudHandler FOR dataHandler.cloudHandler»
-«EXPAND cloudEntity FOREACH dataHandler.cloudHandler.cloudObjects»
-«ENDIF»
-«ENDDEFINE»
+«DEFINE main FOR Application-»
+«IF dataHandler != null && dataHandler.cloudHandler != null-»
+«EXPAND cloudHandler FOR dataHandler.cloudHandler-»
+«EXPAND cloudEntity FOREACH dataHandler.cloudHandler.cloudObjects-»
+«ENDIF-»
+«ENDDEFINE-»
 
-«DEFINE cloudHandler FOR CloudHandler»
-«FILE dataHandler.application.name + "/storage/CloudHandler.js"»
+«DEFINE cloudHandler FOR CloudHandler-»
+«FILE dataHandler.application.name + "/storage/CloudHandler.js"-»
 import firebase from 'firebase';
-«FOREACH cloudObjects AS co»
-import «co.name.toFirstUpper()» from '../cloudEntities/«co.name.toFirstUpper()»';
-«ENDFOREACH»
+«FOREACH cloudObjects AS co-»
+import «co.name.toFirstUpper()» from '../cloudEntities/«co.name.toFirstUpper()-»';
+«ENDFOREACH-»
 
 
 class CloudHandlerImpl {
@@ -20,11 +20,11 @@ class CloudHandlerImpl {
 	constructor() {
 	}
 	
-	«FOREACH cloudObjects AS co»
+	«FOREACH cloudObjects AS co-»
 	query«co.name.toFirstUpper()»(id) {
 		return new Promise((resolve, reject) => {
 			firebase.database()
-			.ref("«co.name.toLowerCase()»s")
+			.ref("«co.name.toLowerCase()-»s")
 			.child(id)
 			.once('value', snapshot => {
 				if (snapshot.exists()) {
@@ -36,14 +36,14 @@ class CloudHandlerImpl {
 		}).then(core => {
 			let async = [core];
 			«REM»Check if some property is a ref to some other object«ENDREM»
-			«FOREACH co.objectAttributes.select(e|e.type.matches("Object")) AS attr»
-			async.push(this.query«attr.object.toFirstUpper()»(core.«attr.name.toFirstLower()»)).then(val => { return {key: '«attr.name.toFirstLower()»', value: val}; });
-			«ENDFOREACH»
-			«FOREACH co.objectAttributes.select(e|e.type.matches("Object list")) AS attr»
-			async.push(...core.«attr.name.toFirstLower()».map((id, index) => {
-				return this.query«attr.object.toFirstUpper()»(id).then(val => { return { key: '«attr.name.toFirstLower()»', index, value: val }; });
+			«FOREACH co.objectAttributes.select(e|e.type.matches("Object")) AS attr-»
+			async.push(this.query«attr.object.toFirstUpper()-»(core.«attr.name.toFirstLower()-»)).then(val => { return {key: '«attr.name.toFirstLower()-»', value: val}; });
+			«ENDFOREACH-»
+			«FOREACH co.objectAttributes.select(e|e.type.matches("Object list")) AS attr-»
+			async.push(...core.«attr.name.toFirstLower()-».map((id, index) => {
+				return this.query«attr.object.toFirstUpper()-»(id).then(val => { return { key: '«attr.name.toFirstLower()-»', index, value: val }; });
 			}));
-			«ENDFOREACH»
+			«ENDFOREACH-»
 			return Promise.all(async);
 		}).then(([core, ...others]) => {
 			let toMerge = {};
@@ -58,100 +58,100 @@ class CloudHandlerImpl {
 					toMerge[val.key][val.index] = val.value;
 				} 
 			});
-			return «co.name.toFirstUpper()».createFromObject(Object.assign(core, toMerge, { id }));
+			return «co.name.toFirstUpper()-».createFromObject(Object.assign(core, toMerge, { id }));
 		});
 	}
 		
 	
-	store«co.name.toFirstUpper()»(«co.name.toFirstLower()») {
+	store«co.name.toFirstUpper()-»(«co.name.toFirstLower()-») {
 		return new Promise((resolve, reject) => {
 			let normalized = {};
 			let async = [];
-			«FOREACH co.objectAttributes AS attr»
-			«IF attr.type.matches("Object")»
-				if («co.name.toFirstLower()».«attr.name».id === undefined) {
-					async.push(this.store«attr.object.toFirstUpper()»(«co.name.toFirstLower()».«attr.name.toFirstLower()»).then(() => {
-						normalized.«attr.name.toFirstLower()» = «co.name.toFirstLower()».«attr.name.toFirstLower()».id;
+			«FOREACH co.objectAttributes AS attr-»
+			«IF attr.type.matches("Object")-»
+				if («co.name.toFirstLower()-».«attr.name-».id === undefined) {
+					async.push(this.store«attr.object.toFirstUpper()-»(«co.name.toFirstLower()-».«attr.name.toFirstLower()-»).then(() => {
+						normalized.«attr.name.toFirstLower()-» = «co.name.toFirstLower()-».«attr.name.toFirstLower()-».id;
 					}));
 				} else {
-					normalized.«attr.name.toFirstLower()» = «co.name.toFirstLower()».«attr.name.toFirstLower()».id;
+					normalized.«attr.name.toFirstLower()-» = «co.name.toFirstLower()-».«attr.name.toFirstLower()-».id;
 				}
-			«ELSEIF attr.type.matches("Object list")»
-				normalized.«attr.name.toFirstLower()» = [];
-				«co.name.toFirstLower()».«attr.name.toFirstLower()».forEach((entity, i) => {
+			«ELSEIF attr.type.matches("Object list")-»
+				normalized.«attr.name.toFirstLower()-» = [];
+				«co.name.toFirstLower()-».«attr.name.toFirstLower()-».forEach((entity, i) => {
 					if (entity.id === undefined) {
-						async.push(add«attr.object.toFirstUpper()»(entity).then(() => {
-							normalized.«attr.name.toFirstLower()»[i] = entity.id;
+						async.push(add«attr.object.toFirstUpper()-»(entity).then(() => {
+							normalized.«attr.name.toFirstLower()-»[i] = entity.id;
 						}));
 					} else {
-						normalized.«attr.name.toFirstLower()»[i] = entity.id;
+						normalized.«attr.name.toFirstLower()-»[i] = entity.id;
 					}
 				});
-			«ELSE»
-				normalized.«attr.name.toFirstLower()» = «co.name.toFirstLower()».«attr.name.toFirstLower()»;
-			«ENDIF»
-			«ENDFOREACH»
+			«ELSE-»
+				normalized.«attr.name.toFirstLower()-» = «co.name.toFirstLower()-».«attr.name.toFirstLower()-»;
+			«ENDIF-»
+			«ENDFOREACH-»
 			Promise.all(async).then(() => {
-				let id = «co.name.toFirstLower()».getId();
+				let id = «co.name.toFirstLower()-».getId();
 				if (id !== undefined) {
 					let ref = firebase.database()
 						.ref("«co.name.toLowerCase()-»s")
-						.child(«co.name.toFirstLower()».getId());
+						.child(«co.name.toFirstLower()-».getId());
 					ref
 						.once('value', snapshot => {
 							if (!snapshot.exists()) {
 								let key = ref.set(normalized).key;
-								«co.name.toFirstLower()».setId(key);
-								resolve(«co.name.toFirstLower()»);
+								«co.name.toFirstLower()-».setId(key);
+								resolve(«co.name.toFirstLower()-»);
 							}
 						});
 				} else {
-					let ref = firebase.database().ref("«co.name.toLowerCase()»s");
+					let ref = firebase.database().ref("«co.name.toLowerCase()-»s");
 					let key = ref.push(normalized).key;
-					«co.name.toFirstLower()».setId(key);
-					resolve(«co.name.toFirstLower()»);
+					«co.name.toFirstLower()-».setId(key);
+					resolve(«co.name.toFirstLower()-»);
 				}
 				
 			});
 		});
 	}
 	
-	delete«co.name.toFirstUpper()»(«co.name.toFirstLower()») {
+	delete«co.name.toFirstUpper()-»(«co.name.toFirstLower()-») {
 		firebase.database()
 			.ref("«co.name.toLowerCase()-»s")
-			.child(«co.name.toFirstLower()».getId())
+			.child(«co.name.toFirstLower()-».getId())
 			.set(null);
 	}
 	
-	«ENDFOREACH»
+	«ENDFOREACH-»
 
 }
 
 export default new CloudHandlerImpl();
-«ENDFILE»
-«ENDDEFINE»
+«ENDFILE-»
+«ENDDEFINE-»
 
-«DEFINE cloudEntity FOR CloudObject»
-«FILE cloudHandler.dataHandler.application.name + "/cloudEntities/" + name.toFirstUpper() + ".js"»
-export default class «name.toFirstUpper()» {
+«DEFINE cloudEntity FOR CloudObject-»
+«FILE cloudHandler.dataHandler.application.name + "/cloudEntities/" + name.toFirstUpper() + ".js"-»
+export default class «name.toFirstUpper()-» {
 	constructor(
 		id, 
 		«FOREACH objectAttributes AS attr SEPARATOR ", "-»
-		«attr.name.toFirstLower()»
-		«ENDFOREACH»
+		«attr.name.toFirstLower()-»
+		«ENDFOREACH-»
 	) {
 		this.id = id;
 		«FOREACH objectAttributes AS attr-»
-		this.«attr.name.toFirstLower()» = «attr.name.toFirstLower()»;
-		«ENDFOREACH»
+		this.«attr.name.toFirstLower()-» = «attr.name.toFirstLower()-»;
+		«ENDFOREACH-»
 	}
 	
 	static createFromObject(raw) {
-		return new «name.toFirstUpper()»(
+		return new «name.toFirstUpper()-»(
 			raw.id,
 			«FOREACH objectAttributes AS attr SEPARATOR ", "-»
-			raw.«attr.name.toFirstLower()»
-			«ENDFOREACH»
+			raw.«attr.name.toFirstLower()-»
+			«ENDFOREACH-»
 		);
 	}
 	
@@ -165,15 +165,15 @@ export default class «name.toFirstUpper()» {
 	}
 	
 	«FOREACH objectAttributes AS attr-»
-		get«attr.name.toFirstUpper()»() {
-			return this.«attr.name.toFirstLower()»;
+		get«attr.name.toFirstUpper()-»() {
+			return this.«attr.name.toFirstLower()-»;
 		}
-		set«attr.name.toFirstUpper()»(value) {
-			this.«attr.name.toFirstLower()» = value;
+		set«attr.name.toFirstUpper()-»(value) {
+			this.«attr.name.toFirstLower()-» = value;
 		}
-	«ENDFOREACH»
+	«ENDFOREACH-»
 	
 	
 }
-«ENDFILE»
-«ENDDEFINE»
+«ENDFILE-»
+«ENDDEFINE-»

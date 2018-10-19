@@ -1,54 +1,54 @@
-«IMPORT metamodel»
+«IMPORT metamodel-»
 
-«DEFINE styleVars FOR ViewController»
-	«FOREACH sliders AS s»
-		«EXPAND reactnative_templates::UIPhoneControl::styleVars FOR s»
-	«ENDFOREACH»
-«ENDDEFINE»
+«DEFINE styleVars FOR ViewController-»
+	«FOREACH sliders AS s-»
+		«EXPAND reactnative_templates::UIPhoneControl::styleVars FOR s-»
+	«ENDFOREACH-»
+«ENDDEFINE-»
 
-«DEFINE style FOR ViewController»
-	«FOREACH sliders AS s»
-		e«s.id»: {
-			«EXPAND reactnative_templates::UIPhoneControl::style FOR s»
+«DEFINE style FOR ViewController-»
+	«FOREACH sliders AS s-»
+		e«s.id-»: {
+			«EXPAND reactnative_templates::UIPhoneControl::style FOR s-»
 		},
-	«ENDFOREACH»
-«ENDDEFINE»
+	«ENDFOREACH-»
+«ENDDEFINE-»
 
-«DEFINE eventBinding FOR ViewController»
-«FOREACH sliders AS s»
-	this.on«s.id»Change = this.on«s.id»Change.bind(this);
-	this.on«s.id»Released = this.on«s.id»Released.bind(this);
-«ENDFOREACH»
-«ENDDEFINE»
+«DEFINE eventBinding FOR ViewController-»
+«FOREACH sliders AS s-»
+	this.on«s.id-»Change = this.on«s.id-»Change.bind(this);
+	this.on«s.id-»Released = this.on«s.id-»Released.bind(this);
+«ENDFOREACH-»
+«ENDDEFINE-»
 
-«DEFINE state FOR ViewController»
-«FOREACH sliders AS s»
-	e«s.id»Value: 50,
-«ENDFOREACH»
-«ENDDEFINE»
+«DEFINE state FOR ViewController-»
+«FOREACH sliders AS s-»
+	e«s.id-»Value: 50,
+«ENDFOREACH-»
+«ENDDEFINE-»
 
-«DEFINE events FOR ViewController»
-«FOREACH sliders AS s»
-	on«s.id»Change(value) {
-		if (this.props.onSliderDrag) this.props.onSliderDrag('«s.id»', value);
+«DEFINE events FOR ViewController-»
+«FOREACH sliders AS s-»
+	on«s.id-»Change(value) {
+		if (this.props.onSliderDrag) this.props.onSliderDrag('«s.id-»', value);
 	}
-	on«s.id»Released(value) {
-		if (this.props.onSliderChange) this.props.onSliderChange('«s.id»', value);
+	on«s.id-»Released(value) {
+		if (this.props.onSliderChange) this.props.onSliderChange('«s.id-»', value);
 	}
-«ENDFOREACH»
-«ENDDEFINE»
+«ENDFOREACH-»
+«ENDDEFINE-»
 
-«DEFINE render FOR ViewController»
-«FOREACH sliders AS s»
+«DEFINE render FOR ViewController-»
+«FOREACH sliders AS s-»
 	<CSlider
-		«EXPAND reactnative_templates::UIPhoneControl::props FOR s»
-		style={styles.e«s.id»} 
-		onValueChange={this.on«s.id»Change}
-		onSlidingComplete={this.on«s.id»Released}
+		«EXPAND reactnative_templates::UIPhoneControl::props FOR s-»
+		style={styles.e«s.id-»} 
+		onValueChange={this.on«s.id-»Change}
+		onSlidingComplete={this.on«s.id-»Released}
 		minimumValue={0}
 		maximumValue={100}
 		step={1}
-		value={this.state.e«s.id»Value}>
+		value={this.state.e«s.id-»Value}>
 	</CSlider>
-«ENDFOREACH»
-«ENDDEFINE»
+«ENDFOREACH-»
+«ENDDEFINE-»

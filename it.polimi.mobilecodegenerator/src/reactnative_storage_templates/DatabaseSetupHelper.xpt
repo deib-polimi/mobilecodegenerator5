@@ -1,13 +1,13 @@
 «IMPORT metamodel»
 
-«DEFINE main FOR Application»
-«IF dataHandler.databaseHandler != null»
-«EXPAND setupHelper FOR dataHandler.databaseHandler»
-«ENDIF»
-«ENDDEFINE»
+«DEFINE main FOR Application-»
+«IF dataHandler.databaseHandler != null-»
+«EXPAND setupHelper FOR dataHandler.databaseHandler-»
+«ENDIF-»
+«ENDDEFINE-»
 
-«DEFINE setupHelper FOR DatabaseHandler»
-«FILE dataHandler.application.name + "/storage/DatabaseSetupHelper.js"»
+«DEFINE setupHelper FOR DatabaseHandler-»
+«FILE dataHandler.application.name + "/storage/DatabaseSetupHelper.js"-»
 export default class DatabaseSetupHelper {
 
 	constructor(db) {
@@ -40,39 +40,39 @@ export default class DatabaseSetupHelper {
 			or create all tables without rels and add rels right after
 		«ENDREM»
 		this.db.executeSql('CREATE TABLE MetaTable(pk TEXT PRIMARY KEY) WITHOUT ROWID');
-		«EXPAND createTable FOREACH entities»
-		«EXPAND createRels FOREACH entities»
+		«EXPAND createTable FOREACH entities-»
+		«EXPAND createRels FOREACH entities-»
 	}
 
 }
-«ENDFILE»
-«ENDDEFINE»
+«ENDFILE-»
+«ENDDEFINE-»
 
-«DEFINE createTable FOR Entity»
-	let PK_«name» = '«primaryKey»';
-	this.db.executeSql(`CREATE TABLE TBL_«name»(
-		«primaryKey» TEXT PRIMARY KEY,
+«DEFINE createTable FOR Entity-»
+	let PK_«name-» = '«primaryKey-»';
+	this.db.executeSql(`CREATE TABLE TBL_«name-»(
+		«primaryKey-» TEXT PRIMARY KEY,
 		«FOREACH entityAttributes AS attr SEPARATOR ",\n"-»
-		«IF attr.type.matches("Integer") || attr.type.matches("Boolean")»
-		«attr.name» INT
-		«ELSEIF attr.type.matches("String") || attr.type.matches("Date")»
-		«attr.name» TEXT
-		«ELSEIF attr.type.matches("Float") || attr.type.matches("Double")»
-		«attr.name» REAL
-		«ENDIF»
-		«ENDFOREACH»
+		«IF attr.type.matches("Integer") || attr.type.matches("Boolean")-»
+		«attr.name-» INT
+		«ELSEIF attr.type.matches("String") || attr.type.matches("Date")-»
+		«attr.name-» TEXT
+		«ELSEIF attr.type.matches("Float") || attr.type.matches("Double")-»
+		«attr.name-» REAL
+		«ENDIF-»
+		«ENDFOREACH-»
 	)`);
-«ENDDEFINE»
+«ENDDEFINE-»
 
-«DEFINE createRels FOR Entity»
-	«FOREACH entityRelationships.select(e|e.type.matches("N : 1") || e.type.matches("1 : 1")) AS rel»
-	this.db.executeSql(`ALTER TABLE TBL_«name» ADD COLUMN «rel.name»«rel.destination.toFirstUpper()»ID REFERENCES TBL_«rel.destination»(' + PK_«rel.destination» + ') ON UPDATE CASCADE ON DELETE CASCADE');
-	«ENDFOREACH»
-	«FOREACH entityRelationships.select(e|e.type.matches("N : N") || e.type.matches("1 : N")) AS rel»
-	this.db.executeSql(`CREATE TABLE REL_«rel.name»(
-		«name.toFirstLower()» TEXT REFERENCES TBL_«name»(PK_«name») ON UPDATE CASCADE ON DELETE CASCADE,
-		«rel.destination.toFirstLower()» TEXT REFERENCES TBL_«rel.destination»(PK_«rel.destination») ON UPDATE CASCADE ON DELETE CASCADE,
-		PRIMARY KEY («name», «rel.destination.toFirstLower()»)
+«DEFINE createRels FOR Entity-»
+	«FOREACH entityRelationships.select(e|e.type.matches("N : 1") || e.type.matches("1 : 1")) AS rel-»
+	this.db.executeSql(`ALTER TABLE TBL_«name-» ADD COLUMN «rel.name-»«rel.destination.toFirstUpper()-»ID REFERENCES TBL_«rel.destination-»(' + PK_«rel.destination-» + ') ON UPDATE CASCADE ON DELETE CASCADE');
+	«ENDFOREACH-»
+	«FOREACH entityRelationships.select(e|e.type.matches("N : N") || e.type.matches("1 : N")) AS rel-»
+	this.db.executeSql(`CREATE TABLE REL_«rel.name-»(
+		«name.toFirstLower()-» TEXT REFERENCES TBL_«name-»(PK_«name-») ON UPDATE CASCADE ON DELETE CASCADE,
+		«rel.destination.toFirstLower()-» TEXT REFERENCES TBL_«rel.destination-»(PK_«rel.destination-») ON UPDATE CASCADE ON DELETE CASCADE,
+		PRIMARY KEY («name-», «rel.destination.toFirstLower()-»)
 	)`);
-	«ENDFOREACH»
-«ENDDEFINE»
+	«ENDFOREACH-»
+«ENDDEFINE-»

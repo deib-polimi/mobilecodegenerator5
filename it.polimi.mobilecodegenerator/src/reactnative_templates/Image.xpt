@@ -1,29 +1,29 @@
-«IMPORT metamodel»
+«IMPORT metamodel-»
 
-«DEFINE styleVars FOR ViewController»
-«FOREACH imageViews AS iv»
-	«EXPAND reactnative_templates::UIPhoneControl::styleVars FOR iv»
-«ENDFOREACH»
-«ENDDEFINE»
+«DEFINE styleVars FOR ViewController-»
+«FOREACH imageViews AS iv-»
+	«EXPAND reactnative_templates::UIPhoneControl::styleVars FOR iv-»
+«ENDFOREACH-»
+«ENDDEFINE-»
 
-«DEFINE style FOR ViewController»
-«FOREACH imageViews AS iv»
-	e«iv.id»: {
-		«EXPAND reactnative_templates::UIPhoneControl::style FOR iv»
+«DEFINE style FOR ViewController-»
+«FOREACH imageViews AS iv-»
+	e«iv.id-»: {
+		«EXPAND reactnative_templates::UIPhoneControl::style FOR iv-»
 	},
-«ENDFOREACH»
-«ENDDEFINE»
+«ENDFOREACH-»
+«ENDDEFINE-»
 
-«DEFINE render FOR ViewController»
-	«FOREACH imageViews AS iv»
+«DEFINE render FOR ViewController-»
+	«FOREACH imageViews AS iv-»
 		<CImage
-			«EXPAND reactnative_templates::UIPhoneControl::props FOR iv»
-			«IF photocameraController != null && iv.id.matches(photocameraController.imageViewId)»
+			«EXPAND reactnative_templates::UIPhoneControl::props FOR iv-»
+			«IF photocameraController != null && iv.id.matches(photocameraController.imageViewId)-»
 				source={{uri: this.props.pictureTaken}}
-			«ELSE»
-				source={{uri: '«iv.fileUri»'}}
-			«ENDIF»
-			style={styles.e«iv.id»}
+			«ELSE-»
+				source={{uri: '«iv.fileUri-»'}}
+			«ENDIF-»
+			style={styles.e«iv.id-»}
 		/>
-	«ENDFOREACH»
-«ENDDEFINE»
+	«ENDFOREACH-»
+«ENDDEFINE-»

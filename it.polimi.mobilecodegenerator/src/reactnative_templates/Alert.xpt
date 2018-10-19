@@ -1,28 +1,28 @@
-«IMPORT metamodel»
+«IMPORT metamodel-»
 
-«DEFINE binding FOR ViewController»
-«FOREACH alertDialogs AS d»
-this.alert«d.id.toFirstUpper()» = this.alert«d.id.toFirstUpper()».bind(this);
-«ENDFOREACH»
-«ENDDEFINE»
+«DEFINE binding FOR ViewController-»
+«FOREACH alertDialogs AS d-»
+this.alert«d.id.toFirstUpper()-» = this.alert«d.id.toFirstUpper()-».bind(this);
+«ENDFOREACH-»
+«ENDDEFINE-»
 
-«DEFINE interface FOR ViewController»
+«DEFINE interface FOR ViewController-»
 alert: {
-«FOREACH alertDialogs AS d»
-Alert«d.id.toFirstUpper()»: () => {
-	return this.alert«d.id.toFirstUpper()»();
+«FOREACH alertDialogs AS d-»
+Alert«d.id.toFirstUpper()-»: () => {
+	return this.alert«d.id.toFirstUpper()-»();
 },
-«ENDFOREACH»
+«ENDFOREACH-»
 },
-«ENDDEFINE»
+«ENDDEFINE-»
 
-«DEFINE implementation FOR ViewController»
-«FOREACH alertDialogs AS d»
-alert«d.id.toFirstUpper()»() {
+«DEFINE implementation FOR ViewController-»
+«FOREACH alertDialogs AS d-»
+alert«d.id.toFirstUpper()-»() {
 	return new Promise((resolve, reject) => {
 		Alert.alert(
-			'«d.title»',
-			'«d.message»',
+			'«d.title-»',
+			'«d.message-»',
 			[
 				{ text: 'OK', onPress: () => resolve('ok') },
 				{ text: 'Cancel', onPress: () => resolve('cancel') }
@@ -31,5 +31,5 @@ alert«d.id.toFirstUpper()»() {
 		);
 	});
 }
-«ENDFOREACH»
-«ENDDEFINE»
+«ENDFOREACH-»
+«ENDDEFINE-»

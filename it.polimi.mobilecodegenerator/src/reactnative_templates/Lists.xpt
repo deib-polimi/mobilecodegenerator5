@@ -1,57 +1,57 @@
-«IMPORT metamodel»
+«IMPORT metamodel-»
 
-«DEFINE styleVars FOR ViewController»
-	«FOREACH listViews AS lv»
-		«EXPAND reactnative_templates::UIPhoneControl::styleVars FOR lv»
-	«ENDFOREACH»
-«ENDDEFINE»
+«DEFINE styleVars FOR ViewController-»
+	«FOREACH listViews AS lv-»
+		«EXPAND reactnative_templates::UIPhoneControl::styleVars FOR lv-»
+	«ENDFOREACH-»
+«ENDDEFINE-»
 
-«DEFINE style FOR ViewController»
-	«FOREACH listViews AS lv»
-		e«lv.id»: {
-			«EXPAND reactnative_templates::UIPhoneControl::style FOR lv»
+«DEFINE style FOR ViewController-»
+	«FOREACH listViews AS lv-»
+		e«lv.id-»: {
+			«EXPAND reactnative_templates::UIPhoneControl::style FOR lv-»
 		},
-		e«lv.id»_item: {
-			«IF lv.backgroundColor.matches("")»
+		e«lv.id-»_item: {
+			«IF lv.backgroundColor.matches("")-»
 			backgroundColor: 'white',
-			«ELSE»
-			backgroundColor: '«lv.backgroundColor»',
-			«ENDIF»
+			«ELSE-»
+			backgroundColor: '«lv.backgroundColor-»',
+			«ENDIF-»
 		},
-	«ENDFOREACH»
-«ENDDEFINE»
+	«ENDFOREACH-»
+«ENDDEFINE-»
 
-«DEFINE eventBinding FOR ViewController»
-«FOREACH listViews AS lv»
-	this.on«lv.id»ItemSelect = this.on«lv.id»ItemSelect.bind(this);
-«ENDFOREACH»
-«ENDDEFINE»
+«DEFINE eventBinding FOR ViewController-»
+«FOREACH listViews AS lv-»
+	this.on«lv.id-»ItemSelect = this.on«lv.id-»ItemSelect.bind(this);
+«ENDFOREACH-»
+«ENDDEFINE-»
 
-«DEFINE events FOR ViewController»
-«FOREACH listViews AS lv»
-	on«lv.id»ItemSelect(item) {
+«DEFINE events FOR ViewController-»
+«FOREACH listViews AS lv-»
+	on«lv.id-»ItemSelect(item) {
 		console.log('Selected', JSON.stringify(item));
-		if (this.props.onListItemSelect) this.props.onListItemSelect('«lv.id»', item);
+		if (this.props.onListItemSelect) this.props.onListItemSelect('«lv.id-»', item);
 	}
-«ENDFOREACH»
-«ENDDEFINE»
+«ENDFOREACH-»
+«ENDDEFINE-»
 
-«DEFINE render FOR ViewController»
-	«FOREACH listViews AS lv»
+«DEFINE render FOR ViewController-»
+	«FOREACH listViews AS lv-»
 		<CFlatList
-			«EXPAND reactnative_templates::UIPhoneControl::props FOR lv»
-			style={styles.e«lv.id»}
+			«EXPAND reactnative_templates::UIPhoneControl::props FOR lv-»
+			style={styles.e«lv.id-»}
 			data={[
-				«FOREACH lv.listViewCells AS cell ITERATOR iter»
-					{ key: '«iter.counter1»', title: '«cell.title»', subtitle: '«cell.subtitle»' },
-				«ENDFOREACH»
+				«FOREACH lv.listViewCells AS cell ITERATOR iter-»
+					{ key: '«iter.counter1-»', title: '«cell.title-»', subtitle: '«cell.subtitle-»' },
+				«ENDFOREACH-»
 				]}
-			renderItem={({item}) => <ListElement«lv.id.toFirstUpper()» style={styles.e«lv.id»_item} title={item.title} subtitle={item.subtitle} onPress={() => this.on«lv.id»ItemSelect(item)} /> }
+			renderItem={({item}) => <ListElement«lv.id.toFirstUpper()-» style={styles.e«lv.id-»_item} title={item.title} subtitle={item.subtitle} onPress={() => this.on«lv.id-»ItemSelect(item)} /> }
 		></CFlatList>
-	«ENDFOREACH»
-«ENDDEFINE»
+	«ENDFOREACH-»
+«ENDDEFINE-»
 
-«DEFINE simpleLayout FOR ListView»
+«DEFINE simpleLayout FOR ListView-»
 import React from 'react';
 import { View, Text, StyleSheet, TouchableHighlight } from 'react-native';
 
@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default class ListElement«id.toFirstUpper()» extends React.Component {
+export default class ListElement«id.toFirstUpper()-» extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -91,9 +91,9 @@ export default class ListElement«id.toFirstUpper()» extends React.Component {
 		);
 	}
 }
-«ENDDEFINE»
+«ENDDEFINE-»
 
-«DEFINE imageLayout FOR ListView»
+«DEFINE imageLayout FOR ListView-»
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableHighlight } from 'react-native';
 
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
 	}
 });
 
-export default class ListElement«id.toFirstUpper()» extends React.Component {
+export default class ListElement«id.toFirstUpper()-» extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -143,9 +143,9 @@ export default class ListElement«id.toFirstUpper()» extends React.Component {
 		);
 	}
 }
-«ENDDEFINE»
+«ENDDEFINE-»
 
-«DEFINE detailedLayout FOR ListView»
+«DEFINE detailedLayout FOR ListView-»
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableHighlight } from 'react-native';
 
@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
 	}
 });
 
-export default class ListElement«id.toFirstUpper()» extends React.Component {
+export default class ListElement«id.toFirstUpper()-» extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -215,4 +215,4 @@ export default class ListElement«id.toFirstUpper()» extends React.Component {
 		);
 	}
 }
-«ENDDEFINE»
+«ENDDEFINE-»

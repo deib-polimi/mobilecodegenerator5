@@ -1,19 +1,19 @@
-«IMPORT metamodel»
+«IMPORT metamodel-»
 
-«DEFINE main FOR Application»
-«IF dataHandler.storageHandler != null»
-«EXPAND storage FOR dataHandler.storageHandler»
-«ENDIF»
-«ENDDEFINE»
+«DEFINE main FOR Application-»
+«IF dataHandler.storageHandler != null-»
+«EXPAND storage FOR dataHandler.storageHandler-»
+«ENDIF-»
+«ENDDEFINE-»
 
-«DEFINE storage FOR StorageHandler»
-«FILE dataHandler.application.name + "/storage/Storage.js"»
+«DEFINE storage FOR StorageHandler-»
+«FILE dataHandler.application.name + "/storage/Storage.js"-»
 import FileSystem from 'react-native-filesystem-v1';
 
 export const Files = {
-	«FOREACH storageRecords AS sr»
-	File_«sr.name»: { name: '«sr.name».«sr.extension»', temp: «sr.tempFile» },
-	«ENDFOREACH»
+	«FOREACH storageRecords AS sr-»
+	File_«sr.name-»: { name: '«sr.name-».«sr.extension-»', temp: «sr.tempFile-» },
+	«ENDFOREACH-»
 };
 
 class FileAccessImpl {
@@ -30,5 +30,5 @@ class FileAccessImpl {
 
 export const FileAccess = new FileAccessImpl();
 
-«ENDFILE»
-«ENDDEFINE»
+«ENDFILE-»
+«ENDDEFINE-»

@@ -1,29 +1,29 @@
-«IMPORT metamodel»
+«IMPORT metamodel-»
 
-«DEFINE styleVars FOR ViewController»
-«FOREACH videoViews AS vv»
-	«EXPAND reactnative_templates::UIPhoneControl::styleVars FOR vv»
-«ENDFOREACH»
-«ENDDEFINE»
+«DEFINE styleVars FOR ViewController-»
+«FOREACH videoViews AS vv-»
+	«EXPAND reactnative_templates::UIPhoneControl::styleVars FOR vv-»
+«ENDFOREACH-»
+«ENDDEFINE-»
 
-«DEFINE style FOR ViewController»
-«FOREACH videoViews AS vv»
-	e«vv.id»: {
-		«EXPAND reactnative_templates::UIPhoneControl::style FOR vv»
+«DEFINE style FOR ViewController-»
+«FOREACH videoViews AS vv-»
+	e«vv.id-»: {
+		«EXPAND reactnative_templates::UIPhoneControl::style FOR vv-»
 	},
-«ENDFOREACH»
-«ENDDEFINE»
+«ENDFOREACH-»
+«ENDDEFINE-»
 
-«DEFINE render FOR ViewController»
-	«FOREACH videoViews AS vv»
+«DEFINE render FOR ViewController-»
+	«FOREACH videoViews AS vv-»
 		<CVideoPlayer
-			«EXPAND reactnative_templates::UIPhoneControl::props FOR vv»
-			«IF videocameraController != null && vv.id.matches(videocameraController.videoViewId)»
+			«EXPAND reactnative_templates::UIPhoneControl::props FOR vv-»
+			«IF videocameraController != null && vv.id.matches(videocameraController.videoViewId)-»
 			source={{uri: this.props.videoTaken}}
-			«ELSE»
-			source={{uri: '«vv.fileUri»'}}
-			«ENDIF»
-			style={styles.e«vv.id»}
+			«ELSE-»
+			source={{uri: '«vv.fileUri-»'}}
+			«ENDIF-»
+			style={styles.e«vv.id-»}
 		/>
-	«ENDFOREACH»
-«ENDDEFINE»
+	«ENDFOREACH-»
+«ENDDEFINE-»

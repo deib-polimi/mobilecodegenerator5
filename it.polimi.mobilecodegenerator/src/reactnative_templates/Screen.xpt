@@ -1,28 +1,28 @@
-«IMPORT metamodel»
+«IMPORT metamodel-»
 
-«EXTENSION reactnative_templates::DebugUtils»
-«EXTENSION app_extensions::Java»
+«EXTENSION reactnative_templates::DebugUtils-»
+«EXTENSION app_extensions::Java-»
 
-«DEFINE singleScreen(String device, Scene context) FOR ViewController»
-«EXPAND singleScreenOptLayout(device, context, false)»
-«ENDDEFINE»
+«DEFINE singleScreen(String device, Scene context) FOR ViewController-»
+«EXPAND singleScreenOptLayout(device, context, false)-»
+«ENDDEFINE-»
 
-«DEFINE singleScreenOptLayout(String device, Scene context, Boolean isLayoutComponent) FOR ViewController»
+«DEFINE singleScreenOptLayout(String device, Scene context, Boolean isLayoutComponent) FOR ViewController-»
 «REM»Don't use this.application.name, since ParentViewControllers have a broken reference«ENDREM»
-«FILE context.application.name + "/scenes/" + device + "_" + context.name.replaceAll(" ", "_").toFirstUpper() + "/Screen_" + name.replaceAll(" ", "_").toFirstUpper() + ".js"»
+«FILE context.application.name + "/scenes/" + device + "_" + context.name.replaceAll(" ", "_").toFirstUpper() + "/Screen_" + name.replaceAll(" ", "_").toFirstUpper() + ".js"-»
 import React from 'react';
-«IF isLayoutComponent»
-import Component_«name.replaceAll(" ", "_").toFirstUpper()» from '../../components/Layout_«context.name.replaceAll(" ", "_").toFirstUpper()»_«name.replaceAll(" ", "_").toFirstUpper()»';
-«ELSE»
-import Component_«name.replaceAll(" ", "_").toFirstUpper()» from '../../components/Component_«name.replaceAll(" ", "_").toFirstUpper()»';
-«ENDIF»
+«IF isLayoutComponent-»
+import Component_«name.replaceAll(" ", "_").toFirstUpper()-» from '../../components/Layout_«context.name.replaceAll(" ", "_").toFirstUpper()-»_«name.replaceAll(" ", "_").toFirstUpper()-»';
+«ELSE-»
+import Component_«name.replaceAll(" ", "_").toFirstUpper()-» from '../../components/Component_«name.replaceAll(" ", "_").toFirstUpper()-»';
+«ENDIF-»
 
 import Icon	 from 'react-native-vector-icons/MaterialIcons';
 import { 
 	TouchableWithoutFeedback,
 } from 'react-native';
 
-export default class Screen_«name.replaceAll(" ", "_").toFirstUpper()» extends React.Component {
+export default class Screen_«name.replaceAll(" ", "_").toFirstUpper()-» extends React.Component {
 
 	constructor(props) {
 		super(props);
@@ -52,53 +52,53 @@ export default class Screen_«name.replaceAll(" ", "_").toFirstUpper()» extends R
 	onAudioStop(audioId) { }
 	
 	onButtonPress(buttonId) {
-		«FOREACH buttons AS b»
-		«FOREACH b.navigations AS n»
-		«IF n.contextScene.id == context.id»
-		if (buttonId === '«b.id»') {
-			«IF n.destinationScene != null»
-			this.props.navigation.navigate('Scene_«n.destinationScene.name.replaceAll(" ", "_").toFirstUpper()»');
-			«ELSEIF n.destinationViewController != null»
-			this.props.navigation.navigate('Screen_«n.destinationViewController.name.replaceAll(" ", "_").toFirstUpper()»');
-			«ENDIF»
+		«FOREACH buttons AS b-»
+		«FOREACH b.navigations AS n-»
+		«IF n.contextScene.id == context.id-»
+		if (buttonId === '«b.id-»') {
+			«IF n.destinationScene != null-»
+			this.props.navigation.navigate('Scene_«n.destinationScene.name.replaceAll(" ", "_").toFirstUpper()-»');
+			«ELSEIF n.destinationViewController != null-»
+			this.props.navigation.navigate('Screen_«n.destinationViewController.name.replaceAll(" ", "_").toFirstUpper()-»');
+			«ENDIF-»
 		}
-		«ENDIF»
-		«ENDFOREACH»
-		«ENDFOREACH»
+		«ENDIF-»
+		«ENDFOREACH-»
+		«ENDFOREACH-»
 	}
 	
 	onDropdownChange(dropdownId) { }
 	
 	onGridItemSelect(gridId, item) {
-		«FOREACH gridViews AS gv»
-		«FOREACH gv.navigations AS n»
-		«IF n.contextScene.id == context.id»
-		if (gridId === '«gv.id»') {
-			«IF n.destinationScene != null»
-			this.props.navigation.navigate('Scene_«n.destinationScene.name.replaceAll(" ", "_").toFirstUpper()»');
-			«ELSEIF n.destinationViewController != null»
-			this.props.navigation.navigate('Screen_«n.destinationViewController.name.replaceAll(" ", "_").toFirstUpper()»');
-			«ENDIF»
+		«FOREACH gridViews AS gv-»
+		«FOREACH gv.navigations AS n-»
+		«IF n.contextScene.id == context.id-»
+		if (gridId === '«gv.id-»') {
+			«IF n.destinationScene != null-»
+			this.props.navigation.navigate('Scene_«n.destinationScene.name.replaceAll(" ", "_").toFirstUpper()-»');
+			«ELSEIF n.destinationViewController != null-»
+			this.props.navigation.navigate('Screen_«n.destinationViewController.name.replaceAll(" ", "_").toFirstUpper()-»');
+			«ENDIF-»
 		}
-		«ENDIF»
-		«ENDFOREACH»
-		«ENDFOREACH»
+		«ENDIF-»
+		«ENDFOREACH-»
+		«ENDFOREACH-»
 	}
 	
 	onListItemSelect(listId, item) {
-		«FOREACH listViews AS lv»
-		«FOREACH lv.navigations AS n»
-		«IF n.contextScene.id == context.id»
-		if (listId === '«lv.id»') {
-			«IF n.destinationScene != null»
-			this.props.navigation.navigate('Scene_«n.destinationScene.name.replaceAll(" ", "_").toFirstUpper()»');
-			«ELSEIF n.destinationViewController != null»
-			this.props.navigation.navigate('Screen_«n.destinationViewController.name.replaceAll(" ", "_").toFirstUpper()»');
-			«ENDIF»
+		«FOREACH listViews AS lv-»
+		«FOREACH lv.navigations AS n-»
+		«IF n.contextScene.id == context.id-»
+		if (listId === '«lv.id-»') {
+			«IF n.destinationScene != null-»
+			this.props.navigation.navigate('Scene_«n.destinationScene.name.replaceAll(" ", "_").toFirstUpper()-»');
+			«ELSEIF n.destinationViewController != null-»
+			this.props.navigation.navigate('Screen_«n.destinationViewController.name.replaceAll(" ", "_").toFirstUpper()-»');
+			«ENDIF-»
 		}
-		«ENDIF»
-		«ENDFOREACH»
-		«ENDFOREACH»
+		«ENDIF-»
+		«ENDFOREACH-»
+		«ENDFOREACH-»
 	}
 	
 	onSliderDrag(sliderId, value) { }
@@ -116,11 +116,11 @@ export default class Screen_«name.replaceAll(" ", "_").toFirstUpper()» extends R
 	}
 	onPictureTaken(cameraControllerId, path) {
 		«REM»Can be easily generalized to more than one camera controller per viewController, current implementation relies on unicity«ENDREM»
-		«IF photocameraController != null && !photocameraController.imageViewId.matches("")»
+		«IF photocameraController != null && !photocameraController.imageViewId.matches("")-»
 			this.setState({
 				'imageTaken': path
 			});
-		«ENDIF»
+		«ENDIF-»
 	}
 	
 	onRecordingRequest(cameraControllerId) {
@@ -131,11 +131,11 @@ export default class Screen_«name.replaceAll(" ", "_").toFirstUpper()» extends R
 	}
 	onRecordingComplete(cameraControllerId, path) {
 		«REM»Can be easily generalized to more than one camera controller per viewController, current implementation relies on unicity«ENDREM»
-		«IF videocameraController != null && !videocameraController.videoViewId.matches("")»
+		«IF videocameraController != null && !videocameraController.videoViewId.matches("")-»
 			this.setState({
 				'videoTaken': path
 			});
-		«ENDIF»
+		«ENDIF-»
 	}
 	
 	onDateSelected(datePickerId, date) { }
@@ -143,7 +143,7 @@ export default class Screen_«name.replaceAll(" ", "_").toFirstUpper()» extends R
 	
 	render() {
 		return (
-			<Component_«name.replaceAll(" ", "_").toFirstUpper()» 
+			<Component_«name.replaceAll(" ", "_").toFirstUpper()-» 
 				style={{width: '100%', height: '100%'}}
 				onInterface={ componentInterface => this.componentInterface = componentInterface }
 				onAudioPlay={this.onAudioPlay}
@@ -168,5 +168,5 @@ export default class Screen_«name.replaceAll(" ", "_").toFirstUpper()» extends R
 	}
 }
 
-«ENDFILE»
-«ENDDEFINE»
+«ENDFILE-»
+«ENDDEFINE-»

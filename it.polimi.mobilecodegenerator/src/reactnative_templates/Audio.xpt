@@ -1,56 +1,56 @@
-«IMPORT metamodel»
+«IMPORT metamodel-»
 
-«DEFINE styleVars FOR ViewController»
-	«FOREACH audioPlayers AS ap»
-		«EXPAND reactnative_templates::UIPhoneControl::styleVars FOR ap»
-	«ENDFOREACH»
-«ENDDEFINE»
+«DEFINE styleVars FOR ViewController-»
+	«FOREACH audioPlayers AS ap-»
+		«EXPAND reactnative_templates::UIPhoneControl::styleVars FOR ap-»
+	«ENDFOREACH-»
+«ENDDEFINE-»
 
-«DEFINE style FOR ViewController»
-	«FOREACH audioPlayers AS ap»
-		e«ap.id»: {
-			«EXPAND reactnative_templates::UIPhoneControl::style FOR ap»
+«DEFINE style FOR ViewController-»
+	«FOREACH audioPlayers AS ap-»
+		e«ap.id-»: {
+			«EXPAND reactnative_templates::UIPhoneControl::style FOR ap-»
 		},
-	«ENDFOREACH»
-«ENDDEFINE»
+	«ENDFOREACH-»
+«ENDDEFINE-»
 
-«DEFINE eventBinding FOR ViewController»
-«FOREACH audioPlayers AS ap»
-	this.on«ap.id»Play = this.on«ap.id»Play.bind(this);
-	this.on«ap.id»Pause = this.on«ap.id»Pause.bind(this);
-	this.on«ap.id»Stop = this.on«ap.id»Stop.bind(this);
-«ENDFOREACH»
-«ENDDEFINE»
+«DEFINE eventBinding FOR ViewController-»
+«FOREACH audioPlayers AS ap-»
+	this.on«ap.id-»Play = this.on«ap.id-»Play.bind(this);
+	this.on«ap.id-»Pause = this.on«ap.id-»Pause.bind(this);
+	this.on«ap.id-»Stop = this.on«ap.id-»Stop.bind(this);
+«ENDFOREACH-»
+«ENDDEFINE-»
 
-«DEFINE events FOR ViewController»
-«FOREACH audioPlayers AS ap»
-	on«ap.id»Play() {
-		if (this.props.onAudioPlay) this.props.onAudioPlay('«ap.id»')
+«DEFINE events FOR ViewController-»
+«FOREACH audioPlayers AS ap-»
+	on«ap.id-»Play() {
+		if (this.props.onAudioPlay) this.props.onAudioPlay('«ap.id-»')
 	}
-	on«ap.id»Pause() {
-		if (this.props.onAudioPause) this.props.onAudioPause('«ap.id»');
+	on«ap.id-»Pause() {
+		if (this.props.onAudioPause) this.props.onAudioPause('«ap.id-»');
 	}
-	on«ap.id»Stop() {
-		if (this.props.onAudioStop) this.props.onAudioStop('«ap.id»');
+	on«ap.id-»Stop() {
+		if (this.props.onAudioStop) this.props.onAudioStop('«ap.id-»');
 	}
-«ENDFOREACH»
-«ENDDEFINE»
+«ENDFOREACH-»
+«ENDDEFINE-»
 
-«DEFINE render FOR ViewController»
-	«FOREACH audioPlayers AS ap»
+«DEFINE render FOR ViewController-»
+	«FOREACH audioPlayers AS ap-»
 		<CAudioPlayer
-			«EXPAND reactnative_templates::UIPhoneControl::props FOR ap»
-			«IF audioRecorder == null || ap.id != audioRecorder.audioPlayerId»
-				resource={"«ap.fileUri»"}
+			«EXPAND reactnative_templates::UIPhoneControl::props FOR ap-»
+			«IF audioRecorder == null || ap.id != audioRecorder.audioPlayerId-»
+				resource={"«ap.fileUri-»"}
 				playRecord={false}
-			«ENDIF»
-			«IF audioRecorder != null && ap.id == audioRecorder.audioPlayerId»
+			«ENDIF-»
+			«IF audioRecorder != null && ap.id == audioRecorder.audioPlayerId-»
 				playRecord={true}
-			«ENDIF»
-			style={styles.e«ap.id»}
-			onPlay={this.on«ap.id»Play}
-			onPause={this.on«ap.id»Pause}
-			onStop={this.on«ap.id»Stop}
+			«ENDIF-»
+			style={styles.e«ap.id-»}
+			onPlay={this.on«ap.id-»Play}
+			onPause={this.on«ap.id-»Pause}
+			onStop={this.on«ap.id-»Stop}
 		></CAudioPlayer>
-	«ENDFOREACH»
-«ENDDEFINE»
+	«ENDFOREACH-»
+«ENDDEFINE-»

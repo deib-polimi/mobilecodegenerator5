@@ -1,78 +1,78 @@
-«IMPORT metamodel»
+«IMPORT metamodel-»
 
-«DEFINE main FOR Application»
-«EXPAND component(this, 'Component') FOREACH viewControllers»S
-«ENDDEFINE»
+«DEFINE main FOR Application-»
+«EXPAND component(this, 'Component') FOREACH viewControllers-»S
+«ENDDEFINE-»
 
-«DEFINE style FOR ViewController»
-	e«id»: {
+«DEFINE style FOR ViewController-»
+	e«id-»: {
 		width: '100%',
 		height: '100%',
-		«IF !backgroundColor.matches("")»
-		backgroundColor: '«backgroundColor»'
-		«ENDIF»
+		«IF !backgroundColor.matches("")-»
+		backgroundColor: '«backgroundColor-»'
+		«ENDIF-»
 	},
-«ENDDEFINE»
+«ENDDEFINE-»
 
-«DEFINE component(Application app, String prefix) FOR ViewController»
-	«FILE app.name + "/components/" + prefix + "_" + name.replaceAll(" ", "_").toFirstUpper() + ".js"»
-		«EXPAND imports»
+«DEFINE component(Application app, String prefix) FOR ViewController-»
+	«FILE app.name + "/components/" + prefix + "_" + name.replaceAll(" ", "_").toFirstUpper() + ".js"-»
+		«EXPAND imports-»
 		
 		const styles = StyleSheet.create({
-			«EXPAND style»
-			«EXPAND reactnative_templates::Text::style»
-			«EXPAND reactnative_templates::TextInput::style»
-			«EXPAND reactnative_templates::Button::style»
-			«EXPAND reactnative_templates::Slider::style»
-			«EXPAND reactnative_templates::Switch::style»
-			«EXPAND reactnative_templates::Dropdown::style»
-			«EXPAND reactnative_templates::Audio::style»
-			«EXPAND reactnative_templates::Recording::style»
-			«EXPAND reactnative_templates::WebView::style»
-			«EXPAND reactnative_templates::Lists::style»
-			«EXPAND reactnative_templates::Grids::style»
-			«EXPAND reactnative_templates::Image::style»
-			«EXPAND reactnative_templates::Video::style»
-			«EXPAND reactnative_templates::PhotoCamera::style»
-			«EXPAND reactnative_templates::VideoCamera::style»
-			«EXPAND reactnative_templates::Container::style»
-			«EXPAND reactnative_templates::Map::style»
-			«EXPAND reactnative_templates::DateTimePicker::style»
-			«EXPAND reactnative_templates::Card::style»
+			«EXPAND style-»
+			«EXPAND reactnative_templates::Text::style-»
+			«EXPAND reactnative_templates::TextInput::style-»
+			«EXPAND reactnative_templates::Button::style-»
+			«EXPAND reactnative_templates::Slider::style-»
+			«EXPAND reactnative_templates::Switch::style-»
+			«EXPAND reactnative_templates::Dropdown::style-»
+			«EXPAND reactnative_templates::Audio::style-»
+			«EXPAND reactnative_templates::Recording::style-»
+			«EXPAND reactnative_templates::WebView::style-»
+			«EXPAND reactnative_templates::Lists::style-»
+			«EXPAND reactnative_templates::Grids::style-»
+			«EXPAND reactnative_templates::Image::style-»
+			«EXPAND reactnative_templates::Video::style-»
+			«EXPAND reactnative_templates::PhotoCamera::style-»
+			«EXPAND reactnative_templates::VideoCamera::style-»
+			«EXPAND reactnative_templates::Container::style-»
+			«EXPAND reactnative_templates::Map::style-»
+			«EXPAND reactnative_templates::DateTimePicker::style-»
+			«EXPAND reactnative_templates::Card::style-»
 		});
 		
-		export default class Component_«name.replaceAll(" ", "_").toFirstUpper()» extends React.Component {
+		export default class Component_«name.replaceAll(" ", "_").toFirstUpper()-» extends React.Component {
 			constructor(props){
 				super(props);
 				// Await my interface (see componentDidMount) and all my subcomponents interfaces to be blent together
 				this.componentInterface = {};
-				this.interfaceAwaitCount = 1 + «containers.size»;
+				this.interfaceAwaitCount = 1 + «containers.size-»;
 				
 				// State 
 				this.state = {
-					«EXPAND reactnative_templates::Slider::state»
-					«EXPAND reactnative_templates::Switch::state»
-					«EXPAND reactnative_templates::Dropdown::state»
-					«EXPAND reactnative_templates::DateTimePicker::state»
-					«EXPAND reactnative_templates::ProgressDialog::state»
+					«EXPAND reactnative_templates::Slider::state-»
+					«EXPAND reactnative_templates::Switch::state-»
+					«EXPAND reactnative_templates::Dropdown::state-»
+					«EXPAND reactnative_templates::DateTimePicker::state-»
+					«EXPAND reactnative_templates::ProgressDialog::state-»
 				};
 				
 				// Bind this on all the class methods (React reccomendation)
-				«EXPAND reactnative_templates::TextInput::eventBinding»
-				«EXPAND reactnative_templates::Button::eventBinding»
-				«EXPAND reactnative_templates::Slider::eventBinding»
-				«EXPAND reactnative_templates::Switch::eventBinding»
-				«EXPAND reactnative_templates::Dropdown::eventBinding»
-				«EXPAND reactnative_templates::Audio::eventBinding»
-				«EXPAND reactnative_templates::Recording::eventBinding»
-				«EXPAND reactnative_templates::WebView::eventBinding»
-				«EXPAND reactnative_templates::Lists::eventBinding»
-				«EXPAND reactnative_templates::Grids::eventBinding»
-				«EXPAND reactnative_templates::PhotoCamera::eventBinding»
-				«EXPAND reactnative_templates::VideoCamera::eventBinding»
-				«EXPAND reactnative_templates::DateTimePicker::eventBinding»
-				«EXPAND reactnative_templates::Card::eventBinding»
-				«EXPAND reactnative_templates::Alert::binding»
+				«EXPAND reactnative_templates::TextInput::eventBinding-»
+				«EXPAND reactnative_templates::Button::eventBinding-»
+				«EXPAND reactnative_templates::Slider::eventBinding-»
+				«EXPAND reactnative_templates::Switch::eventBinding-»
+				«EXPAND reactnative_templates::Dropdown::eventBinding-»
+				«EXPAND reactnative_templates::Audio::eventBinding-»
+				«EXPAND reactnative_templates::Recording::eventBinding-»
+				«EXPAND reactnative_templates::WebView::eventBinding-»
+				«EXPAND reactnative_templates::Lists::eventBinding-»
+				«EXPAND reactnative_templates::Grids::eventBinding-»
+				«EXPAND reactnative_templates::PhotoCamera::eventBinding-»
+				«EXPAND reactnative_templates::VideoCamera::eventBinding-»
+				«EXPAND reactnative_templates::DateTimePicker::eventBinding-»
+				«EXPAND reactnative_templates::Card::eventBinding-»
+				«EXPAND reactnative_templates::Alert::binding-»
 				this.registerInterface = this.registerInterface.bind(this);
 			}
 			
@@ -96,71 +96,71 @@
 			
 			componentDidMount() {
 				this.registerInterface({
-					«EXPAND reactnative_templates::Alert::interface»
-					«EXPAND reactnative_templates::ProgressDialog::interface»
+					«EXPAND reactnative_templates::Alert::interface-»
+					«EXPAND reactnative_templates::ProgressDialog::interface-»
 				});
 			}			
 			
-			«EXPAND reactnative_templates::Alert::implementation»
+			«EXPAND reactnative_templates::Alert::implementation-»
 			
-			«EXPAND reactnative_templates::TextInput::events»
-			«EXPAND reactnative_templates::Button::events»
-			«EXPAND reactnative_templates::Slider::events»
-			«EXPAND reactnative_templates::Switch::events»
-			«EXPAND reactnative_templates::Dropdown::events»
-			«EXPAND reactnative_templates::Audio::events»
-			«EXPAND reactnative_templates::Recording::events»
-			«EXPAND reactnative_templates::WebView::events»
-			«EXPAND reactnative_templates::Lists::events»
-			«EXPAND reactnative_templates::Grids::events»
-			«EXPAND reactnative_templates::PhotoCamera::events»
-			«EXPAND reactnative_templates::VideoCamera::events»
-			«EXPAND reactnative_templates::DateTimePicker::events»
-			«EXPAND reactnative_templates::Card::events»
+			«EXPAND reactnative_templates::TextInput::events-»
+			«EXPAND reactnative_templates::Button::events-»
+			«EXPAND reactnative_templates::Slider::events-»
+			«EXPAND reactnative_templates::Switch::events-»
+			«EXPAND reactnative_templates::Dropdown::events-»
+			«EXPAND reactnative_templates::Audio::events-»
+			«EXPAND reactnative_templates::Recording::events-»
+			«EXPAND reactnative_templates::WebView::events-»
+			«EXPAND reactnative_templates::Lists::events-»
+			«EXPAND reactnative_templates::Grids::events-»
+			«EXPAND reactnative_templates::PhotoCamera::events-»
+			«EXPAND reactnative_templates::VideoCamera::events-»
+			«EXPAND reactnative_templates::DateTimePicker::events-»
+			«EXPAND reactnative_templates::Card::events-»
 			
 			render() {
 				const {style, onInterface, ...passProps} = this.props;
 				return (
-					«IF !backgroundImage.matches("")»
-					<ImageBackground source={{uri: "«backgroundImage»"}} style={{width: '100%', height: '100%'}} resizeMode="contain">
-					«ELSE»
+					«IF !backgroundImage.matches("")-»
+					<ImageBackground source={{uri: "«backgroundImage-»"}} style={{width: '100%', height: '100%'}} resizeMode="contain">
+					«ELSE-»
 					<>
-					«ENDIF»
-					<ConstraintLayout style={styles.e«id»}>
-						«EXPAND reactnative_templates::Text::render»
-						«EXPAND reactnative_templates::TextInput::render»
-						«EXPAND reactnative_templates::Button::render»
-						«EXPAND reactnative_templates::Slider::render»
-						«EXPAND reactnative_templates::Switch::render»
-						«EXPAND reactnative_templates::Dropdown::render»
-						«EXPAND reactnative_templates::Audio::render»
-						«EXPAND reactnative_templates::Recording::render»
-						«EXPAND reactnative_templates::WebView::render»
-						«EXPAND reactnative_templates::Lists::render»
-						«EXPAND reactnative_templates::Grids::render»
-						«EXPAND reactnative_templates::Image::render»
-						«EXPAND reactnative_templates::Video::render»
-						«EXPAND reactnative_templates::PhotoCamera::render»
-						«EXPAND reactnative_templates::VideoCamera::render»
-						«EXPAND reactnative_templates::Container::render»
-						«EXPAND reactnative_templates::Map::render»
-						«EXPAND reactnative_templates::DateTimePicker::render»
-						«EXPAND reactnative_templates::Card::render»
+					«ENDIF-»
+					<ConstraintLayout style={styles.e«id-»}>
+						«EXPAND reactnative_templates::Text::render-»
+						«EXPAND reactnative_templates::TextInput::render-»
+						«EXPAND reactnative_templates::Button::render-»
+						«EXPAND reactnative_templates::Slider::render-»
+						«EXPAND reactnative_templates::Switch::render-»
+						«EXPAND reactnative_templates::Dropdown::render-»
+						«EXPAND reactnative_templates::Audio::render-»
+						«EXPAND reactnative_templates::Recording::render-»
+						«EXPAND reactnative_templates::WebView::render-»
+						«EXPAND reactnative_templates::Lists::render-»
+						«EXPAND reactnative_templates::Grids::render-»
+						«EXPAND reactnative_templates::Image::render-»
+						«EXPAND reactnative_templates::Video::render-»
+						«EXPAND reactnative_templates::PhotoCamera::render-»
+						«EXPAND reactnative_templates::VideoCamera::render-»
+						«EXPAND reactnative_templates::Container::render-»
+						«EXPAND reactnative_templates::Map::render-»
+						«EXPAND reactnative_templates::DateTimePicker::render-»
+						«EXPAND reactnative_templates::Card::render-»
 					</ConstraintLayout>
-					«EXPAND reactnative_templates::ProgressDialog::render»
-					«IF !backgroundImage.matches("")»
+					«EXPAND reactnative_templates::ProgressDialog::render-»
+					«IF !backgroundImage.matches("")-»
 					</ImageBackground>
-					«ELSE»
+					«ELSE-»
 					</>
-					«ENDIF»
+					«ENDIF-»
 				);
 			}
 		}
 	
-	«ENDFILE»
-«ENDDEFINE»
+	«ENDFILE-»
+«ENDDEFINE-»
 
-«DEFINE imports FOR ViewController»
+«DEFINE imports FOR ViewController-»
 import React from 'react';
 import { 
 	View,
@@ -168,77 +168,77 @@ import {
 	StyleSheet, 
 	TouchableHighlight, 
 	Image,
-	«IF alertDialogs.size > 0»
+	«IF alertDialogs.size > 0-»
 	Alert
-	«ENDIF»
+	«ENDIF-»
 } from 'react-native';
 import { ConstraintLayout } from '../ConstraintLayout';
 import {
 	CView, 
-«IF textViews.size > 0»
+«IF textViews.size > 0-»
 	CText,
-«ENDIF»
-«IF editTexts.size > 0»
+«ENDIF-»
+«IF editTexts.size > 0-»
 	CTextInput,
-«ENDIF»
-«IF buttons.size > 0 || photocameraController != null || videocameraController != null »
+«ENDIF-»
+«IF buttons.size > 0 || photocameraController != null || videocameraController != null -»
 	CTouchableHighlight,
-«ENDIF»
-«IF sliders.size > 0 »
+«ENDIF-»
+«IF sliders.size > 0 -»
 	CSlider,
-«ENDIF»
-«IF switches.size > 0 »
+«ENDIF-»
+«IF switches.size > 0 -»
 	CSwitch,
-«ENDIF»
-«IF webViews.size > 0 »
+«ENDIF-»
+«IF webViews.size > 0 -»
 	CWebView,
-«ENDIF»
-«IF listViews.size > 0»
+«ENDIF-»
+«IF listViews.size > 0-»
 	CFlatList,
-«ENDIF»
-«IF imageViews.size > 0»
+«ENDIF-»
+«IF imageViews.size > 0-»
 	CImage,
-«ENDIF»
-«IF videoViews.size > 0»
+«ENDIF-»
+«IF videoViews.size > 0-»
 	CVideoPlayer,
-«ENDIF»
-«IF spinners.size > 0»
+«ENDIF-»
+«IF spinners.size > 0-»
 	CDropdown,
-«ENDIF»
-«IF audioPlayers.size > 0»
+«ENDIF-»
+«IF audioPlayers.size > 0-»
 	CAudioPlayer,
-«ENDIF»
-«IF audioRecorder != null»
+«ENDIF-»
+«IF audioRecorder != null-»
 	CAudioRecorder,
-«ENDIF»
-«IF gridViews.size > 0»
+«ENDIF-»
+«IF gridViews.size > 0-»
 	CGridView,
-«ENDIF»
-«IF cards.size > 0»
+«ENDIF-»
+«IF cards.size > 0-»
 	CCard,
-«ENDIF»
-«IF map != null»
+«ENDIF-»
+«IF map != null-»
 	CMapView,
-«ENDIF»
-«IF datepickers.size > 0 || timepickers.size > 0»
+«ENDIF-»
+«IF datepickers.size > 0 || timepickers.size > 0-»
 	CDatePicker,
-«ENDIF»
+«ENDIF-»
 } from '../ConstrainableControls';
-«IF progressDialogs.size > 0»
+«IF progressDialogs.size > 0-»
 import { Dialog, ProgressDialog } from 'react-native-simple-dialogs';
 import ProgressBarAnimated from 'react-native-progress-bar-animated';
-«ENDIF»
-«IF cards.size > 0»
+«ENDIF-»
+«IF cards.size > 0-»
 import { CardHeightMetrics, CardWidthMetrics } from '../Card';
-«ENDIF»
-«IF photocameraController != null || videocameraController != null»
+«ENDIF-»
+«IF photocameraController != null || videocameraController != null-»
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
-«ENDIF»
-«FOREACH listViews AS lv»
-import ListElement«lv.id.toFirstUpper()» from './ListElement«lv.id.toFirstUpper()»Component';
-«ENDFOREACH»
-«FOREACH gridViews AS gv»
-import GridElement«gv.id.toFirstUpper()» from './GridElement«gv.id.toFirstUpper()»Component';
-«ENDFOREACH»
-«EXPAND reactnative_templates::Container::import»
-«ENDDEFINE»
+«ENDIF-»
+«FOREACH listViews AS lv-»
+import ListElement«lv.id.toFirstUpper()-» from './ListElement«lv.id.toFirstUpper()-»Component';
+«ENDFOREACH-»
+«FOREACH gridViews AS gv-»
+import GridElement«gv.id.toFirstUpper()-» from './GridElement«gv.id.toFirstUpper()-»Component';
+«ENDFOREACH-»
+«EXPAND reactnative_templates::Container::import-»
+«ENDDEFINE-»

@@ -1,54 +1,54 @@
-«IMPORT metamodel»
+«IMPORT metamodel-»
 
-«DEFINE state FOR ViewController»
-	«FOREACH progressDialogs AS d»
-	is«d.id»Visible: false,
-	«d.id»Progress: 0,
-	«ENDFOREACH»
-«ENDDEFINE»
+«DEFINE state FOR ViewController-»
+	«FOREACH progressDialogs AS d-»
+	is«d.id-»Visible: false,
+	«d.id-»Progress: 0,
+	«ENDFOREACH-»
+«ENDDEFINE-»
 
-«DEFINE interface FOR ViewController»
+«DEFINE interface FOR ViewController-»
 progress: {
-«FOREACH progressDialogs AS d»
-Progress«d.id.toFirstUpper()»Start: (initialValue) => {
+«FOREACH progressDialogs AS d-»
+Progress«d.id.toFirstUpper()-»Start: (initialValue) => {
 	this.setState({
-		is«d.id»Visible: true,
-		«d.id»Progress: initialValue || 0
+		is«d.id-»Visible: true,
+		«d.id-»Progress: initialValue || 0
 	});
 },
-Progress«d.id.toFirstUpper()»Update: (value) => {
+Progress«d.id.toFirstUpper()-»Update: (value) => {
 	if (value === 100) {
 		this.setState({
-			is«d.id»Visible: false,
-			«d.id»Progress: 1 
+			is«d.id-»Visible: false,
+			«d.id-»Progress: 1 
 		});
 	} else {
 		this.setState({
-			«d.id»Progress: value / 100
+			«d.id-»Progress: value / 100
 		});
 	}
 },
-«ENDFOREACH»
+«ENDFOREACH-»
 },
-«ENDDEFINE»
+«ENDDEFINE-»
 
-«DEFINE render FOR ViewController»
-	«FOREACH progressDialogs AS d»
-		«IF d.spinner»
+«DEFINE render FOR ViewController-»
+	«FOREACH progressDialogs AS d-»
+		«IF d.spinner-»
 		<ProgressDialog
-		    visible={this.state.is«d.id»Visible}
-		    title="«d.title»"
-		    message="«d.message»"
+		    visible={this.state.is«d.id-»Visible}
+		    title="«d.title-»"
+		    message="«d.message-»"
 		/>
-		«ELSE»
+		«ELSE-»
 		<Dialog
-			visible={this.state.is«d.id»Visible}
+			visible={this.state.is«d.id-»Visible}
 			contentStyle={{ justifyContent: 'center', alignItems: 'center' }}
 		>
-			<Text style={{ fontSize: 20, textAlign: 'center' }}>«d.title»</Text>
-			<Text style={{ textAlign: 'center', paddingBottom: 15 }}>«d.message»</Text>
-			<ProgressBarAnimated width={200} maxValue={100} value={this.state.«d.id»Progress} />
+			<Text style={{ fontSize: 20, textAlign: 'center' }}>«d.title-»</Text>
+			<Text style={{ textAlign: 'center', paddingBottom: 15 }}>«d.message-»</Text>
+			<ProgressBarAnimated width={200} maxValue={100} value={this.state.«d.id-»Progress} />
 		</Dialog>
-		«ENDIF»
-	«ENDFOREACH»
-«ENDDEFINE»
+		«ENDIF-»
+	«ENDFOREACH-»
+«ENDDEFINE-»

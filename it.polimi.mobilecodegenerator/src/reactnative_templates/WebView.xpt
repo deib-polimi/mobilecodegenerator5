@@ -1,35 +1,35 @@
-«IMPORT metamodel»
+«IMPORT metamodel-»
 
-«DEFINE styleVars FOR ViewController»
-	«FOREACH webViews AS w»
-		«EXPAND reactnative_templates::UIPhoneControl::styleVars FOR w»
-	«ENDFOREACH»
-«ENDDEFINE»
+«DEFINE styleVars FOR ViewController-»
+	«FOREACH webViews AS w-»
+		«EXPAND reactnative_templates::UIPhoneControl::styleVars FOR w-»
+	«ENDFOREACH-»
+«ENDDEFINE-»
 
-«DEFINE style FOR ViewController»
-	«FOREACH webViews AS w»
-		e«w.id»: {
-			«EXPAND reactnative_templates::UIPhoneControl::style FOR w»
+«DEFINE style FOR ViewController-»
+	«FOREACH webViews AS w-»
+		e«w.id-»: {
+			«EXPAND reactnative_templates::UIPhoneControl::style FOR w-»
 		},
-	«ENDFOREACH»
-«ENDDEFINE»
+	«ENDFOREACH-»
+«ENDDEFINE-»
 
-«DEFINE eventBinding FOR ViewController»
-«FOREACH webViews AS w»
-«ENDFOREACH»
-«ENDDEFINE»
+«DEFINE eventBinding FOR ViewController-»
+«FOREACH webViews AS w-»
+«ENDFOREACH-»
+«ENDDEFINE-»
 
-«DEFINE events FOR ViewController»
-«FOREACH webViews AS w»
-«ENDFOREACH»
-«ENDDEFINE»
+«DEFINE events FOR ViewController-»
+«FOREACH webViews AS w-»
+«ENDFOREACH-»
+«ENDDEFINE-»
 
-«DEFINE render FOR ViewController»
-	«FOREACH webViews AS w»
+«DEFINE render FOR ViewController-»
+	«FOREACH webViews AS w-»
 		<CWebView
-			«EXPAND reactnative_templates::UIPhoneControl::props FOR w»
-			style={styles.e«w.id»}
-			source={{uri: '«w.HTMLFileName»'}}
+			«EXPAND reactnative_templates::UIPhoneControl::props FOR w-»
+			style={styles.e«w.id-»}
+			source={{uri: '«w.HTMLFileName-»'}}
 		></CWebView>
-	«ENDFOREACH»
-«ENDDEFINE»
+	«ENDFOREACH-»
+«ENDDEFINE-»

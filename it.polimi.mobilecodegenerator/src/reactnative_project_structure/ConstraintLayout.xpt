@@ -43,8 +43,8 @@ Some very important things to know
 ----------------------------------------------------------------------------------------------------------------------------------
 «ENDREM»
 
-«DEFINE main FOR Application»
-«FILE name + "/ConstraintLayout.js"»
+«DEFINE main FOR Application-»
+«FILE name + "/ConstraintLayout.js"-»
 import React from 'react';
 import ConstraintCalculator from './ConstraintCalculator';
 import { View, Keyboard } from 'react-native';
@@ -154,8 +154,8 @@ export function normalizeStyleProp(WrappedComponent, stylePropName) {
         }
     }
 }
-«ENDFILE»
-«FILE name + "/ConstraintCalculator.js"»
+«ENDFILE-»
+«FILE name + "/ConstraintCalculator.js"-»
 
 import React from 'react';
 
@@ -645,8 +645,8 @@ class ConstraintCalculatorImpl {
 
 const ConstraintCalculator = new ConstraintCalculatorImpl();
 export default ConstraintCalculator;
-«ENDFILE»
-«FILE name + "/ConstrainableControls.js"»
+«ENDFILE-»
+«FILE name + "/ConstrainableControls.js"-»
 import {
 	Text,
 	TextInput,
@@ -660,34 +660,34 @@ import {
 	FlatList
 } from 'react-native';
 
-«IF viewControllers.videoViews.size > 0»
+«IF viewControllers.videoViews.size > 0-»
 import VideoPlayer from './VideoPlayer';
-«ENDIF»
-«IF viewControllers.spinners.size > 0»
+«ENDIF-»
+«IF viewControllers.spinners.size > 0-»
 import { Dropdown } from 'react-native-material-dropdown';
-«ENDIF»
-«IF viewControllers.audioPlayers.size > 0 || viewControllers.audioRecorder.size > 0 »
+«ENDIF-»
+«IF viewControllers.audioPlayers.size > 0 || viewControllers.audioRecorder.size > 0 -»
 import {
-«IF viewControllers.audioPlayers.size > 0»
+«IF viewControllers.audioPlayers.size > 0-»
 	AudioPlayer,
-«ENDIF»
-«IF viewControllers.audioRecorder.size > 0»
+«ENDIF-»
+«IF viewControllers.audioRecorder.size > 0-»
 	AudioRecorder,
-«ENDIF»
+«ENDIF-»
 } from './Audio';
 «ENDIF»
-«IF viewControllers.gridViews.size > 0»
+«IF viewControllers.gridViews.size > 0-»
 import GridView from 'react-native-super-grid';
-«ENDIF»
-«IF viewControllers.cards.size > 0»
+«ENDIF-»
+«IF viewControllers.cards.size > 0-»
 import Card from './Card';
-«ENDIF»
-«IF viewControllers.map.size > 0»
+«ENDIF-»
+«IF viewControllers.map.size > 0-»
 import MapView from 'react-native-maps';
-«ENDIF»
-«IF viewControllers.datepickers.size > 0 || viewControllers.timepickers.size > 0»
+«ENDIF-»
+«IF viewControllers.datepickers.size > 0 || viewControllers.timepickers.size > 0-»
 import DatePicker from 'react-native-datepicker';
-«ENDIF»
+«ENDIF-»
 import { withConstraints, normalizeStyleProp } from './ConstraintLayout';
 
 
@@ -702,29 +702,29 @@ export const CSwitch = withConstraints(Switch);
 export const CWebView = withConstraints(WebView);
 export const CFlatList = withConstraints(FlatList);
 
-«IF viewControllers.videoViews.size > 0»
+«IF viewControllers.videoViews.size > 0-»
 export const CVideoPlayer = withConstraints(VideoPlayer);
-«ENDIF»
-«IF viewControllers.spinners.size > 0»
+«ENDIF-»
+«IF viewControllers.spinners.size > 0-»
 export const CDropdown = withConstraints(normalizeStyleProp(Dropdown, 'containerStyle'));
-«ENDIF»
-«IF viewControllers.audioPlayers.size > 0»
+«ENDIF-»
+«IF viewControllers.audioPlayers.size > 0-»
 export const CAudioPlayer = withConstraints(AudioPlayer);
-«ENDIF»
-«IF viewControllers.audioRecorder.size > 0»
+«ENDIF-»
+«IF viewControllers.audioRecorder.size > 0-»
 export const CAudioRecorder = withConstraints(AudioRecorder);
-«ENDIF»
-«IF viewControllers.gridViews.size > 0»
+«ENDIF-»
+«IF viewControllers.gridViews.size > 0-»
 export const CGridView = withConstraints(GridView);
-«ENDIF»
-«IF viewControllers.cards.size > 0»
+«ENDIF-»
+«IF viewControllers.cards.size > 0-»
 export const CCard = withConstraints(Card);
-«ENDIF»
-«IF viewControllers.map.size > 0»
+«ENDIF-»
+«IF viewControllers.map.size > 0-»
 export const CMapView = withConstraints(MapView);
-«ENDIF»
-«IF viewControllers.datepickers.size > 0 || viewControllers.timepickers.size > 0»
+«ENDIF-»
+«IF viewControllers.datepickers.size > 0 || viewControllers.timepickers.size > 0-»
 export const CDatePicker = withConstraints(DatePicker);
-«ENDIF»
-«ENDFILE»
-«ENDDEFINE»
+«ENDIF-»
+«ENDFILE-»
+«ENDDEFINE-»
