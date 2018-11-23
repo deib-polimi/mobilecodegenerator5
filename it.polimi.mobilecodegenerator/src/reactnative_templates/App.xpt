@@ -24,7 +24,11 @@ const Menu = createDrawerNavigator({
 	«FOREACH menu.menuItems AS item-»
 		Scene_«item.navigation.destinationScene.name.replaceAll(" ", "_").toFirstUpper()-»: {
 			screen: Scene_«item.navigation.destinationScene.name.replaceAll(" ", "_").toFirstUpper()-»,
-			drawerLabel: '«item.title-»'
+			navigationOptions: () => {
+				return {
+					drawerLabel: '«item.title-»'
+				}
+			}
 		},
 	«ENDFOREACH-»
 }, {

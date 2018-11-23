@@ -10,7 +10,7 @@
 	«FOREACH editTexts AS t-»
 		e«t.id-»: {
 			«EXPAND reactnative_templates::UIPhoneControl::style FOR t-»
-			«IF t.textColor != null-»
+			«IF t.textColor != null && !t.textColor.matches("") -»
 				color: '«t.textColor-»',
 			«ENDIF-»
 			«IF t.textSize != null-»

@@ -18,7 +18,7 @@
 <workflow>
 
 	<!--xmi model-->
-	<property name="model" value="it.polimi.mobilecodegenerator/src/model/ModelSample8_2.xmi" />
+	<property name="model" value="it.polimi.mobilecodegenerator/src/model/MyKitchenDiary.xmi" />
 	<property name="src-gen" value="src-gen/reactnative" />
 	
 	<bean class="org.eclipse.emf.mwe.utils.StandaloneSetup" >
