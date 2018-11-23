@@ -1,4 +1,4 @@
-«IMPORT metamodel-»
+«IMPORT metamodel»
 
 «DEFINE main FOR Application-»
 «EXPAND reactnative_templates::ViewControllers::main-»

@@ -1,4 +1,4 @@
-«IMPORT metamodel-»
+«IMPORT metamodel»
 
 «DEFINE styleVars FOR ViewController-»
 	«FOREACH listViews AS lv-»

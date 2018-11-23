@@ -1,4 +1,4 @@
-«IMPORT metamodel-»
+«IMPORT metamodel»
 
 «DEFINE state FOR ViewController-»
 	«FOREACH progressDialogs AS d-»

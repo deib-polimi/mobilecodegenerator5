@@ -1,4 +1,4 @@
-«IMPORT metamodel-»
+«IMPORT metamodel»
 
 «DEFINE import FOR ViewController-»
 «FOREACH containers AS c-»

@@ -1,4 +1,4 @@
-«IMPORT metamodel-»
+«IMPORT metamodel»
 
 «DEFINE binding FOR ViewController-»
 «FOREACH alertDialogs AS d-»

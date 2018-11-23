@@ -1,4 +1,4 @@
-«IMPORT metamodel-»
+«IMPORT metamodel»
 
 «DEFINE styleVars FOR UiPhoneControl-»
 	e«id-»: {
@@ -80,7 +80,7 @@
 		«ELSE-»
 		«ENDIF-»
 		«IF dimensionConstraint.fixedRatio != null-»
-			constraintRatio={«dimensionConstraint.fixedRatio-»}
+			constraintRatio={«dimensionConstraint.fixedRatio.replaceAll(":", "/")-»}
 		«ENDIF-»
 	«ENDIF-»
 	«FOREACH positionConstraints AS pc-»

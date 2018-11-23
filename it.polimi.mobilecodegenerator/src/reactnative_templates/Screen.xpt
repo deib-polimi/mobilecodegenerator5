@@ -1,4 +1,4 @@
-«IMPORT metamodel-»
+«IMPORT metamodel»
 
 «EXTENSION reactnative_templates::DebugUtils-»
 «EXTENSION app_extensions::Java-»

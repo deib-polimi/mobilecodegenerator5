@@ -1,4 +1,4 @@
-«IMPORT metamodel-»
+«IMPORT metamodel»
 
 «DEFINE main FOR Application-»
 «EXPAND component(this, 'Component') FOREACH viewControllers-»S
