@@ -44,6 +44,7 @@
 «DEFINE events FOR ViewController-»
 «FOREACH buttons AS b-»
 	on«b.id-»Press() {
+		if (this.props.onE«b.id»Press) this.props.onE«b.id»Press();
 		if (this.props.onButtonPress) this.props.onButtonPress('«b.id-»');
 	}
 «ENDFOREACH-»

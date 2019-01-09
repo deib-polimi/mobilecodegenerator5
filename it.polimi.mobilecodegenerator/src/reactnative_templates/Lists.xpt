@@ -41,11 +41,23 @@
 		<CFlatList
 			«EXPAND reactnative_templates::UIPhoneControl::props FOR lv-»
 			style={styles.e«lv.id-»}
-			data={[
+			data={
+				this.props.e«lv.id»Items && this.props.e«lv.id»CelltitleProp && this.props.e«lv.id»CellsubtitleProp
+				? 
+				this.props.e«lv.id»Items.map((item, i) => {
+					return { 
+						key: 'Cell' + i, 
+						title: item[this.props.e«lv.id»CelltitleProp], 
+						subtitle: item[this.props.e«lv.id»CellsubtitleProp]
+					}
+				}) 
+				: 
+				[
 				«FOREACH lv.listViewCells AS cell ITERATOR iter-»
 					{ key: '«iter.counter1-»', title: '«cell.title-»', subtitle: '«cell.subtitle-»' },
 				«ENDFOREACH-»
-				]}
+				]
+			}
 			renderItem={({item}) => <ListElement«lv.id.toFirstUpper()-» style={styles.e«lv.id-»_item} title={item.title} subtitle={item.subtitle} onPress={() => this.on«lv.id-»ItemSelect(item)} /> }
 		></CFlatList>
 	«ENDFOREACH-»

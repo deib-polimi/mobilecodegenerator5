@@ -1,0 +1,73 @@
+«IMPORT metamodel»
+
+«DEFINE main FOR Application»
+«FILE name + "/controller/actions/Files.js" -»
+import { FileAccess, Files } from "../../storage/Storage";
+import debounce from 'debounce';
+
+export const READ_FILE_REQUEST = 'READ_FILE_REQUEST';
+function readFileRequest(fileId) {
+    return {
+        type: READ_FILE_REQUEST,
+        fileId
+    }
+}
+export const READ_FILE_COMPLETE = 'READ_FILE_COMPLETE';
+function readFileComplete(fileId, content) {
+    return {
+        type: READ_FILE_COMPLETE,
+        fileId,
+        content
+    }
+}
+export const WRITE_FILE_REQUEST = 'WRITE_FILE_REQUEST';
+function writeFileRequest(fileId, content) {
+    return {
+        type: WRITE_FILE_REQUEST,
+        fileId,
+        content
+    }
+}
+export const WRITE_FILE_COMPLETE = 'WRITE_FILE_COMPLETE';
+function writeFileComplete(fileId, content) {
+    return {
+        type: WRITE_FILE_COMPLETE,
+        fileId,
+        content
+    }
+}
+
+export function readFile(fileId) {
+    return dispatch => {
+        dispatch(readFileRequest(fileId));
+        return FileAccess.readFile(Files[`File_${fileId}`]).then(content => {
+            dispatch(readFileComplete(fileId, content));
+        })
+    }
+}
+
+const debouncedWrite = debounce((fileId, content, done) => {
+	FileAccess.writeFile(Files[`File_${fileId}`], content).then(() => {
+        done();
+    });
+}, 1000);
+
+export function writeFile(fileId, content) {
+    return dispatch => {
+        dispatch(writeFileRequest(fileId));
+        debouncedWrite(fileId, content, () => dispatch(writeFileComplete(fileId, content)));
+    }
+}
+
+export function readFileIfNeeded(fileId) {
+    return (dispatch, getState) => {
+        const state = getState();
+        if (!state.files[fileId]) {
+            return dispatch(readFile(fileId))
+        } else {
+            return Promise.resolve();
+        }
+    }
+}
+«ENDFILE»
+«ENDDEFINE»

@@ -1,0 +1,35 @@
+«IMPORT metamodel»
+
+«DEFINE propertyFromState FOR ModelConnector-»
+«IF !property.startsWith("@") -»
+«IF property.matches("value") || property.matches("checked") -»
+«EXPAND twoWay FOR this -»
+«ELSE -»
+«EXPAND oneWay FOR this -»
+«ENDIF -»
+«ELSE -»
+«EXPAND metaBinding FOR this -»
+«ENDIF -»
+«ENDDEFINE»
+
+«DEFINE twoWay FOR ModelConnector»
+«IF keypath.length == 0 -»
+e«uiPhoneControl.id»«property.toFirstUpper()»={this.props.model«adapter.name»}
+onE«uiPhoneControl.id»«property.toFirstUpper()»Change={val => this.props.on«adapter.name»Change(val)}
+«ELSE -»
+e«uiPhoneControl.id»«property.toFirstUpper()»={this.props.model«adapter.name».«keypath»}
+onE«uiPhoneControl.id»«property.toFirstUpper()»Change={val => this.props.on«adapter.name»Change({ ...this.props.model«adapter.name», «keypath»: val})}
+«ENDIF -»
+«ENDDEFINE»
+
+«DEFINE oneWay FOR ModelConnector»
+«IF keypath.length == 0 -»
+e«uiPhoneControl.id»«property.toFirstUpper()»={this.props.model«adapter.name»}
+«ELSE -»
+e«uiPhoneControl.id»«property.toFirstUpper()»={this.props.model«adapter.name».«keypath»}
+«ENDIF -»
+«ENDDEFINE»
+
+«DEFINE metaBinding FOR ModelConnector»
+e«uiPhoneControl.id»«property.replaceAll("[@.]", "").toFirstUpper()»Prop="«keypath»"
+«ENDDEFINE»

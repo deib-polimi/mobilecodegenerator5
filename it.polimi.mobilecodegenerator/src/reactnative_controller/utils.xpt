@@ -1,0 +1,42 @@
+«IMPORT metamodel»
+
+«DEFINE main FOR Application»
+«FILE name + "/controller/utils/utils.js" »
+export function ObjectWithoutKeys(obj, ...keys) {
+    let newObj = obj;
+    for (let i = 0; i < keys.length; i++) {
+        delete newObj[keys[i]];
+    }
+    return newObj;
+}
+
+export function ObjectForEach(obj, iterator) {
+    for (let k in obj) {
+        iterator(obj[k], k, obj);
+    }
+}
+
+export function ObjectMap(obj, mapper) {
+    let newObj = {};
+    for(let k in obj) {
+        newObj[k] = mapper(obj[k], k, obj);
+    }
+}
+
+export function ObjectFilter(obj, filter) {
+    let newObj = {};
+    for(let k in obj) {
+        if (filter(obj[k], k, obj)) {
+            newObj[k] = obj[k];
+        }
+    }
+    return newObj;
+}
+
+export function MakeMapFromArray(arr, keyProperty) {
+    let newObj = {};
+    arr.forEach(item => newObj[item[keyProperty]] = item);
+    return newObj;
+}
+«ENDFILE»
+«ENDDEFINE»

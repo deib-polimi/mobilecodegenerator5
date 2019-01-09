@@ -1,0 +1,22 @@
+«IMPORT metamodel»
+
+«DEFINE main FOR Application»
+«FILE name + "/controller/reducers/Files.js" -»
+import { READ_FILE_REQUEST, WRITE_FILE_REQUEST, READ_FILE_COMPLETE, WRITE_FILE_COMPLETE } from "../actions/Files";
+
+export default function FilesReducer(state = {}, action) {
+    switch (action.type) {
+        case READ_FILE_REQUEST:
+        	return { ...state, [action.fileId]: { ...state[action.fileId], syncing: true } };
+        case WRITE_FILE_REQUEST:
+            return { ...state, [action.fileId]: { ...state[action.fileId], syncing: true, content: action.content } };
+        case READ_FILE_COMPLETE:
+        	return { ...state, [action.fileId]: { ...state[action.fileId], syncing: false, content: action.content } };
+        case WRITE_FILE_COMPLETE:
+            return { ...state, [action.fileId]: { ...state[action.fileId], syncing: false } };
+        default:
+            return state;
+    }
+}
+«ENDFILE»
+«ENDDEFINE»

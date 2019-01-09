@@ -1,0 +1,120 @@
+«IMPORT metamodel»
+
+«DEFINE main FOR Application-»
+«IF dataHandler.databaseHandler != null-»
+«EXPAND entity FOREACH dataHandler.databaseHandler.entities-»
+«ENDIF-»
+«ENDDEFINE-»
+
+«DEFINE entity FOR Entity-»
+«FILE databaseHandler.dataHandler.application.name + "/entities/" + name + ".js"-»
+export default class «name.toFirstUpper()-» {
+	constructor(
+		«this.primaryKey-», 
+		«FOREACH entityAttributes AS attr SEPARATOR ", "-»
+			«attr.name-»
+		«ENDFOREACH-», 
+		«FOREACH entityRelationships AS rel SEPARATOR ", "-»
+			«IF rel.type.matches("N : 1") || rel.type.matches("1 : 1")-»
+			«rel.name-»«rel.destination.toFirstUpper()-»ID
+		    «ELSEIF rel.type.matches("N : N") || rel.type.matches("1 : N")-»
+			«rel.name-»«rel.destination.toFirstUpper()-»IDs
+		    «ENDIF-»	
+		«ENDFOREACH-»
+	) {
+		this.«this.primaryKey-» = «this.primaryKey-»;
+		«FOREACH entityAttributes AS attr-»
+		this.«attr.name-» = «attr.name-»;
+		«ENDFOREACH-»
+		«FOREACH entityRelationships AS rel SEPARATOR ", "-»
+			«IF rel.type.matches("N : 1") || rel.type.matches("1 : 1")-»
+			this.«rel.name-»«rel.destination.toFirstUpper()-»ID = «rel.name-»«rel.destination.toFirstUpper()-»ID;
+		    «ELSEIF rel.type.matches("N : N") || rel.type.matches("1 : N")-»
+			this.«rel.name-»«rel.destination.toFirstUpper()-»IDs = «rel.name-»«rel.destination.toFirstUpper()-»IDs;
+		    «ENDIF-»	
+		«ENDFOREACH-»
+		
+		this.set«this.primaryKey.toFirstUpper()-» = this.set«this.primaryKey.toFirstUpper()-».bind(this);
+		this.get«this.primaryKey.toFirstUpper()-» = this.get«this.primaryKey.toFirstUpper()-».bind(this);
+		«FOREACH this.entityAttributes AS attr-»
+		this.set«attr.name.toFirstUpper()-» = this.set«attr.name.toFirstUpper()-».bind(this);
+		this.get«attr.name.toFirstUpper()-» = this.get«attr.name.toFirstUpper()-».bind(this);
+		«ENDFOREACH-»
+		«FOREACH this.entityRelationships AS rel-»
+		«IF rel.type.matches("N : 1") || rel.type.matches("1 : 1")-»
+		this.set«rel.name.toFirstUpper()-»«rel.destination.toFirstUpper()-»ID = this.set«rel.name.toFirstUpper()-»«rel.destination.toFirstUpper()-»ID.bind(this);
+		this.get«rel.name.toFirstUpper()-»«rel.destination.toFirstUpper()-»ID = this.get«rel.name.toFirstUpper()-»«rel.destination.toFirstUpper()-»ID.bind(this);
+	    «ELSEIF rel.type.matches("N : N") || rel.type.matches("1 : N")-»
+		this.set«rel.name.toFirstUpper()-»«rel.destination.toFirstUpper()-»IDs = this.set«rel.name.toFirstUpper()-»«rel.destination.toFirstUpper()-»IDs.bind(this);
+		this.get«rel.name.toFirstUpper()-»«rel.destination.toFirstUpper()-»IDs = this.get«rel.name.toFirstUpper()-»«rel.destination.toFirstUpper()-»IDs.bind(this);
+		this.add«rel.name.toFirstUpper()-»«rel.destination.toFirstUpper()-»ID = this.add«rel.name.toFirstUpper()-»«rel.destination.toFirstUpper()-»ID.bind(this);
+		this.remove«rel.name.toFirstUpper()-»«rel.destination.toFirstUpper()-»ID = this.remove«rel.name.toFirstUpper()-»«rel.destination.toFirstUpper()-»ID.bind(this);
+	    «ENDIF-»		
+		«ENDFOREACH-»
+	}
+	
+	static createFromObject(obj) {
+		return new «name.toFirstUpper()-»(
+			obj.«primaryKey-»,
+			«FOREACH entityAttributes AS attr SEPARATOR ", "-»
+				obj.«attr.name-»
+			«ENDFOREACH-», 
+			«FOREACH entityRelationships AS rel SEPARATOR ", "-»
+				«IF rel.type.matches("N : 1") || rel.type.matches("1 : 1")-»
+				obj.«rel.name-»«rel.destination.toFirstUpper()-»ID
+			    «ELSEIF rel.type.matches("N : N") || rel.type.matches("1 : N")-»
+				obj.«rel.name-»«rel.destination.toFirstUpper()-»IDs
+			    «ENDIF-»	
+			«ENDFOREACH-»
+		);
+	}
+	
+	set«this.primaryKey.toFirstUpper()-»(value){
+		this.«this.primaryKey-» = value;
+	}
+	
+	get«this.primaryKey.toFirstUpper()-»(){
+		 return this.«this.primaryKey-»;
+	}
+	
+	«FOREACH this.entityAttributes AS attr-»
+	set«attr.name.toFirstUpper()-»(value){
+		this.«attr.name-» = value;
+	}
+	
+	get«attr.name.toFirstUpper()-»(){
+		return this.«attr.name-»;
+	}
+	«ENDFOREACH-»
+	
+	«FOREACH this.entityRelationships AS rel-»
+	«IF rel.type.matches("N : 1") || rel.type.matches("1 : 1")-»
+	set«rel.name.toFirstUpper()-»«rel.destination.toFirstUpper()-»ID(value){
+		this.«rel.name-»«rel.destination.toFirstUpper()-»ID = value;
+	}
+	
+	get«rel.name.toFirstUpper()-»«rel.destination.toFirstUpper()-»ID(){
+		return this.«rel.name-»«rel.destination.toFirstUpper()-»ID;
+	}
+    «ELSEIF rel.type.matches("N : N") || rel.type.matches("1 : N")-»
+	set«rel.name.toFirstUpper()-»«rel.destination.toFirstUpper()-»IDs(list){
+		if(!Array.isArray(list)) list = [list];
+		this.«rel.name-»«rel.destination.toFirstUpper()-»IDs = list;
+	} 
+	
+	get«rel.name.toFirstUpper()-»«rel.destination.toFirstUpper()-»IDs(){
+		return this.«rel.name-»«rel.destination.toFirstUpper()-»IDs;
+	}  
+	
+	add«rel.name.toFirstUpper()-»«rel.destination.toFirstUpper()-»ID(value){
+		this.«rel.name-»«rel.destination.toFirstUpper()-»IDs.push(value);
+	}
+	
+	remove«rel.name.toFirstUpper()-»«rel.destination.toFirstUpper()-»ID(value){
+		this.«rel.name-»«rel.destination.toFirstUpper()-»IDs = this.«rel.name.toFirstUpper()-»«rel.destination.toFirstUpper()-»IDs.filter(v => v !== value);
+	}
+    «ENDIF-»		
+	«ENDFOREACH-»
+}
+«ENDFILE-»
+«ENDDEFINE-»

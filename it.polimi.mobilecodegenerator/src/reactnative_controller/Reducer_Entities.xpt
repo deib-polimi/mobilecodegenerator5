@@ -1,0 +1,36 @@
+«IMPORT metamodel»
+
+«DEFINE main FOR Application»
+«IF dataHandler.databaseHandler != null && dataHandler.databaseHandler.entities.size > 0 -»
+«FOREACH dataHandler.databaseHandler.entities AS ent -»
+«FILE name + "/controller/reducers/entity/" + ent.name + ".js" -»
+«LET ent.name.toUpperCase() AS nameUpper»
+«LET ent.name.toFirstUpper() AS nameCamel»
+import { 
+	READ_ENTITY_«nameUpper»_COMPLETE, 
+	EDIT_ENTITY_«nameUpper»_COMPLETE, 
+	DELETE_ENTITY_«nameUpper»_COMPLETE, 
+	FETCH_ENTITY_«nameUpper»_COMPLETE
+} from "../../actions/entity/«nameCamel»";
+import { ObjectWithoutKeys, ObjectFilter, MakeMapFromArray } from "../../utils/utils";
+
+export default function Entity«nameCamel»Reducer(state = {}, action) {
+    switch(action.type) {
+        case READ_ENTITY_«nameUpper»_COMPLETE:
+        case EDIT_ENTITY_«nameUpper»_COMPLETE:
+            return { ...state, [action.id]: action.data };
+        case FETCH_ENTITY_«nameUpper»_COMPLETE:
+            return { ...MakeMapFromArray(action.data, '«ent.primaryKey»'), ...state };
+        case DELETE_ENTITY_«nameUpper»_COMPLETE: {
+            return ObjectWithoutKeys(state, action.id);
+        }
+        default: 
+            return state;
+    }
+}
+«ENDLET»
+«ENDLET»
+«ENDFILE»
+«ENDFOREACH»
+«ENDIF»
+«ENDDEFINE»

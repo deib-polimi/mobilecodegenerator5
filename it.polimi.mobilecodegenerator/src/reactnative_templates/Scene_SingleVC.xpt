@@ -1,0 +1,103 @@
+«IMPORT metamodel»
+
+«DEFINE singleScreen(String device) FOR Scene-»
+
+«LET name.replaceAll(" ", "_").toFirstUpper() AS sceneName -»
+
+«REM»Create one file for each screen to be shown, these will be needed later«ENDREM»
+«FOREACH childViewControllers AS cvc-»
+«EXPAND reactnative_templates::Screen::singleScreen(device, this) FOR cvc.viewController-»
+«ENDFOREACH-»
+
+«REM»Create context file«ENDREM»
+«FILE application.name + "/scenes/" + device + "_" + sceneName + "/context.js"-»
+import React from 'react';
+
+const Scene_«sceneName»_Context = React.createContext({});
+export default Scene_«sceneName»_Context;
+«ENDFILE -»
+
+«REM»Create controller file, linking up all the previous files to make up view«ENDREM»
+«FILE application.name + "/scenes/" + device + "_" + sceneName + "/index.js"-»
+import React from 'react';
+import { connect } from 'react-redux';
+import Scene_«sceneName»_Context from './context';
+«FOREACH childViewControllers AS cvc-»
+«LET cvc.viewController.name.replaceAll(" ", "_").toFirstUpper() AS childViewControllerName -»
+import Screen_«childViewControllerName-» from './Screen_«childViewControllerName-»';
+«ENDLET -»
+«ENDFOREACH-»
+«IF adapterBindings.select(e|e.type.toString().matches("file")).size > 0 -»
+import { readFileIfNeeded, writeFile } from '../../controller/actions/Files';
+«ENDIF -»
+«IF adapterBindings.select(e|e.type.toString().matches("preference")).size > 0 -»
+import { readPreferenceIfNeeded, writePreference } from '../../controller/actions/Preferences';
+«ENDIF -»
+«LET adapterBindings.select(e|e.type.toString().matches("entity")) AS entityBindings -»
+«FOREACH entityBindings AS b -»
+«REM»Ensure to avoid duplicate imports!!«ENDREM»
+«IF adapterBindings.selectFirst(e|e.type.toString().matches("entity") && e.entity.name == b.entity.name).id == b.id -»
+«LET b.entity.name.toFirstUpper() AS entityName -»
+import { readEntity«entityName», editEntity«entityName», deleteEntity«entityName», fetchEntity«entityName» } from '../../controller/actions/entity/«entityName»';
+«ENDLET -»
+«ENDIF -»
+«ENDFOREACH -»
+«ENDLET -»
+
+const Nav = createSwitchNavigator({
+	«FOREACH childViewControllers AS cvc-»
+	Screen_«cvc.viewController.name.replaceAll(" ", "_").toFirstUpper()-»,
+	«ENDFOREACH-»
+}, {
+	initialRouteName: 'Screen_«childViewControllers.get(0).viewController.name.replaceAll(" ", "_").toFirstUpper()-»'
+});
+
+class Scene_«sceneName-» extends React.Component {
+	componentWillMount() {
+		«FOREACH adapterBindings AS b -»
+		this.props.on«b.name»Load();
+		«ENDFOREACH -»
+	}
+	render() {
+		return (
+			<Scene_«name.replaceAll(" ", "_").toFirstUpper()»_Context.Provider value={this.state.context}>
+				<Nav />
+			</Scene_«name.replaceAll(" ", "_").toFirstUpper()»_Context.Provider>
+		)
+	}
+}
+
+const mapStateToProps = state => {
+	return {
+		«FOREACH adapterBindings AS b -»
+			«IF b.type.toString().matches("file") -»
+			model«b.name»: state.files.«b.file.name» ? state.files.«b.file.name».content : '',
+			«ELSEIF b.type.toString().matches("preference") -»
+			model«b.name»: state.preferences.«b.preference.key» ? state.preferences.«b.preference.key».value : '',
+			«ELSEIF b.type.toString().matches("entity") && !b.isList -»
+			model«b.name»: state.entities.«b.entity.name»['1'] ? state.entities.«b.entity.name»['1'] : undefined,
+			«ENDIF -»
+		«ENDFOREACH -»	
+	}
+}
+
+const mapDispatchToProps = dispatch => {
+	return {
+		«FOREACH adapterBindings AS b -»
+			«IF b.type.toString().matches("file") -»
+			on«b.name»Load: () => dispatch(readFileIfNeeded('«b.file.name»')),
+			on«b.name»Change: val => dispatch(writeFile('«b.file.name»', val)),
+			«ELSEIF b.type.toString().matches("preference") -»
+			on«b.name»Load: () => dispatch(readPreferenceIfNeeded('«b.preference.key»')),
+			on«b.name»Change: val => dispatch(writePreference('«b.preference.key»', val)),
+			«ELSEIF b.type.toString().matches("entity") && !b.isList -»
+			on«b.name»Load: () => dispatch(readEntity«b.entity.name.toFirstUpper()»('1')),
+			on«b.name»Change: val => dispatch(editEntity«b.entity.name.toFirstUpper()»(val)),
+			on«b.name»Delete: () => dispatch(deleteEntity«b.entity.name.toFirstUpper()»('1')),
+			«ENDIF -»
+		«ENDFOREACH -»
+	}
+}
+«ENDFILE-»
+«ENDLET -»
+«ENDDEFINE-»

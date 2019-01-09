@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <metamodel:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:metamodel="http://metamodel/1.0" xsi:schemaLocation="http://metamodel/1.0 ../metamodel/metamodel.ecore" name="MyKitchenDiary" companyIdentifier="it.polimi">
+        <dataHandler>
+            <preferenceHandler>
+                <preferenceRecords key="UserName" value="" type="string"/>
+            </preferenceHandler>
+            <databaseHandler>
+                <entities name="Ingredient" primaryKey="id">
+                    <entityAttributes name="caption" type="string"/>
+                </entities>
+                <entities name="Recipe" primaryKey="id">
+                    <entityAttributes name="title" type="string"/>
+                    <entityAttributes name="isFavourite" type="boolean"/>
+                    <entityAttributes name="procedure" type="string"/>
+                    <entityAttributes name="pictureUrl" type="string"/>
+                    <entityRelationships name="ingredients" destination="Ingredient" type="1:N"/>
+                </entities>
+            </databaseHandler>
+            <storageHandler>
+                <storageRecords name="about" extension="text" tempFile="false"/>
+            </storageHandler>
+        </dataHandler>
+        <viewControllers id="joses0r8" name="HomeView" backgroundColor="#ffffff" backgroundImage="">
+            <imageViews id="josgn6q1" viewController="//@viewControllers[id='joses0r8']" defaultWidth="240" defaultHeight="128" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" sourceType="localFile" fileUri="HomeLogo.png">
+                <dimensionConstraint uiPhoneControl="//@viewControllers[id='joses0r8']/@imageViews[id='josgn6q1']" heightPercent="0.5"/>
+                <positionConstraints id="josgnck6" uiPhoneControl="//@viewControllers[id='joses0r8']/@imageViews[id='josgn6q1']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+                <positionConstraints id="josgngqi" uiPhoneControl="//@viewControllers[id='joses0r8']/@imageViews[id='josgn6q1']" layoutEdge="end" withParent="true" referenceLayoutEdge="end"/>
+                <positionConstraints id="josgnmj5" uiPhoneControl="//@viewControllers[id='joses0r8']/@imageViews[id='josgn6q1']" layoutEdge="top" withParent="true" referenceLayoutEdge="top"/>
+            </imageViews>
+            <buttons id="josgnxr3" viewController="//@viewControllers[id='joses0r8']" defaultWidth="88" defaultHeight="40" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="30" marginBottom="0" marginStart="0" marginEnd="0" title="Favourites" textColor="#000000" backgroundColor="#ffff00" borderRadius="6" clickColor="">
+                <dimensionConstraint uiPhoneControl="//@viewControllers[id='joses0r8']/@buttons[id='josgnxr3']" fixedHeight="50" widthPercent="0.5"/>
+                <positionConstraints id="josgo0a2" uiPhoneControl="//@viewControllers[id='joses0r8']/@buttons[id='josgnxr3']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='joses0r8']/@imageViews[id='josgn6q1']" referenceLayoutEdge="bottom"/>
+                <positionConstraints id="josgo1ce" uiPhoneControl="//@viewControllers[id='joses0r8']/@buttons[id='josgnxr3']" layoutEdge="centerX" withParent="true" referenceLayoutEdge="centerX"/>
+                <navigations id="josjkjj2" contextScene="//@scenes[id='josj9pzi']" destinationScene="//@scenes[id='josjc6gh']"/>
+            </buttons>
+            <buttons id="josgopyc" viewController="//@viewControllers[id='joses0r8']" defaultWidth="88" defaultHeight="40" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="30" marginBottom="0" marginStart="0" marginEnd="0" title="Random" textColor="#000000" backgroundColor="#ff0000" borderRadius="6" clickColor="">
+                <dimensionConstraint uiPhoneControl="//@viewControllers[id='joses0r8']/@buttons[id='josgopyc']" fixedHeight="50" widthPercent="0.5"/>
+                <positionConstraints id="josgow69" uiPhoneControl="//@viewControllers[id='joses0r8']/@buttons[id='josgopyc']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='joses0r8']/@buttons[id='josgnxr3']" referenceLayoutEdge="bottom"/>
+                <positionConstraints id="josgp2u1" uiPhoneControl="//@viewControllers[id='joses0r8']/@buttons[id='josgopyc']" layoutEdge="centerX" withParent="false" referenceElement="//@viewControllers[id='joses0r8']/@buttons[id='josgnxr3']" referenceLayoutEdge="centerX"/>
+                <navigations id="josjkom4" contextScene="//@scenes[id='josj9pzi']" destinationScene="//@scenes[id='josjg80f']"/>
+            </buttons>
+            <buttons id="josgpge7" viewController="//@viewControllers[id='joses0r8']" defaultWidth="88" defaultHeight="40" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="30" marginBottom="0" marginStart="0" marginEnd="0" title="Inspire me!" textColor="" backgroundColor="#50afc3" borderRadius="6" clickColor="">
+            <dimensionConstraint uiPhoneControl="//@viewControllers[id='joses0r8']/@buttons[id='josgpge7']" fixedHeight="50" widthPercent="0.5"/>
+            <positionConstraints id="josgpiq2" uiPhoneControl="//@viewControllers[id='joses0r8']/@buttons[id='josgpge7']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='joses0r8']/@buttons[id='josgopyc']" referenceLayoutEdge="bottom"/>
+            <positionConstraints id="josgpqaa" uiPhoneControl="//@viewControllers[id='joses0r8']/@buttons[id='josgpge7']" layoutEdge="centerX" withParent="false" referenceElement="//@viewControllers[id='joses0r8']/@buttons[id='josgopyc']" referenceLayoutEdge="centerX"/>
+            <navigations id="josjkt43" contextScene="//@scenes[id='josj9pzi']" destinationScene="//@scenes[id='josjbmpk']"/>
+        </buttons>
+    </viewControllers>
+    <viewControllers id="josfo9x1" name="InspireMe" backgroundColor="#ffffff" backgroundImage="">
+        <webViews id="joshh2sx" viewController="//@viewControllers[id='josfo9x1']" defaultWidth="240" defaultHeight="128" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" HTMLFileName="https://www.giallozafferano.it">
+            <positionConstraints id="joshh5nr" uiPhoneControl="//@viewControllers[id='josfo9x1']/@webViews[id='joshh2sx']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+            <positionConstraints id="joshhb7o" uiPhoneControl="//@viewControllers[id='josfo9x1']/@webViews[id='joshh2sx']" layoutEdge="end" withParent="true" referenceLayoutEdge="end"/>
+            <positionConstraints id="joshhfsp" uiPhoneControl="//@viewControllers[id='josfo9x1']/@webViews[id='joshh2sx']" layoutEdge="top" withParent="true" referenceLayoutEdge="top"/>
+            <positionConstraints id="joshhl7a" uiPhoneControl="//@viewControllers[id='josfo9x1']/@webViews[id='joshh2sx']" layoutEdge="bottom" withParent="true" referenceLayoutEdge="bottom"/>
+        </webViews>
+    </viewControllers>
+    <viewControllers id="joshk7h9" name="RecipeView" backgroundColor="#ffffff" backgroundImage="">
+        <textViews id="joshktmz" viewController="//@viewControllers[id='joshk7h9']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="Title of the recipe" textAlign="center" textColor="#000000" textSize="24" textDecoration="bold">
+            <dimensionConstraint uiPhoneControl="//@viewControllers[id='joshk7h9']/@textViews[id='joshktmz']" widthPercent="1"/>
+            <positionConstraints id="joshkxp6" uiPhoneControl="//@viewControllers[id='joshk7h9']/@textViews[id='joshktmz']" layoutEdge="top" withParent="true" referenceLayoutEdge="top"/>
+            <positionConstraints id="joshl2sx" uiPhoneControl="//@viewControllers[id='joshk7h9']/@textViews[id='joshktmz']" layoutEdge="centerX" withParent="true" referenceLayoutEdge="centerX"/>
+            <modelConnectors id="jqnm4znq" adapter="//@scenes[id='josjg80f']/@adapterBindings[id='jpjgnasf']" keypath="title" property="title"/>
+        </textViews>
+        <imageViews id="joshmf7j" viewController="//@viewControllers[id='joshk7h9']" defaultWidth="240" defaultHeight="128" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="10" marginBottom="0" marginStart="10" marginEnd="10" sourceType="hardwareFile" fileUri="">
+            <dimensionConstraint uiPhoneControl="//@viewControllers[id='joshk7h9']/@imageViews[id='joshmf7j']" fixedRatio="16:9"/>
+            <positionConstraints id="joshmmka" uiPhoneControl="//@viewControllers[id='joshk7h9']/@imageViews[id='joshmf7j']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='joshk7h9']/@textViews[id='joshktmz']" referenceLayoutEdge="bottom"/>
+            <positionConstraints id="joshn0eg" uiPhoneControl="//@viewControllers[id='joshk7h9']/@imageViews[id='joshmf7j']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+            <positionConstraints id="joshokv3" uiPhoneControl="//@viewControllers[id='joshk7h9']/@imageViews[id='joshmf7j']" layoutEdge="end" withParent="true" referenceLayoutEdge="end"/>
+        </imageViews>
+        <textViews id="joshqfdl" viewController="//@viewControllers[id='joshk7h9']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="10" marginEnd="0" content="Ingredients" textAlign="left" textColor="#000000" textSize="16" textDecoration="bold">
+            <positionConstraints id="joshqk07" uiPhoneControl="//@viewControllers[id='joshk7h9']/@textViews[id='joshqfdl']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='joshk7h9']/@imageViews[id='joshmf7j']" referenceLayoutEdge="bottom"/>
+            <positionConstraints id="joshqtjq" uiPhoneControl="//@viewControllers[id='joshk7h9']/@textViews[id='joshqfdl']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+        </textViews>
+        <textViews id="joshrr8b" viewController="//@viewControllers[id='joshk7h9']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="10" marginEnd="0" content="List of ingredients" textAlign="left" textColor="#000000" textSize="16" textDecoration="italic">
+            <dimensionConstraint uiPhoneControl="//@viewControllers[id='joshk7h9']/@textViews[id='joshrr8b']" fixedWidth="150"/>
+            <positionConstraints id="joshsieq" uiPhoneControl="//@viewControllers[id='joshk7h9']/@textViews[id='joshrr8b']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='joshk7h9']/@textViews[id='joshqfdl']" referenceLayoutEdge="bottom"/>
+            <positionConstraints id="joshsw2u" uiPhoneControl="//@viewControllers[id='joshk7h9']/@textViews[id='joshrr8b']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='joshk7h9']/@textViews[id='joshqfdl']" referenceLayoutEdge="start"/>
+            <modelConnectors id="jqnm5zdk" adapter="//@scenes[id='josjg80f']/@adapterBindings[id='jqnm5ma5']" keypath="" property="title"/>
+        </textViews>
+        <textViews id="joshtkxo" viewController="//@viewControllers[id='joshk7h9']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="10" marginBottom="0" marginStart="10" marginEnd="0" content="Procedure" textAlign="left" textColor="#000000" textSize="16" textDecoration="bold">
+            <positionConstraints id="joshuhmd" uiPhoneControl="//@viewControllers[id='joshk7h9']/@textViews[id='joshtkxo']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+            <positionConstraints id="joshunps" uiPhoneControl="//@viewControllers[id='joshk7h9']/@textViews[id='joshtkxo']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='joshk7h9']/@textViews[id='joshrr8b']" referenceLayoutEdge="bottom"/>
+        </textViews>
+        <textViews id="joshv9wb" viewController="//@viewControllers[id='joshk7h9']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="10" marginEnd="0" content="Description" textAlign="left" textColor="#000000" textSize="16" textDecoration="italic">
+            <positionConstraints id="joshvp2m" uiPhoneControl="//@viewControllers[id='joshk7h9']/@textViews[id='joshv9wb']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='joshk7h9']/@textViews[id='joshtkxo']" referenceLayoutEdge="start"/>
+            <positionConstraints id="joshvygs" uiPhoneControl="//@viewControllers[id='joshk7h9']/@textViews[id='joshv9wb']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='joshk7h9']/@textViews[id='joshtkxo']" referenceLayoutEdge="bottom"/>
+            <modelConnectors id="jpjgo6be" adapter="//@scenes[id='josjg80f']/@adapterBindings[id='jpjgnasf']" keypath="procedure" property="title"/>
+        </textViews>
+        <buttons id="josi0z5j" viewController="//@viewControllers[id='joshk7h9']" defaultWidth="88" defaultHeight="40" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="30" marginStart="0" marginEnd="30" title="Like" textColor="#ffffff" backgroundColor="#ff0000" borderRadius="50" clickColor="">
+            <dimensionConstraint uiPhoneControl="//@viewControllers[id='joshk7h9']/@buttons[id='josi0z5j']" fixedWidth="70" fixedHeight="70"/>
+            <positionConstraints id="josi5opf" uiPhoneControl="//@viewControllers[id='joshk7h9']/@buttons[id='josi0z5j']" layoutEdge="end" withParent="true" referenceLayoutEdge="end"/>
+            <positionConstraints id="josi5pub" uiPhoneControl="//@viewControllers[id='joshk7h9']/@buttons[id='josi0z5j']" layoutEdge="bottom" withParent="true" referenceLayoutEdge="bottom"/>
+        </buttons>
+    </viewControllers>
+    <viewControllers id="josifztj" name="RecipeList" backgroundColor="#ffffff" backgroundImage="">
+        <listViews id="josig875" viewController="//@viewControllers[id='josifztj']" defaultWidth="270" defaultHeight="270" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" backgroundColor="" listType="detailed">
+            <positionConstraints id="josigpkx" uiPhoneControl="//@viewControllers[id='josifztj']/@listViews[id='josig875']" layoutEdge="top" withParent="true" referenceLayoutEdge="top"/>
+            <positionConstraints id="josigql3" uiPhoneControl="//@viewControllers[id='josifztj']/@listViews[id='josig875']" layoutEdge="end" withParent="true" referenceLayoutEdge="end"/>
+            <positionConstraints id="josigrco" uiPhoneControl="//@viewControllers[id='josifztj']/@listViews[id='josig875']" layoutEdge="bottom" withParent="true" referenceLayoutEdge="bottom"/>
+            <positionConstraints id="josigryw" uiPhoneControl="//@viewControllers[id='josifztj']/@listViews[id='josig875']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+            <modelConnectors id="jqpel3rz" adapter="//@scenes[id='josjc6gh']/@adapterBindings[id='jqpekoif']" keypath="" property="items"/>
+            <modelConnectors id="jqphhe97" keypath="title" property="@cell.title"/>
+            <modelConnectors id="jqphhglq" keypath="procedure" property="@cell.subtitle"/>
+            <listViewCells title="First recipe" subtitle="Subtitle here..."/>
+            <listViewCells title="Second recipe" subtitle="Subtitle here..."/>
+        </listViews>
+    </viewControllers>
+    <viewControllers id="josil6a7" name="RegistrationView" backgroundColor="#ffbc00" backgroundImage="">
+        <textViews id="josimb5r" viewController="//@viewControllers[id='josil6a7']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="80" marginBottom="0" marginStart="0" marginEnd="0" content="Welcome" textAlign="center" textColor="#000000" textSize="32" textDecoration="italic">
+            <dimensionConstraint uiPhoneControl="//@viewControllers[id='josil6a7']/@textViews[id='josimb5r']" widthPercent="1"/>
+            <positionConstraints id="josin9kt" uiPhoneControl="//@viewControllers[id='josil6a7']/@textViews[id='josimb5r']" layoutEdge="top" withParent="true" referenceLayoutEdge="top"/>
+            <positionConstraints id="josine9e" uiPhoneControl="//@viewControllers[id='josil6a7']/@textViews[id='josimb5r']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+        </textViews>
+        <textViews id="josint8v" viewController="//@viewControllers[id='josil6a7']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="50" marginBottom="0" marginStart="0" marginEnd="0" content="What's your name?" textAlign="center" textColor="#000000" textSize="16" textDecoration="none">
+            <dimensionConstraint uiPhoneControl="//@viewControllers[id='josil6a7']/@textViews[id='josint8v']" widthPercent="0.88"/>
+            <positionConstraints id="josinwew" uiPhoneControl="//@viewControllers[id='josil6a7']/@textViews[id='josint8v']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='josil6a7']/@textViews[id='josimb5r']" referenceLayoutEdge="bottom"/>
+            <positionConstraints id="josio6a0" uiPhoneControl="//@viewControllers[id='josil6a7']/@textViews[id='josint8v']" layoutEdge="centerX" withParent="true" referenceLayoutEdge="centerX"/>
+        </textViews>
+        <editTexts id="josip3wh" viewController="//@viewControllers[id='josil6a7']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="10" marginBottom="0" marginStart="0" marginEnd="0" initialContent="" placeholder="Tell me" textColor="" textSize="16">
+            <dimensionConstraint uiPhoneControl="//@viewControllers[id='josil6a7']/@editTexts[id='josip3wh']" widthPercent="0.88"/>
+            <positionConstraints id="josip8xd" uiPhoneControl="//@viewControllers[id='josil6a7']/@editTexts[id='josip3wh']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='josil6a7']/@textViews[id='josint8v']" referenceLayoutEdge="bottom"/>
+            <positionConstraints id="josipit5" uiPhoneControl="//@viewControllers[id='josil6a7']/@editTexts[id='josip3wh']" layoutEdge="centerX" withParent="true" referenceLayoutEdge="centerX"/>
+            <modelConnectors id="jpwl4vnc" adapter="//@scenes[id='josiqx6i']/@adapterBindings[id='jpv1352h']" keypath="" property="value"/>
+        </editTexts>
+        <buttons id="josnkozj" viewController="//@viewControllers[id='josil6a7']" defaultWidth="88" defaultHeight="40" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="10" marginBottom="0" marginStart="0" marginEnd="0" title="Hello!" textColor="" backgroundColor="#ff0000" borderRadius="6" clickColor="">
+        <positionConstraints id="josnl1d5" uiPhoneControl="//@viewControllers[id='josil6a7']/@buttons[id='josnkozj']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='josil6a7']/@editTexts[id='josip3wh']" referenceLayoutEdge="bottom"/>
+        <positionConstraints id="josnlbqo" uiPhoneControl="//@viewControllers[id='josil6a7']/@buttons[id='josnkozj']" layoutEdge="centerX" withParent="false" referenceElement="//@viewControllers[id='josil6a7']/@editTexts[id='josip3wh']" referenceLayoutEdge="centerX"/>
+        <navigations id="jotu8c6i" contextScene="//@scenes[id='josiqx6i']" destinationScene="//@scenes[id='josj9pzi']"/>
+    </buttons>
+</viewControllers>
+<viewControllers id="josmkywz" name="NewRecipe" backgroundColor="#ffffff" backgroundImage="">
+    <controlChains id="josmq7bf" viewController="//@viewControllers[id='josmkywz']" axis="horizontal" type="weighted" nControls="2" spacing="10"/>
+    <textViews id="josmlfq1" viewController="//@viewControllers[id='josmkywz']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="10" marginEnd="0" content="Title" textAlign="left" textColor="#000000" textSize="16" textDecoration="bold">
+        <positionConstraints id="josmlp7y" uiPhoneControl="//@viewControllers[id='josmkywz']/@textViews[id='josmlfq1']" layoutEdge="top" withParent="true" referenceLayoutEdge="top"/>
+        <positionConstraints id="josmlu04" uiPhoneControl="//@viewControllers[id='josmkywz']/@textViews[id='josmlfq1']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+    </textViews>
+    <editTexts id="josmm0k3" viewController="//@viewControllers[id='josmkywz']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="5" marginBottom="0" marginStart="10" marginEnd="10" initialContent="" placeholder="My new recipe" textColor="" textSize="16">
+        <positionConstraints id="josmm3y9" uiPhoneControl="//@viewControllers[id='josmkywz']/@editTexts[id='josmm0k3']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='josmkywz']/@textViews[id='josmlfq1']" referenceLayoutEdge="bottom"/>
+        <positionConstraints id="josmmci9" uiPhoneControl="//@viewControllers[id='josmkywz']/@editTexts[id='josmm0k3']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+        <positionConstraints id="josmmhnu" uiPhoneControl="//@viewControllers[id='josmkywz']/@editTexts[id='josmm0k3']" layoutEdge="end" withParent="true" referenceLayoutEdge="end"/>
+    </editTexts>
+    <textViews id="josmoz43" viewController="//@viewControllers[id='josmkywz']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="20" marginBottom="0" marginStart="0" marginEnd="0" content="Ingredients" textAlign="left" textColor="#000000" textSize="16" textDecoration="bold">
+        <positionConstraints id="josmp7me" uiPhoneControl="//@viewControllers[id='josmkywz']/@textViews[id='josmoz43']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='josmkywz']/@editTexts[id='josmm0k3']" referenceLayoutEdge="bottom"/>
+        <positionConstraints id="josmpi9w" uiPhoneControl="//@viewControllers[id='josmkywz']/@textViews[id='josmoz43']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='josmkywz']/@textViews[id='josmlfq1']" referenceLayoutEdge="start"/>
+    </textViews>
+    <editTexts id="josmqn8k" viewController="//@viewControllers[id='josmkywz']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" controlChain="//@viewControllers[id='josmkywz']/@controlChains[id='josmq7bf']" indexInChain="0" followingInChain="//@viewControllers[id='josmkywz']/@buttons[id='josmqrhe']" weight="6" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="10" marginEnd="0" initialContent="" placeholder="New Ingredient" textColor="" textSize="16">
+        <positionConstraints id="josmroov" uiPhoneControl="//@viewControllers[id='josmkywz']/@editTexts[id='josmqn8k']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='josmkywz']/@textViews[id='josmsw2t']" referenceLayoutEdge="bottom"/>
+    </editTexts>
+    <buttons id="josmqrhe" viewController="//@viewControllers[id='josmkywz']" defaultWidth="88" defaultHeight="40" posX="0" posY="0" controlChain="//@viewControllers[id='josmkywz']/@controlChains[id='josmq7bf']" indexInChain="1" precedentInChain="//@viewControllers[id='josmkywz']/@editTexts[id='josmqn8k']" weight="1" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="10" title="+" textColor="" backgroundColor="" borderRadius="15" clickColor="">
+        <positionConstraints id="josmsc28" uiPhoneControl="//@viewControllers[id='josmkywz']/@buttons[id='josmqrhe']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='josmkywz']/@editTexts[id='josmqn8k']" referenceLayoutEdge="top"/>
+    </buttons>
+    <textViews id="josmsw2t" viewController="//@viewControllers[id='josmkywz']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="5" marginBottom="0" marginStart="10" marginEnd="0" content="Ingredients list" textAlign="left" textColor="#000000" textSize="16" textDecoration="italic">
+        <dimensionConstraint uiPhoneControl="//@viewControllers[id='josmkywz']/@textViews[id='josmsw2t']" widthPercent="0.88"/>
+        <positionConstraints id="josmt9x6" uiPhoneControl="//@viewControllers[id='josmkywz']/@textViews[id='josmsw2t']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='josmkywz']/@textViews[id='josmoz43']" referenceLayoutEdge="bottom"/>
+        <positionConstraints id="josmto6k" uiPhoneControl="//@viewControllers[id='josmkywz']/@textViews[id='josmsw2t']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+    </textViews>
+    <textViews id="josmxnj3" viewController="//@viewControllers[id='josmkywz']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="20" marginBottom="0" marginStart="10" marginEnd="0" content="Procedure" textAlign="left" textColor="#000000" textSize="16" textDecoration="bold">
+        <positionConstraints id="josmxyn4" uiPhoneControl="//@viewControllers[id='josmkywz']/@textViews[id='josmxnj3']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+        <positionConstraints id="josmy4m5" uiPhoneControl="//@viewControllers[id='josmkywz']/@textViews[id='josmxnj3']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='josmkywz']/@editTexts[id='josmqn8k']" referenceLayoutEdge="bottom"/>
+    </textViews>
+    <editTexts id="josmywzv" viewController="//@viewControllers[id='josmkywz']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="5" marginBottom="0" marginStart="10" marginEnd="10" initialContent="" placeholder="Write the procedure here" textColor="" textSize="16">
+        <dimensionConstraint uiPhoneControl="//@viewControllers[id='josmkywz']/@editTexts[id='josmywzv']" fixedHeight="180"/>
+        <positionConstraints id="josmz1ft" uiPhoneControl="//@viewControllers[id='josmkywz']/@editTexts[id='josmywzv']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+        <positionConstraints id="josmz7xl" uiPhoneControl="//@viewControllers[id='josmkywz']/@editTexts[id='josmywzv']" layoutEdge="end" withParent="true" referenceLayoutEdge="end"/>
+        <positionConstraints id="josmzerw" uiPhoneControl="//@viewControllers[id='josmkywz']/@editTexts[id='josmywzv']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='josmkywz']/@textViews[id='josmxnj3']" referenceLayoutEdge="bottom"/>
+    </editTexts>
+    <textViews id="josn2qyu" viewController="//@viewControllers[id='josmkywz']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="20" marginBottom="0" marginStart="10" marginEnd="0" content="Picture" textAlign="left" textColor="#000000" textSize="16" textDecoration="bold">
+        <positionConstraints id="josn2ysh" uiPhoneControl="//@viewControllers[id='josmkywz']/@textViews[id='josn2qyu']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+        <positionConstraints id="josn35p1" uiPhoneControl="//@viewControllers[id='josmkywz']/@textViews[id='josn2qyu']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='josmkywz']/@editTexts[id='josmywzv']" referenceLayoutEdge="bottom"/>
+    </textViews>
+    <photocameraController id="josn3wgh" viewController="//@viewControllers[id='josmkywz']" defaultWidth="120" defaultHeight="40" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" backgroundType="icon">
+        <positionConstraints id="josn43yn" uiPhoneControl="//@viewControllers[id='josmkywz']/@photocameraController" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='josmkywz']/@textViews[id='josn2qyu']" referenceLayoutEdge="end"/>
+        <positionConstraints id="josn48z2" uiPhoneControl="//@viewControllers[id='josmkywz']/@photocameraController" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='josmkywz']/@textViews[id='josn2qyu']" referenceLayoutEdge="top"/>
+    </photocameraController>
+    <buttons id="josn5elu" viewController="//@viewControllers[id='josmkywz']" defaultWidth="88" defaultHeight="40" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="10" marginStart="10" marginEnd="10" title="Save" textColor="" backgroundColor="" borderRadius="2" clickColor="">
+        <positionConstraints id="josn5uoa" uiPhoneControl="//@viewControllers[id='josmkywz']/@buttons[id='josn5elu']" layoutEdge="bottom" withParent="true" referenceLayoutEdge="bottom"/>
+        <positionConstraints id="josn6077" uiPhoneControl="//@viewControllers[id='josmkywz']/@buttons[id='josn5elu']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+        <positionConstraints id="josn65r0" uiPhoneControl="//@viewControllers[id='josmkywz']/@buttons[id='josn5elu']" layoutEdge="end" withParent="true" referenceLayoutEdge="end"/>
+    </buttons>
+</viewControllers>
+<viewControllers id="josnfgn1" name="About" backgroundColor="#ffffff" backgroundImage="">
+    <textViews id="josnfo3b" viewController="//@viewControllers[id='josnfgn1']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="10" marginBottom="0" marginStart="10" marginEnd="0" content="About" textAlign="left" textColor="#000000" textSize="24" textDecoration="bold">
+        <positionConstraints id="josnfz8d" uiPhoneControl="//@viewControllers[id='josnfgn1']/@textViews[id='josnfo3b']" layoutEdge="top" withParent="true" referenceLayoutEdge="top"/>
+        <positionConstraints id="josng4b2" uiPhoneControl="//@viewControllers[id='josnfgn1']/@textViews[id='josnfo3b']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+    </textViews>
+    <textViews id="josngf7l" viewController="//@viewControllers[id='josnfgn1']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="10" marginBottom="10" marginStart="10" marginEnd="10" content="[About text]" textAlign="left" textColor="#000000" textSize="16" textDecoration="italic">
+        <positionConstraints id="josngkza" uiPhoneControl="//@viewControllers[id='josnfgn1']/@textViews[id='josngf7l']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='josnfgn1']/@textViews[id='josnfo3b']" referenceLayoutEdge="bottom"/>
+        <positionConstraints id="josnguki" uiPhoneControl="//@viewControllers[id='josnfgn1']/@textViews[id='josngf7l']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+        <positionConstraints id="josnhaad" uiPhoneControl="//@viewControllers[id='josnfgn1']/@textViews[id='josngf7l']" layoutEdge="end" withParent="true" referenceLayoutEdge="end"/>
+        <positionConstraints id="josnhfbp" uiPhoneControl="//@viewControllers[id='josnfgn1']/@textViews[id='josngf7l']" layoutEdge="bottom" withParent="true" referenceLayoutEdge="bottom"/>
+        <modelConnectors id="jpy4tsh1" adapter="//@scenes[id='josnjgx0']/@adapterBindings[id='jpij72tb']" keypath="" property="title"/>
+    </textViews>
+</viewControllers>
+<scenes id="josiqx6i" name="RegistrationScene" launcher="true" typeSmartphone="singleVC" typeTablet="singleVC">
+    <childViewControllers viewController="//@viewControllers[id='josil6a7']"/>
+    <adapterBindings scene="//@scenes[id='josiqx6i']" type="preference" preference="//@dataHandler/@preferenceHandler/@preferenceRecords[key='UserName']" isList="false" id="jpv1352h" name="UserName"/>
+</scenes>
+<scenes id="josj9pzi" name="HomeScene" launcher="false" typeSmartphone="singleVC" typeTablet="singleVC">
+    <childViewControllers viewController="//@viewControllers[id='joses0r8']"/>
+</scenes>
+<scenes id="josjbmpk" name="InspireMeScene" launcher="false" typeSmartphone="singleVC" typeTablet="singleVC">
+    <childViewControllers viewController="//@viewControllers[id='josfo9x1']"/>
+</scenes>
+<scenes id="josjc6gh" name="RecipeCatalogScene" launcher="false" typeSmartphone="singleVC" typeTablet="multiVC">
+    <parentViewControllers id="josjc6ghtablet" name="Parent ViewController tablet" backgroundColor="#ffffff" backgroundImage="">
+        <containers childViewController="//@viewControllers[id='josifztj']" id="josjcj86tablet" viewController="//@scenes[id='josjc6gh']/@parentViewControllers[id='josjc6ghtablet']" defaultWidth="300" defaultHeight="400" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0">
+            <dimensionConstraint uiPhoneControl="//@scenes[id='josjc6gh']/@parentViewControllers[id='josjc6ghtablet']/@containers[id='josjcj86tablet']" widthPercent="0.33"/>
+            <positionConstraints id="josjdbyq" uiPhoneControl="//@scenes[id='josjc6gh']/@parentViewControllers[id='josjc6ghtablet']/@containers[id='josjcj86tablet']" layoutEdge="top" withParent="true" referenceLayoutEdge="top"/>
+            <positionConstraints id="josjdij5" uiPhoneControl="//@scenes[id='josjc6gh']/@parentViewControllers[id='josjc6ghtablet']/@containers[id='josjcj86tablet']" layoutEdge="bottom" withParent="true" referenceLayoutEdge="bottom"/>
+            <positionConstraints id="josjdoyd" uiPhoneControl="//@scenes[id='josjc6gh']/@parentViewControllers[id='josjc6ghtablet']/@containers[id='josjcj86tablet']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+        </containers>
+        <containers childViewController="//@viewControllers[id='joshk7h9']" id="josjckwvtablet" viewController="//@scenes[id='josjc6gh']/@parentViewControllers[id='josjc6ghtablet']" defaultWidth="300" defaultHeight="400" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0">
+            <dimensionConstraint uiPhoneControl="//@scenes[id='josjc6gh']/@parentViewControllers[id='josjc6ghtablet']/@containers[id='josjckwvtablet']" widthPercent="0.66"/>
+            <positionConstraints id="josjedtx" uiPhoneControl="//@scenes[id='josjc6gh']/@parentViewControllers[id='josjc6ghtablet']/@containers[id='josjckwvtablet']" layoutEdge="top" withParent="true" referenceLayoutEdge="top"/>
+            <positionConstraints id="josjejou" uiPhoneControl="//@scenes[id='josjc6gh']/@parentViewControllers[id='josjc6ghtablet']/@containers[id='josjckwvtablet']" layoutEdge="end" withParent="true" referenceLayoutEdge="end"/>
+            <positionConstraints id="josjerwi" uiPhoneControl="//@scenes[id='josjc6gh']/@parentViewControllers[id='josjc6ghtablet']/@containers[id='josjckwvtablet']" layoutEdge="bottom" withParent="true" referenceLayoutEdge="bottom"/>
+        </containers>
+    </parentViewControllers>
+    <childViewControllers viewController="//@viewControllers[id='josifztj']"/>
+    <childViewControllers viewController="//@viewControllers[id='joshk7h9']"/>
+    <adapterBindings scene="//@scenes[id='josjc6gh']" type="entity" entity="//@dataHandler/@databaseHandler/@entities[name='Recipe']" isList="true" id="jqpekoif" name="Recipes"/>
+</scenes>
+<scenes id="josjg80f" name="RecipeScene" launcher="false" typeSmartphone="singleVC" typeTablet="singleVC">
+    <childViewControllers viewController="//@viewControllers[id='joshk7h9']"/>
+    <adapterBindings scene="//@scenes[id='josjg80f']" type="entity" entity="//@dataHandler/@databaseHandler/@entities[name='Recipe']" isList="false" id="jpjgnasf" name="Recipe"/>
+    <adapterBindings scene="//@scenes[id='josjg80f']" type="entity" entity="//@dataHandler/@databaseHandler/@entities[name='Ingredient']" isList="true" id="jqnm5ma5" name="Ingredients"/>
+</scenes>
+<scenes id="josn7i21" name="AddNewRecipe" launcher="false" typeSmartphone="singleVC" typeTablet="singleVC">
+    <childViewControllers viewController="//@viewControllers[id='josmkywz']"/>
+</scenes>
+<scenes id="josnjgx0" name="AboutScene" launcher="false" typeSmartphone="singleVC" typeTablet="singleVC">
+    <childViewControllers viewController="//@viewControllers[id='josnfgn1']"/>
+    <adapterBindings scene="//@scenes[id='josnjgx0']" type="file" file="//@dataHandler/@storageHandler/@storageRecords[name='about']" isList="false" id="jpij72tb" name="MainContent"/>
+</scenes>
+<menu>
+    <menuItems title="Home" id="josjgx2c">
+        <navigation id="josjgzhw" destinationScene="//@scenes[id='josj9pzi']"/>
+    </menuItems>
+    <menuItems title="First Course" id="josjj0c9">
+        <navigation id="josjjnrl" destinationScene="//@scenes[id='josjc6gh']"/>
+    </menuItems>
+    <menuItems title="Add something tasty!" id="josn8hd3">
+    <navigation id="josn8jsc" destinationScene="//@scenes[id='josn7i21']"/>
+</menuItems>
+<menuItems title="About" id="josnk5j6">
+    <navigation id="josnk7d6" destinationScene="//@scenes[id='josnjgx0']"/>
+</menuItems>
+</menu>
+</metamodel:Application>

@@ -1,0 +1,60 @@
+«IMPORT metamodel»
+
+«DEFINE main FOR Application»
+«FILE name + "/storage/DatabaseStore.js" -»
+export default class DatabaseStore {
+    constructor(db, tableName, idField, EntityClass) {
+        this.db = db;
+        this.idField = idField;
+        this.tableName = tableName;
+        this.EntityClass = EntityClass;
+        this.nextId = 1;
+    }
+    init() {
+        return this.db.run([
+            `SELECT max(${this.idField}) as maxid FROM ${this.tableName}`
+        ]).then(results => {
+            this.nextId = results[0].rows.item(0).maxid + 1;
+        }).then(() => this);
+    }
+    getById(id) {
+        return this.db.run([
+            `SELECT * FROM ${this.tableName} WHERE ${this.idField}="${id}"`
+        ]).then(results => {
+            if (results[0].rows.length === 0) {
+                // No entity found
+                return null;
+            }
+            return results[0].rows.item(0);
+        })
+    }
+    getEntitySet(filter) {
+        return this.db.run([
+            `SELECT * FROM ${this.tableName} WHERE ${filter}`
+        ]).then(results => {
+            if (results[0].rows.length === 0) {
+                // No entity found
+                return [];
+            }
+            let out = [];
+            for (let i = 0; i < results[0].rows.length; i++) {
+                let item = results[0].rows.item(i);
+                out.push(item);
+            }
+            return out;
+        })
+    }
+    craft() {
+        return this.EntityClass.craft(this.nextId++);
+    }
+    save(entity) {
+        return this.EntityClass.contentValues(entity).runInsert(this.db, this.tableName);
+    }
+    delete(id) {
+        return this.db.run([
+            `DELETE FROM ${this.tableName} WHERE ${this.idField}="${id}"`
+        ]);
+    }
+}
+«ENDFILE»
+«ENDDEFINE»

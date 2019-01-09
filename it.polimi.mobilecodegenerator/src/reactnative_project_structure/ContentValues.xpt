@@ -1,0 +1,70 @@
+«IMPORT metamodel»
+
+«DEFINE main FOR Application»
+«FILE name + "/storage/ContentValues.js"-»
+export const ContentValuesTypes = Object.freeze({
+    INTEGER: 'Integer',
+    FLOAT: 'Float',
+    DOUBLE: 'Double',
+    STRING: 'String',
+    BOOLEAN: 'Boolean',
+    DATE: 'Date'
+});
+
+export class ContentValues {
+
+    constructor() {
+        this.dict = {};
+    }
+
+    add(type, key, value) {
+        this.dict[key] = { type, value }
+    }
+
+    keys() {
+        return Object.keys(this.dict);
+    }
+
+    values(keys) {
+        return keys.map(k => this.dict[k] ? this.dict[k].value : undefined);
+    }
+
+    valuesSql(keys, assignFormat) {
+        return keys.map(k => {
+            let { type, value } = this.dict[k];
+            let prefix = assignFormat ? k + '=' : '';
+            switch (type) {
+                case 'Integer':
+                case 'Float':
+                case 'Double':
+                    return prefix + value.toString();
+                case 'String':
+                    return prefix + '"' + value + '"';
+                case 'Boolean':
+                    return prefix + value ? 1 : 0;
+                case 'Date':
+                    return prefix + '"' + value.toString() + '"';
+
+            }
+        });
+    }
+
+    makeInsert(tableName) {
+        let keys = this.keys();
+        let query = 'INSERT OR REPLACE INTO ' + tableName + '('
+        query += keys.join(',');
+        query += ') VALUES (';
+        query += this.valuesSql(keys, false).join(',');
+        query += ')';
+        return query;
+    }
+
+    runInsert(db, tableName) {
+        return db.run([
+            this.makeInsert(tableName)
+        ]);
+    }
+
+}
+«ENDFILE»
+«ENDDEFINE»

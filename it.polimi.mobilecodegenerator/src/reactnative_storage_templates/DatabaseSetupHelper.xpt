@@ -6,6 +6,12 @@
 «ENDIF-»
 «ENDDEFINE-»
 
+
+«REM»
+	In order to establish a foreign key constraint, we must have created the referenced table before
+	Hence, we can either sort tables like a topological graph sorting basing on references relation,
+	or create all tables without rels and add rels right after
+«ENDREM»
 «DEFINE setupHelper FOR DatabaseHandler-»
 «FILE dataHandler.application.name + "/storage/DatabaseSetupHelper.js"-»
 export default class DatabaseSetupHelper {
@@ -25,23 +31,18 @@ export default class DatabaseSetupHelper {
 	mustInitialize() {
 		let query = 'SELECT tbl_name FROM sqlite_master WHERE tbl_name="MetaTable"';
 		return this.db.executeSql(query).then(([result]) => {
-			if (result.length == 0) {
+			if (result.rows.length == 0) {
 				return true;
 			} else {
+				console.log(result.rows.item(0))
 				return false;
 			}
 		}, () => true);
 	}
 	
 	init() {
-		«REM»
-			In order to establish a foreign key constraint, we must have created the referenced table before
-			Hence, we can either sort tables like a topological graph sorting basing on references relation,
-			or create all tables without rels and add rels right after
-		«ENDREM»
 		this.db.executeSql('CREATE TABLE MetaTable(pk TEXT PRIMARY KEY) WITHOUT ROWID');
 		«EXPAND createTable FOREACH entities-»
-		«EXPAND createRels FOREACH entities-»
 	}
 
 }
@@ -49,30 +50,38 @@ export default class DatabaseSetupHelper {
 «ENDDEFINE-»
 
 «DEFINE createTable FOR Entity-»
-	let PK_«name-» = '«primaryKey-»';
 	this.db.executeSql(`CREATE TABLE TBL_«name-»(
-		«primaryKey-» TEXT PRIMARY KEY,
+		«primaryKey-» TEXT PRIMARY KEY
+		
+		«REM»Generate attributes«ENDREM»
+		«IF entityAttributes.size > 0»,«ENDIF»
 		«FOREACH entityAttributes AS attr SEPARATOR ",\n"-»
-		«IF attr.type.matches("Integer") || attr.type.matches("Boolean")-»
+		«LET attr.type.toLowerCase() AS t»
+		«IF t.matches("integer") || t.matches("boolean")-»
 		«attr.name-» INT
-		«ELSEIF attr.type.matches("String") || attr.type.matches("Date")-»
+		«ELSEIF t.matches("string") || t.matches("date")-»
 		«attr.name-» TEXT
-		«ELSEIF attr.type.matches("Float") || attr.type.matches("Double")-»
+		«ELSEIF t.matches("float") || t.matches("double")-»
 		«attr.name-» REAL
 		«ENDIF-»
+		«ENDLET»
 		«ENDFOREACH-»
+		
+		«REM»Generate 1:1 and N:1 relations that have this entity as source«ENDREM»
+		«LET entityRelationships.select(e|e.type.matches("1 : 1") || e.type.matches("N : 1")) AS rels -»
+		«IF rels.size > 0»,«ENDIF»
+		«FOREACH rels AS rel SEPARATOR ",\n" -»
+		rel«rel.destination.toFirstUpper()»«rel.name.toFirstUpper()» TEXT
+		«ENDFOREACH -»
+		«ENDLET -»
+		
+		«REM»Generate 1:N relations that have this entity as destination«ENDREM»
+		«LET databaseHandler.entities.entityRelationships.select(e|e.type.matches("1 : N") && e.destination == name) AS rels -»
+		«IF rels.size > 0»,«ENDIF»
+		«FOREACH rels AS rel SEPARATOR ",\n" -»
+		rel«rel.entity.name.toFirstUpper()»«rel.name.toFirstUpper()» TEXT
+		«ENDFOREACH -»
+		«ENDLET -»
 	)`);
 «ENDDEFINE-»
 
-«DEFINE createRels FOR Entity-»
-	«FOREACH entityRelationships.select(e|e.type.matches("N : 1") || e.type.matches("1 : 1")) AS rel-»
-	this.db.executeSql(`ALTER TABLE TBL_«name-» ADD COLUMN «rel.name-»«rel.destination.toFirstUpper()-»ID REFERENCES TBL_«rel.destination-»(' + PK_«rel.destination-» + ') ON UPDATE CASCADE ON DELETE CASCADE');
-	«ENDFOREACH-»
-	«FOREACH entityRelationships.select(e|e.type.matches("N : N") || e.type.matches("1 : N")) AS rel-»
-	this.db.executeSql(`CREATE TABLE REL_«rel.name-»(
-		«name.toFirstLower()-» TEXT REFERENCES TBL_«name-»(PK_«name-») ON UPDATE CASCADE ON DELETE CASCADE,
-		«rel.destination.toFirstLower()-» TEXT REFERENCES TBL_«rel.destination-»(PK_«rel.destination-») ON UPDATE CASCADE ON DELETE CASCADE,
-		PRIMARY KEY («name-», «rel.destination.toFirstLower()-»)
-	)`);
-	«ENDFOREACH-»
-«ENDDEFINE-»

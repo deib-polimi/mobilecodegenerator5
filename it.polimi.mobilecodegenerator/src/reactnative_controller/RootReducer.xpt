@@ -1,0 +1,28 @@
+«IMPORT metamodel»
+
+«DEFINE main FOR Application»
+«FILE name + "/controller/RootReducer.js" -»
+import { combineReducers } from 'redux';
+import PreferencesReducer from './reducers/Preferences';
+import FilesReducer from './reducers/Files';
+«IF dataHandler.databaseHandler != null && dataHandler.databaseHandler.entities.size > 0 -»
+«FOREACH dataHandler.databaseHandler.entities AS ent -»
+import Entity«ent.name.toFirstUpper()»Reducer from './reducers/entity/«ent.name.toFirstUpper()»';
+«ENDFOREACH -»
+«ENDIF -»
+
+const RootReducer = combineReducers({
+    preferences: PreferencesReducer,
+    files: FilesReducer,
+    «IF dataHandler.databaseHandler != null && dataHandler.databaseHandler.entities.size > 0 -»
+	entities: combineReducers({
+		«FOREACH dataHandler.databaseHandler.entities AS ent -»
+        «ent.name»: Entity«ent.name.toFirstUpper()»Reducer,
+		«ENDFOREACH -»
+    }),
+	«ENDIF -»
+})
+
+export default RootReducer;
+«ENDFILE»
+«ENDDEFINE»

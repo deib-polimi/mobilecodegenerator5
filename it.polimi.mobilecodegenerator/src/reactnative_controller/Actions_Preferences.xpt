@@ -1,0 +1,96 @@
+«IMPORT metamodel»
+
+«DEFINE main FOR Application»
+«FILE name + "/controller/actions/Preferences.js" -»
+import Preferences from "../../storage/Preferences";
+import PreferencesDefault from "../../storage/PreferencesDefault";
+import debounce from 'debounce';
+
+export const READ_PREFERENCE_REQUEST = 'READ_PREFERENCE_REQUEST';
+function readPreferenceRequest(key) {
+    return {
+        type: READ_PREFERENCE_REQUEST,
+        key
+    }
+}
+export const READ_PREFERENCE_COMPLETE = 'READ_PREFERENCE_COMPLETE';
+function readPreferenceComplete(key, value) {
+    return {
+        type: READ_PREFERENCE_COMPLETE,
+        key,
+        value
+    }
+}
+export const SET_PREFERENCE_REQUEST = 'SET_PREFERENCE_REQUEST';
+function setPreferenceRequest(key, value) {
+    return {
+        type: SET_PREFERENCE_REQUEST,
+        key,
+        value
+    }
+}
+export const SET_PREFERENCE_COMPLETE = 'SET_PREFERENCE_COMPLETE';
+function setPreferenceComplete(key, value) {
+    return {
+        type: SET_PREFERENCE_COMPLETE,
+        key, 
+        value
+    }
+}
+export const RESET_PREFERENCE_REQUEST = 'RESET_PREFERENCE_REQUEST';
+function resetPreferenceRequest(key) {
+    return {
+        type: RESET_PREFERENCE_REQUEST,
+        key
+    }
+}
+export const RESET_PREFERENCE_COMPLETE = 'RESET_PREFERENCE_COMPLETE';
+function resetPreferenceComplete(key, value) {
+    return {
+        type: RESET_PREFERENCE_COMPLETE,
+        key,
+        value
+    }
+}
+
+export function readPreference(key) {
+    return dispatch => {
+        dispatch(readPreferenceRequest(key));
+        return Preferences.get(key).then(value => {
+            dispatch(readPreferenceComplete(key, value));
+        })
+    }
+}
+
+const debouncedWrite = debounce((key, value, done) => {
+	Preferences.set(key, value).then(() => done())
+}, 500);
+
+export function writePreference(key, value) {
+    return dispatch => {
+        dispatch(setPreferenceRequest(key, value));
+        debouncedWrite(key, value, () => dispatch(setPreferenceComplete(key, value)));
+    }
+}
+
+export function resetPreference(key) {
+    return dispatch => {
+        dispatch(resetPreferenceRequest(key, value));
+        return Preferences.reset(key).then(() => {
+            dispatch(resetPreferenceComplete(key, PreferencesDefault[key]))
+        })
+    }
+}
+
+export function readPreferenceIfNeeded(key) {
+    return (dispatch, getState) => {
+        const state = getState();
+        if (state.preferences[key] === undefined) {
+            return dispatch(readPreference(key));
+        } else {
+            return Promise.resolve();
+        }
+    }
+}
+«ENDFILE»
+«ENDDEFINE»

@@ -1,7 +1,7 @@
 «IMPORT metamodel»
 
 «DEFINE main FOR Application-»
-«EXPAND component(this, 'Component') FOREACH viewControllers-»S
+«EXPAND component(this, 'Component') FOREACH viewControllers-»
 «ENDDEFINE-»
 
 «DEFINE style FOR ViewController-»

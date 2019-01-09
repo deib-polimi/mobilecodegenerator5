@@ -18,7 +18,7 @@
 <workflow>
 
 	<!--xmi model-->
-	<property name="model" value="it.polimi.mobilecodegenerator/src/model/MyKitchenDiary.xmi" />
+	<property name="model" value="it.polimi.mobilecodegenerator/src/model/MyKitchenDiary_Lists.xmi" />
 	<property name="src-gen" value="src-gen/reactnative" />
 	
 	<bean class="org.eclipse.emf.mwe.utils.StandaloneSetup" >
@@ -73,6 +73,17 @@
 		<metaModel idRef="mm_emf"/>
 		<expand
 			value="reactnative_storage_templates::DataHandler::main FOR model" />
+		<outlet path="${src-gen}" ></outlet>
+		<resourceManager class ="org.eclipse.xtend.expression.ResourceManagerDefaultImpl">
+			<fileEncoding value="ISO-8859-1"/>
+		</resourceManager>
+	</component>
+	
+	<!-- CONTROLLER PART -->
+	<component class="org.eclipse.xpand2.Generator">
+		<metaModel idRef="mm_emf"/>
+		<expand
+			value="reactnative_controller::index::main FOR model" />
 		<outlet path="${src-gen}" ></outlet>
 		<resourceManager class ="org.eclipse.xtend.expression.ResourceManagerDefaultImpl">
 			<fileEncoding value="ISO-8859-1"/>

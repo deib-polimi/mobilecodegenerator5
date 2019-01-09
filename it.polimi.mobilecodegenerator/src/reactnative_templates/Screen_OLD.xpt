@@ -1,7 +1,7 @@
 «IMPORT metamodel»
 
-«EXTENSION reactnative_templates::DebugUtils»
-«EXTENSION app_extensions::Java»
+«EXTENSION reactnative_templates::DebugUtils-»
+«EXTENSION app_extensions::Java-»
 
 «DEFINE singleScreen(String device, Scene context) FOR ViewController-»
 «EXPAND singleScreenOptLayout(device, context, false)-»
@@ -16,10 +16,14 @@ import Component_«name.replaceAll(" ", "_").toFirstUpper()-» from '../../compone
 «ELSE-»
 import Component_«name.replaceAll(" ", "_").toFirstUpper()-» from '../../components/Component_«name.replaceAll(" ", "_").toFirstUpper()-»';
 «ENDIF-»
-import Scene_«context.name.replaceAll(" ", "_").toFirstUpper()»_Context from './context.js';
 
-class Screen_«name.replaceAll(" ", "_").toFirstUpper()-» extends React.Component {
-	
+import Icon	 from 'react-native-vector-icons/MaterialIcons';
+import { 
+	TouchableWithoutFeedback,
+} from 'react-native';
+
+export default class Screen_«name.replaceAll(" ", "_").toFirstUpper()-» extends React.Component {
+
 	constructor(props) {
 		super(props);
 		this.state = { };
@@ -49,7 +53,21 @@ class Screen_«name.replaceAll(" ", "_").toFirstUpper()-» extends React.Component
 	onAudioPause(audioId) { }
 	onAudioStop(audioId) { }
 	
-	onButtonPress(buttonId) { }
+	onButtonPress(buttonId) {
+		«FOREACH buttons AS b-»
+		«FOREACH b.navigations AS n-»
+		«IF n.contextScene.id == context.id-»
+		if (buttonId === '«b.id-»') {
+			«IF n.destinationScene != null-»
+			this.props.navigation.navigate('Scene_«n.destinationScene.name.replaceAll(" ", "_").toFirstUpper()-»');
+			«ELSEIF n.destinationViewController != null-»
+			this.props.navigation.navigate('Screen_«n.destinationViewController.name.replaceAll(" ", "_").toFirstUpper()-»');
+			«ENDIF-»
+		}
+		«ENDIF-»
+		«ENDFOREACH-»
+		«ENDFOREACH-»
+	}
 	
 	onDropdownChange(dropdownId) { }
 	
@@ -61,7 +79,7 @@ class Screen_«name.replaceAll(" ", "_").toFirstUpper()-» extends React.Component
 			«IF n.destinationScene != null-»
 			this.props.navigation.navigate('Scene_«n.destinationScene.name.replaceAll(" ", "_").toFirstUpper()-»');
 			«ELSEIF n.destinationViewController != null-»
-			this.props.localNavigation.navigate('Screen_«n.destinationViewController.name.replaceAll(" ", "_").toFirstUpper()-»');
+			this.props.navigation.navigate('Screen_«n.destinationViewController.name.replaceAll(" ", "_").toFirstUpper()-»');
 			«ENDIF-»
 		}
 		«ENDIF-»
@@ -77,7 +95,7 @@ class Screen_«name.replaceAll(" ", "_").toFirstUpper()-» extends React.Component
 			«IF n.destinationScene != null-»
 			this.props.navigation.navigate('Scene_«n.destinationScene.name.replaceAll(" ", "_").toFirstUpper()-»');
 			«ELSEIF n.destinationViewController != null-»
-			this.props.localNavigation.navigate('Screen_«n.destinationViewController.name.replaceAll(" ", "_").toFirstUpper()-»');
+			this.props.navigation.navigate('Screen_«n.destinationViewController.name.replaceAll(" ", "_").toFirstUpper()-»');
 			«ENDIF-»
 		}
 		«ENDIF-»
@@ -130,25 +148,6 @@ class Screen_«name.replaceAll(" ", "_").toFirstUpper()-» extends React.Component
 			<Component_«name.replaceAll(" ", "_").toFirstUpper()-» 
 				style={{width: '100%', height: '100%'}}
 				onInterface={ componentInterface => this.componentInterface = componentInterface }
-				«REM»Two-way bindings«ENDREM»
-				«EXPAND reactnative_templates::ModelConnector::propertyFromState FOREACH editTexts.modelConnectors -»
-				«EXPAND reactnative_templates::ModelConnector::propertyFromState FOREACH textViews.modelConnectors -»
-				«EXPAND reactnative_templates::ModelConnector::propertyFromState FOREACH listViews.modelConnectors -»
-				«EXPAND reactnative_templates::ModelConnector::propertyFromState FOREACH gridViews.modelConnectors -»
-				«REM»Button clicks for navigation«ENDREM»
-				«FOREACH buttons AS b-»
-				«FOREACH b.navigations AS n-»
-				«IF n.contextScene.id == context.id-»
-				onE«b.id»Press={() => 
-					«IF n.destinationScene != null-»
-					this.props.navigation.navigate('Scene_«n.destinationScene.name.replaceAll(" ", "_").toFirstUpper()-»')
-					«ELSEIF n.destinationViewController != null-»
-					this.props.localNavigation.navigate('Screen_«n.destinationViewController.name.replaceAll(" ", "_").toFirstUpper()-»')
-					«ENDIF-»
-				}
-				«ENDIF-»
-				«ENDFOREACH-»
-				«ENDFOREACH-»
 				onAudioPlay={this.onAudioPlay}
 				onAudioPause={this.onAudioPause}
 				onAudioStop={this.onAudioStop}
@@ -170,14 +169,6 @@ class Screen_«name.replaceAll(" ", "_").toFirstUpper()-» extends React.Component
 		);
 	}
 }
-
-export default Wrapper_Screen_«name.replaceAll(" ", "_").toFirstUpper()-» = ({ navigation, ...others }) => (
-	<Scene_«context.name.replaceAll(" ", "_").toFirstUpper()»_Context.Consumer>
-		{ctx => (
-			<Screen_«name.replaceAll(" ", "_").toFirstUpper()-» localNavigation={navigation} {...others} {...ctx} />
-		)}
-	</Scene_«context.name.replaceAll(" ", "_").toFirstUpper()»_Context.Consumer>
-);
 
 «ENDFILE-»
 «ENDDEFINE-»

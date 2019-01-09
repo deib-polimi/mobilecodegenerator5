@@ -1,0 +1,12 @@
+«IMPORT metamodel»
+
+«DEFINE main FOR Application»
+«EXPAND reactnative_controller::Actions_Files::main -»
+«EXPAND reactnative_controller::Actions_Preferences::main -»
+«EXPAND reactnative_controller::Actions_Entities::main -»
+«EXPAND reactnative_controller::Reducer_Files::main -»
+«EXPAND reactnative_controller::Reducer_Preferences::main -»
+«EXPAND reactnative_controller::Reducer_Entities::main -»
+«EXPAND reactnative_controller::RootReducer::main -»
+«EXPAND reactnative_controller::utils::main -»
+«ENDDEFINE»

@@ -35,11 +35,23 @@
 			«EXPAND reactnative_templates::UIPhoneControl::props FOR gv-»
 			style={styles.e«gv.id-»}
 			itemDimension={190}
-			items={[
+			items={
+				this.props.e«gv.id»Items && this.props.e«gv.id»CelltitleProp
+				? 
+				this.props.e«gv.id»Items.map((item, i) => {
+					return { 
+						key: 'Cell' + i, 
+						title: item[this.props.e«gv.id»CelltitleProp], 
+						image: 'grid_image'
+					}
+				}) 
+				:
+				[
 				«FOREACH gv.gridViewCells AS cell ITERATOR iter-»
 					{ key: '«iter.counter1-»', title: '«cell.title-»', image: 'grid_image' },
 				«ENDFOREACH-»
-				]}
+				]
+			}
 			fluidWidth={(grid, parentWidth, parentHeight) => Promise.resolve(parentWidth)}
 			renderItem={(item) => <GridElement«gv.id.toFirstUpper()-» title={item.title} image={item.image} onPress={() => this.on«gv.id-»ItemSelect(item)} /> }
 		></CGridView>

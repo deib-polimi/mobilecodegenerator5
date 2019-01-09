@@ -1,66 +1,166 @@
 «IMPORT metamodel»
 
-«EXTENSION reactnative_templates::DebugUtils-»
-
 «DEFINE main FOR Application-»
 «FOREACH scenes AS scene-»
+«EXPAND contextFile('Phone') FOR scene -»
+«EXPAND contextFile('Tablet') FOR scene -»
 «IF scene.typeSmartphone.toString().matches("singleVC")-»
-	«EXPAND singleScreen('Phone') FOR scene-»
+	«EXPAND reactnative_templates::Screen::singleScreen('Phone', scene) FOREACH scene.childViewControllers.viewController-»
+	«EXPAND singleVCScene('Phone') FOR scene-»
 «ELSEIF scene.typeSmartphone.toString().matches("singleVCTab")-»
-	«EXPAND tabs('Phone') FOR scene-»
+	«EXPAND reactnative_templates::Screen::singleScreen('Phone', scene) FOREACH scene.childViewControllers.viewController-»
+	«EXPAND singleVCTab('Phone') FOR scene-»
 «ELSEIF scene.typeSmartphone.toString().matches("multiVC")-»
 	«IF scene.typeTablet.toString().matches("multiVC")-»
-		«EXPAND combinedScreen('Phone', scene.parentViewControllers.get(1)) FOR scene-»
+		«EXPAND reactnative_templates::ViewControllers::component(this, "Layout_" + name.replaceAll(" ", "_").toFirstUpper()) FOR scene.parentViewControllers.get(1)-»
+		«EXPAND reactnative_templates::Screen::singleScreenOptLayout("Phone", scene, true) FOR scene.parentViewControllers.get(1)-»
+		«EXPAND multiVC('Phone', scene.parentViewControllers.get(1)) FOR scene-»
 	«ELSE-»
-		«EXPAND combinedScreen('Phone', scene.parentViewControllers.get(0)) FOR scene-»
+		«EXPAND reactnative_templates::ViewControllers::component(this, "Layout_" + name.replaceAll(" ", "_").toFirstUpper()) FOR scene.parentViewControllers.get(0)-»
+		«EXPAND reactnative_templates::Screen::singleScreenOptLayout("Phone", scene, true) FOR scene.parentViewControllers.get(0)-»
+		«EXPAND multiVC('Phone', scene.parentViewControllers.get(0)) FOR scene-»
 	«ENDIF-»
 «ENDIF-»
 «IF scene.typeTablet.toString().matches("singleVC")-»
-	«EXPAND singleScreen('Tablet') FOR scene-»
+	«EXPAND reactnative_templates::Screen::singleScreen('Tablet', scene) FOREACH scene.childViewControllers.viewController-»
+	«EXPAND singleVCScene('Tablet') FOR scene-»
 «ELSEIF scene.typeTablet.toString().matches("singleVCTab")-»
-	«EXPAND tabs('Tablet') FOR scene-»
+	«EXPAND reactnative_templates::Screen::singleScreen('Tablet', scene) FOREACH scene.childViewControllers.viewController-»
+	«EXPAND singleVCTab('Tablet') FOR scene-»
 «ELSEIF scene.typeTablet.toString().matches("multiVC")-»
-	«EXPAND combinedScreen('Tablet', scene.parentViewControllers.get(0)) FOR scene-»
+	«EXPAND reactnative_templates::ViewControllers::component(this, "Layout_" + scene.name.replaceAll(" ", "_").toFirstUpper()) FOR scene.parentViewControllers.get(0)-»
+	«EXPAND reactnative_templates::Screen::singleScreenOptLayout('Tablet', scene, true) FOR scene.parentViewControllers.get(0)-»
+	«EXPAND multiVC('Tablet', scene.parentViewControllers.get(0)) FOR scene-»
 «ENDIF-»
 «ENDFOREACH-»
 «ENDDEFINE-»
 
-«DEFINE singleScreen(String device) FOR Scene-»
-«REM»Create one file for each screen to be shown, these will be needed later«ENDREM»
-«FOREACH childViewControllers AS cvc-»
-«EXPAND reactnative_templates::Screen::singleScreen(device, this) FOR cvc.viewController-»
-«ENDFOREACH-»
-«REM»Create navigation file, linking up all the previous files«ENDREM»
-«FILE application.name + "/scenes/" + device + "_" + name.replaceAll(" ", "_").toFirstUpper() + "/index.js"-»
+«REM»Create context file«ENDREM»
+«DEFINE contextFile(String device) FOR Scene»
+«LET name.replaceAll(" ", "_").toFirstUpper() AS sceneName -»
+«FILE application.name + "/scenes/" + device + "_" + sceneName + "/context.js"-»
 import React from 'react';
-import { createSwitchNavigator } from 'react-navigation';
+
+const Scene_«sceneName»_Context = React.createContext({});
+export default Scene_«sceneName»_Context;
+«ENDFILE -»
+«ENDLET -»
+«ENDDEFINE»
+
+«DEFINE imports(Boolean isParent) FOR Scene»
+«LET name.replaceAll(" ", "_").toFirstUpper() AS sceneName -»
+import React from 'react';
+import { connect } from 'react-redux';
+import Scene_«sceneName»_Context from './context';
+«IF !isParent -»
 «FOREACH childViewControllers AS cvc-»
-import Screen_«cvc.viewController.name.replaceAll(" ", "_").toFirstUpper()-» from './Screen_«cvc.viewController.name.replaceAll(" ", "_").toFirstUpper()-»';
+«LET cvc.viewController.name.replaceAll(" ", "_").toFirstUpper() AS childViewControllerName -»
+import Screen_«childViewControllerName-» from './Screen_«childViewControllerName-»';
+«ENDLET -»
 «ENDFOREACH-»
-export default createSwitchNavigator({
+«ENDIF -»
+«IF adapterBindings.select(e|e.type.toString().matches("file")).size > 0 -»
+import { readFileIfNeeded, writeFile } from '../../controller/actions/Files';
+«ENDIF -»
+«IF adapterBindings.select(e|e.type.toString().matches("preference")).size > 0 -»
+import { readPreferenceIfNeeded, writePreference } from '../../controller/actions/Preferences';
+«ENDIF -»
+«LET adapterBindings.select(e|e.type.toString().matches("entity")) AS entityBindings -»
+«FOREACH entityBindings AS b -»
+«REM»Ensure to avoid duplicate imports!!«ENDREM»
+«IF adapterBindings.selectFirst(e|e.type.toString().matches("entity") && e.entity.name == b.entity.name).id == b.id -»
+«LET b.entity.name.toFirstUpper() AS entityName -»
+import { readEntity«entityName», editEntity«entityName», deleteEntity«entityName», fetchEntity«entityName» } from '../../controller/actions/entity/«entityName»';
+«ENDLET -»
+«ENDIF -»
+«ENDFOREACH -»
+«ENDLET -»
+«ENDLET -»
+«ENDDEFINE»
+
+«DEFINE component FOR Scene»
+«LET name.replaceAll(" ", "_").toFirstUpper() AS sceneName -»
+class Scene_«sceneName-» extends React.Component {
+	componentWillMount() {
+		«FOREACH adapterBindings AS b -»
+		this.props.on«b.name»Load();
+		«ENDFOREACH -»
+	}
+	render() {
+		return (
+			<Scene_«name.replaceAll(" ", "_").toFirstUpper()»_Context.Provider value={this.props}>
+				<Nav />
+			</Scene_«name.replaceAll(" ", "_").toFirstUpper()»_Context.Provider>
+		)
+	}
+}
+
+const mapStateToProps = state => {
+	return {
+		«FOREACH adapterBindings AS b -»
+			«IF b.type.toString().matches("file") -»
+			model«b.name»: state.files.«b.file.name» ? state.files.«b.file.name».content : '',
+			«ELSEIF b.type.toString().matches("preference") -»
+			model«b.name»: state.preferences.«b.preference.key» ? state.preferences.«b.preference.key».value : '',
+			«ELSEIF b.type.toString().matches("entity") && !b.isList -»
+			model«b.name»: state.entities.«b.entity.name»['1'] ? state.entities.«b.entity.name»['1'] : undefined,
+			«ELSEIF b.type.toString().matches("entity") && b.isList -»
+			model«b.name»: Object.values(state.entities.«b.entity.name»).filter(item => false), // PUT PREDICATE FOR «b.name» HERE (as JavaScript code)
+			«ENDIF -»
+		«ENDFOREACH -»	
+	}
+}
+
+const mapDispatchToProps = dispatch => {
+	return {
+		«FOREACH adapterBindings AS b -»
+			«IF b.type.toString().matches("file") -»
+			on«b.name»Load: () => dispatch(readFileIfNeeded('«b.file.name»')),
+			on«b.name»Change: val => dispatch(writeFile('«b.file.name»', val)),
+			«ELSEIF b.type.toString().matches("preference") -»
+			on«b.name»Load: () => dispatch(readPreferenceIfNeeded('«b.preference.key»')),
+			on«b.name»Change: val => dispatch(writePreference('«b.preference.key»', val)),
+			«ELSEIF b.type.toString().matches("entity") && !b.isList -»
+			on«b.name»Load: () => dispatch(readEntity«b.entity.name.toFirstUpper()»('1')),
+			on«b.name»Change: val => dispatch(editEntity«b.entity.name.toFirstUpper()»(val)),
+			on«b.name»Delete: () => dispatch(deleteEntity«b.entity.name.toFirstUpper()»('1')),
+			«ELSEIF b.type.toString().matches("entity") && b.isList -»
+			on«b.name»Load: () => dispatch(fetchEntity«b.entity.name.toFirstUpper()»('«b.entity.primaryKey» < 0')), // PUT PREDICATE FOR «b.name» HERE (as SQLite where clause)
+			«ENDIF -»
+		«ENDFOREACH -»
+	}
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Scene_«sceneName-»);
+«ENDLET -»
+«ENDDEFINE»
+
+«DEFINE singleVCScene(String device) FOR Scene»
+«LET name.replaceAll(" ", "_").toFirstUpper() AS sceneName -»
+«FILE application.name + "/scenes/" + device + "_" + sceneName + "/index.js"-»
+«EXPAND imports(false) -»
+import { createSwitchNavigator } from 'react-navigation';
+
+const Nav = createSwitchNavigator({
 	«FOREACH childViewControllers AS cvc-»
 	Screen_«cvc.viewController.name.replaceAll(" ", "_").toFirstUpper()-»,
 	«ENDFOREACH-»
 }, {
 	initialRouteName: 'Screen_«childViewControllers.get(0).viewController.name.replaceAll(" ", "_").toFirstUpper()-»'
 });
-«ENDFILE-»
-«ENDDEFINE-»
 
-«DEFINE tabs(String device) FOR Scene-»
-«REM»Create one file for each screen to be shown as a tab, these will be needed later«ENDREM»
-«FOREACH childViewControllers AS cvc-»
-«EXPAND reactnative_templates::Screen::singleScreen(device, this) FOR cvc.viewController-»
-«ENDFOREACH-»
-«REM»Create navigation file, linking up all the previous files«ENDREM»
-«FILE application.name + "/scenes/" + device + "_" + name.replaceAll(" ", "_").toFirstUpper() + "/index.js"-»
-import React from 'react';
+«EXPAND component -»
+«ENDFILE-»
+«ENDLET -»
+«ENDDEFINE»
+
+«DEFINE singleVCTab(String device) FOR Scene»
+«LET name.replaceAll(" ", "_").toFirstUpper() AS sceneName -»
+«FILE application.name + "/scenes/" + device + "_" + sceneName + "/index.js"-»
+«EXPAND imports(false) -»
 import { createBottomTabNavigator } from 'react-navigation';
-«FOREACH childViewControllers AS cvc-»
-«EXPAND reactnative_templates::Screen::singleScreen(device, this) FOR cvc.viewController-»
-import Screen_«cvc.viewController.name.replaceAll(" ", "_").toFirstUpper()-» from './Screen_«cvc.viewController.name.replaceAll(" ", "_").toFirstUpper()-»';
-«ENDFOREACH-»
-export default createBottomTabNavigator({
+
+const Nav = createBottomTabNavigator({
 	«FOREACH childViewControllers AS cvc-»
 	Screen_«cvc.viewController.name.replaceAll(" ", "_").toFirstUpper()-»: {
 		screen: Screen_«cvc.viewController.name.replaceAll(" ", "_").toFirstUpper()-»,
@@ -70,17 +170,21 @@ export default createBottomTabNavigator({
 }, {
 	initialRouteName: 'Screen_«childViewControllers.get(0).viewController.name.replaceAll(" ", "_").toFirstUpper()-»'
 });
-«ENDFILE-»
-«ENDDEFINE-»
 
-«DEFINE combinedScreen(String device, ViewController parent) FOR Scene-»
-«REM»Create one file for each screen to be shown, in this case only one, that one corresponding to the parent layout, these will be needed later«ENDREM»
-«EXPAND reactnative_templates::ViewControllers::component(application, "Layout_" + name.replaceAll(" ", "_").toFirstUpper()) FOR parent-»
-«EXPAND reactnative_templates::Screen::singleScreenOptLayout(device, this, true) FOR parent-»
-«REM»Create scene file (quite dummy, but needed to keep routing easy«ENDREM»
-«FILE application.name + "/scenes/" + device + "_" + name.replaceAll(" ", "_").toFirstUpper() + "/index.js"-»
-import React from 'react';
-import Screen_«parent.name.replaceAll(" ", "_").toFirstUpper()-» from './Screen_«parent.name.replaceAll(" ", "_").toFirstUpper()-»';
-export default Screen_«parent.name.replaceAll(" ", "_").toFirstUpper()-»;
+«EXPAND component -»
 «ENDFILE-»
-«ENDDEFINE-»
+«ENDLET -»
+«ENDDEFINE»
+
+«DEFINE multiVC(String device, ViewController parent) FOR Scene»
+«LET name.replaceAll(" ", "_").toFirstUpper() AS sceneName -»
+«FILE application.name + "/scenes/" + device + "_" + sceneName + "/index.js"-»
+«EXPAND imports(true) -»
+import Screen_«parent.name.replaceAll(" ", "_").toFirstUpper()-» from './Screen_«parent.name.replaceAll(" ", "_").toFirstUpper()-»';
+
+const Nav = Screen_«parent.name.replaceAll(" ", "_").toFirstUpper()-»;
+
+«EXPAND component -»
+«ENDFILE-»
+«ENDLET -»
+«ENDDEFINE»

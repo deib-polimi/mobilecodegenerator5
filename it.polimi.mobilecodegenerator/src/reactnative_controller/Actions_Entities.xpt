@@ -1,0 +1,172 @@
+«IMPORT metamodel»
+
+«DEFINE main FOR Application»
+«IF dataHandler.databaseHandler != null && dataHandler.databaseHandler.entities.size > 0 -»
+«FOREACH dataHandler.databaseHandler.entities AS ent -»
+«FILE name + "/controller/actions/entity/" + ent.name.toFirstUpper() + ".js" -»
+«LET ent.name.toUpperCase() AS nameUpper»
+«LET ent.name.toFirstUpper() AS nameCamel»
+import getDB from "../../../storage/DatabaseHandler";
+«FOREACH ent.entityRelationships AS rel -»
+«IF rel.type.matches("1 : N") -»
+import { deleteEntity«rel.destination.toFirstUpper()»Rel«nameCamel»«rel.name.toFirstUpper()» } from './«rel.destination.toFirstUpper()»';
+«ENDIF -»
+«ENDFOREACH -»
+
+export const READ_ENTITY_«nameUpper»_REQUEST = 'READ_ENTITY_«nameUpper»_REQUEST';
+export function readEntity«nameCamel»Request(id) {
+    return {
+        type: READ_ENTITY_«nameUpper»_REQUEST,
+        id
+    }
+}
+export const READ_ENTITY_«nameUpper»_COMPLETE = 'READ_ENTITY_«nameUpper»_COMPLETE';
+export function readEntity«nameCamel»Complete(id, data) {
+    return {
+        type: READ_ENTITY_«nameUpper»_COMPLETE,
+        id,
+        data
+    }
+}
+export const FETCH_ENTITY_«nameUpper»_REQUEST = 'FETCH_ENTITY_«nameUpper»_REQUEST';
+export function fetchEntity«nameCamel»Request(predicate) {
+    return {
+        type: FETCH_ENTITY_«nameUpper»_REQUEST,
+        predicate
+    }
+}
+export const FETCH_ENTITY_«nameUpper»_COMPLETE = 'FETCH_ENTITY_«nameUpper»_COMPLETE';
+export function fetchEntity«nameCamel»Complete(predicate, data) {
+    return {
+        type: FETCH_ENTITY_«nameUpper»_COMPLETE,
+        predicate,
+        data
+    }
+}
+export const EDIT_ENTITY_«nameUpper»_REQUEST = 'EDIT_ENTITY_«nameUpper»_REQUEST';
+export function editEntity«nameCamel»Request(id, data) {
+    return {
+        type: EDIT_ENTITY_«nameUpper»_REQUEST,
+        id,
+        data
+    }
+}
+export const EDIT_ENTITY_«nameUpper»_COMPLETE = 'EDIT_ENTITY_«nameUpper»_COMPLETE';
+export function editEntity«nameCamel»Complete(id, data) {
+    return {
+        type: EDIT_ENTITY_«nameUpper»_COMPLETE,
+        id,
+        data
+    }
+}
+export const DELETE_ENTITY_«nameUpper»_REQUEST = 'DELETE_ENTITY_«nameUpper»_REQUEST';
+export function deleteEntity«nameCamel»Request(id) {
+    return {
+        type: DELETE_ENTITY_«nameUpper»_REQUEST,
+        id
+    }
+}
+export const DELETE_ENTITY_«nameUpper»_COMPLETE = 'DELETE_ENTITY_«nameUpper»_COMPLETE';
+export function deleteEntity«nameCamel»Complete(id) {
+    return {
+        type: DELETE_ENTITY_«nameUpper»_COMPLETE,
+        id
+    }
+}
+export const CREATE_ENTITY_«nameUpper»_REQUEST = 'CREATE_ENTITY_«nameUpper»_REQUEST';
+export function createEntity«nameCamel»Request(data) {
+    return {
+        type: CREATE_ENTITY_«nameUpper»_REQUEST,
+        data
+    }
+}
+
+export function fetchEntity«nameCamel»(predicate) {
+    return async dispatch => {
+        dispatch(fetchEntity«nameCamel»Request(predicate));
+        const db = await getDB();
+        const store = await db.getStoreFor«nameCamel»();
+        const entities = await store.getEntitySet(predicate);
+        dispatch(fetchEntity«nameCamel»Complete(predicate, entities));
+    }
+}
+
+export function readEntity«nameCamel»(id) {
+    return async dispatch => {
+        dispatch(readEntity«nameCamel»Request(id));
+        const db = await getDB();
+        const store = await db.getStoreFor«nameCamel»();
+        const entity = await store.getById(id);
+        dispatch(readEntity«nameCamel»Complete(id, entity));
+    }
+}
+
+export function editEntity«nameCamel»(entity) {
+    return async dispatch => {
+        dispatch(editEntity«nameCamel»Request(entity.id, entity));
+        const db = await getDB();
+        const store = await db.getStoreFor«nameCamel»();
+        await store.save(entity);
+        dispatch(editEntity«nameCamel»Complete(entity.id, entity));
+    }
+}
+
+export function deleteEntity«nameCamel»(id) {
+    return async dispatch => {
+    	«FOREACH ent.entityRelationships AS rel -»
+    	«IF rel.type.matches("1 : N") -»
+    	dispatch(deleteEntity«rel.destination.toFirstUpper()»Rel«nameCamel»«rel.name.toFirstUpper()»(entity.id));
+    	«ENDIF -»
+    	«ENDFOREACH -»
+        dispatch(deleteEntity«nameCamel»Request(id));
+        const db = await getDB();
+        const store = await db.getStoreFor«nameCamel»();
+        await store.delete(id);
+        dispatch(deleteEntity«nameCamel»Complete(entity.id));
+    }
+}
+
+export function createEntity«nameCamel»(data) {
+    return async dispatch => {
+        dispatch(createEntity«nameCamel»Request(data));
+        const db = await getDB();
+        const store = await db.getStoreFor«nameCamel»();
+        let craft = cache.craft();
+        await cache.insert({ ...craft, ...data });
+        return dispatch(readEntity«nameCamel»(craft.id || data.id));
+    }
+}
+
+«FOREACH dataHandler.databaseHandler.entities.entityRelationships AS rel -»
+«IF rel.destination.matches(ent.name) && rel.type.matches("1 : N") -»
+export function fetchEntity«nameCamel»ByRel«rel.entity.name.toFirstUpper()»«rel.name.toFirstUpper()»(id) {
+	return async dispatch => {
+		const db = await getDB();
+        const store = await db.getStoreFor«nameCamel»();
+        const fetched = await store.getByRel«rel.entity.name.toFirstUpper()»«rel.name.toFirstUpper()»(id);
+        dispatch(fetchEntity«nameCamel»Complete(`rel«rel.entity.name.toFirstUpper()»«rel.name.toFirstUpper()» == ${id}`, fetched));
+        return Promise.resolve();
+	}
+}
+
+export function deleteEntity«nameCamel»Rel«rel.entity.name.toFirstUpper()»«rel.name.toFirstUpper()»(id) {
+    return async dispatch => {
+        const db = await getDB();
+        const store = await db.getStoreFor«nameCamel»();
+        const toDel = await store.getByRel«rel.entity.name.toFirstUpper()»«rel.name.toFirstUpper()»(id);
+        await toDel.map(async item => {
+            await dispatch(deleteEntity«nameCamel»(item.id));
+        })
+        return Promise.resolve();
+    }
+}
+«ENDIF -»
+«ENDFOREACH -»
+
+
+«ENDLET»
+«ENDLET»
+«ENDFILE»
+«ENDFOREACH»
+«ENDIF»
+«ENDDEFINE»

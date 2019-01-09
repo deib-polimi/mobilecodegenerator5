@@ -190,6 +190,9 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="childViewControllers" ordered="false"
         lowerBound="1" upperBound="-1" eType="#//ChildViewController" containment="true"
         eOpposite="#//ChildViewController/scene" eKeys="#//ViewController/id"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="adapterBindings" upperBound="-1"
+        eType="#//AdapterBinding" containment="true" eOpposite="#//AdapterBinding/scene"
+        eKeys="#//AdapterBinding/id"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ChildViewController">
     <eStructuralFeatures xsi:type="ecore:EReference" name="scene" lowerBound="1" eType="#//Scene"
@@ -247,6 +250,9 @@
     <eStructuralFeatures xsi:type="ecore:EReference" name="precedentInChain" eType="#//UiPhoneControl"/>
     <eStructuralFeatures xsi:type="ecore:EReference" name="followingInChain" eType="#//UiPhoneControl"/>
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="weight" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EIntegerObject"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="modelConnectors" upperBound="-1"
+        eType="#//ModelConnector" containment="true" eOpposite="#//ModelConnector/uiPhoneControl"
+        eKeys="#//ModelConnector/id"/>
   </eClassifiers>
   <eClassifiers xsi:type="ecore:EClass" name="ControlChain">
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
@@ -550,6 +556,29 @@
     <eStructuralFeatures xsi:type="ecore:EAttribute" name="destination" lowerBound="1"
         eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString" defaultValueLiteral=""/>
   </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="AdapterBinding">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="isList" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EBoolean"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="name" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="scene" lowerBound="1" eType="#//Scene"
+        eOpposite="#//Scene/adapterBindings"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="type" lowerBound="1" eType="#//AdapterBindingType"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="file" eType="#//StorageRecord"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="entity" eType="#//Entity"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="preference" eType="#//PreferenceRecord"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="object" eType="#//CloudObject"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EClass" name="ModelConnector">
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="id" lowerBound="1" eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="keypath" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EAttribute" name="property" lowerBound="1"
+        eType="ecore:EDataType http://www.eclipse.org/emf/2002/Ecore#//EString"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="adapter" eType="#//AdapterBinding"/>
+    <eStructuralFeatures xsi:type="ecore:EReference" name="uiPhoneControl" lowerBound="1"
+        eType="#//UiPhoneControl" eOpposite="#//UiPhoneControl/modelConnectors"/>
+  </eClassifiers>
   <eClassifiers xsi:type="ecore:EEnum" name="SourceType">
     <eLiterals name="hardwareFile"/>
     <eLiterals name="localFile" value="1"/>
@@ -582,5 +611,11 @@
     <eLiterals name="singleVC"/>
     <eLiterals name="singleVCTab" value="1"/>
     <eLiterals name="multiVC" value="2"/>
+  </eClassifiers>
+  <eClassifiers xsi:type="ecore:EEnum" name="AdapterBindingType">
+    <eLiterals name="file"/>
+    <eLiterals name="entity" value="1"/>
+    <eLiterals name="cloud" value="2"/>
+    <eLiterals name="preference" value="3"/>
   </eClassifiers>
 </ecore:EPackage>

@@ -5,6 +5,10 @@
 «DEFINE main FOR Application-»
 «FILE name + "/App.js"-»
 import React, { Component } from 'react';
+import { createStore, applyMiddleware } from 'redux';
+import RootReducer from './controller/RootReducer';
+import thunk from 'redux-thunk';
+import { Provider } from 'react-redux';
 import { createStackNavigator, createDrawerNavigator } from 'react-navigation';
 import { TouchableHighlight, YellowBox } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
@@ -87,13 +91,22 @@ const RootStack = AppStack;
 // Suppress useless warnings
 YellowBox.ignoreWarnings(['Setting a timer']);
 
+// Create store (redux)
+const store = createStore(
+	RootReducer,
+	applyMiddleware(
+		thunk
+	)
+)
 
 export default class App extends Component {
-  render() {
-    return (
-      <RootStack />
-    );
-  }
+  	render() {
+		return (
+			<Provider store={store}>
+				<RootStack />
+			</Provider>
+		);
+  	}
 }
 
 «ENDFILE-»

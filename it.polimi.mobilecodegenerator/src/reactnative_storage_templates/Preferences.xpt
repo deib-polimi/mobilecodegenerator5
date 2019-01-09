@@ -17,8 +17,26 @@ import DefaultPreferences from 'react-native-default-preference';
 import Values from './PreferencesDefault.js';
 
 class PreferenceHandler {
+	get(key) {
+		let defaultValue = Values[key];
+		return DefaultPreferences.get(key).then(
+			value => value !== undefined && value !== null ? value : defaultValue,
+			() => defaultValue
+		);
+	}
+	set(key, value) {
+		return DefaultPreferences.set(key, value);
+	}
+	reset(key) {
+		return this.set(key, Values[key]);
+	}
+}
+
+«REM» OLD
+class PreferenceHandler {
 	«EXPAND record FOREACH preferenceRecords-»
 }
+«ENDREM»
 
 export default new PreferenceHandler();
 «ENDFILE-»

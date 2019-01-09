@@ -1,0 +1,24 @@
+«IMPORT metamodel»
+
+«DEFINE main FOR Application»
+«FILE name + "/controller/reducers/Preferences.js" -»
+import { READ_PREFERENCE_COMPLETE, SET_PREFERENCE_COMPLETE, RESET_PREFERENCE_COMPLETE, READ_PREFERENCE_REQUEST, SET_PREFERENCE_REQUEST, RESET_PREFERENCE_REQUEST } from "../actions/Preferences";
+
+export default function PreferencesReducer(state = {}, action) {
+    switch (action.type) {
+        case READ_PREFERENCE_REQUEST:
+        	return { ...state, [action.key]: { ...state[action.key], syncing: true }}
+        case SET_PREFERENCE_REQUEST:
+        case RESET_PREFERENCE_REQUEST:
+            return { ...state, [action.key]: { ...state[action.key], syncing: true, value: action.value }}
+        case READ_PREFERENCE_COMPLETE:
+        	return { ...state, [action.key]: { ...state[action.key], syncing: false, value: action.value } };
+        case SET_PREFERENCE_COMPLETE:
+        case RESET_PREFERENCE_COMPLETE:
+            return { ...state, [action.key]: { ...state[action.key], syncing: false } };
+        default:
+            return state;
+    }
+}
+«ENDFILE»
+«ENDDEFINE»
