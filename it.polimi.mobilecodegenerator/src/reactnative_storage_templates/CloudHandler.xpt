@@ -3,177 +3,91 @@
 «DEFINE main FOR Application-»
 «IF dataHandler != null && dataHandler.cloudHandler != null-»
 «EXPAND cloudHandler FOR dataHandler.cloudHandler-»
-«EXPAND cloudEntity FOREACH dataHandler.cloudHandler.cloudObjects-»
 «ENDIF-»
 «ENDDEFINE-»
 
 «DEFINE cloudHandler FOR CloudHandler-»
 «FILE dataHandler.application.name + "/storage/CloudHandler.js"-»
 import firebase from 'firebase';
-«FOREACH cloudObjects AS co-»
-import «co.name.toFirstUpper()» from '../cloudEntities/«co.name.toFirstUpper()-»';
-«ENDFOREACH-»
-
 
 class CloudHandlerImpl {
 
 	constructor() {
+		this.remote = firebase.database();
+		this.listenerCache = {};
 	}
 	
-	«FOREACH cloudObjects AS co-»
-	query«co.name.toFirstUpper()»(id) {
-		return new Promise((resolve, reject) => {
-			firebase.database()
-			.ref("«co.name.toLowerCase()-»s")
-			.child(id)
-			.once('value', snapshot => {
-				if (snapshot.exists()) {
+	readOnce(refStr) {
+		return new Promise(resolve => {
+			this.db
+				.ref(refStr)
+				.once('value', snapshot => {
 					resolve(snapshot.val());
-				} else {
-					resolve(null);
-				}
-			});
-		}).then(core => {
-			let async = [core];
-			«REM»Check if some property is a ref to some other object«ENDREM»
-			«FOREACH co.objectAttributes.select(e|e.type.matches("Object")) AS attr-»
-			async.push(this.query«attr.object.toFirstUpper()-»(core.«attr.name.toFirstLower()-»)).then(val => { return {key: '«attr.name.toFirstLower()-»', value: val}; });
-			«ENDFOREACH-»
-			«FOREACH co.objectAttributes.select(e|e.type.matches("Object list")) AS attr-»
-			async.push(...core.«attr.name.toFirstLower()-».map((id, index) => {
-				return this.query«attr.object.toFirstUpper()-»(id).then(val => { return { key: '«attr.name.toFirstLower()-»', index, value: val }; });
-			}));
-			«ENDFOREACH-»
-			return Promise.all(async);
-		}).then(([core, ...others]) => {
-			let toMerge = {};
-			others.forEach(val => {
-				if (val.index === undefined) {
-					toMerge[val.key] = val.value;
-				} 
-				else {
-					if (toMerge[val.key] === undefined) {
-						toMerge[val.key] = [];
-					}
-					toMerge[val.key][val.index] = val.value;
-				} 
-			});
-			return «co.name.toFirstUpper()-».createFromObject(Object.assign(core, toMerge, { id }));
-		});
-	}
-		
-	
-	store«co.name.toFirstUpper()-»(«co.name.toFirstLower()-») {
-		return new Promise((resolve, reject) => {
-			let normalized = {};
-			let async = [];
-			«FOREACH co.objectAttributes AS attr-»
-			«IF attr.type.matches("Object")-»
-				if («co.name.toFirstLower()-».«attr.name-».id === undefined) {
-					async.push(this.store«attr.object.toFirstUpper()-»(«co.name.toFirstLower()-».«attr.name.toFirstLower()-»).then(() => {
-						normalized.«attr.name.toFirstLower()-» = «co.name.toFirstLower()-».«attr.name.toFirstLower()-».id;
-					}));
-				} else {
-					normalized.«attr.name.toFirstLower()-» = «co.name.toFirstLower()-».«attr.name.toFirstLower()-».id;
-				}
-			«ELSEIF attr.type.matches("Object list")-»
-				normalized.«attr.name.toFirstLower()-» = [];
-				«co.name.toFirstLower()-».«attr.name.toFirstLower()-».forEach((entity, i) => {
-					if (entity.id === undefined) {
-						async.push(add«attr.object.toFirstUpper()-»(entity).then(() => {
-							normalized.«attr.name.toFirstLower()-»[i] = entity.id;
-						}));
-					} else {
-						normalized.«attr.name.toFirstLower()-»[i] = entity.id;
-					}
 				});
-			«ELSE-»
-				normalized.«attr.name.toFirstLower()-» = «co.name.toFirstLower()-».«attr.name.toFirstLower()-»;
-			«ENDIF-»
-			«ENDFOREACH-»
-			Promise.all(async).then(() => {
-				let id = «co.name.toFirstLower()-».getId();
-				if (id !== undefined) {
-					let ref = firebase.database()
-						.ref("«co.name.toLowerCase()-»s")
-						.child(«co.name.toFirstLower()-».getId());
-					ref
-						.once('value', snapshot => {
-							if (!snapshot.exists()) {
-								let key = ref.set(normalized).key;
-								«co.name.toFirstLower()-».setId(key);
-								resolve(«co.name.toFirstLower()-»);
-							}
-						});
-				} else {
-					let ref = firebase.database().ref("«co.name.toLowerCase()-»s");
-					let key = ref.push(normalized).key;
-					«co.name.toFirstLower()-».setId(key);
-					resolve(«co.name.toFirstLower()-»);
-				}
-				
-			});
 		});
 	}
 	
-	delete«co.name.toFirstUpper()-»(«co.name.toFirstLower()-») {
-		firebase.database()
-			.ref("«co.name.toLowerCase()-»s")
-			.child(«co.name.toFirstLower()-».getId())
-			.set(null);
+	read(refStr, callback) {
+		this.db
+			.ref(refStr)
+			.on('value', snapshot => {
+				callback(snapshot.val());
+			});
+		return this;
 	}
 	
-	«ENDFOREACH-»
+	readList(refStr, callback) {
+		this.db
+			.ref(refStr)
+			.on('child_added', snapshot => {
+				callback(snapshot.val(), snapshot.key);
+			})
+			.on('child_changed', snapshot => {
+				callback(snapshot.val(), snapshot.key);
+			})
+			.on('child_removed', snapshot => {
+				callback(null, snapshot.key);
+			});
+	}
+	
+	update(refStr, updates) {
+		this.db
+			.ref(refStr)
+			.update(updates);
+		return this;
+	}
+	
+	insert(refStr, data, id = null, done = () => {}) {
+		if (id) {
+			this.db
+				.ref(refStr)
+				.child(id)
+				.set(data, done);
+			return id;
+		} else {
+			return this.db
+				.ref(refStr)
+				.push(data, done)
+				key;
+		}
+	}
+	
+	delete(refStr, done = () => {}) {
+		this.db
+			.ref(refStr)
+			.set(null, done);
+	}
+	
+	raw() {
+		return this.db;
+	}
+	
+	ref(refStr) {
+		return this.db.ref(refStr);
+	}
 
 }
 
 export default new CloudHandlerImpl();
-«ENDFILE-»
-«ENDDEFINE-»
-
-«DEFINE cloudEntity FOR CloudObject-»
-«FILE cloudHandler.dataHandler.application.name + "/cloudEntities/" + name.toFirstUpper() + ".js"-»
-export default class «name.toFirstUpper()-» {
-	constructor(
-		id, 
-		«FOREACH objectAttributes AS attr SEPARATOR ", "-»
-		«attr.name.toFirstLower()-»
-		«ENDFOREACH-»
-	) {
-		this.id = id;
-		«FOREACH objectAttributes AS attr-»
-		this.«attr.name.toFirstLower()-» = «attr.name.toFirstLower()-»;
-		«ENDFOREACH-»
-	}
-	
-	static createFromObject(raw) {
-		return new «name.toFirstUpper()-»(
-			raw.id,
-			«FOREACH objectAttributes AS attr SEPARATOR ", "-»
-			raw.«attr.name.toFirstLower()-»
-			«ENDFOREACH-»
-		);
-	}
-	
-	getId() {
-		return this.id;
-	}
-	
-	// NEVER call this, used only internally
-	setId(id) {
-		this.id = id;
-	}
-	
-	«FOREACH objectAttributes AS attr-»
-		get«attr.name.toFirstUpper()-»() {
-			return this.«attr.name.toFirstLower()-»;
-		}
-		set«attr.name.toFirstUpper()-»(value) {
-			this.«attr.name.toFirstLower()-» = value;
-		}
-	«ENDFOREACH-»
-	
-	
-}
 «ENDFILE-»
 «ENDDEFINE-»

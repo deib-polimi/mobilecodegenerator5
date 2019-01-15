@@ -1,0 +1,145 @@
+«IMPORT metamodel»
+
+«DEFINE main FOR Application»
+«IF dataHandler.cloudHandler != null && dataHandler.cloudHandler.cloudObjects.size > 0 -»
+«FOREACH dataHandler.cloudHandler.cloudObjects AS CO -»
+«FILE name + "/controller/actions/cloudobjects/" + CO.name.replaceAll("[ ]", "_").toFirstUpper() + ".js" -»
+«EXPAND COActions FOR CO -»
+«ENDFILE -»
+«ENDFOREACH -»
+«ENDIF -»
+«ENDDEFINE»
+
+«DEFINE COActions FOR CloudObject -»
+«LET name.replaceAll("[ ]", "_").toUpperCase() AS UNAME -»
+«LET name.replaceAll("[ ]", "_").toFirstUpper() AS Cname -»
+import database from "../../../storage/CloudHandler";
+
+const knownObjects = {};
+const knownLists = {};
+
+export const READ_CLOUD_«UNAME»_REQUEST = 'READ_«UNAME»_REQUEST';
+export function read«Cname»Request(refStr) {
+	return {
+		type: READ_CLOUD_«UNAME»_REQUEST,
+		refStr
+	}
+}
+
+export const READ_CLOUD_«UNAME»_COMPLETE = 'READ_«UNAME»_COMPLETE';
+export function read«Cname»Complete(refStr, data) {
+	return {
+		type: READ_CLOUD_«UNAME»_COMPLETE,
+		refStr,
+		data
+	}
+}
+
+export const INSERT_CLOUD_«UNAME»_REQUEST = 'INSERT_«UNAME»_REQUEST';
+export function insert«Cname»Request(refStr, data, id = null) {
+	return {
+		type: INSERT_CLOUD_«UNAME»_REQUEST,
+		refStr,
+		id,
+		data
+	}
+}
+
+export const INSERT_CLOUD_«UNAME»_COMPLETE = 'INSERT_«UNAME»_COMPLETE';
+export function insert«Cname»Complete(refStr, data, id) {
+	return {
+		type: INSERT_CLOUD_«UNAME»_COMPLETE,
+		refStr,
+		id,
+		data
+	}
+}
+
+export const UPDATE_CLOUD_«UNAME»_REQUEST = 'UPDATE_«UNAME»_REQUEST';
+export function update«Cname»Request(refStr, updates) {
+	return {
+		type: UPDATE_CLOUD_«UNAME»_REQUEST,
+		refStr,
+		updates
+	}
+}
+
+export const UPDATE_CLOUD_«UNAME»_COMPLETE = 'UPDATE_«UNAME»_COMPLETE';
+export function update«Cname»Complete(refStr, updates) {
+	return {
+		type: UPDATE_CLOUD_«UNAME»_COMPLETE,
+		refStr,
+		updates
+	}
+}
+
+export const DELETE_CLOUD_«UNAME»_REQUEST = 'DELETE_«UNAME»_REQUEST';
+export function delete«Cname»Request(refStr) {
+	return {
+		type: DELETE_CLOUD_«UNAME»_REQUEST,
+		refStr
+	}
+}
+
+export const DELETE_CLOUD_«UNAME»_COMPLETE = 'DELETE_«UNAME»_COMPLETE';
+export function delete«Cname»Complete(refStr) {
+	return {
+		type: DELETE_CLOUD_«UNAME»_COMPLETE,
+		refStr
+	}
+}
+
+export function read«Cname»(refStr) {
+	return dispatch => {
+		if (!knownObjects[refStr]) {
+			dispatch(read«Cname»Request(refStr));
+			database.read(refStr, val => {
+				dispatch(read«Cname»Complete(refStr, val));
+			});
+			knownObjects[refStr] = 1;
+		}
+	}
+}
+
+export function read«Cname»List(refStr) {
+	return dispatch => {
+		if (!knownLists[refStr]) {
+			dispatch(read«Cname»Request(refStr));
+			database.readList(refStr, (childChanged, childKey) => {
+				dispatch(read«Cname»Complete(refStr + "/" + childKey, childChanged));
+			});
+			knownLists[refStr] = 1;
+		}
+		return dispatch(read«Cname»(refStr));
+	}
+}
+
+export function insert«Cname»(refStr, data, id = null) {
+	return dispatch => {
+		dispatch(insert«Cname»Request(refStr, data, id));
+		let key = database.insert(refStr, data, id, () => {
+			dispatch(insert«Cname»Complete(refStr, data, key));
+		});
+	}
+}
+
+export function update«Cname»(refStr, data) {
+	return dispatch => {
+		dispatch(update«Cname»Request(refStr, data));
+		database.update(refStr, data, () => {
+			dispatch(update«Cname»Complete(refStr, data));
+		});
+	}
+}
+
+export function delete«Cname»(refStr) {
+	return dispatch => {
+		dispatch(delete«Cname»Request(refStr));
+		database.delete(refStr, () => {
+			dispatch(delete«Cname»Complete(refStr));
+		});
+	}
+}
+«ENDLET -»
+«ENDLET -»
+«ENDDEFINE»

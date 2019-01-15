@@ -75,6 +75,24 @@ import { readEntity«entityName», editEntity«entityName», deleteEntity«entityName
 «ENDIF -»
 «ENDFOREACH -»
 «ENDLET -»
+«LET adapterBindings.select(e|e.type.toString().matches("cloud")) AS cloudBindings -»
+«IF cloudBindings.size > 0 -»
+import { ReadObjectPath } from '../../controller/utils/utils';
+«FOREACH cloudBindings AS cb -»
+«IF cloudBindings.selectFirst(e|e.object.name == cb.object.name).id == cb.id -»
+«LET cb.object.name.toFirstUpper() AS Cname -»
+import {
+	read«Cname»,
+	read«Cname»List,
+	insert«Cname»,
+	update«Cname»,
+	delete«Cname»
+} from '../../controller/actions/cloudobjects/«Cname»';
+«ENDLET -»
+«ENDIF -»
+«ENDFOREACH -»
+«ENDIF -»
+«ENDLET -»
 «ENDLET -»
 «ENDDEFINE»
 
@@ -106,6 +124,10 @@ const mapStateToProps = state => {
 			model«b.name»: state.entities.«b.entity.name»['1'] ? state.entities.«b.entity.name»['1'] : undefined,
 			«ELSEIF b.type.toString().matches("entity") && b.isList -»
 			model«b.name»: Object.values(state.entities.«b.entity.name»).filter(item => false), // PUT PREDICATE FOR «b.name» HERE (as JavaScript code)
+			«ELSEIF b.type.toString().matches("cloud") && !b.isList -»
+			model«b.name»: ReadObjectPath(state.cloud, '«b.cloudRefPath.replaceAll("[.]", "/")»'), // TYPE: «b.object.name»
+			«ELSEIF b.type.toString().matches("cloud") && b.isList -»
+			model«b.name»: ReadObjectPath(state.cloud, '«b.cloudRefPath.replaceAll("[.]", "/")»'), // TYPE: List<«b.object.name»>
 			«ENDIF -»
 		«ENDFOREACH -»	
 	}
@@ -126,6 +148,11 @@ const mapDispatchToProps = dispatch => {
 			on«b.name»Delete: () => dispatch(deleteEntity«b.entity.name.toFirstUpper()»('1')),
 			«ELSEIF b.type.toString().matches("entity") && b.isList -»
 			on«b.name»Load: () => dispatch(fetchEntity«b.entity.name.toFirstUpper()»('«b.entity.primaryKey» < 0')), // PUT PREDICATE FOR «b.name» HERE (as SQLite where clause)
+			«ELSEIF b.type.toString().matches("cloud") && !b.isList -»
+			on«b.name»Load: () => dispatch(read«b.object.name.toFirstUpper()»('«b.cloudRefPath.replaceAll("[.]", "/")»')),
+			on«b.name»Change: val => dispatch(update«b.object.name.toFirstUpper()»('«b.cloudRefPath.replaceAll("[.]", "/")»', val)),
+			«ELSEIF b.type.toString().matches("cloud") && b.isList -»
+			on«b.name»Load: () => dispatch(read«b.object.name.toFirstUpper()»List('«b.cloudRefPath.replaceAll("[.]", "/")»')),
 			«ENDIF -»
 		«ENDFOREACH -»
 	}

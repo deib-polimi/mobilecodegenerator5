@@ -38,5 +38,35 @@ export function MakeMapFromArray(arr, keyProperty) {
     arr.forEach(item => newObj[item[keyProperty]] = item);
     return newObj;
 }
+
+function mergeObjectPathWorker(context, path, data) {
+	if (path.length === 0) {
+		return data;
+	} else {
+		return {
+			...(context || {}),
+			[path[0]]: mergeObjectPathWorker(context ? context[path[0]] : undefined, path.slice(1), data)
+		};
+	}
+}
+
+export function MergeObjectPath(context, path, data) {
+    let o = mergeObjectPathWorker(context, path.split('/'), data);
+    return o;
+}
+
+function readObjectPathWorker(context, path) {
+	if (path.length === 0) {
+		return context;
+	} else if (typeof context !== 'object' || !context) {
+		return undefined;
+	} else {	
+		return readObjectPathWorker(context[path[0]], path.slice(1));
+	}
+}
+
+export function ReadObjectPath(context, path) {
+	return readObjectPathWorker(context, path.split('/'));
+}
 «ENDFILE»
 «ENDDEFINE»

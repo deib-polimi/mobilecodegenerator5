@@ -10,6 +10,9 @@ import FilesReducer from './reducers/Files';
 import Entity«ent.name.toFirstUpper()»Reducer from './reducers/entity/«ent.name.toFirstUpper()»';
 «ENDFOREACH -»
 «ENDIF -»
+«IF dataHandler.cloudHandler != null && dataHandler.cloudHandler.cloudObjects.size > 0 -»
+import CloudReducer from './reducers/cloudobjects.js';
+«ENDIF -»
 
 const RootReducer = combineReducers({
     preferences: PreferencesReducer,
@@ -20,6 +23,7 @@ const RootReducer = combineReducers({
         «ent.name»: Entity«ent.name.toFirstUpper()»Reducer,
 		«ENDFOREACH -»
     }),
+    cloud: CloudReducer
 	«ENDIF -»
 })
 

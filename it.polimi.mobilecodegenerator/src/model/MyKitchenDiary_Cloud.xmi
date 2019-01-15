@@ -16,6 +16,20 @@
                     <entityRelationships name="ingredients" destination="Ingredient" type="1 : N"/>
                 </entities>
             </databaseHandler>
+            <cloudHandler>
+                <cloudObjects name="Root Object">
+                    <objectAttributes name="recipes" type="object_list" object="Recipe"/>
+                </cloudObjects>
+                <cloudObjects name="Recipe">
+                    <objectAttributes name="title" type="string"/>
+                    <objectAttributes name="ingredients" type="object_list" object="Ingredient"/>
+                    <objectAttributes name="procedure" type="string"/>
+                </cloudObjects>
+                <cloudObjects name="Ingredient">
+                    <objectAttributes name="amount" type="string"/>
+                    <objectAttributes name="caption" type="string"/>
+                </cloudObjects>
+            </cloudHandler>
             <storageHandler>
                 <storageRecords name="about" extension="text" tempFile="false"/>
             </storageHandler>
@@ -59,7 +73,7 @@
             <dimensionConstraint uiPhoneControl="//@viewControllers[id='joshk7h9']/@textViews[id='joshktmz']" widthPercent="1"/>
             <positionConstraints id="joshkxp6" uiPhoneControl="//@viewControllers[id='joshk7h9']/@textViews[id='joshktmz']" layoutEdge="top" withParent="true" referenceLayoutEdge="top"/>
             <positionConstraints id="joshl2sx" uiPhoneControl="//@viewControllers[id='joshk7h9']/@textViews[id='joshktmz']" layoutEdge="centerX" withParent="true" referenceLayoutEdge="centerX"/>
-            <modelConnectors id="jqnm4znq" adapter="//@scenes[id='josjg80f']/@adapterBindings[id='jpjgnasf']" keypath="title" property="title"/>
+            <modelConnectors id="jqwgky35" adapter="//@scenes[id='josjg80f']/@adapterBindings[id='jqwg55xi']" keypath="title" property="title"/>
         </textViews>
         <imageViews id="joshmf7j" viewController="//@viewControllers[id='joshk7h9']" defaultWidth="240" defaultHeight="128" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="10" marginBottom="0" marginStart="10" marginEnd="10" sourceType="hardwareFile" fileUri="">
             <dimensionConstraint uiPhoneControl="//@viewControllers[id='joshk7h9']/@imageViews[id='joshmf7j']" fixedRatio="16:9"/>
@@ -75,7 +89,7 @@
             <dimensionConstraint uiPhoneControl="//@viewControllers[id='joshk7h9']/@textViews[id='joshrr8b']" fixedWidth="150"/>
             <positionConstraints id="joshsieq" uiPhoneControl="//@viewControllers[id='joshk7h9']/@textViews[id='joshrr8b']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='joshk7h9']/@textViews[id='joshqfdl']" referenceLayoutEdge="bottom"/>
             <positionConstraints id="joshsw2u" uiPhoneControl="//@viewControllers[id='joshk7h9']/@textViews[id='joshrr8b']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='joshk7h9']/@textViews[id='joshqfdl']" referenceLayoutEdge="start"/>
-            <modelConnectors id="jqnm5zdk" adapter="//@scenes[id='josjg80f']/@adapterBindings[id='jqnm5ma5']" keypath="" property="title"/>
+            <modelConnectors id="jqwgl2ib" adapter="//@scenes[id='josjg80f']/@adapterBindings[id='jqwg55xi']" keypath="ingredients" property="title"/>
         </textViews>
         <textViews id="joshtkxo" viewController="//@viewControllers[id='joshk7h9']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="10" marginBottom="0" marginStart="10" marginEnd="0" content="Procedure" textAlign="left" textColor="#000000" textSize="16" textDecoration="bold">
             <positionConstraints id="joshuhmd" uiPhoneControl="//@viewControllers[id='joshk7h9']/@textViews[id='joshtkxo']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
@@ -84,7 +98,7 @@
         <textViews id="joshv9wb" viewController="//@viewControllers[id='joshk7h9']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="10" marginEnd="0" content="Description" textAlign="left" textColor="#000000" textSize="16" textDecoration="italic">
             <positionConstraints id="joshvp2m" uiPhoneControl="//@viewControllers[id='joshk7h9']/@textViews[id='joshv9wb']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='joshk7h9']/@textViews[id='joshtkxo']" referenceLayoutEdge="start"/>
             <positionConstraints id="joshvygs" uiPhoneControl="//@viewControllers[id='joshk7h9']/@textViews[id='joshv9wb']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='joshk7h9']/@textViews[id='joshtkxo']" referenceLayoutEdge="bottom"/>
-            <modelConnectors id="jpjgo6be" adapter="//@scenes[id='josjg80f']/@adapterBindings[id='jpjgnasf']" keypath="procedure" property="title"/>
+            <modelConnectors id="jqwgl6kj" adapter="//@scenes[id='josjg80f']/@adapterBindings[id='jqwg55xi']" keypath="procedure" property="title"/>
         </textViews>
         <buttons id="josi0z5j" viewController="//@viewControllers[id='joshk7h9']" defaultWidth="88" defaultHeight="40" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="30" marginStart="0" marginEnd="30" title="Like" textColor="#ffffff" backgroundColor="#ff0000" borderRadius="50" clickColor="">
             <dimensionConstraint uiPhoneControl="//@viewControllers[id='joshk7h9']/@buttons[id='josi0z5j']" fixedWidth="70" fixedHeight="70"/>
@@ -224,6 +238,7 @@
     <childViewControllers viewController="//@viewControllers[id='joshk7h9']"/>
     <adapterBindings scene="//@scenes[id='josjg80f']" type="entity" entity="//@dataHandler/@databaseHandler/@entities[name='Recipe']" isList="false" id="jpjgnasf" name="Recipe"/>
     <adapterBindings scene="//@scenes[id='josjg80f']" type="entity" entity="//@dataHandler/@databaseHandler/@entities[name='Ingredient']" isList="true" id="jqnm5ma5" name="Ingredients"/>
+    <adapterBindings scene="//@scenes[id='josjg80f']" type="cloud" object="//@dataHandler/@cloudHandler/@cloudObjects[name='Recipe']" cloudRefPath="recipes.*item*" isList="false" id="jqwg55xi" name="CloudRecipe"/>
 </scenes>
 <scenes id="josn7i21" name="AddNewRecipe" launcher="false" typeSmartphone="singleVC" typeTablet="singleVC">
     <childViewControllers viewController="//@viewControllers[id='josmkywz']"/>

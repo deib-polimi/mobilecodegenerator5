@@ -12,11 +12,7 @@
   },
   "dependencies": {
   	«IF dataHandler != null && dataHandler.cloudHandler != null-»
-  	«REM»
-  		Recent versions of Firebase have problems compiling in RN environment, so I forced and older version
-  		Try upgrading it, if it does not cause problems fix this generator and remove this disclaimer
-  	«ENDREM»
-  	"firebase": "5.0.3",
+    "react-native-firebase": "^5.2.0",
   	«ENDIF-»
     "react": "16.5.0",
     "react-native": "0.57.1",

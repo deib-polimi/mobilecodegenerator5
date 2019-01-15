@@ -1,0 +1,32 @@
+«IMPORT metamodel»
+
+«DEFINE main FOR Application»
+«IF dataHandler.cloudHandler != null && dataHandler.cloudHandler.cloudObjects.size > 0 -»
+«FILE name + "/controller/reducers/cloudobjects.js" -»
+«FOREACH dataHandler.cloudHandler.cloudObjects AS co -»
+«LET co.name.replaceAll("[ ]", "_").toUpperCase() AS UNAME»
+«LET co.name.replaceAll("[ ]", "_").toFirstUpper() AS Cname»
+import { 
+	READ_CLOUD_«UNAME»_COMPLETE
+} from "../actions/cloudobjects/«Cname»";
+«ENDLET -»
+«ENDLET -»
+«ENDFOREACH -»
+import { MergeObjectPath } from "../utils/utils";
+
+
+export default function CloudReducer(state = {}, action) {
+    switch(action.type) {
+    	«FOREACH dataHandler.cloudHandler.cloudObjects AS co -»
+    	«LET co.name.replaceAll("[ ]", "_").toUpperCase() AS UNAME»
+		case READ_CLOUD_«UNAME»_COMPLETE:
+		«ENDLET -»
+		«ENDFOREACH -»
+			return MergeObjectPath(state, action.refStr, action.data);
+        default: 
+            return state;
+    }
+}
+«ENDFILE»
+«ENDIF»
+«ENDDEFINE»
