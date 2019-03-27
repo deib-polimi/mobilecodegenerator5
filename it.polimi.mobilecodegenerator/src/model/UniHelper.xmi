@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+    <metamodel:Application xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:metamodel="http://metamodel/1.0" xsi:schemaLocation="http://metamodel/1.0 ../metamodel/metamodel.ecore" name="UniHelper" companyIdentifier="it.polimi">
+        <dataHandler>
+            <preferenceHandler>
+                <preferenceRecords key="Name" value="" type="string"/>
+                <preferenceRecords key="Surname" value="" type="string"/>
+            </preferenceHandler>
+            <databaseHandler>
+                <entities name="Career" primaryKey="id">
+                    <entityAttributes name="title" type="string"/>
+                    <entityAttributes name="startedOn" type="date"/>
+                    <entityAttributes name="endingOn" type="date"/>
+                    <entityAttributes name="cfuTotal" type="int"/>
+                    <entityRelationships name="courses" destination="Course" type="1 : N"/>
+                </entities>
+                <entities name="Course" primaryKey="id">
+                    <entityAttributes name="title" type="string"/>
+                    <entityAttributes name="finalMark" type="int"/>
+                    <entityAttributes name="cfuWeight" type="int"/>
+                </entities>
+            </databaseHandler>
+            <storageHandler>
+                <storageRecords name="about" extension="text" tempFile="false"/>
+            </storageHandler>
+        </dataHandler>
+        <viewControllers id="jr7ufryu" name="Registration" backgroundColor="#ffffff" backgroundImage="">
+            <editTexts id="jr7ugetx" viewController="//@viewControllers[id='jr7ufryu']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="170" marginBottom="0" marginStart="30" marginEnd="29" initialContent="" placeholder="Name" textColor="" textSize="16">
+                <positionConstraints id="jr7ugjqf" uiPhoneControl="//@viewControllers[id='jr7ufryu']/@editTexts[id='jr7ugetx']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+                <positionConstraints id="jr7ugqkb" uiPhoneControl="//@viewControllers[id='jr7ufryu']/@editTexts[id='jr7ugetx']" layoutEdge="end" withParent="true" referenceLayoutEdge="end"/>
+                <positionConstraints id="jr7uh9dk" uiPhoneControl="//@viewControllers[id='jr7ufryu']/@editTexts[id='jr7ugetx']" layoutEdge="top" withParent="true" referenceLayoutEdge="top"/>
+                <modelConnectors id="jr7z2det" adapter="//@scenes[id='jr7yvqc3']/@adapterBindings[id='jr7z21xr']" keypath="" property="value"/>
+            </editTexts>
+            <editTexts id="jr7uij59" viewController="//@viewControllers[id='jr7ufryu']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="20" marginBottom="0" marginStart="0" marginEnd="0" initialContent="" placeholder="Surname" textColor="" textSize="16">
+                <positionConstraints id="jr7uilrn" uiPhoneControl="//@viewControllers[id='jr7ufryu']/@editTexts[id='jr7uij59']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='jr7ufryu']/@editTexts[id='jr7ugetx']" referenceLayoutEdge="start"/>
+                <positionConstraints id="jr7uiudc" uiPhoneControl="//@viewControllers[id='jr7ufryu']/@editTexts[id='jr7uij59']" layoutEdge="end" withParent="false" referenceElement="//@viewControllers[id='jr7ufryu']/@editTexts[id='jr7ugetx']" referenceLayoutEdge="end"/>
+                <positionConstraints id="jr7uj396" uiPhoneControl="//@viewControllers[id='jr7ufryu']/@editTexts[id='jr7uij59']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='jr7ufryu']/@editTexts[id='jr7ugetx']" referenceLayoutEdge="bottom"/>
+                <modelConnectors id="jr7z2ftv" adapter="//@scenes[id='jr7yvqc3']/@adapterBindings[id='jr7z25yk']" keypath="" property="value"/>
+            </editTexts>
+            <buttons id="jr7uk18g" viewController="//@viewControllers[id='jr7ufryu']" defaultWidth="88" defaultHeight="40" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="40" marginBottom="0" marginStart="0" marginEnd="0" title="OK, let's go!" textColor="" backgroundColor="" borderRadius="10" clickColor="">
+            <positionConstraints id="jr7uk41e" uiPhoneControl="//@viewControllers[id='jr7ufryu']/@buttons[id='jr7uk18g']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='jr7ufryu']/@editTexts[id='jr7ugetx']" referenceLayoutEdge="start"/>
+            <positionConstraints id="jr7ukbl5" uiPhoneControl="//@viewControllers[id='jr7ufryu']/@buttons[id='jr7uk18g']" layoutEdge="end" withParent="false" referenceElement="//@viewControllers[id='jr7ufryu']/@editTexts[id='jr7ugetx']" referenceLayoutEdge="end"/>
+            <positionConstraints id="jr7ukksq" uiPhoneControl="//@viewControllers[id='jr7ufryu']/@buttons[id='jr7uk18g']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='jr7ufryu']/@editTexts[id='jr7uij59']" referenceLayoutEdge="bottom"/>
+        </buttons>
+    </viewControllers>
+    <viewControllers id="jr7ulqvz" name="CareerSelector" backgroundColor="#ffffff" backgroundImage="">
+        <listViews id="jr7um732" viewController="//@viewControllers[id='jr7ulqvz']" defaultWidth="270" defaultHeight="270" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="20" marginBottom="20" marginStart="20" marginEnd="20" backgroundColor="" listType="detailed">
+            <positionConstraints id="jr7umbdi" uiPhoneControl="//@viewControllers[id='jr7ulqvz']/@listViews[id='jr7um732']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='jr7ulqvz']/@textViews[id='jr7uqyh8']" referenceLayoutEdge="bottom"/>
+            <positionConstraints id="jr7umhc7" uiPhoneControl="//@viewControllers[id='jr7ulqvz']/@listViews[id='jr7um732']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+            <positionConstraints id="jr7umou1" uiPhoneControl="//@viewControllers[id='jr7ulqvz']/@listViews[id='jr7um732']" layoutEdge="end" withParent="true" referenceLayoutEdge="end"/>
+            <positionConstraints id="jr7und1t" uiPhoneControl="//@viewControllers[id='jr7ulqvz']/@listViews[id='jr7um732']" layoutEdge="bottom" withParent="true" referenceLayoutEdge="bottom"/>
+            <modelConnectors id="jr7z34tg" adapter="//@scenes[id='jr7ywcj4']/@adapterBindings[id='jr7z2xrz']" keypath="" property="items"/>
+            <modelConnectors id="jr7z3b1b" keypath="title" property="@cell.title"/>
+            <modelConnectors id="jr7z3jun" keypath="startedOn" property="@cell.subtitle"/>
+            <navigations id="jr7yzgob" contextScene="//@scenes[id='jr7ywcj4']" destinationScene="//@scenes[id='jr7ywtrg']"/>
+            <listViewCells title="Ingegneria Informatica" subtitle="180/180"/>
+            <listViewCells title="Computer Science And Engineering" subtitle="100/120"/>
+        </listViews>
+        <textViews id="jr7uqyh8" viewController="//@viewControllers[id='jr7ulqvz']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="10" marginBottom="0" marginStart="20" marginEnd="20" content="Your carriers" textAlign="left" textColor="#000000" textSize="24" textDecoration="bold">
+            <positionConstraints id="jr7ure5t" uiPhoneControl="//@viewControllers[id='jr7ulqvz']/@textViews[id='jr7uqyh8']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+            <positionConstraints id="jr7urj9a" uiPhoneControl="//@viewControllers[id='jr7ulqvz']/@textViews[id='jr7uqyh8']" layoutEdge="end" withParent="true" referenceLayoutEdge="end"/>
+            <positionConstraints id="jr7urp3s" uiPhoneControl="//@viewControllers[id='jr7ulqvz']/@textViews[id='jr7uqyh8']" layoutEdge="top" withParent="true" referenceLayoutEdge="top"/>
+        </textViews>
+        <buttons id="jr955akx" viewController="//@viewControllers[id='jr7ulqvz']" defaultWidth="88" defaultHeight="40" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="20" marginStart="0" marginEnd="20" title="+" textColor="#ffffff" backgroundColor="#3f51b5" borderRadius="25" clickColor="">
+            <dimensionConstraint uiPhoneControl="//@viewControllers[id='jr7ulqvz']/@buttons[id='jr955akx']" fixedWidth="50" fixedHeight="50"/>
+            <positionConstraints id="jr955dc8" uiPhoneControl="//@viewControllers[id='jr7ulqvz']/@buttons[id='jr955akx']" layoutEdge="end" withParent="true" referenceLayoutEdge="end"/>
+            <positionConstraints id="jr955pg9" uiPhoneControl="//@viewControllers[id='jr7ulqvz']/@buttons[id='jr955akx']" layoutEdge="bottom" withParent="true" referenceLayoutEdge="bottom"/>
+            <navigations id="jr955kbx" contextScene="//@scenes[id='jr7ywcj4']" destinationScene="//@scenes[id='jr954mlt']"/>
+        </buttons>
+    </viewControllers>
+    <viewControllers id="jr7uuyoy" name="Stats" backgroundColor="#ffffff" backgroundImage="">
+        <controlChains id="jr7uvpfz" viewController="//@viewControllers[id='jr7uuyoy']" axis="horizontal" type="weighted" nControls="2" spacing="0"/>
+        <textViews id="jr7uvxn6" viewController="//@viewControllers[id='jr7uuyoy']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" controlChain="//@viewControllers[id='jr7uuyoy']/@controlChains[id='jr7uvpfz']" indexInChain="0" followingInChain="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7uw0sy']" weight="1" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="40" marginBottom="0" marginStart="0" marginEnd="0" content="27,99" textAlign="center" textColor="#000000" textSize="32" textDecoration="bold">
+            <positionConstraints id="jr7uw6i5" uiPhoneControl="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7uvxn6']" layoutEdge="top" withParent="true" referenceLayoutEdge="top"/>
+            <modelConnectors id="jr94valf" adapter="//@scenes[id='jr7ywtrg']/@adapterBindings[id='jr7z4e4r']" keypath="" property="title"/>
+        </textViews>
+        <textViews id="jr7uw0sy" viewController="//@viewControllers[id='jr7uuyoy']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" controlChain="//@viewControllers[id='jr7uuyoy']/@controlChains[id='jr7uvpfz']" indexInChain="1" precedentInChain="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7uvxn6']" weight="1" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="102,63" textAlign="center" textColor="#000000" textSize="32" textDecoration="bold">
+            <positionConstraints id="jr7uwg5u" uiPhoneControl="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7uw0sy']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7uvxn6']" referenceLayoutEdge="top"/>
+            <modelConnectors id="jr94ve3s" adapter="//@scenes[id='jr7ywtrg']/@adapterBindings[id='jr7z4e4r']" keypath="" property="title"/>
+        </textViews>
+        <textViews id="jr7uz5qb" viewController="//@viewControllers[id='jr7uuyoy']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="average" textAlign="center" textColor="#000000" textSize="16" textDecoration="none">
+            <positionConstraints id="jr7uz8sp" uiPhoneControl="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7uz5qb']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7uvxn6']" referenceLayoutEdge="bottom"/>
+            <positionConstraints id="jr7uzgdu" uiPhoneControl="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7uz5qb']" layoutEdge="centerX" withParent="false" referenceElement="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7uvxn6']" referenceLayoutEdge="centerX"/>
+        </textViews>
+        <textViews id="jr7uzx2y" viewController="//@viewControllers[id='jr7uuyoy']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="base degree" textAlign="center" textColor="#000000" textSize="16" textDecoration="none">
+            <dimensionConstraint uiPhoneControl="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7uzx2y']" fixedWidth="110"/>
+            <positionConstraints id="jr7uzzpm" uiPhoneControl="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7uzx2y']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7uw0sy']" referenceLayoutEdge="bottom"/>
+            <positionConstraints id="jr7v083a" uiPhoneControl="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7uzx2y']" layoutEdge="centerX" withParent="false" referenceElement="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7uw0sy']" referenceLayoutEdge="centerX"/>
+        </textViews>
+        <textViews id="jr7v28ou" viewController="//@viewControllers[id='jr7uuyoy']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="50" marginBottom="0" marginStart="0" marginEnd="0" content="Your career progression" textAlign="center" textColor="#000000" textSize="22" textDecoration="none">
+            <positionConstraints id="jr7v2fov" uiPhoneControl="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7v28ou']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7uz5qb']" referenceLayoutEdge="bottom"/>
+            <positionConstraints id="jr7v2rma" uiPhoneControl="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7v28ou']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+            <positionConstraints id="jr7v2xlj" uiPhoneControl="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7v28ou']" layoutEdge="end" withParent="true" referenceLayoutEdge="end"/>
+        </textViews>
+        <textViews id="jr7v3z8d" viewController="//@viewControllers[id='jr7uuyoy']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="20" marginBottom="0" marginStart="20" marginEnd="0" content="100" textAlign="center" textColor="#000000" textSize="24" textDecoration="none">
+            <positionConstraints id="jr7v42x7" uiPhoneControl="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7v3z8d']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7v28ou']" referenceLayoutEdge="bottom"/>
+            <positionConstraints id="jr7v4pg6" uiPhoneControl="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7v3z8d']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+            <modelConnectors id="jr94vh2p" adapter="//@scenes[id='jr7ywtrg']/@adapterBindings[id='jr7z4e4r']" keypath="" property="title"/>
+        </textViews>
+        <textViews id="jr7v6er3" viewController="//@viewControllers[id='jr7uuyoy']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="20" content="120" textAlign="center" textColor="#000000" textSize="24" textDecoration="none">
+            <positionConstraints id="jr7v6vqj" uiPhoneControl="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7v6er3']" layoutEdge="centerY" withParent="false" referenceElement="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7v3z8d']" referenceLayoutEdge="centerY"/>
+            <positionConstraints id="jr7v753a" uiPhoneControl="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7v6er3']" layoutEdge="end" withParent="true" referenceLayoutEdge="end"/>
+            <modelConnectors id="jr94vl59" adapter="//@scenes[id='jr7ywtrg']/@adapterBindings[id='jr7z472a']" keypath="cfuTotal" property="title"/>
+        </textViews>
+        <textViews id="jr7v84jr" viewController="//@viewControllers[id='jr7uuyoy']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="50" marginBottom="0" marginStart="0" marginEnd="0" content="With your remaining CFU" textAlign="center" textColor="#000000" textSize="22" textDecoration="none">
+            <positionConstraints id="jr7va6p8" uiPhoneControl="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7v84jr']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+            <positionConstraints id="jr7vaf3t" uiPhoneControl="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7v84jr']" layoutEdge="end" withParent="true" referenceLayoutEdge="end"/>
+            <positionConstraints id="jr7vcjv8" uiPhoneControl="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7v84jr']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7vp57m']" referenceLayoutEdge="bottom"/>
+        </textViews>
+        <imageViews id="jr7vauk9" viewController="//@viewControllers[id='jr7uuyoy']" defaultWidth="240" defaultHeight="128" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" sourceType="localFile" fileUri="progression.png">
+            <dimensionConstraint uiPhoneControl="//@viewControllers[id='jr7uuyoy']/@imageViews[id='jr7vauk9']" fixedHeight="30"/>
+            <positionConstraints id="jr7vbf9x" uiPhoneControl="//@viewControllers[id='jr7uuyoy']/@imageViews[id='jr7vauk9']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+            <positionConstraints id="jr7vblku" uiPhoneControl="//@viewControllers[id='jr7uuyoy']/@imageViews[id='jr7vauk9']" layoutEdge="end" withParent="true" referenceLayoutEdge="end"/>
+            <positionConstraints id="jr7vc1sn" uiPhoneControl="//@viewControllers[id='jr7uuyoy']/@imageViews[id='jr7vauk9']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7v3z8d']" referenceLayoutEdge="bottom"/>
+        </imageViews>
+        <textViews id="jr7veq1k" viewController="//@viewControllers[id='jr7uuyoy']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="20" marginBottom="0" marginStart="20" marginEnd="0" content="26,33" textAlign="center" textColor="#000000" textSize="24" textDecoration="none">
+            <positionConstraints id="jr7vfpq8" uiPhoneControl="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7veq1k']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7v84jr']" referenceLayoutEdge="bottom"/>
+            <positionConstraints id="jr7vg2eu" uiPhoneControl="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7veq1k']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+        </textViews>
+        <textViews id="jr7vghx8" viewController="//@viewControllers[id='jr7uuyoy']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="20" content="28,33" textAlign="center" textColor="#000000" textSize="24" textDecoration="none">
+            <positionConstraints id="jr7vi7t8" uiPhoneControl="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7vghx8']" layoutEdge="centerY" withParent="false" referenceElement="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7veq1k']" referenceLayoutEdge="centerY"/>
+            <positionConstraints id="jr7vijgc" uiPhoneControl="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7vghx8']" layoutEdge="end" withParent="true" referenceLayoutEdge="end"/>
+        </textViews>
+        <imageViews id="jr7viyt5" viewController="//@viewControllers[id='jr7uuyoy']" defaultWidth="240" defaultHeight="128" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" sourceType="localFile" fileUri="projection.png">
+            <dimensionConstraint uiPhoneControl="//@viewControllers[id='jr7uuyoy']/@imageViews[id='jr7viyt5']" fixedHeight="30"/>
+            <positionConstraints id="jr7vj9kf" uiPhoneControl="//@viewControllers[id='jr7uuyoy']/@imageViews[id='jr7viyt5']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+            <positionConstraints id="jr7vjf53" uiPhoneControl="//@viewControllers[id='jr7uuyoy']/@imageViews[id='jr7viyt5']" layoutEdge="end" withParent="true" referenceLayoutEdge="end"/>
+            <positionConstraints id="jr7vjxto" uiPhoneControl="//@viewControllers[id='jr7uuyoy']/@imageViews[id='jr7viyt5']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7veq1k']" referenceLayoutEdge="bottom"/>
+        </imageViews>
+        <textViews id="jr7vkrgh" viewController="//@viewControllers[id='jr7uuyoy']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="only 18" textAlign="center" textColor="#000000" textSize="16" textDecoration="none">
+            <positionConstraints id="jr7vl1on" uiPhoneControl="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7vkrgh']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7veq1k']" referenceLayoutEdge="start"/>
+            <positionConstraints id="jr7vlb7m" uiPhoneControl="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7vkrgh']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='jr7uuyoy']/@imageViews[id='jr7viyt5']" referenceLayoutEdge="bottom"/>
+        </textViews>
+        <textViews id="jr7vlx5s" viewController="//@viewControllers[id='jr7uuyoy']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="only 30" textAlign="center" textColor="#000000" textSize="16" textDecoration="none">
+            <positionConstraints id="jr7vm42r" uiPhoneControl="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7vlx5s']" layoutEdge="end" withParent="false" referenceElement="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7vghx8']" referenceLayoutEdge="end"/>
+            <positionConstraints id="jr7vmk5r" uiPhoneControl="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7vlx5s']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='jr7uuyoy']/@imageViews[id='jr7viyt5']" referenceLayoutEdge="bottom"/>
+        </textViews>
+        <textViews id="jr7vp57m" viewController="//@viewControllers[id='jr7uuyoy']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="earned" textAlign="center" textColor="#000000" textSize="16" textDecoration="none">
+            <positionConstraints id="jr7vpcfw" uiPhoneControl="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7vp57m']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7v3z8d']" referenceLayoutEdge="start"/>
+            <positionConstraints id="jr7vpnjg" uiPhoneControl="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7vp57m']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='jr7uuyoy']/@imageViews[id='jr7vauk9']" referenceLayoutEdge="bottom"/>
+        </textViews>
+        <textViews id="jr7vq76t" viewController="//@viewControllers[id='jr7uuyoy']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="total" textAlign="center" textColor="#000000" textSize="16" textDecoration="none">
+            <positionConstraints id="jr7vqe4n" uiPhoneControl="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7vq76t']" layoutEdge="end" withParent="false" referenceElement="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7vghx8']" referenceLayoutEdge="end"/>
+            <positionConstraints id="jr7vqoqo" uiPhoneControl="//@viewControllers[id='jr7uuyoy']/@textViews[id='jr7vq76t']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='jr7uuyoy']/@imageViews[id='jr7vauk9']" referenceLayoutEdge="bottom"/>
+        </textViews>
+    </viewControllers>
+    <viewControllers id="jr7vsbhd" name="Exams" backgroundColor="#ffffff" backgroundImage="">
+        <textViews id="jr7vsrmf" viewController="//@viewControllers[id='jr7vsbhd']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="10" marginBottom="0" marginStart="20" marginEnd="20" content="Your exams" textAlign="left" textColor="#000000" textSize="24" textDecoration="bold">
+            <positionConstraints id="jr7vt5vp" uiPhoneControl="//@viewControllers[id='jr7vsbhd']/@textViews[id='jr7vsrmf']" layoutEdge="top" withParent="true" referenceLayoutEdge="top"/>
+            <positionConstraints id="jr7vt9uv" uiPhoneControl="//@viewControllers[id='jr7vsbhd']/@textViews[id='jr7vsrmf']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+            <positionConstraints id="jr7vtf2n" uiPhoneControl="//@viewControllers[id='jr7vsbhd']/@textViews[id='jr7vsrmf']" layoutEdge="end" withParent="true" referenceLayoutEdge="end"/>
+        </textViews>
+        <listViews id="jr7vu07k" viewController="//@viewControllers[id='jr7vsbhd']" defaultWidth="270" defaultHeight="270" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="10" marginBottom="0" marginStart="0" marginEnd="0" backgroundColor="" listType="detailed">
+            <positionConstraints id="jr7vu7cz" uiPhoneControl="//@viewControllers[id='jr7vsbhd']/@listViews[id='jr7vu07k']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+            <positionConstraints id="jr7vubee" uiPhoneControl="//@viewControllers[id='jr7vsbhd']/@listViews[id='jr7vu07k']" layoutEdge="end" withParent="true" referenceLayoutEdge="end"/>
+            <positionConstraints id="jr7vug67" uiPhoneControl="//@viewControllers[id='jr7vsbhd']/@listViews[id='jr7vu07k']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='jr7vsbhd']/@textViews[id='jr7vsrmf']" referenceLayoutEdge="bottom"/>
+            <positionConstraints id="jr7vunlq" uiPhoneControl="//@viewControllers[id='jr7vsbhd']/@listViews[id='jr7vu07k']" layoutEdge="bottom" withParent="true" referenceLayoutEdge="bottom"/>
+            <modelConnectors id="jr7z5e2j" adapter="//@scenes[id='jr7ywtrg']/@adapterBindings[id='jr7z4e4r']" keypath="" property="items"/>
+            <modelConnectors id="jr7z5j2j" keypath="title" property="@cell.title"/>
+            <modelConnectors id="jr7z5kzk" keypath="finalMark" property="@cell.subtitle"/>
+            <navigations id="jr7yzy0v" contextScene="//@scenes[id='jr7ywtrg']" destinationScene="//@scenes[id='jr7yy87c']"/>
+            <listViewCells title="Design And Implementation of Mobile..." subtitle="28"/>
+            <listViewCells title="Hypermedia Applications (Web and Mu...)" subtitle="30"/>
+        </listViews>
+        <buttons id="jr7ypuic" viewController="//@viewControllers[id='jr7vsbhd']" defaultWidth="88" defaultHeight="40" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="20" marginStart="0" marginEnd="20" title="+" textColor="#ffffff" backgroundColor="#3f51b5" borderRadius="25" clickColor="">
+            <dimensionConstraint uiPhoneControl="//@viewControllers[id='jr7vsbhd']/@buttons[id='jr7ypuic']" fixedWidth="50" fixedHeight="50"/>
+            <positionConstraints id="jr7ypxuj" uiPhoneControl="//@viewControllers[id='jr7vsbhd']/@buttons[id='jr7ypuic']" layoutEdge="bottom" withParent="true" referenceLayoutEdge="bottom"/>
+            <positionConstraints id="jr7yq4hx" uiPhoneControl="//@viewControllers[id='jr7vsbhd']/@buttons[id='jr7ypuic']" layoutEdge="end" withParent="true" referenceLayoutEdge="end"/>
+            <navigations id="jr7z0ksz" contextScene="//@scenes[id='jr7ywtrg']" destinationScene="//@scenes[id='jr7z04g9']"/>
+        </buttons>
+    </viewControllers>
+    <viewControllers id="jr7vybi3" name="Carreer" backgroundColor="#ffffff" backgroundImage="">
+        <controlChains id="jr7w2e9c" viewController="//@viewControllers[id='jr7vybi3']" axis="horizontal" type="weighted" nControls="2" spacing="0"/>
+        <textViews id="jr7w0ynt" viewController="//@viewControllers[id='jr7vybi3']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="50" marginBottom="0" marginStart="0" marginEnd="0" content="Carrier title" textAlign="center" textColor="#000000" textSize="24" textDecoration="none">
+            <positionConstraints id="jr7w15aj" uiPhoneControl="//@viewControllers[id='jr7vybi3']/@textViews[id='jr7w0ynt']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+            <positionConstraints id="jr7w1jcs" uiPhoneControl="//@viewControllers[id='jr7vybi3']/@textViews[id='jr7w0ynt']" layoutEdge="end" withParent="true" referenceLayoutEdge="end"/>
+        </textViews>
+        <textViews id="jr7w2n1j" viewController="//@viewControllers[id='jr7vybi3']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" controlChain="//@viewControllers[id='jr7vybi3']/@controlChains[id='jr7w2e9c']" indexInChain="0" followingInChain="//@viewControllers[id='jr7vybi3']/@textViews[id='jr7w2nnw']" weight="1" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="50" marginBottom="0" marginStart="0" marginEnd="0" content="dd/mm/yyyy" textAlign="center" textColor="#000000" textSize="20" textDecoration="none">
+            <positionConstraints id="jr7w40iv" uiPhoneControl="//@viewControllers[id='jr7vybi3']/@textViews[id='jr7w2n1j']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='jr7vybi3']/@textViews[id='jr7w0ynt']" referenceLayoutEdge="bottom"/>
+            <modelConnectors id="jr7z5uev" adapter="//@scenes[id='jr7ywtrg']/@adapterBindings[id='jr7z472a']" keypath="startedOn" property="title"/>
+        </textViews>
+        <textViews id="jr7w2nnw" viewController="//@viewControllers[id='jr7vybi3']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" controlChain="//@viewControllers[id='jr7vybi3']/@controlChains[id='jr7w2e9c']" indexInChain="1" precedentInChain="//@viewControllers[id='jr7vybi3']/@textViews[id='jr7w2n1j']" weight="1" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="dd/mm/yyyy" textAlign="center" textColor="#000000" textSize="20" textDecoration="none">
+            <positionConstraints id="jr7w4h2v" uiPhoneControl="//@viewControllers[id='jr7vybi3']/@textViews[id='jr7w2nnw']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='jr7vybi3']/@textViews[id='jr7w2n1j']" referenceLayoutEdge="top"/>
+            <modelConnectors id="jr7z5wbz" adapter="//@scenes[id='jr7ywtrg']/@adapterBindings[id='jr7z472a']" keypath="endingOn" property="title"/>
+        </textViews>
+        <textViews id="jr7w4u14" viewController="//@viewControllers[id='jr7vybi3']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="started on" textAlign="center" textColor="#000000" textSize="16" textDecoration="none">
+            <positionConstraints id="jr7w52ii" uiPhoneControl="//@viewControllers[id='jr7vybi3']/@textViews[id='jr7w4u14']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='jr7vybi3']/@textViews[id='jr7w2n1j']" referenceLayoutEdge="bottom"/>
+            <positionConstraints id="jr7w59bc" uiPhoneControl="//@viewControllers[id='jr7vybi3']/@textViews[id='jr7w4u14']" layoutEdge="centerX" withParent="false" referenceElement="//@viewControllers[id='jr7vybi3']/@textViews[id='jr7w2n1j']" referenceLayoutEdge="centerX"/>
+        </textViews>
+        <textViews id="jr7w5k59" viewController="//@viewControllers[id='jr7vybi3']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="0" content="ended on" textAlign="center" textColor="#000000" textSize="16" textDecoration="none">
+            <positionConstraints id="jr7w5rhr" uiPhoneControl="//@viewControllers[id='jr7vybi3']/@textViews[id='jr7w5k59']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='jr7vybi3']/@textViews[id='jr7w2nnw']" referenceLayoutEdge="bottom"/>
+            <positionConstraints id="jr7w5y8b" uiPhoneControl="//@viewControllers[id='jr7vybi3']/@textViews[id='jr7w5k59']" layoutEdge="centerX" withParent="false" referenceElement="//@viewControllers[id='jr7vybi3']/@textViews[id='jr7w2nnw']" referenceLayoutEdge="centerX"/>
+        </textViews>
+        <buttons id="jr7w6cdc" viewController="//@viewControllers[id='jr7vybi3']" defaultWidth="88" defaultHeight="40" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="80" marginBottom="0" marginStart="40" marginEnd="40" title="Activate" textColor="" backgroundColor="" borderRadius="10" clickColor="">
+            <positionConstraints id="jr7w6uqm" uiPhoneControl="//@viewControllers[id='jr7vybi3']/@buttons[id='jr7w6cdc']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+            <positionConstraints id="jr7w6zwr" uiPhoneControl="//@viewControllers[id='jr7vybi3']/@buttons[id='jr7w6cdc']" layoutEdge="end" withParent="true" referenceLayoutEdge="end"/>
+            <positionConstraints id="jr7w7643" uiPhoneControl="//@viewControllers[id='jr7vybi3']/@buttons[id='jr7w6cdc']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='jr7vybi3']/@textViews[id='jr7w5k59']" referenceLayoutEdge="bottom"/>
+        </buttons>
+        <buttons id="jr7wamnl" viewController="//@viewControllers[id='jr7vybi3']" defaultWidth="88" defaultHeight="40" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="50" marginBottom="0" marginStart="0" marginEnd="0" title="End now!" textColor="" backgroundColor="" borderRadius="10" clickColor="">
+        <positionConstraints id="jr7waztb" uiPhoneControl="//@viewControllers[id='jr7vybi3']/@buttons[id='jr7wamnl']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='jr7vybi3']/@buttons[id='jr7w6cdc']" referenceLayoutEdge="start"/>
+        <positionConstraints id="jr7wb77b" uiPhoneControl="//@viewControllers[id='jr7vybi3']/@buttons[id='jr7wamnl']" layoutEdge="end" withParent="false" referenceElement="//@viewControllers[id='jr7vybi3']/@buttons[id='jr7w6cdc']" referenceLayoutEdge="end"/>
+        <positionConstraints id="jr7wbh72" uiPhoneControl="//@viewControllers[id='jr7vybi3']/@buttons[id='jr7wamnl']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='jr7vybi3']/@buttons[id='jr7w6cdc']" referenceLayoutEdge="bottom"/>
+    </buttons>
+</viewControllers>
+<viewControllers id="jr7wc5uy" name="Exam" backgroundColor="#ffffff" backgroundImage="">
+    <controlChains id="jr7wfaom" viewController="//@viewControllers[id='jr7wc5uy']" axis="horizontal" type="weighted" nControls="2" spacing="0"/>
+    <textViews id="jr7wcbwv" viewController="//@viewControllers[id='jr7wc5uy']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="50" marginBottom="0" marginStart="0" marginEnd="0" content="Exam name" textAlign="center" textColor="#000000" textSize="24" textDecoration="none">
+        <positionConstraints id="jr7wct1y" uiPhoneControl="//@viewControllers[id='jr7wc5uy']/@textViews[id='jr7wcbwv']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+        <positionConstraints id="jr7wcwn3" uiPhoneControl="//@viewControllers[id='jr7wc5uy']/@textViews[id='jr7wcbwv']" layoutEdge="end" withParent="true" referenceLayoutEdge="end"/>
+        <positionConstraints id="jr7wd0rb" uiPhoneControl="//@viewControllers[id='jr7wc5uy']/@textViews[id='jr7wcbwv']" layoutEdge="top" withParent="true" referenceLayoutEdge="top"/>
+        <modelConnectors id="jr7z6ytq" adapter="//@scenes[id='jr7yy87c']/@adapterBindings[id='jr7z6hxy']" keypath="title" property="title"/>
+    </textViews>
+    <textViews id="jr7wdm2w" viewController="//@viewControllers[id='jr7wc5uy']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="150" marginStart="0" marginEnd="0" content="28" textAlign="center" textColor="#000000" textSize="96" textDecoration="bold">
+        <dimensionConstraint uiPhoneControl="//@viewControllers[id='jr7wc5uy']/@textViews[id='jr7wdm2w']" fixedHeight="100"/>
+        <positionConstraints id="jr7we0rq" uiPhoneControl="//@viewControllers[id='jr7wc5uy']/@textViews[id='jr7wdm2w']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+        <positionConstraints id="jr7we9bu" uiPhoneControl="//@viewControllers[id='jr7wc5uy']/@textViews[id='jr7wdm2w']" layoutEdge="end" withParent="true" referenceLayoutEdge="end"/>
+        <positionConstraints id="jr7weeea" uiPhoneControl="//@viewControllers[id='jr7wc5uy']/@textViews[id='jr7wdm2w']" layoutEdge="bottom" withParent="true" referenceLayoutEdge="bottom"/>
+        <modelConnectors id="jr7z6wvb" adapter="//@scenes[id='jr7yy87c']/@adapterBindings[id='jr7z6hxy']" keypath="finalMark" property="title"/>
+    </textViews>
+    <editTexts id="jr7wfhn7" viewController="//@viewControllers[id='jr7wc5uy']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" controlChain="//@viewControllers[id='jr7wc5uy']/@controlChains[id='jr7wfaom']" indexInChain="0" followingInChain="//@viewControllers[id='jr7wc5uy']/@buttons[id='jr7wfk1p']" weight="4" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="40" marginBottom="0" marginStart="10" marginEnd="50" initialContent="" placeholder="Enter your mark..." textColor="" textSize="16">
+        <positionConstraints id="jr7wgobr" uiPhoneControl="//@viewControllers[id='jr7wc5uy']/@editTexts[id='jr7wfhn7']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='jr7wc5uy']/@textViews[id='jr7wcbwv']" referenceLayoutEdge="bottom"/>
+        <modelConnectors id="jr7z6taz" adapter="//@scenes[id='jr7yy87c']/@adapterBindings[id='jr7z6hxy']" keypath="finalMark" property="value"/>
+    </editTexts>
+    <buttons id="jr7wfk1p" viewController="//@viewControllers[id='jr7wc5uy']" defaultWidth="88" defaultHeight="40" posX="0" posY="0" controlChain="//@viewControllers[id='jr7wc5uy']/@controlChains[id='jr7wfaom']" indexInChain="1" precedentInChain="//@viewControllers[id='jr7wc5uy']/@editTexts[id='jr7wfhn7']" weight="1" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="0" marginBottom="0" marginStart="0" marginEnd="10" title="Save!" textColor="" backgroundColor="" borderRadius="2" clickColor="">
+    <positionConstraints id="jr7wh1rv" uiPhoneControl="//@viewControllers[id='jr7wc5uy']/@buttons[id='jr7wfk1p']" layoutEdge="centerY" withParent="false" referenceElement="//@viewControllers[id='jr7wc5uy']/@editTexts[id='jr7wfhn7']" referenceLayoutEdge="centerY"/>
+</buttons>
+</viewControllers>
+<viewControllers id="jr7yk7zv" name="AddExam" backgroundColor="#ffffff" backgroundImage="">
+<textViews id="jr7ykk9s" viewController="//@viewControllers[id='jr7yk7zv']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="10" marginBottom="0" marginStart="10" marginEnd="10" content="Insert new exam" textAlign="left" textColor="#000000" textSize="16" textDecoration="none">
+    <positionConstraints id="jr7ykvx4" uiPhoneControl="//@viewControllers[id='jr7yk7zv']/@textViews[id='jr7ykk9s']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+    <positionConstraints id="jr7yl0m4" uiPhoneControl="//@viewControllers[id='jr7yk7zv']/@textViews[id='jr7ykk9s']" layoutEdge="top" withParent="true" referenceLayoutEdge="top"/>
+    <positionConstraints id="jr7yl6qs" uiPhoneControl="//@viewControllers[id='jr7yk7zv']/@textViews[id='jr7ykk9s']" layoutEdge="end" withParent="true" referenceLayoutEdge="end"/>
+</textViews>
+<editTexts id="jr7ylmqb" viewController="//@viewControllers[id='jr7yk7zv']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="40" marginBottom="0" marginStart="0" marginEnd="0" initialContent="" placeholder="Exam name" textColor="" textSize="16">
+    <positionConstraints id="jr7ylow7" uiPhoneControl="//@viewControllers[id='jr7yk7zv']/@editTexts[id='jr7ylmqb']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='jr7yk7zv']/@textViews[id='jr7ykk9s']" referenceLayoutEdge="start"/>
+    <positionConstraints id="jr7ylx7v" uiPhoneControl="//@viewControllers[id='jr7yk7zv']/@editTexts[id='jr7ylmqb']" layoutEdge="end" withParent="false" referenceElement="//@viewControllers[id='jr7yk7zv']/@textViews[id='jr7ykk9s']" referenceLayoutEdge="end"/>
+    <positionConstraints id="jr7ym5zy" uiPhoneControl="//@viewControllers[id='jr7yk7zv']/@editTexts[id='jr7ylmqb']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='jr7yk7zv']/@textViews[id='jr7ykk9s']" referenceLayoutEdge="bottom"/>
+</editTexts>
+<editTexts id="jr7ynm1o" viewController="//@viewControllers[id='jr7yk7zv']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="10" marginBottom="0" marginStart="0" marginEnd="0" initialContent="" placeholder="cfu" textColor="" textSize="16">
+    <positionConstraints id="jr7yntzc" uiPhoneControl="//@viewControllers[id='jr7yk7zv']/@editTexts[id='jr7ynm1o']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='jr7yk7zv']/@textViews[id='jr7ykk9s']" referenceLayoutEdge="start"/>
+    <positionConstraints id="jr7yo02n" uiPhoneControl="//@viewControllers[id='jr7yk7zv']/@editTexts[id='jr7ynm1o']" layoutEdge="end" withParent="false" referenceElement="//@viewControllers[id='jr7yk7zv']/@textViews[id='jr7ykk9s']" referenceLayoutEdge="end"/>
+    <positionConstraints id="jr7yo6v7" uiPhoneControl="//@viewControllers[id='jr7yk7zv']/@editTexts[id='jr7ynm1o']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='jr7yk7zv']/@editTexts[id='jr7ylmqb']" referenceLayoutEdge="bottom"/>
+</editTexts>
+<buttons id="jr7yoi7x" viewController="//@viewControllers[id='jr7yk7zv']" defaultWidth="88" defaultHeight="40" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="40" marginBottom="0" marginStart="0" marginEnd="0" title="Add" textColor="" backgroundColor="" borderRadius="10" clickColor="">
+    <positionConstraints id="jr7yolfn" uiPhoneControl="//@viewControllers[id='jr7yk7zv']/@buttons[id='jr7yoi7x']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='jr7yk7zv']/@textViews[id='jr7ykk9s']" referenceLayoutEdge="start"/>
+    <positionConstraints id="jr7youho" uiPhoneControl="//@viewControllers[id='jr7yk7zv']/@buttons[id='jr7yoi7x']" layoutEdge="end" withParent="false" referenceElement="//@viewControllers[id='jr7yk7zv']/@textViews[id='jr7ykk9s']" referenceLayoutEdge="end"/>
+    <positionConstraints id="jr7yp5zn" uiPhoneControl="//@viewControllers[id='jr7yk7zv']/@buttons[id='jr7yoi7x']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='jr7yk7zv']/@editTexts[id='jr7ynm1o']" referenceLayoutEdge="bottom"/>
+</buttons>
+</viewControllers>
+<viewControllers id="jr94xf22" name="AddCareer" backgroundColor="#ffffff" backgroundImage="">
+<textViews id="jr94xu1y" viewController="//@viewControllers[id='jr94xf22']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="20" marginBottom="0" marginStart="20" marginEnd="20" content="Starting a new journey..." textAlign="left" textColor="#000000" textSize="22" textDecoration="none">
+    <positionConstraints id="jr94y7b1" uiPhoneControl="//@viewControllers[id='jr94xf22']/@textViews[id='jr94xu1y']" layoutEdge="start" withParent="true" referenceLayoutEdge="start"/>
+    <positionConstraints id="jr94yc1q" uiPhoneControl="//@viewControllers[id='jr94xf22']/@textViews[id='jr94xu1y']" layoutEdge="end" withParent="true" referenceLayoutEdge="end"/>
+    <positionConstraints id="jr94yiix" uiPhoneControl="//@viewControllers[id='jr94xf22']/@textViews[id='jr94xu1y']" layoutEdge="top" withParent="true" referenceLayoutEdge="top"/>
+</textViews>
+<editTexts id="jr94ytfu" viewController="//@viewControllers[id='jr94xf22']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="50" marginBottom="0" marginStart="0" marginEnd="0" initialContent="" placeholder="Name this journey" textColor="" textSize="16">
+    <positionConstraints id="jr94yvnx" uiPhoneControl="//@viewControllers[id='jr94xf22']/@editTexts[id='jr94ytfu']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='jr94xf22']/@textViews[id='jr94xu1y']" referenceLayoutEdge="start"/>
+    <positionConstraints id="jr94z207" uiPhoneControl="//@viewControllers[id='jr94xf22']/@editTexts[id='jr94ytfu']" layoutEdge="end" withParent="false" referenceElement="//@viewControllers[id='jr94xf22']/@textViews[id='jr94xu1y']" referenceLayoutEdge="end"/>
+    <positionConstraints id="jr94zait" uiPhoneControl="//@viewControllers[id='jr94xf22']/@editTexts[id='jr94ytfu']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='jr94xf22']/@textViews[id='jr94xu1y']" referenceLayoutEdge="bottom"/>
+</editTexts>
+<editTexts id="jr950bfi" viewController="//@viewControllers[id='jr94xf22']" defaultWidth="88" defaultHeight="36" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="20" marginBottom="0" marginStart="0" marginEnd="0" initialContent="" placeholder="Number of CFU to acquire" textColor="" textSize="16">
+    <positionConstraints id="jr950oom" uiPhoneControl="//@viewControllers[id='jr94xf22']/@editTexts[id='jr950bfi']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='jr94xf22']/@textViews[id='jr94xu1y']" referenceLayoutEdge="start"/>
+    <positionConstraints id="jr950v01" uiPhoneControl="//@viewControllers[id='jr94xf22']/@editTexts[id='jr950bfi']" layoutEdge="end" withParent="false" referenceElement="//@viewControllers[id='jr94xf22']/@textViews[id='jr94xu1y']" referenceLayoutEdge="end"/>
+    <positionConstraints id="jr950vlc" uiPhoneControl="//@viewControllers[id='jr94xf22']/@editTexts[id='jr950bfi']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='jr94xf22']/@editTexts[id='jr94ytfu']" referenceLayoutEdge="bottom"/>
+</editTexts>
+<buttons id="jr951a3p" viewController="//@viewControllers[id='jr94xf22']" defaultWidth="88" defaultHeight="40" posX="0" posY="0" paddingTop="0" paddingBottom="0" paddingStart="0" paddingEnd="0" marginTop="40" marginBottom="0" marginStart="0" marginEnd="0" title="Start!" textColor="" backgroundColor="" borderRadius="10" clickColor="">
+<positionConstraints id="jr952xkh" uiPhoneControl="//@viewControllers[id='jr94xf22']/@buttons[id='jr951a3p']" layoutEdge="start" withParent="false" referenceElement="//@viewControllers[id='jr94xf22']/@textViews[id='jr94xu1y']" referenceLayoutEdge="start"/>
+<positionConstraints id="jr9533k1" uiPhoneControl="//@viewControllers[id='jr94xf22']/@buttons[id='jr951a3p']" layoutEdge="end" withParent="false" referenceElement="//@viewControllers[id='jr94xf22']/@textViews[id='jr94xu1y']" referenceLayoutEdge="end"/>
+<positionConstraints id="jr953azp" uiPhoneControl="//@viewControllers[id='jr94xf22']/@buttons[id='jr951a3p']" layoutEdge="top" withParent="false" referenceElement="//@viewControllers[id='jr94xf22']/@editTexts[id='jr950bfi']" referenceLayoutEdge="bottom"/>
+<navigations id="jr9551jy" contextScene="//@scenes[id='jr954mlt']" destinationScene="//@scenes[id='jr7ywcj4']"/>
+</buttons>
+</viewControllers>
+<scenes id="jr7yvqc3" name="HomeScene" launcher="true" typeSmartphone="singleVC" typeTablet="singleVC">
+<childViewControllers viewController="//@viewControllers[id='jr7ufryu']"/>
+<adapterBindings scene="//@scenes[id='jr7yvqc3']" type="preference" preference="//@dataHandler/@preferenceHandler/@preferenceRecords[key='Name']" isList="false" id="jr7z21xr" name="UserName"/>
+<adapterBindings scene="//@scenes[id='jr7yvqc3']" type="preference" preference="//@dataHandler/@preferenceHandler/@preferenceRecords[key='Surname']" isList="false" id="jr7z25yk" name="UserSurname"/>
+</scenes>
+<scenes id="jr7ywcj4" name="CareersScene" launcher="false" typeSmartphone="singleVC" typeTablet="singleVC">
+<childViewControllers viewController="//@viewControllers[id='jr7ulqvz']"/>
+<adapterBindings scene="//@scenes[id='jr7ywcj4']" type="entity" entity="//@dataHandler/@databaseHandler/@entities[name='Career']" isList="true" id="jr7z2xrz" name="Carrers"/>
+</scenes>
+<scenes id="jr7ywtrg" name="CareerScene" launcher="false" typeSmartphone="singleVCTab" typeTablet="singleVC">
+<childViewControllers viewController="//@viewControllers[id='jr7uuyoy']"/>
+<childViewControllers viewController="//@viewControllers[id='jr7vsbhd']"/>
+<childViewControllers viewController="//@viewControllers[id='jr7vybi3']"/>
+<adapterBindings scene="//@scenes[id='jr7ywtrg']" type="entity" entity="//@dataHandler/@databaseHandler/@entities[name='Career']" isList="false" id="jr7z472a" name="Carrier"/>
+<adapterBindings scene="//@scenes[id='jr7ywtrg']" type="entity" entity="//@dataHandler/@databaseHandler/@entities[name='Course']" isList="true" id="jr7z4e4r" name="Courses"/>
+</scenes>
+<scenes id="jr7yy87c" name="ExamScene" launcher="false" typeSmartphone="singleVC" typeTablet="singleVC">
+<childViewControllers viewController="//@viewControllers[id='jr7wc5uy']"/>
+<adapterBindings scene="//@scenes[id='jr7yy87c']" type="entity" entity="//@dataHandler/@databaseHandler/@entities[name='Course']" isList="false" id="jr7z6hxy" name="Course"/>
+</scenes>
+<scenes id="jr7z04g9" name="CreateExamScene" launcher="false" typeSmartphone="singleVC" typeTablet="singleVC">
+<childViewControllers viewController="//@viewControllers[id='jr7yk7zv']"/>
+</scenes>
+<scenes id="jr954mlt" name="CreateCareerScene" launcher="false" typeSmartphone="singleVC" typeTablet="singleVC">
+<childViewControllers viewController="//@viewControllers[id='jr94xf22']"/>
+</scenes>
+<menu>
+<menuItems title="Home" id="jr7yz00j">
+<navigation id="jr7yz1zm" destinationScene="//@scenes[id='jr7ywcj4']"/>
+</menuItems>
+</menu>
+</metamodel:Application>

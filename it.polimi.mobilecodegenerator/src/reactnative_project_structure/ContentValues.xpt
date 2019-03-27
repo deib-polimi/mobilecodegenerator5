@@ -8,7 +8,8 @@ export const ContentValuesTypes = Object.freeze({
     DOUBLE: 'Double',
     STRING: 'String',
     BOOLEAN: 'Boolean',
-    DATE: 'Date'
+    DATE: 'Date',
+    INT: 'Integer'
 });
 
 export class ContentValues {
@@ -33,6 +34,7 @@ export class ContentValues {
         return keys.map(k => {
             let { type, value } = this.dict[k];
             let prefix = assignFormat ? k + '=' : '';
+            if (value === null) return prefix + 'NULL';
             switch (type) {
                 case 'Integer':
                 case 'Float':

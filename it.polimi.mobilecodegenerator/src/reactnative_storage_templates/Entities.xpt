@@ -42,6 +42,7 @@ export class «name.toFirstUpper()-» {
 		«ENDFOREACH -»
 		«ENDFOREACH -»
 		
+		return cv;
 		«REM»TODO N:N rels!!«ENDREM»
 	}
 	static craft(id) {

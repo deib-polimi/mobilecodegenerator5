@@ -40,7 +40,7 @@
 			«EXPAND reactnative_templates::UIPhoneControl::props FOR t-»
 			style={styles.e«t.id-»}
 		>
-			{this.props.e«t.id-»Title || "«t.content.replaceAll("\"", "")-»"}
+			{this.props.e«t.id-»Title !== undefined ? this.props.e«t.id-»Title !== undefined : "«t.content.replaceAll("\"", "")-»"}
 		</CText>
 	«ENDFOREACH-»
 «ENDDEFINE-»

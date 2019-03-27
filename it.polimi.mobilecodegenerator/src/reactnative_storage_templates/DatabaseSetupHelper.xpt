@@ -21,28 +21,13 @@ export default class DatabaseSetupHelper {
 	}
 	
 	ensureInit() {
-		return this.mustInitialize().then(mustInit => {
-			if (mustInit) {
-				this.init();
-			}
-		});
-	}
-	
-	mustInitialize() {
-		let query = 'SELECT tbl_name FROM sqlite_master WHERE tbl_name="MetaTable"';
-		return this.db.executeSql(query).then(([result]) => {
-			if (result.rows.length == 0) {
-				return true;
-			} else {
-				console.log(result.rows.item(0))
-				return false;
-			}
-		}, () => true);
+		return this.init();
 	}
 	
 	init() {
-		this.db.executeSql('CREATE TABLE MetaTable(pk TEXT PRIMARY KEY) WITHOUT ROWID');
-		«EXPAND createTable FOREACH entities-»
+		return Promise.all([
+		«EXPAND createTable FOREACH entities SEPARATOR ",\n"-»
+		]);
 	}
 
 }
@@ -57,7 +42,7 @@ export default class DatabaseSetupHelper {
 		«IF entityAttributes.size > 0»,«ENDIF»
 		«FOREACH entityAttributes AS attr SEPARATOR ",\n"-»
 		«LET attr.type.toLowerCase() AS t»
-		«IF t.matches("integer") || t.matches("boolean")-»
+		«IF t.matches("integer") || t.matches("boolean") || t.matches("int")-»
 		«attr.name-» INT
 		«ELSEIF t.matches("string") || t.matches("date")-»
 		«attr.name-» TEXT

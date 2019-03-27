@@ -131,8 +131,8 @@ export function createEntity«nameCamel»(data) {
         dispatch(createEntity«nameCamel»Request(data));
         const db = await getDB();
         const store = await db.getStoreFor«nameCamel»();
-        let craft = cache.craft();
-        await cache.insert({ ...craft, ...data });
+        let craft = store.craft();
+        await store.save({ ...craft, ...data });
         return dispatch(readEntity«nameCamel»(craft.id || data.id));
     }
 }
